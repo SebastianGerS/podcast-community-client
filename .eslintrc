@@ -1,0 +1,23 @@
+{
+    "env": {
+      "commonjs": true,
+      "browser": true,
+      "es6": true,
+      "jest": true,
+      "serviceworker": true
+    },
+    "parser": "babel-eslint",
+    "extends": "airbnb",
+    "plugins": ["react", "jsx-a11y", "import"],
+    "rules": {
+      "react/jsx-filename-extension": [1, { "extensions": [".js"] }],
+      "import/first": ["warn", "DISABLE-absolute-first"],
+      "quotes": ["warn", "single"],
+      "jsx-quotes": ["warn", "prefer-double"],
+      "jsx-a11y/anchor-is-valid": [ "error", {
+        "components": [ "Link" ],
+        "specialLink": [ "to" ]
+      }]
+    }
+  }
+  
