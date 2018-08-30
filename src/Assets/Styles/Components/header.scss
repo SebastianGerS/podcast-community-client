@@ -5,13 +5,34 @@
     justify-content: space-between;
     align-items: flex-start;
     background-color: #FFF;
-    height: 120px;
+    height: 60px;
     padding-top:0.75em;
     color: #2E2929;
 
     figure {
       padding: 0 1em;
     }
+
+    div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    button {
+      font-size: 1em;
+      color: #2E2929;
+    }
+
+    p {
+      font-size: 0.70em;
+    }
+
+    div:last-child {
+      padding: 0.8em 1em;
+    }
+
     .logo {
       animation: App-logo-spin infinite 20s linear;
       height: 50px;
@@ -20,22 +41,6 @@
     .site-title {
       font-size: 1.4em;
       padding-bottom: 0.25em;
-    }
-
-    p {
-      font-size: 0.70em;
-    }
-    div:last-child {
-      padding: 1em 1em;
-    }
-    div {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    button {
-      font-size: 1em;
     }
   }
 
@@ -46,35 +51,38 @@
 
   @media only screen and (min-width: 667px) {
 
-  header {
-    padding-top:1em;
-    .site-title {
-      font-size: 3em;
-    }
+    header {
 
-    p {
-      font-size: 1em;
-    }
-    .logo {
-      height: 5em;
-    }
+      height: 90px;
+      padding-top:1em;
 
-    div:last-child {
-      padding: 1.3em 1em;
-      min-width: 5em
-    }
+      p {
+        font-size: 1em;
+      }
 
-    button {
-      font-size: 1.5em;
-    }
-  }
+      button {
+        font-size: 1.5em;
+      }
 
+      div:last-child {
+        padding: 1.3em 1em;
+        min-width: 5em
+      }
+
+      .logo {
+        height: 5em;
+      }
+
+      .site-title {
+        font-size: 3em;
+      }
+    }
   }
 
   @media only screen and (min-width: 1024px) {
 
     header {
-
+      height: 100px;
       padding-top:1.5em;
 
       figure {
@@ -84,41 +92,39 @@
       div:last-child {
         padding: 1.3em 1.5em;
       }
-  
     }
-  
   }
 
   @media only screen and (min-width: 1850px) {
 
     header {
 
-      padding-top:2em;
+        height: 140px;
+        padding-top:2em;
+        
+        figure {
+          padding: 0 2em;
+        }
 
-      .site-title {
-        font-size: 4em;
-      }
-      
-      figure {
-        padding: 0 2em;
-      }
+        p {
+          font-size: 1.5em;
+        }
+    
+        button {
+          font-size: 2em;
+        }
 
-      p {
-        font-size: 1.5em;
-      }
+        div:last-child {
+          padding: 1.3em 2m;
+          min-width: 7em
+        }
 
-      .logo {
-        height: 7em;
-      }
-  
-      div:last-child {
-        padding: 1.3em 2m;
-        min-width: 7em
-      }
-  
-      button {
-        font-size: 2em;
-      }
+        .logo {
+          height: 7em;
+        }
+
+        .site-title {
+          font-size: 4em;
+        }
     }
-  
-  }
+}
