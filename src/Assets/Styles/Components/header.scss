@@ -6,11 +6,11 @@
     align-items: flex-start;
     background-color: #FFF;
     height: 120px;
-    padding-top:0.25em;
+    padding-top:0.75em;
     color: #2E2929;
 
     figure {
-      padding: 1em;
+      padding: 0 1em;
     }
     .logo {
       animation: App-logo-spin infinite 20s linear;
@@ -18,15 +18,15 @@
     }
 
     .site-title {
-      font-size: 1.5em;
-      padding: 0.5em 0;
+      font-size: 1.4em;
+      padding-bottom: 0.25em;
     }
 
     p {
-      font-size: 0.75em;
+      font-size: 0.70em;
     }
     div:last-child {
-      padding: 2em 0.5em;
+      padding: 1em 1em;
     }
     div {
       display: flex;
@@ -42,4 +42,83 @@
   @keyframes App-logo-spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
+  }
+
+  @media only screen and (min-width: 667px) {
+
+  header {
+    padding-top:1em;
+    .site-title {
+      font-size: 3em;
+    }
+
+    p {
+      font-size: 1em;
+    }
+    .logo {
+      height: 5em;
+    }
+
+    div:last-child {
+      padding: 1.3em 1em;
+      min-width: 5em
+    }
+
+    button {
+      font-size: 1.5em;
+    }
+  }
+
+  }
+
+  @media only screen and (min-width: 1024px) {
+
+    header {
+
+      padding-top:1.5em;
+
+      figure {
+        padding: 0 1.5em;
+      }
+  
+      div:last-child {
+        padding: 1.3em 1.5em;
+      }
+  
+    }
+  
+  }
+
+  @media only screen and (min-width: 1850px) {
+
+    header {
+
+      padding-top:2em;
+
+      .site-title {
+        font-size: 4em;
+      }
+      
+      figure {
+        padding: 0 2em;
+      }
+
+      p {
+        font-size: 1.5em;
+      }
+
+      .logo {
+        height: 7em;
+      }
+  
+      div:last-child {
+        padding: 1.3em 2m;
+        min-width: 7em
+      }
+  
+      button {
+        font-size: 2em;
+      }
+    }
+  
   }
