@@ -1,0 +1,82 @@
+.searchbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color:  #2E2929;
+  color: #FEF6F6;
+
+  button {
+    color: #FEF6F6;
+    font-size: 1em;
+  }
+
+  input {
+    background-color: #FEF6F6;
+    border-radius: 4px;
+    padding: 0.5em 0.5em;
+    margin: 0.5em 0.75em;
+    width: 100%;
+    font-size: 0.75em;
+  }
+
+  div {
+    display: flex;
+    justify-content: center;
+    padding: 0 0.5em 0 0.5em;
+    border-left: 1px solid #FEF6F6;
+  }
+}
+
+
+@media only screen and (min-width: 667px) {
+
+  .searchbar{
+
+    button {
+      font-size: 1.5em;
+    }
+
+    input {
+      margin: 0.75em;
+      font-size: 1em;
+    }
+
+    div {
+      padding: 0 1em 0 1em;
+    }
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+
+  .searchbar {
+
+    input {
+      margin: 1em;
+      font-size: 1.5em;
+    }
+
+    div {
+      padding: 0 1.5em 0 1.5em;
+    }
+  }
+}
+
+@media only screen and (min-width: 1850px) {
+
+  .searchbar{
+
+    button {
+      font-size: 2em;
+    }
+
+    input {
+      margin: 1em;
+      font-size: 1.5em;
+    }
+
+    div {
+      padding: 0 1.5em 0 1.5em;
+    }
+  }
+}
