@@ -1,23 +1,43 @@
 
   header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
     background-color: #FFF;
-    height: 150px;
-    padding: 20px;
+    height: 120px;
+    padding-top:0.25em;
     color: #2E2929;
-    font-family: radley;
 
+    figure {
+      padding: 1em;
+    }
     .logo {
       animation: App-logo-spin infinite 20s linear;
-      height: 80px;
+      height: 50px;
     }
 
     .site-title {
       font-size: 1.5em;
+      padding: 0.5em 0;
     }
-    
-  }
-  
 
+    p {
+      font-size: 0.75em;
+    }
+    div:last-child {
+      padding: 2em 0.5em;
+    }
+    div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    button {
+      font-size: 1em;
+    }
+  }
 
   @keyframes App-logo-spin {
     from { transform: rotate(0deg); }
