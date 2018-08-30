@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Header from './Components/Header';
+import SearchBar from './Components/SearchBar';
 import Views from './Views';
 
 const Router = () => (
@@ -12,6 +13,7 @@ const Router = () => (
         render={() => (
           <div className="App">
             <Header />
+            <SearchBar />
             <Views.Home />
           </div>
         )}
@@ -21,6 +23,7 @@ const Router = () => (
         render={() => (
           <div className="App">
             <Header />
+            <SearchBar />
             <Views.Search />
           </div>
         )}
