@@ -8,11 +8,35 @@
     display: flex;
     flex-direction: column;
     font-size: 0.9em;
+    padding-top:0.5em;
 
     span {
       padding-top: 0.5em;
       font-family: radley-italic;
       font-size: 0.75em;
+    }
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+
+  .listable-podcast {
+    padding: 2em;
+  
+    img {
+      min-width: 350px;
+    }
+    figcaption {
+      display: flex;
+      flex-direction: column;
+      font-size: 1.2em;
+      padding-top:0.75em;
+  
+      span {
+        padding-top: 0.5em;
+        font-family: radley-italic;
+        font-size: 1em;
+      }
     }
   }
 }

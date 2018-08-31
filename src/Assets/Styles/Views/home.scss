@@ -1,3 +1,30 @@
 .Home {
   margin: 2em 1em;
+
+  h2 {
+    font-size: 1.5em;
+    margin-left: 0.5em;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+
+  .Home {
+
+    h2 {
+      font-size:2em;
+      margin-left: 1em;
+    }
+  }
+}
+
+@media only screen and (min-width: 1850px) {
+
+  .Home{
+
+    h2 {
+      font-size:2.5em;
+      margin-left: 1em;
+    }
+  }
 }
