@@ -1,8 +1,10 @@
 import React from 'react';
+import TopPodcasts from '../Components/TopPodcasts';
 
 const Home = () => (
   <div className="Home">
-    <h2>Home</h2>
+    <h2>Top Podcasts</h2>
+    <TopPodcasts />
   </div>
 );
 
