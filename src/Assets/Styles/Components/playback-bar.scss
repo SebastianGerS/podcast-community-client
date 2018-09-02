@@ -1,0 +1,25 @@
+
+.playbackbar {
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width:100%;
+  margin-top: -0.75em;
+
+  figure {
+    display: flex;
+    align-items: center;
+    
+    figcaption {
+      padding-left: 0.5em;
+      color:#2E2929;
+    }
+  }
+
+  .playback-controles {
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+  }
+}
