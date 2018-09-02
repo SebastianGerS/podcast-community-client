@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ProgressBar from './ProgressBar';
 
 const PlaybackModal = ({
   episode, isPlaying, togglePlay,
@@ -8,9 +9,7 @@ const PlaybackModal = ({
     <figure>
       <img src={episode.thumbImg} alt="podcast-img" className="podcast-img" />
     </figure>
-    <div>
-      <line />
-    </div>
+    <ProgressBar />
     <p>{episode.title}</p>
     <div className="playback-controles">
       <button type="button" className="backward" />
