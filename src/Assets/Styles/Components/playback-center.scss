@@ -1,0 +1,80 @@
+.playbackcenter {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  
+  width:100%;
+  padding: 0 0.5em;
+  background-color: #F6C821;
+  opacity: 0.9;
+  z-index: 1000;
+
+  &.modal {
+    height: 81vh;
+  }
+
+  &.bar {
+    height: 70px;
+  }
+
+  &.bottom {
+    position: sticky;
+    left: 0;
+    bottom: -1px;
+  }
+  &.top {
+    position: fixed;
+    left: 0;
+    top: 111px;
+  }
+
+  .podcast-thumb {
+    height: 35px;
+  }
+
+  .podcast-img {
+    height: 175px;
+  }  
+
+  .expand {
+    background-image: url(../Icons/expand.svg);
+    height: 20px;
+  }
+
+  .fold {
+    background-image: url(../Icons/fold.svg);
+    height: 30px;
+  }
+  
+  .play{
+    background-image: url(../Icons/play-arrow.svg);
+  
+  }
+  .pause {
+    background-image: url(../Icons/pause.svg);
+  }
+  .forward {
+    height: 50px;
+    width: 50px;
+    background-image: url(../Icons/rotation_right.svg);
+    background-size: 50px;
+    margin: 0;
+  }
+
+  .backward {
+    height: 50px;
+    width: 50px;
+    background-image: url(../Icons/rotation_left.svg);
+    background-size: 50px;
+    margin: 0;
+  }
+
+  button {
+    height: 35px;
+    width: 35px;
+    background-repeat: no-repeat;
+    background-size: 35px;
+    margin: 0 0.25em;
+  }
+}
