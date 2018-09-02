@@ -5,9 +5,13 @@
     justify-content: space-between;
     align-items: flex-start;
     background-color: #FFF;
-    height: 60px;
+    height: 70px;
     padding-top:0.75em;
     color: #2E2929;
+    position: fixed;
+    top:0;
+    left:0;
+    z-index: 1000;
 
     h1 {
       color: #2E2929;

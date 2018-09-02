@@ -5,7 +5,11 @@
   background-color:  #2E2929;
   color: #FEF6F6;
   border-bottom: 1px solid #FEF6F6;
-
+  position: fixed;
+  top:71px;
+  left:0;
+  z-index: 1000;
+  width: 100%;
   button {
     color: #FEF6F6;
     font-size: 1em;
