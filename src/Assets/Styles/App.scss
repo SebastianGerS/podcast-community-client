@@ -20,3 +20,39 @@ select, optgroup, textarea {
     box-sizing: border-box;
 }
 
+.App {
+
+    .content {
+        padding-top: 120px;
+    }
+}
+
+@media only screen and (min-width: 667px) {
+
+    .App {
+
+        .content {
+            padding-top: 180px;
+        }
+    }
+  }
+  
+  @media only screen and (min-width: 1024px) {
+  
+    .App {
+
+        .content {
+            padding-top: 250px;
+        }
+    }
+  }
+  
+  @media only screen and (min-width: 1850px) {
+  
+    .App {
+
+        .content {
+            padding-top: 300px;
+        }
+    }
+  }

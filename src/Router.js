@@ -15,7 +15,9 @@ const Router = () => (
           <div className="App">
             <Header />
             <SearchBar />
-            <Views.Home />
+            <div className="content">
+              <Views.Home />
+            </div>
             <PlaybackCenter />
           </div>
         )}
@@ -26,7 +28,9 @@ const Router = () => (
           <div className="App">
             <Header />
             <SearchBar />
-            <Views.Search />
+            <div className="content">
+              <Views.Search />
+            </div>
             <PlaybackCenter />
           </div>
         )}

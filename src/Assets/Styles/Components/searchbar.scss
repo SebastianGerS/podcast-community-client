@@ -37,6 +37,8 @@
 
   .searchbar{
 
+    top:111px;
+
     button {
       font-size: 1.5em;
     }
@@ -56,6 +58,8 @@
 
   .searchbar {
 
+    top:131px;
+
     input {
       margin: 1em;
       font-size: 1.5em;
@@ -70,6 +74,8 @@
 @media only screen and (min-width: 1850px) {
 
   .searchbar{
+
+    top:171px;
 
     button {
       font-size: 2em;

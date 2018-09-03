@@ -69,7 +69,9 @@
     background-size: 50px;
     margin: 0;
   }
-
+  figure > .podcast-img {
+    margin-top: 0.25em;
+  }
   button {
     height: 35px;
     width: 35px;
@@ -77,4 +79,210 @@
     background-size: 35px;
     margin: 0 0.25em;
   }
+}
+
+@media only screen and (min-height: 320px) and (orientation: landscape){
+  .playbackcenter {
+  
+    &.modal {
+      height: 66vh;
+    }
+
+    .podcast-img {
+      height: 50px;
+    }  
+  }
+  
+}
+@media only screen and (min-height: 360px) and (orientation: landscape){
+  .playbackcenter {
+  
+    &.modal {
+      height: 70vh;
+    }
+
+  }
+  
+}
+@media only screen and (min-height: 368px) and (orientation: landscape) {
+  .playbackcenter {
+  
+    &.modal {
+      height: 71vh;
+    }
+
+    &.top {
+      top: 171px;
+    }
+  }
+}
+@media only screen and (min-height: 375px) and (orientation: landscape) {
+  .playbackcenter {
+  
+    &.modal {
+      height: 55vh;
+    }
+  }
+}
+@media only screen and (min-height: 411px) and (orientation: landscape) {
+  .playbackcenter {
+  
+    &.modal {
+      height: 59vh;
+    }
+    .podcast-img {
+      height: 75px;
+    }  
+  }
+}
+@media only screen and (min-height: 640px) {
+
+  .playbackcenter {
+  
+    &.modal {
+      height: 84vh;
+    }
+
+    figure > .podcast-img {
+      margin-top: 1em;
+    }
+  }
+}
+@media only screen and (min-height: 731px) {
+
+    .playbackcenter {
+    
+      &.modal {
+        height: 86vh;
+      }
+
+      .podcast-img {
+        height: 225px;
+      }  
+
+      figure > .podcast-img {
+        margin-top: 2em;
+      }
+  }
+}
+
+@media only screen and (min-height: 812px) {
+
+  .playbackcenter {
+  
+    &.modal {
+      height: 87vh;
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) and (orientation: portrait) {
+
+  .playbackcenter {
+
+    &.modal {
+      height: 84vh;
+    }
+
+    &.top {
+      top: 171px;
+    }
+  }
+}
+@media only screen and (min-width: 1024px)  {
+
+  .playbackcenter {
+
+    &.modal {
+      height: 70vh;
+    }
+
+    &.top {
+      top: 231px;
+    }
+
+    
+  }
+}
+
+@media only screen and (min-width: 1024px) and (orientation: portrait) {
+
+  .playbackcenter {
+
+    &.modal {
+      height: 70vh;
+    }
+
+    &.top {
+      top: 231px;
+    }
+
+  }
+}
+
+@media only screen and (min-width: 1336px) and (orientation: landscape) and (min-height: 1024px) {
+
+  .playbackcenter {
+
+    &.modal {
+      height: 78vh;
+    }
+
+    &.top {
+      top: 231px;
+    }
+    .podcast-img {
+      height: 275px;
+    }  
+  }
+}
+
+@media only screen and (min-width: 1024px) and (min-height: 1336px) {
+
+  .playbackcenter {
+
+    &.modal {
+      height: 84vh;
+    }
+
+    &.top {
+      top: 231px;
+    }
+
+    .podcast-img {
+      height: 275px;
+    }  
+  }
+}
+
+@media only screen and (min-width: 1400px) {
+
+  .playbackcenter {
+
+    &.modal {
+      height: 75vh;
+    }
+    .podcast-img {
+      height: 300px;
+    }  
+  }
+}
+
+@media only screen and (min-width: 1850px) and (orientation: landscape){
+
+  .playbackcenter {
+
+    &.top {
+      top: 271px;
+    }
+
+    &.modal {
+      height: 71vh;
+    }
+
+    .podcast-img {
+      height: 375px;
+    }  
+  }
+  
 }
