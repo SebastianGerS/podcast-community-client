@@ -10,7 +10,7 @@
   left:0;
   z-index: 1000;
   width: 100%;
-  button {
+  a {
     color: #FEF6F6;
     font-size: 1em;
   }
@@ -25,6 +25,7 @@
   div {
     display: flex;
     justify-content: center;
+    align-items: center;
     padding: 0 0.5em 0 0.5em;
     border-left: 1px solid #FEF6F6;
   }
@@ -37,7 +38,7 @@
 
     top:111px;
 
-    button {
+    a {
       font-size: 1.5em;
     }
 
@@ -75,7 +76,7 @@
 
     top:171px;
 
-    button {
+    a {
       font-size: 2em;
     }
 
