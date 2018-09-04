@@ -1,15 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import logo from '../Assets/Icons/logo.png';
 
 const Header = ({ toggleModal }) => (
   <header>
     <figure>
-      <img src={logo} className="logo" alt="logo" />
+      <Link to="/"><img src={logo} className="logo" alt="logo" /></Link>
     </figure>
     <div>
-      <h1 className="site-title">Thrue the Ether</h1>
-      <p> – a podcast community</p>
+      <Link to="/">
+        <h1 className="site-title">Thrue the Ether</h1>
+        <p> – a podcast community</p>
+      </Link>
     </div>
     <div>
       <button type="button" onClick={() => toggleModal('loginModal')}>Login</button>
