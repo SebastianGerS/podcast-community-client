@@ -6,6 +6,13 @@
   justify-content: space-between;
   width:100%;
   margin-top: -0.75em;
+  padding: 0 0.5em;
+
+  .playback-controles {
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+  }
 
   figure {
     display: flex;
@@ -15,11 +22,5 @@
       padding-left: 0.5em;
       color:#2E2929;
     }
-  }
-
-  .playback-controles {
-    display:flex;
-    flex-direction: row;
-    align-items: center;
   }
 }
