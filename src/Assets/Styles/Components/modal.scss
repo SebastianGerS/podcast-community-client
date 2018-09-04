@@ -1,0 +1,215 @@
+.modal {
+  height: 81vh;
+  z-index: 9999;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.top {
+  position: fixed;
+  left: 0;
+  top: 112px;
+}
+
+.large {
+  height: 81vh;
+}
+
+.medium {
+  height: 68vh,
+}
+
+.smal {
+  height: 68vh,
+}
+
+.background-black {
+  background-color: #2E2929;
+}
+
+@media only screen and (min-height: 320px) and (orientation: landscape){
+
+  .large {
+    height: 66vh;
+  }
+
+  .medium {
+    height: 43.4vh,
+  }
+}
+
+@media only screen and (min-height: 360px) and (orientation: landscape){
+
+  .large {
+    height: 70vh;
+  }
+
+  .medium {
+    height: 49.6vh,
+  }
+}
+
+@media only screen and (min-height: 368px) and (orientation: landscape) {
+
+  .large {
+    height: 71vh;
+  }
+
+  .top {
+    top: 172px;
+  }
+  .medium {
+    height: 35.6vh,
+  }
+}
+
+@media only screen and (min-height: 375px) and (orientation: landscape) {
+
+  .large {
+    height: 55vh;
+  }
+}
+
+@media only screen and (min-height: 411px) and (orientation: landscape) {
+
+  .large {
+    height: 59vh;
+  }
+  .medium {
+    height: 41.7vh,
+  }
+}
+
+@media only screen and (min-height: 640px) {
+
+  .large {
+    height: 84vh;
+  }
+
+  .medium {
+    height: 71.5vh,
+  }
+}
+@media only screen and (min-height: 667px) {
+
+  .large {
+    height: 84vh;
+  }
+
+  .medium {
+    height: 72.7vh,
+  }
+}
+@media only screen and (min-height: 731px) {
+
+    .large {
+      height: 86vh;
+    }
+
+    .medium {
+      height: 75.2vh,
+    }
+}
+
+@media only screen and (min-height: 812px) {
+
+  .large {
+    height: 87vh;
+  }
+  .medium {
+    height: 77.7vh,
+  }
+}
+
+@media only screen and (min-width: 768px) and (orientation: portrait) {
+
+  .large {
+    height: 84vh;
+  }
+  .top {
+    top: 172px;
+  }
+  .medium {
+    height: 76.5vh,
+  }
+}
+@media only screen and (min-width: 1024px)  {
+
+  .large {
+    height: 70vh;
+  }
+  .top {
+    top: 234px;
+  }
+  .medium {
+    height: 60.4vh,
+  }
+}
+
+@media only screen and (min-width: 1024px) and (orientation: portrait) {
+
+  .large {
+    height: 70vh;
+  }
+  .top {
+    top: 235px;
+  }
+
+}
+@media only screen and (min-width: 1336px) and (orientation: landscape) and (min-height: 1024px) {
+
+  .large {
+    height: 78vh;
+  }
+  .top {
+    top: 235px;
+  } 
+  .medium {
+    height: 70.2vh,
+  }
+}
+
+@media only screen and (min-width: 1024px) and (min-height: 1336px) {
+
+  .large {
+    height: 84vh;
+  }
+  .top {
+    top: 235px;
+  }
+  .medium {
+    height: 77.6vh,
+  }
+}
+
+@media only screen and (min-width: 1400px) {
+
+  .large {
+    height: 75vh;
+  }
+  .top {
+    top: 235px;
+  }
+  .medium {
+    height: 66vh,
+  }
+}
+
+@media only screen and (min-width: 1850px) and (orientation: landscape){
+
+
+  .top {
+    top: 272px;
+  }
+
+  .large {
+    height: 71vh;
+  }
+
+  .medium {
+    height: 78vh,
+  }
+}
