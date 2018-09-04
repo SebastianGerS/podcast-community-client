@@ -1,39 +1,23 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Header from './Components/Header';
-import SearchBar from './Components/SearchBar';
-import PlaybackCenter from './Components/PlaybackCenter';
+import { BrowserRouter, Switch } from 'react-router-dom';
 import Views from './Views';
+import SiteRoute from './Helpers/Routes';
 
 const Router = () => (
   <BrowserRouter>
     <Switch>
-      <Route
+      <SiteRoute
         exact
         path="/"
-        render={() => (
-          <div className="App">
-            <Header />
-            <SearchBar />
-            <div className="content">
-              <Views.Home />
-            </div>
-            <PlaybackCenter />
-          </div>
-        )}
+        component={Views.Home}
       />
-      <Route
+      <SiteRoute
         path="/search"
-        render={() => (
-          <div className="App">
-            <Header />
-            <SearchBar />
-            <div className="content">
-              <Views.Search />
-            </div>
-            <PlaybackCenter />
-          </div>
-        )}
+        component={Views.Search}
+      />
+      <SiteRoute
+        path="/register"
+        component={Views.Register}
       />
     </Switch>
   </BrowserRouter>
