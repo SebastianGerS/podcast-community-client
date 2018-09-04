@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const PlaybackBar = ({
-  episode, isPlaying, togglePlay,
+  episode, isPlaying, togglePlay, forward,
 }) => (
   <div className="playbackbar">
     <figure>
@@ -13,15 +13,21 @@ const PlaybackBar = ({
     </figure>
     <div className="playback-controles">
       <button type="button" className={isPlaying ? 'pause' : 'play'} onClick={togglePlay} />
-      <button type="button" className="forward" />
+      <button type="button" className="forward" onClick={forward} />
     </div>
   </div>
 );
 
 PlaybackBar.propTypes = {
-  episode: PropTypes.objectOf(PropTypes.string).isRequired,
+  episode: PropTypes.shape({
+    thumbImg: PropTypes.string,
+    title: PropTypes.string,
+    currentPosition: PropTypes.number,
+    EpisodeLength: PropTypes.number,
+  }).isRequired,
   isPlaying: PropTypes.bool.isRequired,
   togglePlay: PropTypes.func.isRequired,
+  forward: PropTypes.func.isRequired,
 };
 
 export default PlaybackBar;
