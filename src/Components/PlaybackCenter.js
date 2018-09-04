@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import PlaybackModal from './PlaybackModal';
 import PlaybackBar from './PlaybackBar';
 
@@ -14,11 +15,9 @@ class PlaybackCenter extends Component {
         episodeLength: 4800,
       },
       isPlaying: false,
-      isExpanded: false,
     };
 
     this.togglePlay = this.togglePlay.bind(this);
-    this.toggleModal = this.toggleModal.bind(this);
     this.updatePosition = this.updatePosition.bind(this);
     this.backward = this.backward.bind(this);
     this.forward = this.forward.bind(this);
@@ -28,13 +27,6 @@ class PlaybackCenter extends Component {
     const { isPlaying } = this.state;
     this.setState({
       isPlaying: !isPlaying,
-    });
-  }
-
-  toggleModal() {
-    const { isExpanded } = this.state;
-    this.setState({
-      isExpanded: !isExpanded,
     });
   }
 
@@ -82,16 +74,15 @@ class PlaybackCenter extends Component {
   }
 
   render() {
-    const {
-      episode, isPlaying, isExpanded,
-    } = this.state;
+    const { episode, isPlaying } = this.state;
+    const { toggleModal, modalIsActive } = this.props;
 
     return (
-      <div className={`playbackcenter ${isExpanded ? 'top modal' : 'bottom bar'}`}>
+      <div className={`playbackcenter ${modalIsActive ? 'top modal large' : 'bottom bar'}`}>
         <div className="toggle">
-          <button type="button" className={isExpanded ? 'fold' : 'expand'} onClick={this.toggleModal} />
+          <button type="button" className={modalIsActive ? 'fold' : 'expand'} onClick={() => toggleModal('playbackModal', modalIsActive)} />
         </div>
-        { !isExpanded
+        { !modalIsActive
         && (
         <PlaybackBar
           isPlaying={isPlaying}
@@ -102,7 +93,7 @@ class PlaybackCenter extends Component {
         />
         )
         }
-        { isExpanded
+        { modalIsActive
           && (
           <PlaybackModal
             isPlaying={isPlaying}
@@ -118,5 +109,8 @@ class PlaybackCenter extends Component {
     );
   }
 }
-
+PlaybackCenter.propTypes = {
+  toggleModal: PropTypes.func.isRequired,
+  modalIsActive: PropTypes.bool.isRequired,
+};
 export default PlaybackCenter;

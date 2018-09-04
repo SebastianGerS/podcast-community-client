@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import logo from '../Assets/Icons/logo.png';
 
-const Header = () => (
+const Header = ({ toggleModal }) => (
   <header>
     <figure>
       <img src={logo} className="logo" alt="logo" />
@@ -11,9 +12,13 @@ const Header = () => (
       <p> – a podcast community</p>
     </div>
     <div>
-      <button type="button">Loggin</button>
+      <button type="button" onClick={() => toggleModal('loginModal')}>Login</button>
     </div>
   </header>
 );
+
+Header.propTypes = {
+  toggleModal: PropTypes.func.isRequired,
+};
 
 export default Header;
