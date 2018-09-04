@@ -1,9 +1,3 @@
-export const getProgressbarLength = () => ((window.innerWidth / 10) * 9);
-
-export const getStartingPoint = () => ((window.innerWidth - getProgressbarLength()) / 2 + 10);
-
-export const getSecondsPerPixel = episodeLength => (episodeLength / (getProgressbarLength() - 20));
-
 const getSeconds = s => `${s < 10 ? `0${s}` : s}`;
 
 const getMinutes = (seconds) => {
@@ -20,7 +14,7 @@ const getHours = (seconds) => {
   return `${h < 10 ? `0${h}` : h}:${getMinutes(s)}`;
 };
 
-export const formatTime = (seconds) => {
+const formatTime = (seconds) => {
   let formatedTime;
   const s = Math.round(seconds);
 
@@ -34,3 +28,5 @@ export const formatTime = (seconds) => {
 
   return formatedTime;
 };
+
+export default formatTime;
