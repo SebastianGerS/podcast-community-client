@@ -1,0 +1,70 @@
+.login-form {
+    
+  width: 100%;
+
+  label {
+    width: 80%;
+    padding: 0.5em 0;
+  
+    input {
+      width:100%;
+      margin-top: 0.25em;
+    }
+  }
+
+  button {
+    margin-top: 1em;
+    width: 80%;
+    padding: 0.5em;
+    background-color: #78D69F;
+    opacity: 0.68;
+    align-self: center;
+    border-radius: 4px;
+    font-size: 1.2em;
+    color: #2E2929;
+    box-shadow: 0 4px 4px #2E2929;
+  }
+}
+
+@media only screen and (min-height: 320px) and (orientation: landscape){
+
+  .login-form {
+
+    label {
+      padding: 0.25em 0;
+      font-size: 0.75em;
+
+      input {
+        width:100%;
+        margin-top: 0.25em;
+        font-size: 0.75em;
+      }
+    }
+
+    button {
+      margin-top: 1em;
+      font-size: 0.75em;
+    }
+  }
+}
+
+@media only screen and (min-height:731px) {
+  .login-form {
+
+    label {
+      padding: 0.25em 0;
+      font-size: 1.2em;
+      
+      input {
+        width:100%;
+        margin-top: 0.25em;
+        font-size: 1.2em;
+      }
+    }
+
+    button {
+      margin-top: 1em;
+      font-size: 1.2em;
+    }
+  }
+}
