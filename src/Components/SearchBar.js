@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const SearchBar = () => (
   <div className="searchbar">
     <input placeholder="Search..." />
     <div>
-      <button type="button">Register</button>
+      <Link to="/register">Register</Link>
     </div>
   </div>
 );
