@@ -5,6 +5,9 @@ import SearchBar from '../Components/SearchBar';
 import PlaybackCenter from '../Components/PlaybackCenter';
 import Footer from '../Components/Footer';
 import LoginModal from '../Components/LoginModal';
+import PageHeader from '../Components/PageHeader';
+import Menu from '../Components/Menu';
+import Modal from '../Components/Modal';
 
 class SiteRoute extends React.Component {
   constructor(props) {
@@ -12,8 +15,9 @@ class SiteRoute extends React.Component {
     this.state = {
       modals:
         [
-          { name: 'loginModal', active: false },
-          { name: 'playbackModal', active: false },
+          { name: 'login', active: false },
+          { name: 'playback', active: false },
+          { name: 'menu', active: false },
         ],
     };
     this.toggleModal = this.toggleModal.bind(this);
@@ -38,7 +42,7 @@ class SiteRoute extends React.Component {
   render() {
     const { component: Component, path, ...rest } = this.props;
     const { modals } = this.state;
-    const [loginModalIsActive, playbackModalIsActive] = modals;
+    const [loginModalIsActive, playbackModalIsActive, menuModalIsActive] = modals;
     return (
       <Route
         path={path}
@@ -48,7 +52,7 @@ class SiteRoute extends React.Component {
             <Header toggleModal={this.toggleModal} />
             <SearchBar />
             <div className="content">
-              <h2 className="page-header">{path === '/' ? 'Home' : `${path.charAt(1).toUpperCase()}${path.slice(2)}`}</h2>
+              <PageHeader name={path.slice(1)} />
               <Component {...props} />
             </div>
             <Footer />
@@ -56,7 +60,12 @@ class SiteRoute extends React.Component {
             <PlaybackCenter
               toggleModal={this.toggleModal}
               modalIsActive={playbackModalIsActive.active}
+              menuIsActive={menuModalIsActive.active}
             />
+            { !menuModalIsActive.active
+              ? <Menu modalIsActive={menuModalIsActive.active} toggleModal={this.toggleModal} />
+              : <Modal component={Menu} size="medium" backgroundColor="black" modalIsActive={menuModalIsActive.active} toggleModal={this.toggleModal} />
+            }
           </div>
         )}
       />
