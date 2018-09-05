@@ -15,7 +15,7 @@ const Header = ({ toggleModal }) => (
       </Link>
     </div>
     <div>
-      <button type="button" onClick={() => toggleModal('loginModal')}>Login</button>
+      <button type="button" onClick={() => toggleModal('login')}>Login</button>
     </div>
   </header>
 );
