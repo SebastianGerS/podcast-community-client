@@ -14,144 +14,178 @@
   top: 112px;
 }
 
-.large {
-  height: 81vh;
+.medium {
+  height: 69vh;
 }
 
-.medium {
+.large {
   height: 68vh,
 }
 
 .smal {
-  height: 68vh,
+  height: 55.8vh,
 }
 
 .background-black {
   background-color: #2E2929;
 }
 
+.background-violet {
+  background-color: blueviolet;
+}
+
 @media only screen and (min-height: 320px) and (orientation: landscape){
 
-  .large {
-    height: 66vh;
+  .medium {
+    height: 53vh;
   }
 
-  .medium {
+  .large {
     height: 43.4vh,
+  }
+
+  .smal {
+    height: 40.5vh,
   }
 }
 
 @media only screen and (min-height: 360px) and (orientation: landscape){
 
-  .large {
-    height: 70vh;
+  .medium {
+    height: 58vh;
   }
 
-  .medium {
+  .large {
     height: 49.6vh,
+  }
+  .smal {
+    height: 47.1vh,
   }
 }
 
 @media only screen and (min-height: 368px) and (orientation: landscape) {
 
-  .large {
+  .medium {
     height: 71vh;
   }
 
-  .top {
-    top: 172px;
-  }
-  .medium {
+  .large {
     height: 35.6vh,
+  }
+  .smal {
+    height: 30.5vh,
   }
 }
 
 @media only screen and (min-height: 375px) and (orientation: landscape) {
 
-  .large {
-    height: 55vh;
+  .medium {
+    height: 60vh;
+  }
+  .smal {
+    height: 49.2vh,
   }
 }
 
 @media only screen and (min-height: 411px) and (orientation: landscape) {
 
-  .large {
-    height: 59vh;
-  }
   .medium {
+    height: 64vh;
+  }
+  .large {
     height: 41.7vh,
+  }
+  .smal {
+    height: 54vh,
   }
 }
 
 @media only screen and (min-height: 640px) {
 
-  .large {
-    height: 84vh;
+  .medium {
+    height: 71.5vh;
   }
 
-  .medium {
+  .large {
     height: 71.5vh,
+  }
+
+  .smal {
+    height: 60.8vh,
   }
 }
 @media only screen and (min-height: 667px) {
 
-  .large {
-    height: 84vh;
+  .medium {
+    height: 72.9vh;
   }
 
-  .medium {
+  .large {
     height: 72.7vh,
+  }
+  .smal {
+    height: 62.2vh,
   }
 }
 @media only screen and (min-height: 731px) {
 
-    .large {
-      height: 86vh;
+    .medium {
+      height: 75.4vh;
     }
 
-    .medium {
+    .large {
       height: 75.2vh,
+    }
+
+    .smal {
+      height: 65.9vh,
     }
 }
 
 @media only screen and (min-height: 812px) {
 
-  .large {
-    height: 87vh;
-  }
   .medium {
+    height: 78vh;
+  }
+  .large {
     height: 77.7vh,
+  }
+  .smal {
+    height: 69.6vh,
   }
 }
 
 @media only screen and (min-width: 768px) and (orientation: portrait) {
 
-  .large {
-    height: 84vh;
+  .medium {
+    height: 76.4vh;
   }
   .top {
     top: 172px;
   }
-  .medium {
+  .large {
     height: 76.5vh,
   }
 }
 @media only screen and (min-width: 1024px)  {
 
-  .large {
-    height: 70vh;
+  .medium {
+    height: 64.5vh;
   }
   .top {
     top: 234px;
   }
-  .medium {
+  .large {
     height: 60.4vh,
+  }
+  .smal {
+    height: 59.3vh,
   }
 }
 
 @media only screen and (min-width: 1024px) and (orientation: portrait) {
 
-  .large {
+  .medium {
     height: 70vh;
   }
   .top {
@@ -161,40 +195,49 @@
 }
 @media only screen and (min-width: 1336px) and (orientation: landscape) and (min-height: 1024px) {
 
-  .large {
-    height: 78vh;
+  .medium {
+    height: 73.5vh;
   }
   .top {
     top: 235px;
   } 
-  .medium {
+  .large {
     height: 70.2vh,
+  }
+  .smal {
+    height: 69.3vh,
   }
 }
 
 @media only screen and (min-width: 1024px) and (min-height: 1336px) {
 
-  .large {
+  .medium {
     height: 84vh;
   }
   .top {
     top: 235px;
   }
-  .medium {
+  .large {
     height: 77.6vh,
+  }
+  .smal {
+    height: 72.7vh,
   }
 }
 
 @media only screen and (min-width: 1400px) {
 
-  .large {
+  .medium {
     height: 75vh;
   }
   .top {
     top: 235px;
   }
-  .medium {
+  .large {
     height: 66vh,
+  }
+  .smal {
+    height: 64.8vh,
   }
 }
 
@@ -205,11 +248,14 @@
     top: 272px;
   }
 
-  .large {
+  .medium {
     height: 71vh;
   }
 
-  .medium {
+  .large {
     height: 78vh,
+  }
+  .smal {
+    height: 60.9vh,
   }
 }

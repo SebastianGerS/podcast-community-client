@@ -67,3 +67,28 @@
     }
   }
 }
+
+@media only screen and (min-height: 320px) and (orientation: landscape){
+  .progress-bar {
+    
+    .info{
+      font-size: 0.75em;
+    }
+    .bar {
+      margin-top:0.1em;
+    }
+  }
+}
+
+@media only screen and (min-height: 731px) {
+
+  .progress-bar {
+    
+    .info{
+      font-size: 1em;
+    }
+    .bar {
+      margin-top:0.5em;
+    }
+  }
+}

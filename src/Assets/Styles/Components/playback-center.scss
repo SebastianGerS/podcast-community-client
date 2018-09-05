@@ -13,10 +13,16 @@
     height: 70px;
   }
 
-  &.bottom {
+  &.bottom-1 {
     position: sticky;
     left: 0;
     bottom: -1px;
+  }
+
+  &.bottom-2 {
+    position: sticky;
+    left: 0;
+    bottom: 68px;
   }
 
   .podcast-thumb {
@@ -60,7 +66,12 @@
     margin: 0;
   }
   figure > .podcast-img {
-    margin-top: 0.25em;
+    margin-top: 0.15em;
+  }
+  figure {
+    figcaption {
+      font-size: 1em
+    }
   }
   button {
     height: 35px;
@@ -73,10 +84,47 @@
 
 @media only screen and (min-height: 320px) and (orientation: landscape){
   .playbackcenter {
-
+    &.bar {
+      height: 40px;
+    }
+    &.bottom-2 {
+      position: sticky;
+      left: 0;
+      bottom: 38.5px;
+    }
+    .podcast-thumb {
+      height: 20px;
+    } 
     .podcast-img {
       height: 50px;
     }  
+    
+    .forward {
+      height: 30px;
+      width: 30px;
+      background-size: 30px;
+    }
+    .backward {
+      height: 30px;
+      width: 30px;
+      background-size: 30px;
+    }
+    .toggle {
+     margin-bottom: -10px
+    }
+    
+    figure > .podcast-img {
+      margin-top: 0.15em;
+    }
+    p {
+      font-size: 0.75em
+    }
+    button {
+      height: 20px;
+      width: 20px;
+      background-size: 20px;
+      margin: 0 0.25em;
+    }
   }
   
 }
@@ -84,9 +132,7 @@
 @media only screen and (min-height: 411px) and (orientation: landscape) {
   .playbackcenter {
 
-    .podcast-img {
-      height: 75px;
-    }  
+   
   }
 }
 @media only screen and (min-height: 640px) {
@@ -108,6 +154,32 @@
 
       figure > .podcast-img {
         margin-top: 2em;
+      }
+      &.modal {
+        .forward {
+          height: 50px;
+          width: 50px;
+          background-size: 50px;
+        }
+
+        button {
+          height: 40px;
+          width: 40px;
+          background-size: 40px;
+        }
+        .backward {
+          height: 50px;
+          width: 50px;
+          background-size: 50px;
+        }
+        .toggle {
+          margin-bottom: -10px
+         }
+      }
+      
+     
+      p {
+        font-size: 1em
       }
   }
 }

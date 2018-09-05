@@ -59,8 +59,36 @@
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
   }
+  @media only screen and (min-height: 320px) and (orientation: landscape){
 
-  @media only screen and (min-width: 667px) {
+    header {
+
+      height: 90px;
+      padding-top:1em;
+
+      p {
+        font-size: 1em;
+      }
+
+      button {
+        font-size: 1em;
+      }
+
+      div:last-child {
+        padding: 0.75em 1em;
+        min-width: 5em
+      }
+
+      .logo {
+        height: 3em;
+      }
+
+      .site-title {
+        font-size: 1.5em;
+      }
+    }
+  }
+  @media only screen and (min-width: 667px) and (orientation: portrait) {
 
     header {
 
@@ -99,9 +127,20 @@
       figure {
         padding: 0 1.5em;
       }
-  
+
+      button {
+        font-size: 1.5em;
+      }
       div:last-child {
         padding: 1.3em 1.5em;
+      }
+
+      .logo {
+        height: 5em;
+      }
+
+      .site-title {
+        font-size: 3em;
       }
     }
   }
