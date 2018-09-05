@@ -15,7 +15,6 @@
 
   .logout-button{
     font-size: 1.25em;
-    margin: 0.25em 0
   }
 
   &.bottom-1 {
@@ -37,10 +36,11 @@
       align-items: center;
     }
   }
-
+  li {
+    margin: 0.25em 0
+  }
   a {
     font-size: 1.25em;
-    margin: 0.25em 0
   }
 }
 @media only screen and (orientation: landscape){

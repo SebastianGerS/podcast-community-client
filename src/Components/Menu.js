@@ -1,31 +1,31 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { SiteLink, AuthSiteLink, AdminSiteLink } from '../Helpers/Links';
 
 const Menu = ({ modalIsActive, toggleModal }) => (
-  <div className={`menu ${modalIsActive ? '' : 'bottom-1 bar'}`}>
+  <navbar className={`menu ${modalIsActive ? '' : 'bottom-1 bar'}`}>
     <button className="menu-button" type="button" onClick={() => toggleModal('menu')}>Menu</button>
     { modalIsActive
       && (
-      <div className="menu-links">
+      <ul className="menu-links">
         <div>
-          <Link to="/search">Search</Link>
-          <Link to="/">Handle Users</Link>
-          <Link to="/">Send Email</Link>
-          <Link to="/">Profile</Link>
-          <Link to="/">Subscribtions</Link>
+          <SiteLink to="/search" toggleModal={toggleModal} title="Search" />
+          <AdminSiteLink to="/" toggleModal={toggleModal} title="Handle Users" />
+          <AdminSiteLink to="/" toggleModal={toggleModal} title="Send Email" />
+          <AuthSiteLink to="/" toggleModal={toggleModal} title="Profile" />
+          <AuthSiteLink to="/" toggleModal={toggleModal} title="Subscribtions" />
         </div>
         <div>
-          <Link to="/">Feed</Link>
-          <Link to="/">ListenList</Link>
-          <Link to="/">Follows</Link>
-          <Link to="/">Settings</Link>
-          <button type="button" className="logout-button">Logout</button>
+          <AuthSiteLink to="/" toggleModal={toggleModal} title="Feed" />
+          <AuthSiteLink to="/" toggleModal={toggleModal} title="ListenList" />
+          <AuthSiteLink to="/" toggleModal={toggleModal} title="Follows" />
+          <AuthSiteLink to="/" toggleModal={toggleModal} title="Settings" />
+          <li><button type="button" className="logout-button" onClick={() => toggleModal('menu')}>Logout</button></li>
         </div>
-      </div>
+      </ul>
       )
     }
-  </div>
+  </navbar>
 );
 
 Menu.propTypes = {
