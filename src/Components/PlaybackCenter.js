@@ -123,5 +123,6 @@ class PlaybackCenter extends Component {
 PlaybackCenter.propTypes = {
   toggleModal: PropTypes.func.isRequired,
   modalIsActive: PropTypes.bool.isRequired,
+  menuIsActive: PropTypes.bool.isRequired,
 };
 export default PlaybackCenter;
