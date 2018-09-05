@@ -56,7 +56,7 @@ class SiteRoute extends React.Component {
               <Component {...props} />
             </div>
             <Footer />
-            {loginModalIsActive.active && <LoginModal />}
+            {loginModalIsActive.active && <LoginModal toggleModal={this.toggleModal} />}
             <PlaybackCenter
               toggleModal={this.toggleModal}
               modalIsActive={playbackModalIsActive.active}
