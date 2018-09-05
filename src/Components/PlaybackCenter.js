@@ -75,12 +75,23 @@ class PlaybackCenter extends Component {
 
   render() {
     const { episode, isPlaying } = this.state;
-    const { toggleModal, modalIsActive } = this.props;
+    const { toggleModal, modalIsActive, menuIsActive } = this.props;
+    const size = modalIsActive ? 'medium' : '';
+    const type = modalIsActive ? 'modal' : 'bar';
+    let pos;
+
+    if (modalIsActive) {
+      pos = 'top';
+    } else if (menuIsActive) {
+      pos = 'bottom-1';
+    } else {
+      pos = 'bottom-2';
+    }
 
     return (
-      <div className={`playbackcenter ${modalIsActive ? 'top modal large' : 'bottom bar'}`}>
+      <div className={`playbackcenter ${type} ${pos} ${size}`}>
         <div className="toggle">
-          <button type="button" className={modalIsActive ? 'fold' : 'expand'} onClick={() => toggleModal('playbackModal', modalIsActive)} />
+          <button type="button" className={modalIsActive ? 'fold' : 'expand'} onClick={() => toggleModal('playback', modalIsActive)} />
         </div>
         { !modalIsActive
         && (
