@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class LoginForm extends Component {
   constructor(props) {
@@ -8,6 +9,7 @@ class LoginForm extends Component {
       password: '',
     };
     this.handleChange = this.handleChange.bind(this);
+    this.login = this.login.bind(this);
   }
 
   handleChange(e) {
@@ -18,10 +20,17 @@ class LoginForm extends Component {
     });
   }
 
+  login(e) {
+    e.preventDefault();
+    const { atemptLogin, toggleModal } = this.props;
+    atemptLogin(true);
+    toggleModal('login');
+  }
+
   render() {
     const { username, password } = this.state;
     return (
-      <form className="login-form">
+      <form className="login-form" onSubmit={this.login}>
         <label htmlFor="username">
         Username:
           <input type="text" name="username" id="username" value={username} onChange={this.handleChange} />
@@ -37,5 +46,8 @@ class LoginForm extends Component {
     );
   }
 }
-
+LoginForm.propTypes = {
+  atemptLogin: PropTypes.func.isRequired,
+  toggleModal: PropTypes.func.isRequired,
+};
 export default LoginForm;

@@ -2,47 +2,44 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-export const SiteLink = ({ to, title, toggleModal }) => {
-  const logedin = true;
-  return logedin ? (
-    <li>
-      <Link to={to} onClick={() => toggleModal('menu')}>
-        {title}
-      </Link>
-    </li>
-
-  ) : null;
-};
+export const SiteLink = ({ to, title, toggleModal }) => (
+  <li>
+    <Link to={to} onClick={() => toggleModal('menu')}>
+      {title}
+    </Link>
+  </li>
+);
 
 SiteLink.propTypes = {
   to: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   toggleModal: PropTypes.func.isRequired,
 };
-export const AuthSiteLink = ({ to, title, toggleModal }) => {
-  const logedin = true;
 
-  return logedin ? (
-    <li>
-      <Link to={to} onClick={() => toggleModal('menu')}>
-        {title}
-      </Link>
-    </li>
+export const ConnectedAuthSiteLink = ({
+  to, title, toggleModal, isLogedIn,
+}) => (isLogedIn ? (
+  <li>
+    <Link to={to} onClick={() => toggleModal('menu')}>
+      {title}
+    </Link>
+  </li>
 
-  ) : null;
-};
+) : null);
 
-AuthSiteLink.propTypes = {
+ConnectedAuthSiteLink.propTypes = {
   to: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   toggleModal: PropTypes.func.isRequired,
+  isLogedIn: PropTypes.bool.isRequired,
 };
 
-export const AdminSiteLink = ({ to, title, toggleModal }) => {
-  const logedin = true;
+export const ConnectedAdminSiteLink = ({
+  to, title, toggleModal, isLogedIn,
+}) => {
   const admin = true;
 
-  return logedin && admin ? (
+  return isLogedIn && admin ? (
     <li>
       <Link to={to} onClick={() => toggleModal('menu')}>
         {title}
@@ -52,8 +49,9 @@ export const AdminSiteLink = ({ to, title, toggleModal }) => {
   ) : null;
 };
 
-AdminSiteLink.propTypes = {
+ConnectedAdminSiteLink.propTypes = {
   to: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   toggleModal: PropTypes.func.isRequired,
+  isLogedIn: PropTypes.bool.isRequired,
 };

@@ -1,8 +1,8 @@
 import React from 'react';
-import LogginForm from './LoginForm';
+import LogginForm from '../Containers/LoginForm';
 import Modal from './Modal';
 
-const LoginModal = () => (
-  <Modal component={LogginForm} size="smal" backgroundColor="black" />
+const LoginModal = ({ ...props }) => (
+  <Modal component={LogginForm} size="smal" backgroundColor="black" {...props} />
 );
 export default LoginModal;
