@@ -1,5 +1,5 @@
 import React from 'react';
-import TopPodcasts from '../Components/TopPodcasts';
+import TopPodcasts from '../Components/Podcasts/TopPodcasts';
 
 const Home = () => (
   <div className="Home">

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import logo from '../Assets/Icons/logo.png';
+import logo from '../../Assets/Icons/logo.png';
 
 const Header = ({ toggleModal }) => (
   <header>

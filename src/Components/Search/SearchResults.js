@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import List from '../List';
-import ListablePodcast from '../ListablePodcast';
+import List from '../../Helpers/List';
+import ListablePodcast from '../Podcasts/ListablePodcast';
 import ListableEpisode from './ListableEpisode';
 import ListableUser from './ListableUser';
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { AuthSiteLink, AdminSiteLink } from '../Containers/Links';
-import { SiteLink } from '../Helpers/Links';
-import LogoutButton from '../Containers/LogoutButton';
+import { AuthSiteLink, AdminSiteLink } from '../../Containers/Links';
+import { SiteLink } from '../../Helpers/Links';
+import LogoutButton from '../../Containers/LogoutButton';
 
 const Menu = ({ modalIsActive, toggleModal }) => (
   <nav className={`menu ${modalIsActive ? '' : 'bottom-1 bar'}`}>

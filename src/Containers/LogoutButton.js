@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import LogoutButton from '../Components/LogoutButton';
+import LogoutButton from '../Components/Auth/LogoutButton';
 import { atemptLogout } from '../Actions/Auth';
 
 function mapStateToProps(state) {

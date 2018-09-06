@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import Header from '../Components/Header';
-import SearchBar from '../Components/SearchBar';
-import PlaybackCenter from '../Components/PlaybackCenter';
-import Footer from '../Components/Footer';
-import LoginModal from '../Components/LoginModal';
-import Menu from '../Components/Menu';
-import Modal from '../Components/Modal';
+import Header from '../Components/Layout/Header';
+import SearchBar from '../Components/Search/SearchBar';
+import PlaybackCenter from '../Components/Playback/PlaybackCenter';
+import Footer from '../Components/Layout/Footer';
+import LoginModal from '../Components/Auth/LoginModal';
+import Menu from '../Components/Layout/Menu';
+import Modal from './Modal';
 
 class SiteRoute extends React.Component {
   constructor(props) {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ListablePodcast from './ListablePodcast';
-import List from './List';
+import List from '../../Helpers/List';
 
 class TopPodcasts extends Component {
   constructor(props) {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { getStartingPoint, getSecondsPerPixel } from '../Helpers/UserAgent';
-import formatTime from '../Helpers/Time';
+import { getStartingPoint, getSecondsPerPixel } from '../../Helpers/UserAgent';
+import formatTime from '../../Helpers/Time';
 
 class ProgressBar extends Component {
   constructor(props) {
