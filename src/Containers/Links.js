@@ -3,7 +3,7 @@ import { ConnectedAuthSiteLink, ConnectedAdminSiteLink } from '../Helpers/Links'
 
 function mapStateToProps(state) {
   return {
-    isLogedIn: state.isLogedIn,
+    isLogedIn: state.Auth.isLogedIn,
   };
 }
 const MapLoginToProps = connect(mapStateToProps, null);

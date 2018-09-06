@@ -3,7 +3,7 @@ import SiteRoute from '../Helpers/Routes';
 
 function mapStateToProps(state) {
   return {
-    isLogedIn: state.isLogedIn,
+    isLogedIn: state.Auth.isLogedIn,
   };
 }
 

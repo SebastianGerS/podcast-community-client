@@ -4,7 +4,7 @@ import { atemptLogout } from '../Actions/Auth';
 
 function mapStateToProps(state) {
   return {
-    isLogedIn: state.isLogedIn,
+    isLogedIn: state.Auth.isLogedIn,
   };
 }
 function mapDispatchToProps(dispatch) {
