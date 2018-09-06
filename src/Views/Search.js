@@ -1,8 +1,9 @@
 import React from 'react';
+import SearchInterface from '../Components/Search/SearchInterface';
 
 const Search = () => (
   <div className="Search">
-    <h2>Search</h2>
+    <SearchInterface />
   </div>
 );
 
