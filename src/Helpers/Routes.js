@@ -5,7 +5,6 @@ import SearchBar from '../Components/SearchBar';
 import PlaybackCenter from '../Components/PlaybackCenter';
 import Footer from '../Components/Footer';
 import LoginModal from '../Components/LoginModal';
-import PageHeader from '../Components/PageHeader';
 import Menu from '../Components/Menu';
 import Modal from '../Components/Modal';
 
@@ -52,7 +51,6 @@ class SiteRoute extends React.Component {
             <Header toggleModal={this.toggleModal} />
             <SearchBar />
             <div className="content">
-              <PageHeader name={path.slice(1)} />
               <Component {...props} />
             </div>
             <Footer />
