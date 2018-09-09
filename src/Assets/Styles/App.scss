@@ -21,13 +21,21 @@ select, optgroup, textarea {
     box-sizing: border-box;
 }
 
-input {
+input, select {
     background-color:  #FEF6F6;
     color: #2E2929;
     padding: 0.3em;
     border-radius: 4px;
     width: 100%;
     font-size: 1.2em;
+}
+
+select {
+    background-image: url(../Icons/drop-down-black.svg);
+    background-repeat: no-repeat;
+    background-position: 97% 50%;
+    background-size: 20px;
+    margin-top: 0.25em;
 }
 
 form {
