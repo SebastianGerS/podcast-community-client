@@ -1,11 +1,19 @@
+import * as R from 'ramda';
+import JWT from 'jsonwebtoken';
+import config from '../../Config/config';
+import Fetch from '../../Helpers/Fetch';
 import ActionTypes from './types';
+// import Fetch from '../../Helpers/Fetch';
 
 export const startUserLogin = () => (
   { type: ActionTypes.USER_LOGIN_START }
 );
 
-export const userLogedin = () => (
-  { type: ActionTypes.USER_LOGIN_SUCESS }
+export const userLogedin = user => (
+  {
+    type: ActionTypes.USER_LOGIN_SUCESS,
+    user,
+  }
 );
 
 export const userLoginFailure = () => (
@@ -22,23 +30,70 @@ export const userLogedout = () => (
 export const userLogoutFailure = () => (
   { type: ActionTypes.USER_LOGOUT_FAILUR }
 );
+export const startUserRegistration = () => (
+  { type: ActionTypes.USER_REGISTRATION_START }
+);
 
-export const atemptLogin = data => (dispatch) => {
+export const userRegistered = () => (
+  { type: ActionTypes.USER_REGISTRATION_SUCESS }
+);
+
+export const userRegistrationFailure = () => (
+  { type: ActionTypes.USER_REGISTRATION_FAILUR }
+);
+
+export const login = R.partial(Fetch, ['/login', 'POST']);
+
+export const register = R.partial(Fetch, ['/users', 'POST']);
+
+async function verifytoken(token) {
+  const response = await new Promise(async (resolve, reject) => {
+    JWT.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+      if (err) reject(err);
+      resolve(decoded);
+    });
+  });
+  return response;
+}
+
+export const atemptLogin = data => async (dispatch) => {
   dispatch(startUserLogin());
 
-  if (data) {
-    dispatch(userLogedin());
-  } else {
-    dispatch(userLoginFailure());
+  const tempToken = JWT.sign(data, config.JWT_SECRET);
+
+  const response = await login(JSON.stringify({ token: tempToken }));
+
+  if (response.error) dispatch(userLoginFailure());
+
+  if (response.token) {
+    localStorage.setItem('token', response.token);
+    const user = await verifytoken(response.token).catch(error => error);
+    if (localStorage.getItem('token') && user.username) dispatch(userLogedin());
   }
-}; // will be updated to call api to check auth and save user to local storage
+};
 
-export const atemptLogout = data => (dispatch) => {
+export const atemptLogout = () => (dispatch) => {
   dispatch(startUserLogout());
-
-  if (data) {
+  localStorage.removeItem('token');
+  if (!localStorage.getItem('token')) {
     dispatch(userLogedout());
   } else {
     dispatch(userLogoutFailure());
   }
-}; // will be updated to remove user from localstorage
+};
+
+export const atemptRegister = data => async (dispatch) => {
+  dispatch(startUserRegistration());
+  const tempToken = JWT.sign(data, config.JWT_SECRET);
+
+  const response = await register(JSON.stringify({ token: tempToken }));
+
+  if (response.error) dispatch(userRegistrationFailure());
+
+  if (response.token) {
+    dispatch(userRegistered());
+    localStorage.setItem('token', response.token);
+    const user = await verifytoken(response.token).catch(error => error);
+    if (localStorage.getItem('token') && user.username) dispatch(userLogedin(user));
+  }
+};
