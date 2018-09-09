@@ -9,7 +9,7 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    atemptLogout: data => dispatch(atemptLogout(data)),
+    atemptLogout: () => dispatch(atemptLogout()),
   };
 }
 
