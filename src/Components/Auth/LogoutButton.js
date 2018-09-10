@@ -11,7 +11,7 @@ class LogoutButton extends Component {
   logout() {
     const { toggleModal, atemptLogout } = this.props;
 
-    atemptLogout(true);
+    atemptLogout();
     toggleModal('menu');
   }
 
