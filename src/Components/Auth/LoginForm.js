@@ -5,7 +5,7 @@ class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
+      email: '',
       password: '',
     };
     this.handleChange = this.handleChange.bind(this);
@@ -23,17 +23,18 @@ class LoginForm extends Component {
   login(e) {
     e.preventDefault();
     const { atemptLogin, toggleModal } = this.props;
-    atemptLogin(true);
+    const { email, password } = this.state;
+    atemptLogin({ email, password });
     toggleModal('login');
   }
 
   render() {
-    const { username, password } = this.state;
+    const { email, password } = this.state;
     return (
       <form className="login-form" onSubmit={this.login}>
-        <label htmlFor="username">
-        Username:
-          <input type="text" name="username" id="username" value={username} onChange={this.handleChange} />
+        <label htmlFor="email">
+        Email:
+          <input type="text" name="email" id="email" value={email} onChange={this.handleChange} />
         </label>
 
         <label htmlFor="password">
