@@ -88,6 +88,13 @@
         padding: 0.75em 1em;
         min-width: 5em
       }
+      .notifications-button {
+        button {
+          height:3em;
+          width:3em;
+          background-size: 3em;
+        } 
+      }
 
       .logo {
         height: 3em;
@@ -117,6 +124,13 @@
         padding: 1.3em 1em;
         min-width: 5em
       }
+      .notifications-button {
+        button {
+          height:3.5em;
+          width:3.5em;
+          background-size: 3.5em;
+        } 
+      }
 
       .logo {
         height: 5em;
@@ -143,6 +157,14 @@
       }
       .login-button {
         padding: 1.3em 1.5em;
+      }
+      .notifications-button {
+        margin-top: -0.25em;
+        button {
+          height:4em;
+          width:4em;
+          background-size: 4em;
+        } 
       }
 
       .logo {
