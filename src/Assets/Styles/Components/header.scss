@@ -40,7 +40,7 @@
       text-align: center;
     }
 
-    div:last-child {
+    .login-button {
       padding: 0.8em 1em;
     }
 
@@ -52,6 +52,16 @@
     .site-title {
       font-size: 1.4em;
       padding-bottom: 0.25em;
+    }
+
+    .notifications-button {
+      padding: 0 0.5em 0 0;
+      button {
+        height:50px;
+        width:50px;
+        background-image: url(../Icons/notifications.svg);
+        background-size: 50px;
+      } 
     }
   }
 
@@ -74,7 +84,7 @@
         font-size: 1em;
       }
 
-      div:last-child {
+      .login-button {
         padding: 0.75em 1em;
         min-width: 5em
       }
@@ -103,7 +113,7 @@
         font-size: 1.5em;
       }
 
-      div:last-child {
+      .login-button {
         padding: 1.3em 1em;
         min-width: 5em
       }
@@ -131,7 +141,7 @@
       button {
         font-size: 1.5em;
       }
-      div:last-child {
+      .login-button {
         padding: 1.3em 1.5em;
       }
 
@@ -164,7 +174,7 @@
           font-size: 2em;
         }
 
-        div:last-child {
+        .login-button {
           padding: 1.3em 2m;
           min-width: 7em
         }
