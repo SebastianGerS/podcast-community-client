@@ -48,7 +48,7 @@ export const register = R.partial(Fetch, ['/users', 'POST']);
 
 async function verifytoken(token) {
   const response = await new Promise(async (resolve, reject) => {
-    JWT.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    JWT.verify(token, config.JWT_SECRET, (err, decoded) => {
       if (err) reject(err);
       resolve(decoded);
     });
@@ -67,8 +67,9 @@ export const atemptLogin = data => async (dispatch) => {
 
   if (response.token) {
     localStorage.setItem('token', response.token);
-    const user = await verifytoken(response.token).catch(error => error);
-    if (localStorage.getItem('token') && user.username) dispatch(userLogedin());
+
+    const decoded = await verifytoken(response.token).catch(error => error);
+    if (localStorage.getItem('token') && decoded.user) dispatch(userLogedin(decoded.user));
   }
 };
 
@@ -93,7 +94,18 @@ export const atemptRegister = data => async (dispatch) => {
   if (response.token) {
     dispatch(userRegistered());
     localStorage.setItem('token', response.token);
-    const user = await verifytoken(response.token).catch(error => error);
-    if (localStorage.getItem('token') && user.username) dispatch(userLogedin(user));
+    const decoded = await verifytoken(response.token).catch(error => error);
+    if (localStorage.getItem('token') && decoded.user) dispatch(userLogedin(decoded.user));
+  }
+};
+
+export const checkIfLogedIn = () => async (dispatch) => {
+  const token = localStorage.getItem('token');
+
+  const decoded = await verifytoken(token).catch(error => error);
+  if (decoded.user) {
+    dispatch(userLogedin(decoded.user));
+  } else {
+    dispatch(atemptLogout());
   }
 };
