@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import Header from '../Components/Layout/Header';
-import SearchBar from '../Components/Search/SearchBar';
+import Header from '../Containers/Header';
+import SearchBar from '../Containers/SearchBar';
 import PlaybackCenter from '../Components/Playback/PlaybackCenter';
 import Footer from '../Components/Layout/Footer';
 import LoginModal from '../Components/Auth/LoginModal';
