@@ -22,6 +22,16 @@ class SiteRoute extends React.Component {
     this.toggleModal = this.toggleModal.bind(this);
   }
 
+  componentWillMount() {
+    const { checkIfLogedIn } = this.props;
+    checkIfLogedIn();
+  }
+
+  componentWillUpdate() {
+    const { checkIfLogedIn } = this.props;
+    checkIfLogedIn();
+  }
+
   toggleModal(name) {
     const { modals } = this.state;
     const newModalstate = modals.map((modal) => {
