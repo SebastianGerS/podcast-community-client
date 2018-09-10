@@ -1,5 +1,5 @@
 import React from 'react';
-import RegisterForm from '../Components/Auth/RegisterForm';
+import RegisterForm from '../Containers/RegisterForm';
 
 const Register = () => (
   <div className="Register">
