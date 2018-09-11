@@ -1,4 +1,7 @@
 import ActionTypes from '../Actions/Search/types';
+import User from '../Models/User';
+import Episode from '../Models/Episode';
+import Podcast from '../Models/Podcast';
 
 const DEFAULT_STATE = {
   isSearching: false,
@@ -7,7 +10,8 @@ const DEFAULT_STATE = {
   filters: '',
   sortBy: '',
   results: [],
-  morePage: true,
+  term: '',
+  morePages: false,
   offset: 0,
   redirectToSearch: false,
 };
@@ -25,10 +29,26 @@ export default function (state = DEFAULT_STATE, action) {
     case ActionTypes.SEARCH_START:
       return { ...state, isSearching: true, redirectToSearch: action.redirect };
     case ActionTypes.SEARCH_SUCESS:
+      let results;
+      switch (state.type) {
+        case 'user':
+          results = action.data.results.map(user => new User(user));
+          break;
+        case 'episode':
+          results = action.data.results.map(episode => new Episode(episode));
+          break;
+        case 'podcast':
+          results = action.data.results.map(podcast => new Podcast(podcast));
+          break;
+        default:
+          results = [];
+          break;
+      }
       return {
         ...state,
         redirectToSearch: false,
-        results: action.data.result,
+        results,
+        term: action.data.term,
         offset: action.data.next_offset,
         morePages: action.data.morePages,
         isSearching: false,
