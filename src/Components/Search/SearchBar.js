@@ -15,7 +15,6 @@ class SearchBar extends Component {
 
   componentDidUpdate(prevProps) {
     const { type } = this.props;
-    console.log(prevProps);
     if (prevProps.type !== type) {
       this.search();
     }
