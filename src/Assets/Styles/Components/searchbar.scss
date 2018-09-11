@@ -6,7 +6,7 @@
   color: #FEF6F6;
   border-bottom: 1px solid #FEF6F6;
   position: fixed;
-  top:71px;
+  top:70px;
   left:0;
   z-index: 1000;
   width: 100%;
@@ -33,9 +33,9 @@
   }
 
   .follows {
-    height:50px;
-    width:50px;
-    background-size: 50px;
+    height:44px;
+    width:44px;
+    background-size: contain;
     background-image: url(../Icons/follows.svg)
   }
 }
@@ -45,7 +45,7 @@
 
   .searchbar{
 
-    top:111px;
+    top: 110px;
 
     a {
       font-size: 1.5em;
@@ -75,7 +75,7 @@
 
   .searchbar {
 
-    top:131px;
+    top:130px;
 
     form {
       margin: 1em;
@@ -101,7 +101,7 @@
 
   .searchbar{
 
-    top:171px;
+    top:170px;
 
     a {
       font-size: 2em;
