@@ -27,7 +27,6 @@ class RegisterForm extends Component {
     });
   }
 
-
   register(e) {
     e.preventDefault();
     const { atemptRegister } = this.props;
