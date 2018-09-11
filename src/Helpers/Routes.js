@@ -59,7 +59,7 @@ class SiteRoute extends React.Component {
         render={props => (
           <div className="App">
             <Header toggleModal={this.toggleModal} />
-            <SearchBar />
+            <SearchBar path={path} />
             <div className="content">
               <Component {...props} />
             </div>
