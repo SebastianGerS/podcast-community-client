@@ -105,5 +105,5 @@ export const atemptSearch = data => async (dispatch) => {
 
   if (response.error) dispatch(SearchFailure());
 
-  if (response.result) dispatch(searchComplete(response));
+  if (response.results) dispatch(searchComplete(response));
 };
