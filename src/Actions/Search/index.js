@@ -1,4 +1,6 @@
+import * as R from 'ramda';
 import ActionTypes from './types';
+import Fetch from '../../Helpers/Fetch';
 
 export const startSetSearchType = () => (
   { type: ActionTypes.SET_SEARCHTYPE_START }
@@ -40,6 +42,23 @@ export const setSearchSortByFailure = () => (
   { type: ActionTypes.SET_SEARCHTYPE_FAILUR }
 );
 
+export const startSearch = redirect => (
+  {
+    type: ActionTypes.SEARCH_START,
+    redirect,
+  }
+);
+export const searchComplete = data => (
+  {
+    type: ActionTypes.SEARCH_SUCESS,
+    data,
+  }
+);
+
+export const SearchFailure = () => (
+  { type: ActionTypes.SEARCH_FAILUR }
+);
+
 export const atemptSetSearchTypes = data => (dispatch) => {
   dispatch(startSetSearchType());
 
@@ -68,4 +87,23 @@ export const atemptSetSearchSortBy = data => (dispatch) => {
   } else {
     dispatch(setSearchSortByFailure());
   }
+};
+const search = R.partialRight(Fetch, ['GET', {}]);
+
+export const atemptSearch = data => async (dispatch) => {
+  const {
+    term, type, offset, path,
+  } = data;
+
+  const redirecToSearch = path !== '/search';
+
+  dispatch(startSearch(redirecToSearch));
+
+  const query = `/search?term=${term}&type=${type}&offset=${offset}`;
+
+  const response = await search(query);
+
+  if (response.error) dispatch(SearchFailure());
+
+  if (response.result) dispatch(searchComplete(response));
 };
