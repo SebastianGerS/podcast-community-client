@@ -1,0 +1,26 @@
+.pagination {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  padding: 1em 0;
+
+  .prev-page {
+    background-color: #F6C821;
+  }
+
+  .next-page {
+    background-color: #78D69F;
+  }
+  button {
+    
+    color:#2E2929;;
+    opacity: 0.7;
+    font-size: 1.5em;
+    border-radius: 4px;
+    padding: 0.25em;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.25);;
+  }
+
+}
