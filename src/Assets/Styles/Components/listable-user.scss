@@ -1,0 +1,43 @@
+.listable-user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 295px;
+  height: 110px;
+  background-color: rgba(159, 205, 244, 0.3);
+  border-radius: 4px;
+  margin: 0.5em 0;
+  padding: 0.5em;
+  div {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+
+    figure{
+      width: 75px;
+      height: 75px;
+      margin: 0.5em 1em 0.5em 0.5em;
+      img {
+        width: 100%;
+
+      }
+    }
+
+    p {
+      font-size: 1.3em;
+    }
+  }
+  
+  button {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url(../Icons/user-add.svg);
+    height: 30px;
+    width: 30px;
+    align-self: flex-end;
+    margin-bottom: -1em
+  }
+}

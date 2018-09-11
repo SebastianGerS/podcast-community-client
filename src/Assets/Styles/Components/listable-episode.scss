@@ -1,0 +1,119 @@
+.listable-episode {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 295px;
+  height: 270px;
+  background-color: rgba(159, 205, 244, 0.3);
+  border-radius: 4px;
+  margin: 0.5em 0;
+  padding: 0.5em;
+  div {
+    display: inline-flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 0.25em 0;
+
+    figure{
+      width: 50px;
+      height: 50px;
+      margin: 0.5em 0.25em 0.5em 0.5em;
+      img {
+        width: 100%;
+        border-radius:  4px;
+  
+      }
+    }
+    p > span {
+      margin-left: 0;
+      margin-top: 0.25em;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      color: rgba(254, 246, 246, 0.68)
+    }
+   
+  }
+  div:last-child {
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: -0.5em;
+  }
+  h3 {
+    padding: 0.5em 0;
+  }
+  p {
+    margin-left: 0.5em;
+    margin-top: 0.3em;
+    font-size: 14px;
+  }
+  .info-box {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 0;
+    margin-left: 0.5em;
+    background-color:#2F3C47;
+    height: 17px;
+    border-radius: 4px;
+    max-width: 100px;
+    text-align: center;
+
+    img {
+      width: 15px;
+      height:15px;
+
+    }
+
+    figcaption {
+      font-size: 0.75em;
+      color:#FEF6F6;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.75em;
+      display: inline-flex;
+      flex-direction: row;
+
+      span {
+        color:#f6c821;
+        margin-top: 0;
+      }
+      
+    }
+  }
+
+  .info-box:last-child {
+    justify-content: center;
+  }
+  .more-options-button {
+    background-image: url(../Icons/more.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 70px;
+    height: 70px;
+  }
+
+  .play-button {
+   
+    background-image: url(../Icons/play-arrow.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 40px;
+    height: 40px;
+  }
+
+  .dowload-button {
+   
+    background-image: url(../Icons/dowload.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 60px;
+    height: 60px;
+  }
+
+}

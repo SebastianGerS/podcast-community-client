@@ -1,0 +1,84 @@
+.listable-podcast-searchresult {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 295px;
+  height: 270px;
+  background-color: rgba(159, 205, 244, 0.3);
+  border-radius: 4px;
+  margin: 0.5em 0;
+  padding: 0.5em;
+  div {
+    display: inline-flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 0.25em 0;
+
+    figure{
+      width: 50px;
+      height: 50px;
+      margin: 0.5em 0.25em 0.5em 0.5em;
+      img {
+        width: 100%;
+        border-radius: 4px;
+  
+      }
+    }
+    p > span {
+      margin-left: 0;
+      margin-top: 0.25em;
+      color: rgba(254, 246, 246, 0.68)
+    }
+   
+  }
+  div:last-child {
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1em;
+  }
+  h3 {
+    padding: 0.5em 0;
+  }
+  p {
+    margin-top: 0.3em;
+    margin-left: 0.5em;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .rating {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+
+    img {
+      width: 40px;
+      height:40px;
+    }
+  }
+  .more-options-button {
+    background-image: url(../Icons/more.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 70px;
+    height: 70px;
+  }
+
+  .subscribe-button {
+    background-color: #78D69F;
+    color: #2E2929;
+    font-size: 1.5em;
+    border-radius: 4px;
+    padding: 0.25em 0.5em;
+    height: 35px;
+    line-height: 0.9em;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.25);;
+  }
+
+}
