@@ -13,15 +13,24 @@ class SearchBar extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentDidUpdate(prevProps) {
+    const { type } = this.props;
+    console.log(prevProps);
+    if (prevProps.type !== type) {
+      this.search();
+    }
+  }
+
   search(e) {
-    e.preventDefault();
+    if (e) e.preventDefault();
+
     const {
-      type, offset, search, path,
+      type, search, path,
     } = this.props;
     const { term } = this.state;
 
     search({
-      term, type, offset, path,
+      term, type, offset: 0, path,
     });
   }
 
@@ -57,7 +66,6 @@ class SearchBar extends Component {
 SearchBar.propTypes = {
   isLogedIn: PropTypes.bool.isRequired,
   type: PropTypes.string.isRequired,
-  offset: PropTypes.number.isRequired,
   search: PropTypes.func.isRequired,
   path: PropTypes.string.isRequired,
   redirectToSearch: PropTypes.bool.isRequired,

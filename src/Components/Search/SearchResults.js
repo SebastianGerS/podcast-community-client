@@ -1,32 +1,46 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Immutable from 'immutable';
 import List from '../../Helpers/List';
-import ListablePodcast from '../Podcasts/ListablePodcast';
+import ListablePodcast from './ListablePodcast';
 import ListableEpisode from './ListableEpisode';
 import ListableUser from './ListableUser';
 
-const SearchResults = ({ type, results }) => {
-  let component;
+class SearchResults extends Component {
+  shouldComponentUpdate(nextProps) {
+    const { results } = this.props;
 
-  switch (type) {
-    case 'podcast':
-      component = ListablePodcast;
-      break;
-    case 'episode':
-      component = ListableEpisode;
-      break;
-    case 'user':
-      component = ListableUser;
-      break;
-    default:
-      break;
+    if (nextProps.results === results) {
+      return false;
+    }
+
+    return true;
   }
 
-  return results ? (<List component={component} data={results} />) : null;
-};
+  render() {
+    let component;
+    const { type, results } = this.props;
+
+    switch (type) {
+      case 'podcast':
+        component = ListablePodcast;
+        break;
+      case 'episode':
+        component = ListableEpisode;
+        break;
+      case 'user':
+        component = ListableUser;
+        break;
+      default:
+        break;
+    }
+
+    return results ? (<List component={component} data={results} />) : null;
+  }
+}
 SearchResults.propTypes = {
   type: PropTypes.string.isRequired,
-  results: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
+  results: PropTypes.arrayOf(Immutable.Record).isRequired,
 };
 
 export default SearchResults;

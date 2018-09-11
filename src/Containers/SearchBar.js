@@ -6,7 +6,6 @@ function mapStateToProps(state) {
   return {
     isLogedIn: state.Auth.isLogedIn,
     type: state.Search.type,
-    offset: state.Search.offset,
     redirectToSearch: state.Search.redirectToSearch,
   };
 }
