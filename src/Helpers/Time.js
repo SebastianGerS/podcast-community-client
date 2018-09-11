@@ -14,7 +14,7 @@ const getHours = (seconds) => {
   return `${h < 10 ? `0${h}` : h}:${getMinutes(s)}`;
 };
 
-const formatTime = (seconds) => {
+export const formatTime = (seconds) => {
   let formatedTime;
   const s = Math.round(seconds);
 
@@ -29,4 +29,7 @@ const formatTime = (seconds) => {
   return formatedTime;
 };
 
-export default formatTime;
+export const getDatefromMilisecond = (ms) => {
+  const date = new Date(ms).toLocaleDateString();
+  return `${date.substring(0, 5)} ${date.substring(6, date.length)}`;
+};
