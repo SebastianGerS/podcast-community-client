@@ -5,6 +5,7 @@ import Fetch from '../../Helpers/Fetch';
 import ActionTypes from './types';
 import { atemptSetMessage } from '../Message';
 import { toggleLoginModal } from '../Modal';
+import { logout } from '../../Helpers/Auth';
 
 export const startUserLogin = () => (
   { type: ActionTypes.USER_LOGIN_START }
@@ -79,14 +80,6 @@ export const atemptLogin = data => async (dispatch) => {
       dispatch(atemptSetMessage({ message: 'You are now logedin', type: 'success' }));
     }
   }
-};
-
-const logout = () => {
-  localStorage.removeItem('token');
-  if (!localStorage.getItem('token')) {
-    return true;
-  }
-  return false;
 };
 
 export const atemptLogout = () => (dispatch) => {
