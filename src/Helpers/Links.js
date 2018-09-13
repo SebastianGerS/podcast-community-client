@@ -2,25 +2,25 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-export const SiteLink = ({ to, title, toggleModal }) => (
+export const ConnectedSiteLink = ({ to, title, closeMenu }) => (
   <li>
-    <Link to={to} onClick={() => toggleModal('menu')}>
+    <Link to={to} onClick={closeMenu}>
       {title}
     </Link>
   </li>
 );
 
-SiteLink.propTypes = {
+ConnectedSiteLink.propTypes = {
   to: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  toggleModal: PropTypes.func.isRequired,
+  closeMenu: PropTypes.func.isRequired,
 };
 
 export const ConnectedAuthSiteLink = ({
-  to, title, toggleModal, isLogedIn,
+  to, title, closeMenu, isLogedIn,
 }) => (isLogedIn ? (
   <li>
-    <Link to={to} onClick={() => toggleModal('menu')}>
+    <Link to={to} onClick={closeMenu}>
       {title}
     </Link>
   </li>
@@ -30,18 +30,18 @@ export const ConnectedAuthSiteLink = ({
 ConnectedAuthSiteLink.propTypes = {
   to: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  toggleModal: PropTypes.func.isRequired,
+  closeMenu: PropTypes.func.isRequired,
   isLogedIn: PropTypes.bool.isRequired,
 };
 
 export const ConnectedAdminSiteLink = ({
-  to, title, toggleModal, isLogedIn,
+  to, title, closeMenu, isLogedIn,
 }) => {
   const admin = true;
 
   return isLogedIn && admin ? (
     <li>
-      <Link to={to} onClick={() => toggleModal('menu')}>
+      <Link to={to} onClick={closeMenu}>
         {title}
       </Link>
     </li>
@@ -52,6 +52,6 @@ export const ConnectedAdminSiteLink = ({
 ConnectedAdminSiteLink.propTypes = {
   to: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  toggleModal: PropTypes.func.isRequired,
+  closeMenu: PropTypes.func.isRequired,
   isLogedIn: PropTypes.bool.isRequired,
 };
