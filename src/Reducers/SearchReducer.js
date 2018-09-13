@@ -20,7 +20,7 @@ export default function (state = DEFAULT_STATE, action) {
   switch (action.type) {
     case ActionTypes.SET_SEARCHTYPE_START:
       return { ...state, isUpdatingSearchSettings: true };
-    case ActionTypes.SET_SEARCHTYPE_SUCESS:
+    case ActionTypes.SET_SEARCHTYPE_SUCCESS:
       return {
         ...state, type: action.searchType, isUpdatingSearchSettings: false,
       };
@@ -28,7 +28,7 @@ export default function (state = DEFAULT_STATE, action) {
       return { ...state, isUpdatingSearchSettings: false };
     case ActionTypes.SEARCH_START:
       return { ...state, isSearching: true, redirectToSearch: action.redirect };
-    case ActionTypes.SEARCH_SUCESS:
+    case ActionTypes.SEARCH_SUCCESS:
       let results;
       switch (state.type) {
         case 'user':
@@ -54,7 +54,9 @@ export default function (state = DEFAULT_STATE, action) {
         isSearching: false,
       };
     case ActionTypes.SEARCH_FAILUR:
-      return { ...state, isSearching: false, redirectToSearch: false };
+      return {
+        ...state, isSearching: false, redirectToSearch: false, results: [], morePages: false,
+      };
     default:
       return { ...state, redirectToSearch: false };
   }
