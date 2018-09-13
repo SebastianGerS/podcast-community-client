@@ -22,10 +22,9 @@ class LoginForm extends Component {
 
   login(e) {
     e.preventDefault();
-    const { atemptLogin, toggleModal } = this.props;
+    const { atemptLogin } = this.props;
     const { email, password } = this.state;
     atemptLogin({ email, password });
-    toggleModal('login');
   }
 
   render() {
@@ -49,6 +48,5 @@ class LoginForm extends Component {
 }
 LoginForm.propTypes = {
   atemptLogin: PropTypes.func.isRequired,
-  toggleModal: PropTypes.func.isRequired,
 };
 export default LoginForm;
