@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import Header from '../Components/Layout/Header';
+import { toggleLoginModal } from '../Actions/Modal';
 
 function mapStateToProps(state) {
   return {
@@ -7,4 +8,10 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Header);
+function mapDispatchToProps(dispatch) {
+  return {
+    toggleLogin: () => dispatch(toggleLoginModal()),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
