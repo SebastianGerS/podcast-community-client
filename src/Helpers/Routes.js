@@ -1,27 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import Header from '../Containers/Header';
 import SearchBar from '../Containers/SearchBar';
-import PlaybackCenter from '../Components/Playback/PlaybackCenter';
+import PlaybackInterface from '../Containers/PlaybackInterface';
 import Footer from '../Components/Layout/Footer';
 import LoginModal from '../Components/Auth/LoginModal';
-import Menu from '../Components/Layout/Menu';
-import Modal from './Modal';
+import MenuModal from '../Components/Layout/MenuModal';
+import MenuBar from '../Containers/MenuBar';
+import MessageInterface from '../Containers/MessageInterface';
 
 class SiteRoute extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      modals:
-        [
-          { name: 'login', active: false },
-          { name: 'playback', active: false },
-          { name: 'menu', active: false },
-        ],
-    };
-    this.toggleModal = this.toggleModal.bind(this);
-  }
-
   componentWillMount() {
     const { checkIfLogedIn } = this.props;
     checkIfLogedIn();
@@ -49,36 +38,38 @@ class SiteRoute extends React.Component {
   }
 
   render() {
-    const { component: Component, path, ...rest } = this.props;
-    const { modals } = this.state;
-    const [loginModalIsActive, playbackModalIsActive, menuModalIsActive] = modals;
+    const {
+      component: Component, path, menuIsActive, loginModalIsActive, ...rest
+    } = this.props;
+
     return (
       <Route
         path={path}
         {...rest}
         render={props => (
           <div className="App">
-            <Header toggleModal={this.toggleModal} />
+            <Header />
             <SearchBar path={path} />
             <div className="content">
+              <MessageInterface />
               <Component {...props} />
             </div>
             <Footer />
-            {loginModalIsActive.active && <LoginModal toggleModal={this.toggleModal} />}
-            <PlaybackCenter
-              toggleModal={this.toggleModal}
-              modalIsActive={playbackModalIsActive.active}
-              menuIsActive={menuModalIsActive.active}
-            />
-            { !menuModalIsActive.active
-              ? <Menu modalIsActive={menuModalIsActive.active} toggleModal={this.toggleModal} />
-              : <Modal component={Menu} size="medium" backgroundColor="black" modalIsActive={menuModalIsActive.active} toggleModal={this.toggleModal} />
-            }
+            { loginModalIsActive && <LoginModal /> }
+            <PlaybackInterface />
+            { menuIsActive ? <MenuModal /> : <MenuBar /> }
           </div>
         )}
       />
     );
   }
 }
+
+SiteRoute.propTypes = {
+  component: PropTypes.func.isRequired,
+  path: PropTypes.string.isRequired,
+  menuIsActive: PropTypes.bool.isRequired,
+  loginModalIsActive: PropTypes.bool.isRequired,
+};
 
 export default SiteRoute;
