@@ -1,13 +1,14 @@
 import * as R from 'ramda';
 import ActionTypes from './types';
 import Fetch from '../../Helpers/Fetch';
+import { atemptSetMessage } from '../Message';
 
 export const startSetSearchType = () => (
   { type: ActionTypes.SET_SEARCHTYPE_START }
 );
 export const setSearchType = searchType => (
   {
-    type: ActionTypes.SET_SEARCHTYPE_SUCESS,
+    type: ActionTypes.SET_SEARCHTYPE_SUCCESS,
     searchType,
   }
 );
@@ -20,7 +21,7 @@ export const startSetSearchFilters = () => (
 );
 export const setSearchFilters = filters => (
   {
-    type: ActionTypes.SET_SEARCHFILTERS_SUCESS,
+    type: ActionTypes.SET_SEARCHFILTERS_SUCCESS,
     filters,
   }
 );
@@ -33,7 +34,7 @@ export const startSetSearchSortBy = () => (
 );
 export const setSearchSortBy = sortBy => (
   {
-    type: ActionTypes.SET_SEARCHSORTBY_SUCESS,
+    type: ActionTypes.SET_SEARCHSORTBY_SUCCESS,
     sortBy,
   }
 );
@@ -50,7 +51,7 @@ export const startSearch = redirect => (
 );
 export const searchComplete = data => (
   {
-    type: ActionTypes.SEARCH_SUCESS,
+    type: ActionTypes.SEARCH_SUCCESS,
     data,
   }
 );
@@ -103,7 +104,10 @@ export const atemptSearch = data => async (dispatch) => {
 
   const response = await search(query);
 
-  if (response.error) dispatch(SearchFailure());
+  if (response.error) {
+    dispatch(SearchFailure());
 
+    dispatch(atemptSetMessage({ message: response.error.errmsg, type: 'info' }));
+  }
   if (response.results) dispatch(searchComplete(response));
 };
