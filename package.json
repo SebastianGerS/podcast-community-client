@@ -42,7 +42,7 @@
     "react-test-renderer": "^16.4.2"
   },
   "lint-staged": {
-    "*.{js}": [
+    "*.js": [
       "yarn pretty",
       "git add"
     ]
