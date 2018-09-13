@@ -9,10 +9,8 @@ class LogoutButton extends Component {
   }
 
   logout() {
-    const { toggleModal, atemptLogout } = this.props;
-
+    const { atemptLogout } = this.props;
     atemptLogout();
-    toggleModal('menu');
   }
 
   render() {
@@ -24,7 +22,6 @@ class LogoutButton extends Component {
   }
 }
 LogoutButton.propTypes = {
-  toggleModal: PropTypes.func.isRequired,
   atemptLogout: PropTypes.func.isRequired,
   isLogedIn: PropTypes.bool.isRequired,
 
