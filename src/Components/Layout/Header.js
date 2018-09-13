@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import logo from '../../Assets/Icons/logo.png';
 
-const Header = ({ toggleModal, isLogedIn }) => (
+const Header = ({ toggleLogin, isLogedIn }) => (
   <header>
     <figure>
       <Link to="/"><img src={logo} className="logo" alt="logo" /></Link>
@@ -17,7 +17,7 @@ const Header = ({ toggleModal, isLogedIn }) => (
     <div className={isLogedIn ? 'notifications-button' : 'login-button'}>
       { isLogedIn
         ? <button type="button" />
-        : <button type="button" onClick={() => toggleModal('login')}>Login</button>
+        : <button type="button" onClick={toggleLogin}>Login</button>
       }
 
     </div>
@@ -25,7 +25,7 @@ const Header = ({ toggleModal, isLogedIn }) => (
 );
 
 Header.propTypes = {
-  toggleModal: PropTypes.func.isRequired,
+  toggleLogin: PropTypes.func.isRequired,
   isLogedIn: PropTypes.bool.isRequired,
 };
 
