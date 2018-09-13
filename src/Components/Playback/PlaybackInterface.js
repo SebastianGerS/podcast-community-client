@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import PlaybackModal from './PlaybackModal';
 import PlaybackBar from './PlaybackBar';
 
-class PlaybackCenter extends Component {
+class PlaybackInterface extends Component {
   constructor(props) {
     super(props);
 
@@ -89,7 +89,7 @@ class PlaybackCenter extends Component {
     }
 
     return (
-      <div className={`playbackcenter ${type} ${pos} ${size}`}>
+      <div className={`playbackinterface ${type} ${pos} ${size}`}>
         <div className="toggle">
           <button type="button" className={modalIsActive ? 'fold' : 'expand'} onClick={() => toggleModal('playback', modalIsActive)} />
         </div>
@@ -120,9 +120,9 @@ class PlaybackCenter extends Component {
     );
   }
 }
-PlaybackCenter.propTypes = {
+PlaybackInterface.propTypes = {
   toggleModal: PropTypes.func.isRequired,
   modalIsActive: PropTypes.bool.isRequired,
   menuIsActive: PropTypes.bool.isRequired,
 };
-export default PlaybackCenter;
+export default PlaybackInterface;
