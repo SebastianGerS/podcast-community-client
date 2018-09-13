@@ -9,7 +9,20 @@
     input {
       width:100%;
       margin-top: 0.25em;
+      background-repeat: no-repeat;
+      background-position: 97% 50%;
+      background-size: 25px;
+
+      &.invalid {
+        background-image: url(../Icons/remove.svg);
+      }
+      
+      &.valid {
+        background-image: url(../Icons/checkmark.svg);
+      }
     }
+
+   
   }
 
   button {
