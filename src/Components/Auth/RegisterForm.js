@@ -17,6 +17,7 @@ class RegisterForm extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.register = this.register.bind(this);
     this.renderRedirect = this.renderRedirect.bind(this);
+    this.validateUserData = this.validateUserData.bind(this);
   }
 
   handleChange(e) {
@@ -27,17 +28,52 @@ class RegisterForm extends Component {
     });
   }
 
+  validateUserData() {
+    const {
+      password, passwordConfirmation, username, email,
+    } = this.state;
+    const { atemptSetMessage } = this.props;
+
+    if (username === '') {
+      atemptSetMessage({ message: 'please select a username', type: 'warning' });
+      return false;
+    }
+    if (email === '') {
+      atemptSetMessage({ message: 'please select email address', type: 'warning' });
+      return false;
+    }
+    if (!email.includes('@')) {
+      atemptSetMessage({ message: 'please enter a valid email address', type: 'warning' });
+      return false;
+    }
+    if (password !== passwordConfirmation) {
+      atemptSetMessage({ message: 'Passwordconfirmation does not match', type: 'warning' });
+      return false;
+    }
+    if (password === '') {
+      atemptSetMessage({ message: 'please select a password', type: 'warning' });
+      return false;
+    }
+    if (password.length < 8) {
+      atemptSetMessage({ message: 'passwords must be atleast 8 characters long', type: 'warning' });
+      return false;
+    }
+
+    return true;
+  }
+
   register(e) {
     e.preventDefault();
     const { atemptRegister } = this.props;
     const {
       username, email, password, passwordConfirmation, type,
     } = this.state;
-    if (password === passwordConfirmation) {
+    if (this.validateUserData()) {
       const user = {
         username,
         email,
         password,
+        passwordConfirmation,
         type,
       };
       atemptRegister(user);
@@ -61,12 +97,11 @@ class RegisterForm extends Component {
         {this.renderRedirect()}
         <label htmlFor="username">
         Username:
-          <input type="text" name="username" id="username" value={username} onChange={this.handleChange} />
+          <input type="text" className={username === '' ? 'invalid' : 'valid'} name="username" id="username" value={username} onChange={this.handleChange} />
         </label>
-
         <label htmlFor="email">
         Email:
-          <input type="text" name="email" id="email" value={email} onChange={this.handleChange} />
+          <input type="text" name="email" id="email" className={email === '' || !email.includes('@') ? 'invalid' : 'valid'} value={email} onChange={this.handleChange} />
         </label>
         <label htmlFor="type">
         Account Type:
@@ -75,18 +110,14 @@ class RegisterForm extends Component {
             <option value="public" id="type">Public</option>
           </select>
         </label>
-
-
         <label htmlFor="password">
         Password:
-          <input type="text" name="password" id="password" value={password} onChange={this.handleChange} />
+          <input type="text" name="password" id="password" className={password.length < 8 ? 'invalid' : 'valid'} value={password} onChange={this.handleChange} />
         </label>
-
         <label htmlFor="passwordConfirmation">
         Password Confirmation:
-          <input type="text" name="passwordConfirmation" id="passwordConfirmation" value={passwordConfirmation} onChange={this.handleChange} />
+          <input type="text" name="passwordConfirmation" id="passwordConfirmation" className={passwordConfirmation.length < 8 || passwordConfirmation !== password ? 'invalid' : 'valid'} value={passwordConfirmation} onChange={this.handleChange} />
         </label>
-
         <button type="submit">Register</button>
       </form>
     );
@@ -94,6 +125,7 @@ class RegisterForm extends Component {
 }
 RegisterForm.propTypes = {
   atemptRegister: PropTypes.func.isRequired,
+  atemptSetMessage: PropTypes.func.isRequired,
   redirect: PropTypes.instanceOf(Immutable.Record).isRequired,
 };
 export default RegisterForm;
