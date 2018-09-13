@@ -1,0 +1,37 @@
+.message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 45px;
+  z-index:9999;
+  opacity: 0;
+  animation: fade-in-out 6s linear 0s 1 alternate forwards;
+
+  &.info {
+    background-color: #56CCF2;
+  }
+
+  &.success {
+    background-color: #78D69F;
+  }
+
+  &.warning {
+    background-color: #F6C821;
+  }
+
+  &.error {
+    background-color: #FA7070;
+  }
+  p {
+    color: #2E2929;
+    font-size: 1em;
+  }
+}
+
+@keyframes fade-in-out {
+  0% { opacity: 0; height: 0;}
+  10% { opacity: 1; height: 45px;}
+  75% { opacity: 0.5; height: 45px; }
+  100% { opacity: 0; height: 0; }
+}
