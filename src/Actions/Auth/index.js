@@ -103,7 +103,10 @@ export const atemptRegister = data => async (dispatch) => {
 
   if (response.error) {
     dispatch(userRegistrationFailure());
-    dispatch(atemptSetMessage({ message: response.error.errmsg, type: 'warning' }));
+
+    const message = response.message ? response.message : response.error.errmsg;
+
+    dispatch(atemptSetMessage({ message, type: 'warning' }));
   }
 
   if (response.token) {
