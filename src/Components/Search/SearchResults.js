@@ -35,7 +35,7 @@ class SearchResults extends Component {
         break;
     }
 
-    return results ? (<List component={component} data={results} />) : null;
+    return <List component={component} data={results} />;
   }
 }
 SearchResults.propTypes = {
