@@ -3,7 +3,8 @@ import JWT from 'jsonwebtoken';
 import config from '../../Config/config';
 import Fetch from '../../Helpers/Fetch';
 import ActionTypes from './types';
-// import Fetch from '../../Helpers/Fetch';
+import { atemptSetMessage } from '../Message';
+import { toggleLoginModal } from '../Modal';
 
 export const startUserLogin = () => (
   { type: ActionTypes.USER_LOGIN_START }
@@ -11,7 +12,7 @@ export const startUserLogin = () => (
 
 export const userLogedin = user => (
   {
-    type: ActionTypes.USER_LOGIN_SUCESS,
+    type: ActionTypes.USER_LOGIN_SUCCESS,
     user,
   }
 );
@@ -24,7 +25,7 @@ export const startUserLogout = () => (
 );
 
 export const userLogedout = () => (
-  { type: ActionTypes.USER_LOGOUT_SUCESS }
+  { type: ActionTypes.USER_LOGOUT_SUCCESS }
 );
 
 export const userLogoutFailure = () => (
@@ -35,7 +36,7 @@ export const startUserRegistration = () => (
 );
 
 export const userRegistered = () => (
-  { type: ActionTypes.USER_REGISTRATION_SUCESS }
+  { type: ActionTypes.USER_REGISTRATION_SUCCESS }
 );
 
 export const userRegistrationFailure = () => (
@@ -63,25 +64,43 @@ export const atemptLogin = data => async (dispatch) => {
 
   const response = await login(JSON.stringify({ token: tempToken }));
 
-  if (response.error) dispatch(userLoginFailure());
+  if (response.error) {
+    dispatch(userLoginFailure());
+    dispatch(atemptSetMessage({ message: response.error.errmsg, type: 'warning' }));
+  }
 
   if (response.token) {
     localStorage.setItem('token', response.token);
 
     const decoded = await verifytoken(response.token).catch(error => error);
-    if (localStorage.getItem('token') && decoded.user) dispatch(userLogedin(decoded.user));
+    if (localStorage.getItem('token') && decoded.user) {
+      dispatch(userLogedin(decoded.user));
+      dispatch(toggleLoginModal());
+      dispatch(atemptSetMessage({ message: 'You are now logedin', type: 'success' }));
+    }
   }
+};
+
+const logout = () => {
+  localStorage.removeItem('token');
+  if (!localStorage.getItem('token')) {
+    return true;
+  }
+  return false;
 };
 
 export const atemptLogout = () => (dispatch) => {
   dispatch(startUserLogout());
   localStorage.removeItem('token');
-  if (!localStorage.getItem('token')) {
+  if (logout()) {
     dispatch(userLogedout());
+    dispatch(atemptSetMessage({ message: 'You have been logedout', type: 'warning' }));
   } else {
     dispatch(userLogoutFailure());
+    dispatch(atemptSetMessage({ message: 'logout failed', type: 'error' }));
   }
 };
+
 
 export const atemptRegister = data => async (dispatch) => {
   dispatch(startUserRegistration());
@@ -89,7 +108,10 @@ export const atemptRegister = data => async (dispatch) => {
 
   const response = await register(JSON.stringify({ token: tempToken }));
 
-  if (response.error) dispatch(userRegistrationFailure());
+  if (response.error) {
+    dispatch(userRegistrationFailure());
+    dispatch(atemptSetMessage({ message: response.error.errmsg, type: 'warning' }));
+  }
 
   if (response.token) {
     dispatch(userRegistered());
@@ -105,7 +127,7 @@ export const checkIfLogedIn = () => async (dispatch) => {
   const decoded = await verifytoken(token).catch(error => error);
   if (decoded.user) {
     dispatch(userLogedin(decoded.user));
-  } else {
-    dispatch(atemptLogout());
+  } else if (logout) {
+    dispatch(userLogedout());
   }
 };
