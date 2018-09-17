@@ -1,95 +1,180 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ReactHowler from 'react-howler';
 import PlaybackModal from './PlaybackModal';
 import PlaybackBar from './PlaybackBar';
+import Episode from '../../Models/Episode';
+import ErrorBoundray from '../../Containers/ErrorBoundray';
 
 class PlaybackInterface extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      episode: {
-        thumbImg: 'https://www.preposterousuniverse.com/wp-content/uploads/mindscape-med.png',
-        title: 'Solo -- Why Is There Something Rather than Nothing?',
-        currentPosition: 0,
-        episodeLength: 4800,
-      },
-      isPlaying: false,
+      pos: 0,
+      timer: undefined,
     };
-
     this.togglePlay = this.togglePlay.bind(this);
-    this.updatePosition = this.updatePosition.bind(this);
+    this.seek = this.seek.bind(this);
     this.backward = this.backward.bind(this);
     this.forward = this.forward.bind(this);
+    this.getSeek = this.getSeek.bind(this);
+    this.getDuration = this.getDuration.bind(this);
+    this.setSeek = this.setSeek.bind(this);
+    this.handleTimer = this.handleTimer.bind(this);
+    this.startTimer = this.startTimer.bind(this);
+    this.stopTimer = this.stopTimer.bind(this);
+    this.updatePosition = this.updatePosition.bind(this);
   }
+
+  componentDidMount() {
+
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { timer } = this.state;
+    if (nextProps.startEpisode && typeof nextProps.episode.id === 'string') {
+      setTimeout(this.togglePlay, 200);
+    } else if (!nextProps.isPlaying && timer) {
+      this.stopTimer();
+    }
+  }
+
+  componentWillUnmount() {
+
+  }
+
+  getSeek() {
+    if (this.player) {
+      return this.player.seek();
+    }
+
+    return 0;
+  }
+
+  setSeek(value) {
+    if (this.player) {
+      this.player.seek(value);
+    }
+  }
+
+  getDuration() {
+    if (this.player) {
+      return this.player.duration();
+    }
+
+    return 0;
+  }
+
 
   togglePlay() {
-    const { isPlaying } = this.state;
+    const {
+      play, stop, isPlaying, episode,
+    } = this.props;
+    if (typeof episode.id === 'string') {
+      if (isPlaying) {
+        stop();
+        this.stopTimer();
+      } else {
+        play();
+        this.handleTimer();
+      }
+    }
+  }
+
+  startTimer(cb) {
+    const timer = setInterval(cb, 1000);
     this.setState({
-      isPlaying: !isPlaying,
+      timer,
     });
   }
 
-  updatePosition(pos) {
-    const { episode } = this.state;
+  stopTimer() {
+    const { timer } = this.state;
+    clearInterval(timer);
+    this.setState({
+      timer: undefined,
+    });
+  }
+
+  handleTimer() {
+    const { timer } = this.state;
+
+    if (!timer) {
+      this.startTimer(this.updatePosition);
+    } else {
+      this.stopTimer();
+      this.startTimer(this.updatePosition);
+    }
+  }
+
+  updatePosition() {
+    const pos = this.getSeek();
+    this.setState({
+      pos,
+    });
+  }
+
+  seek(pos) {
+    let currentPosition = this.getSeek();
+    const duration = this.getDuration();
+    const { timer } = this.state;
 
     if (pos < 0) {
-      episode.currentPosition = 0;
-    } else if (pos > episode.episodeLength) {
-      episode.currentPosition = episode.episodeLength;
+      currentPosition = 0;
+    } else if (pos > duration) {
+      currentPosition = duration;
     } else {
-      episode.currentPosition = pos;
+      currentPosition = pos;
     }
-    this.setState({
-      ...episode,
-    });
+    this.setSeek(currentPosition);
+
+    if (!timer) {
+      this.updatePosition();
+    }
   }
 
   forward() {
-    const { episode } = this.state;
-
-    if ((episode.currentPosition + 15) > episode.episodeLength) {
-      episode.currentPosition = episode.episodeLength;
+    let currentPosition = this.getSeek();
+    const duration = this.getDuration();
+    if ((currentPosition + 15) > duration) {
+      currentPosition = duration;
     } else {
-      episode.currentPosition += 15;
+      currentPosition += 15;
     }
 
-    this.setState({
-      episode,
-    });
+    this.setSeek(currentPosition);
   }
 
   backward() {
-    const { episode } = this.state;
+    let currentPosition = this.getSeek();
 
-    if ((episode.currentPosition - 15) < 0) {
-      episode.currentPosition = 0;
+    if ((currentPosition - 15) < 0) {
+      currentPosition = 0;
     } else {
-      episode.currentPosition -= 15;
+      currentPosition -= 15;
     }
 
-    this.setState({
-      episode,
-    });
+    this.setSeek(currentPosition);
   }
 
   render() {
-    const { episode, isPlaying } = this.state;
-    const { toggleModal, modalIsActive, menuIsActive } = this.props;
+    const {
+      toggleModal, modalIsActive, menuIsActive, episode, isPlaying,
+    } = this.props;
+    const { pos } = this.state;
     const size = modalIsActive ? 'medium' : '';
     const type = modalIsActive ? 'modal' : 'bar';
-    let pos;
+    let layoutPos;
 
     if (modalIsActive) {
-      pos = 'top';
+      layoutPos = 'top';
     } else if (menuIsActive) {
-      pos = 'bottom-1';
+      layoutPos = 'bottom-1';
     } else {
-      pos = 'bottom-2';
+      layoutPos = 'bottom-2';
     }
-
     return (
-      <div className={`playbackinterface ${type} ${pos} ${size}`}>
+      <div className={`playbackinterface ${type} ${layoutPos} ${size}`}>
         <div className="toggle">
           <button type="button" className={modalIsActive ? 'fold' : 'expand'} onClick={() => toggleModal('playback', modalIsActive)} />
         </div>
@@ -99,8 +184,9 @@ class PlaybackInterface extends Component {
           isPlaying={isPlaying}
           togglePlay={this.togglePlay}
           episode={episode}
-          updatePosition={this.updatePosition}
+          seek={this.seek}
           forward={this.forward}
+
         />
         )
         }
@@ -110,19 +196,45 @@ class PlaybackInterface extends Component {
             isPlaying={isPlaying}
             togglePlay={this.togglePlay}
             episode={episode}
-            updatePosition={this.updatePosition}
+            seek={this.seek}
             backward={this.backward}
             forward={this.forward}
+            getDuration={this.getDuration}
+            getSeek={this.getSeek}
+            pos={pos}
           />
           )
         }
+        {
+          /* eslint-disable no-return-assign */
+          typeof episode.id === 'string'
+          && (
+          <ErrorBoundray>
+            <ReactHowler
+              src={`http://localhost:1337/audio/${episode.id}`}
+              playing={isPlaying}
+              volume={1}
+              preload
+              format={['mp3']}
+              ref={ref => (this.player = ref)}
+              html5
+            />
+          </ErrorBoundray>
+          )
+       }
+
       </div>
     );
   }
 }
 PlaybackInterface.propTypes = {
   toggleModal: PropTypes.func.isRequired,
+  play: PropTypes.func.isRequired,
+  stop: PropTypes.func.isRequired,
+  isPlaying: PropTypes.bool.isRequired,
   modalIsActive: PropTypes.bool.isRequired,
   menuIsActive: PropTypes.bool.isRequired,
+  episode: PropTypes.shape(Episode).isRequired,
+  startEpisode: PropTypes.bool.isRequired,
 };
 export default PlaybackInterface;
