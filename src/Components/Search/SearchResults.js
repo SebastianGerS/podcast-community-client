@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 import List from '../../Helpers/List';
 import ListablePodcast from './ListablePodcast';
-import ListableEpisode from './ListableEpisode';
+import ListableEpisode from '../../Containers/ListableEpisode';
 import ListableUser from './ListableUser';
 
 class SearchResults extends Component {
