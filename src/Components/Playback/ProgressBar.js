@@ -6,23 +6,32 @@ import { formatTime } from '../../Helpers/Time';
 class ProgressBar extends Component {
   constructor(props) {
     super(props);
-
     this.handleDrag = this.handleDrag.bind(this);
+    this.handleTouch = this.handleTouch.bind(this);
   }
 
   handleDrag(e) {
-    const { episode, updatePosition } = this.props;
-    const { episodeLength } = episode;
+    const { getDuration, seek } = this.props;
+    const duration = getDuration();
 
-    const newPosition = ((e.clientX - getStartingPoint()) * getSecondsPerPixel(episodeLength));
+    const newPosition = ((e.clientX - getStartingPoint()) * getSecondsPerPixel(duration));
 
-    updatePosition(newPosition);
+    seek(newPosition);
+  }
+
+  handleTouch(e) {
+    const { getDuration, seek } = this.props;
+    const duration = getDuration();
+    const { clientX } = e.changedTouches[0];
+    const newPosition = ((clientX - getStartingPoint()) * getSecondsPerPixel(duration));
+
+    seek(newPosition);
   }
 
   render() {
-    const { episode } = this.props;
-    const { currentPosition, episodeLength } = episode;
-    const precent = (currentPosition / episodeLength) * 100;
+    const { getDuration, pos } = this.props;
+    const duration = getDuration();
+    const precent = pos && duration ? (pos / duration) * 100 : 0;
 
     const style = {
       width: `${precent > 100 ? 100 : precent}%`,
@@ -32,14 +41,14 @@ class ProgressBar extends Component {
     return (
       <div className="progress-bar">
         <div className="info">
-          <p>{formatTime(currentPosition)}</p>
-          <p>{`- ${formatTime(episodeLength - currentPosition)}`}</p>
+          <p>{formatTime(pos)}</p>
+          <p>{`- ${formatTime(duration - pos)}`}</p>
         </div>
         <div className="bar">
           <div className="start" />
           <div className="line">
             <div className="progress" style={style} onDragEnd={e => this.handleDrag(e)}>
-              <div draggable className="marker" onDrag={this.handleDrag} />
+              <div draggable className="marker" onDragEnd={this.handleDrag} onTouchEnd={this.handleTouch} />
             </div>
           </div>
           <div className="end" style={precent >= 100 ? { backgroundColor: '#FEF6F6' } : {}} />
@@ -49,12 +58,8 @@ class ProgressBar extends Component {
   }
 }
 ProgressBar.propTypes = {
-  episode: PropTypes.shape({
-    thumbImg: PropTypes.string,
-    title: PropTypes.string,
-    currentPosition: PropTypes.number,
-    episodeLength: PropTypes.number,
-  }).isRequired,
-  updatePosition: PropTypes.func.isRequired,
+  getDuration: PropTypes.func.isRequired,
+  pos: PropTypes.number.isRequired,
+  seek: PropTypes.func.isRequired,
 };
 export default ProgressBar;
