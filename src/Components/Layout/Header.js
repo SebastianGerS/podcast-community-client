@@ -10,7 +10,7 @@ const Header = ({ toggleLogin, isLogedIn }) => (
     </figure>
     <div>
       <Link to="/">
-        <h1 className="site-title">Thrue the Ether</h1>
+        <h1 className="site-title">Thru the Ether</h1>
         <p> – a podcast community</p>
       </Link>
     </div>
