@@ -1,25 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta name="Description" content="A Podcast Community for all your podcast needs">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="theme-color" content="#000000">
+    <meta name="theme-color" content="#2E2929">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="msapplication-config" content="browserconfig.xml">
+    <link rel="icon" type="image/png" href="%PUBLIC_URL%/logos/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="%PUBLIC_URL%/logos/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="%PUBLIC_URL%/logos/android-192x192.png" sizes="192x192">
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logos/apple-touch-icon-180x180.png" sizes="180x180">
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-    <link rel="shortcut icon" href="%PUBLIC_URL%/logo.png">
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
+ 
     <title>Thru The Ether</title>
+    <style>
+    .loader {
+      z-index: 9999;
+      background-color: #FEF6F6;
+      width: 100%;
+      height: 100%;
+      top:0;
+      position: fixed;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .loader-img {
+      display:inline-block;
+      animation: spin infinite 20s linear; 
+    }
+
+
+    .loader.fade {
+      animation: fade 2s 1 linear forwards;
+    }
+
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg); 
+
+      }
+      to {
+        transform: rotate(360deg); 
+      } 
+    }
+    @keyframes fade {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      } 
+    }
+
+    </style>
   </head>
   <body>
+    <div class="loader"><img src="%PUBLIC_URL%/logos/logo.svg" class="loader-img"/></div>
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
@@ -34,5 +75,28 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script>
+      if('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          var loader =  document.querySelector('.loader')
+      
+          loader.classList.add('fade');
+        
+           setTimeout(() => {loader.remove()}, 2000)
+          
+          navigator.serviceWorker.register('./service-worker-custom.js')
+          .then(registration => {
+            console.log('registration successfull')
+          }, err => {
+            console.log('registration of service-worker failed')
+          })
+          .catch(err => {
+            console.log(err);
+          })
+        }) 
+      } else {
+        console.log('Service Worker api not avalible')
+      }
+    </script>
   </body>
 </html>
