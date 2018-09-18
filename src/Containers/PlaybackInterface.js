@@ -11,6 +11,7 @@ function mapStateToProps(state) {
     episode: state.Player.episode,
     isPlaying: state.Player.isPlaying,
     startEpisode: state.Player.startEpisode,
+    src: state.Player.src,
   };
 }
 
