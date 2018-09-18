@@ -4,7 +4,7 @@ import User from '../../Models/User';
 
 const ListableUser = ({ data }) => (
   <div className="listable-user">
-    <button type="button" />
+    <button aria-label="follow-button" type="button" />
     <div>
       <figure>
         <img src={data.profile_img.thumb} alt="podcastlogo" />
