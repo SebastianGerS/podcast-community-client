@@ -1,4 +1,3 @@
-import * as R from 'ramda';
 import JWT from 'jsonwebtoken';
 import config from '../../Config/config';
 import Fetch from '../../Helpers/Fetch';
@@ -44,9 +43,9 @@ export const userRegistrationFailure = () => (
   { type: ActionTypes.USER_REGISTRATION_FAILUR }
 );
 
-export const login = R.partial(Fetch, ['/login', 'POST']);
+export const login = token => Fetch('/login', 'POST', token);
 
-export const register = R.partial(Fetch, ['/users', 'POST']);
+export const register = token => Fetch('/users', 'POST', token);
 
 async function verifytoken(token) {
   const response = await new Promise(async (resolve, reject) => {

@@ -1,4 +1,3 @@
-import * as R from 'ramda';
 import ActionTypes from './types';
 import Fetch from '../../Helpers/Fetch';
 import { atemptSetMessage } from '../Message';
@@ -89,7 +88,7 @@ export const atemptSetSearchSortBy = data => (dispatch) => {
     dispatch(setSearchSortByFailure());
   }
 };
-const search = R.partialRight(Fetch, ['GET', {}]);
+const search = path => Fetch(path, 'GET', {});
 
 export const atemptSearch = data => async (dispatch) => {
   const {
