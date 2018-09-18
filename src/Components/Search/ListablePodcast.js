@@ -27,7 +27,7 @@ const ListablePodcast = ({ data }) => (
         <figcaption>5.0</figcaption>
       </figure>
       <button type="button" className="subscribe-button">Subscribe</button>
-      <button type="button" className="more-options-button" />
+      <button type="button" aria-label="more-options-button" className="more-options-button" />
     </div>
   </div>
 );

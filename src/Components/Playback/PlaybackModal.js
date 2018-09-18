@@ -17,9 +17,9 @@ const PlaybackModal = ({
       <ProgressBar episode={episode} seek={seek} pos={pos} getDuration={getDuration} />
       <p>{title}</p>
       <div className="playback-controles">
-        <button type="button" className="backward" onClick={backward} />
-        <button type="button" className={isPlaying ? 'pause' : 'play'} onClick={togglePlay} />
-        <button type="button" className="forward" onClick={forward} />
+        <button type="button" aria-label="backward-button" className="backward" onClick={backward} />
+        <button type="button" aria-label={isPlaying ? 'pause-button' : 'play-button'} className={isPlaying ? 'pause' : 'play'} onClick={togglePlay} />
+        <button type="button" aria-label="forward-button" className="forward" onClick={forward} />
       </div>
     </div>
   );

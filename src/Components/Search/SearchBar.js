@@ -53,7 +53,7 @@ class SearchBar extends Component {
         </form>
         <div>
           { isLogedIn
-            ? <button type="button" className="follows" />
+            ? <button type="button" aria-label="toggle-follows-modal" className="follows" />
             : <Link to="/register">Register</Link>
           }
         </div>
