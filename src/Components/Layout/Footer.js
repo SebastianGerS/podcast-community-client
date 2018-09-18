@@ -1,5 +1,5 @@
 import React from 'react';
-import ListenNotesLogo from '../../Assets/Icons/listennotespower.png';
+import ListenNotesLogo from '../../Assets/Icons/listennotespower.svg';
 
 const Footer = () => (
   <footer>
