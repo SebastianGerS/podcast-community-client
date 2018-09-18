@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import ListableEpisode from '../Components/Search/ListableEpisode';
-import { selectEpisode, stop } from '../Actions/Player';
+import { setAudio, stop } from '../Actions/Player';
 
 function mapStateToProps(state) {
   return {
@@ -10,7 +10,7 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    selectEpisode: episode => dispatch(selectEpisode(episode)),
+    setAudio: episode => dispatch(setAudio(episode)),
     stop: () => dispatch(stop()),
   };
 }
