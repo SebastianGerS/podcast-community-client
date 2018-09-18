@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import logo from '../../Assets/Icons/logo.png';
+import logo from '../../Assets/Icons/logo.svg';
 
 const Header = ({ toggleLogin, isLogedIn }) => (
   <header>
@@ -16,8 +16,8 @@ const Header = ({ toggleLogin, isLogedIn }) => (
     </div>
     <div className={isLogedIn ? 'notifications-button' : 'login-button'}>
       { isLogedIn
-        ? <button type="button" />
-        : <button type="button" onClick={toggleLogin}>Login</button>
+        ? <button type="button" aria-label="toggle-notifications" />
+        : <button type="button" name="toggle-login-modal-button" onClick={toggleLogin}>Login</button>
       }
 
     </div>
