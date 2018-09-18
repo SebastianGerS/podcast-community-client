@@ -26,10 +26,6 @@ class PlaybackInterface extends Component {
     this.updatePosition = this.updatePosition.bind(this);
   }
 
-  componentDidMount() {
-
-  }
-
   componentWillReceiveProps(nextProps) {
     const { timer } = this.state;
     if (nextProps.startEpisode && typeof nextProps.episode.id === 'string') {
@@ -37,10 +33,6 @@ class PlaybackInterface extends Component {
     } else if (!nextProps.isPlaying && timer) {
       this.stopTimer();
     }
-  }
-
-  componentWillUnmount() {
-
   }
 
   getSeek() {
@@ -159,7 +151,7 @@ class PlaybackInterface extends Component {
 
   render() {
     const {
-      toggleModal, modalIsActive, menuIsActive, episode, isPlaying,
+      toggleModal, modalIsActive, menuIsActive, episode, isPlaying, src,
     } = this.props;
     const { pos } = this.state;
     const size = modalIsActive ? 'medium' : '';
@@ -176,7 +168,7 @@ class PlaybackInterface extends Component {
     return (
       <div className={`playbackinterface ${type} ${layoutPos} ${size}`}>
         <div className="toggle">
-          <button type="button" className={modalIsActive ? 'fold' : 'expand'} onClick={() => toggleModal('playback', modalIsActive)} />
+          <button type="button" aria-label="toggle-playback-modal-button " className={modalIsActive ? 'fold' : 'expand'} onClick={() => toggleModal('playback', modalIsActive)} />
         </div>
         { !modalIsActive
         && (
@@ -211,11 +203,11 @@ class PlaybackInterface extends Component {
           && (
           <ErrorBoundray>
             <ReactHowler
-              src={`http://localhost:1337/audio/${episode.id}`}
+              src={src}
               playing={isPlaying}
               volume={1}
               preload
-              format={['mp3']}
+              format={['mp3', 'webm']}
               ref={ref => (this.player = ref)}
               html5
             />
@@ -236,5 +228,6 @@ PlaybackInterface.propTypes = {
   menuIsActive: PropTypes.bool.isRequired,
   episode: PropTypes.shape(Episode).isRequired,
   startEpisode: PropTypes.bool.isRequired,
+  src: PropTypes.string.isRequired,
 };
 export default PlaybackInterface;
