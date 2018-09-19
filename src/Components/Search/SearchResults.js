@@ -1,46 +1,38 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 import List from '../../Helpers/List';
 import ListablePodcast from './ListablePodcast';
 import ListableEpisode from '../../Containers/ListableEpisode';
 import ListableUser from './ListableUser';
+import Loader from '../Layout/Loader';
 
-class SearchResults extends Component {
-  shouldComponentUpdate(nextProps) {
-    const { results } = this.props;
+const SearchResults = ({ type, results, isSearching }) => {
+  let component;
 
-    if (nextProps.results === results) {
-      return false;
-    }
-
-    return true;
+  switch (type) {
+    case 'podcast':
+      component = ListablePodcast;
+      break;
+    case 'episode':
+      component = ListableEpisode;
+      break;
+    case 'user':
+      component = ListableUser;
+      break;
+    default:
+      break;
   }
 
-  render() {
-    let component;
-    const { type, results } = this.props;
+  return !isSearching
+    ? <List component={component} data={results} />
+    : <Loader />;
+};
 
-    switch (type) {
-      case 'podcast':
-        component = ListablePodcast;
-        break;
-      case 'episode':
-        component = ListableEpisode;
-        break;
-      case 'user':
-        component = ListableUser;
-        break;
-      default:
-        break;
-    }
-
-    return <List component={component} data={results} />;
-  }
-}
 SearchResults.propTypes = {
   type: PropTypes.string.isRequired,
   results: PropTypes.arrayOf(Immutable.Record).isRequired,
+  isSearching: PropTypes.bool.isRequired,
 };
 
 export default SearchResults;
