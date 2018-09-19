@@ -1,4 +1,7 @@
+import { saveAs } from 'file-saver';
 import actionTypes from './types';
+import { setMessage } from '../Message';
+import { saveToListOfDownloads } from '../../Helpers/Downloads';
 
 export const play = () => ({
   type: actionTypes.START_PLAYBACK,
@@ -17,4 +20,37 @@ export const selectEpisode = (episode, src) => ({
 export const setAudio = episode => async (dispatch) => {
   const src = `http://localhost:1337/audio/${episode.id}`;
   dispatch(selectEpisode(episode, src));
+};
+export const startDownloading = episodeId => ({
+  type: actionTypes.DOWNLOAD_EPISODE_START,
+  episodeId,
+
+});
+
+export const downloaded = () => ({
+  type: actionTypes.DOWNLOAD_EPISODE_SUCCESS,
+
+});
+
+export const failedDownload = () => ({
+  type: actionTypes.DOWNLOAD_EPISODE_FAILURE,
+
+});
+
+export const download = episode => (dispatch) => {
+  dispatch(startDownloading(episode.id));
+  caches.open('thru-the-ether').then(async (cache) => {
+    const path = `http://localhost:1337/audio/${episode.id}`;
+    await fetch(path)
+      .then(async (res) => {
+        cache.put(path, res.clone());
+        const blob = await res.blob();
+        saveAs(blob, `${episode.title_original}.mp3`);
+        saveToListOfDownloads(episode.id);
+        dispatch(downloaded());
+      }).catch(() => {
+        dispatch(failedDownload());
+        dispatch(setMessage({ message: 'failed to download the episode', type: 'error' }));
+      });
+  });
 };
