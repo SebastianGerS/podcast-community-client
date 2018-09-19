@@ -7,6 +7,8 @@ const DEFAULT_STATE = {
   startEpisode: false,
   episode: new Episode(),
   src: '',
+  isDownloading: '',
+
 
 };
 
@@ -19,6 +21,18 @@ export default function (state = DEFAULT_STATE, action) {
     case ActionTypes.SET_EPISODE:
       return {
         ...state, episode: new Episode(action.episode), startEpisode: true, src: action.src,
+      };
+    case ActionTypes.DOWNLOAD_EPISODE_START:
+      return {
+        ...state, isDownloading: action.episodeId,
+      };
+    case ActionTypes.DOWNLOAD_EPISODE_SUCCESS:
+      return {
+        ...state, isDownloading: '',
+      };
+    case ActionTypes.DOWNLOAD_EPISODE_FAILURE:
+      return {
+        ...state, isDownloading: '',
       };
     default:
       return { ...state };
