@@ -101,7 +101,9 @@ export const atemptSearch = data => async (dispatch) => {
 
   const query = `/search?term=${term}&type=${type}&offset=${offset}`;
 
-  const response = await search(query);
+  const response = await search(query).catch(error => error);
+
+  if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ message: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
 
   if (response.error) {
     dispatch(SearchFailure());
