@@ -55,7 +55,7 @@ self.addEventListener('fetch', (event) => {
     event.waitUntil(
       event.respondWith(
         caches.match(event.request)
-          .then(response => response || fetch(event.request)),
+          .then(response => response || fetch(event.request)).catch(error => error),
       ),
 
     );
