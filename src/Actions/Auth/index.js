@@ -4,7 +4,7 @@ import Fetch from '../../Helpers/Fetch';
 import ActionTypes from './types';
 import { atemptSetMessage } from '../Message';
 import { toggleLoginModal } from '../Modal';
-import { logout } from '../../Helpers/Auth';
+import * as Auth from '../../Helpers/Auth';
 
 export const startUserLogin = () => (
   { type: ActionTypes.USER_LOGIN_START }
@@ -47,22 +47,12 @@ export const login = token => Fetch('/login', 'POST', token);
 
 export const register = token => Fetch('/users', 'POST', token);
 
-async function verifytoken(token) {
-  const response = await new Promise(async (resolve, reject) => {
-    JWT.verify(token, config.JWT_SECRET, (err, decoded) => {
-      if (err) reject(err);
-      resolve(decoded);
-    });
-  });
-  return response;
-}
-
 export const atemptLogin = data => async (dispatch) => {
   dispatch(startUserLogin());
 
   const tempToken = JWT.sign(data, config.JWT_SECRET);
 
-  const response = await login(JSON.stringify({ token: tempToken }));
+  const response = await login(JSON.stringify({ token: tempToken })).catch(error => error);
 
   if (response.error) {
     dispatch(userLoginFailure());
@@ -70,10 +60,10 @@ export const atemptLogin = data => async (dispatch) => {
   }
 
   if (response.token) {
-    localStorage.setItem('token', response.token);
+    Auth.setToken(response.token);
 
-    const decoded = await verifytoken(response.token).catch(error => error);
-    if (localStorage.getItem('token') && decoded.user) {
+    const decoded = await Auth.verifytoken(response.token).catch(error => error);
+    if (Auth.getToken() && decoded.user) {
       dispatch(userLogedin(decoded.user));
       dispatch(toggleLoginModal());
       dispatch(atemptSetMessage({ message: 'You are now logedin', type: 'success' }));
@@ -83,8 +73,8 @@ export const atemptLogin = data => async (dispatch) => {
 
 export const atemptLogout = () => (dispatch) => {
   dispatch(startUserLogout());
-  localStorage.removeItem('token');
-  if (logout()) {
+  Auth.removeToken();
+  if (Auth.logedout()) {
     dispatch(userLogedout());
     dispatch(atemptSetMessage({ message: 'You have been logedout', type: 'warning' }));
   } else {
@@ -98,31 +88,30 @@ export const atemptRegister = data => async (dispatch) => {
   dispatch(startUserRegistration());
   const tempToken = JWT.sign(data, config.JWT_SECRET);
 
-  const response = await register(JSON.stringify({ token: tempToken }));
+  const response = await register(JSON.stringify({ token: tempToken })).catch(error => error);
 
   if (response.error) {
     dispatch(userRegistrationFailure());
-
     const message = response.message ? response.message : response.error.errmsg;
 
     dispatch(atemptSetMessage({ message, type: 'warning' }));
   }
 
   if (response.token) {
+    Auth.setToken(response.token);
     dispatch(userRegistered());
-    localStorage.setItem('token', response.token);
-    const decoded = await verifytoken(response.token).catch(error => error);
-    if (localStorage.getItem('token') && decoded.user) dispatch(userLogedin(decoded.user));
+    const decoded = await Auth.verifytoken(response.token).catch(error => error);
+    if (Auth.getToken() && decoded.user) dispatch(userLogedin(decoded.user));
   }
 };
 
 export const checkIfLogedIn = () => async (dispatch) => {
-  const token = localStorage.getItem('token');
+  const token = Auth.getToken();
 
-  const decoded = await verifytoken(token).catch(error => error);
+  const decoded = await Auth.verifytoken(token).catch(error => error);
   if (decoded.user) {
     dispatch(userLogedin(decoded.user));
-  } else if (logout) {
+  } else if (Auth.logedout()) {
     dispatch(userLogedout());
   }
 };
