@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Episode from '../../Models/Episode';
 import Star from '../../Assets/Icons/star.svg';
 import { getDatefromMilisecond } from '../../Helpers/Time';
+import DownloadButton from './DownloadButton';
+
 
 class ListableEpisode extends Component {
   constructor(props) {
@@ -13,17 +15,18 @@ class ListableEpisode extends Component {
 
   toggleEpisode() {
     const {
-      selectEpisode, stop, data, episode,
+      setAudio, stop, data, episode,
     } = this.props;
     stop();
     if (episode.id !== data.id) {
-      selectEpisode(data);
+      setAudio(data);
     }
   }
 
+
   render() {
     const {
-      data, isPlaying, episode,
+      data, isPlaying, episode, download, isDownloading,
     } = this.props;
 
     return (
@@ -59,7 +62,7 @@ class ListableEpisode extends Component {
           </p>
         </div>
         <div>
-          <button type="button" className="dowload-button" />
+          <DownloadButton episode={data} isDownloading={isDownloading} download={download} />
           <button type="button" className={`${episode.id === data.id && isPlaying ? 'pause-button' : 'play-button'}`} onClick={this.toggleEpisode} />
           <button type="button" className="more-options-button" />
         </div>
@@ -70,10 +73,12 @@ class ListableEpisode extends Component {
 
 ListableEpisode.propTypes = {
   data: PropTypes.objectOf(Episode).isRequired,
-  selectEpisode: PropTypes.func.isRequired,
+  setAudio: PropTypes.func.isRequired,
   stop: PropTypes.func.isRequired,
+  download: PropTypes.func.isRequired,
   episode: PropTypes.shape(Episode).isRequired,
   isPlaying: PropTypes.bool.isRequired,
+  isDownloading: PropTypes.string.isRequired,
 };
 
 export default ListableEpisode;
