@@ -54,6 +54,8 @@ export const atemptLogin = data => async (dispatch) => {
 
   const response = await login(JSON.stringify({ token: tempToken })).catch(error => error);
 
+  if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ message: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
+
   if (response.error) {
     dispatch(userLoginFailure());
     dispatch(atemptSetMessage({ message: response.error.errmsg, type: 'warning' }));
@@ -89,6 +91,8 @@ export const atemptRegister = data => async (dispatch) => {
   const tempToken = JWT.sign(data, config.JWT_SECRET);
 
   const response = await register(JSON.stringify({ token: tempToken })).catch(error => error);
+
+  if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ message: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
 
   if (response.error) {
     dispatch(userRegistrationFailure());
