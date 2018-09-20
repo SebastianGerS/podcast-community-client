@@ -1,6 +1,6 @@
 import config from '../Config/config';
 
-export default async function fetchFromAPi(path, method, data) {
+export async function Fetch(path, method, data) {
   const headers = new Headers({
     'Content-type': 'application/json',
   });
@@ -13,7 +13,7 @@ export default async function fetchFromAPi(path, method, data) {
   };
 
   if (body) {
-    options.body = body;
+    options.body = typeof body === 'string' ? body : JSON.stringify(body);
   }
 
   const response = await new Promise((resolve, reject) => {
@@ -24,3 +24,26 @@ export default async function fetchFromAPi(path, method, data) {
 
   return response;
 }
+
+export const formatError = (err) => {
+  let message;
+  let subject;
+
+  const index = err.indexOf('$') + 1;
+
+  if (index !== -1) {
+    const end = err.indexOf('_');
+    subject = err.substring(index, end);
+
+    if (err.includes('dup key')) {
+      message = `The ${subject} you entered is already in use`;
+    } else {
+      message = err;
+    }
+  } else {
+    message = err;
+  }
+
+
+  return message;
+};
