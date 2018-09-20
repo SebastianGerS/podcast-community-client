@@ -1,16 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import Header from '../Containers/Header';
 import SearchBar from '../Containers/SearchBar';
 import PlaybackInterface from '../Containers/PlaybackInterface';
 import Footer from '../Components/Layout/Footer';
-import LoginModal from '../Components/Auth/LoginModal';
 import MenuModal from '../Components/Layout/MenuModal';
 import MenuBar from '../Containers/MenuBar';
 import MessageInterface from '../Containers/MessageInterface';
 
-class SiteRoute extends React.Component {
+export default class AuthSiteRoute extends React.Component {
   componentWillMount() {
     const { checkIfLogedIn } = this.props;
     checkIfLogedIn();
@@ -39,12 +38,12 @@ class SiteRoute extends React.Component {
 
   render() {
     const {
-      component: Component, path, menuIsActive, loginModalIsActive, ...rest
+      component: Component, path, menuIsActive, isLogedIn, computedMatch, ...rest
     } = this.props;
-
     return (
       <Route
         path={path}
+        computedMatch={computedMatch}
         {...rest}
         render={props => (
           <div className="App">
@@ -52,10 +51,12 @@ class SiteRoute extends React.Component {
             <SearchBar path={path} />
             <div className="content">
               <MessageInterface />
-              <Component {...props} />
+              { isLogedIn
+                ? <Component {...props} params={computedMatch.params} />
+                : <Redirect to="/" />
+              }
             </div>
             <Footer />
-            { loginModalIsActive && <LoginModal /> }
             <PlaybackInterface />
             { menuIsActive ? <MenuModal /> : <MenuBar /> }
           </div>
@@ -65,11 +66,8 @@ class SiteRoute extends React.Component {
   }
 }
 
-SiteRoute.propTypes = {
+AuthSiteRoute.propTypes = {
   component: PropTypes.func.isRequired,
   path: PropTypes.string.isRequired,
   menuIsActive: PropTypes.bool.isRequired,
-  loginModalIsActive: PropTypes.bool.isRequired,
 };
-
-export default SiteRoute;
