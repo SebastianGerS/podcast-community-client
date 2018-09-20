@@ -1,5 +1,5 @@
 import ActionTypes from './types';
-import Fetch from '../../Helpers/Fetch';
+import { Fetch } from '../../Helpers/Fetch';
 import { atemptSetMessage } from '../Message';
 
 export const startSetSearchType = () => (
