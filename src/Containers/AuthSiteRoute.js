@@ -1,12 +1,11 @@
 import { connect } from 'react-redux';
-import SiteRoute from '../Helpers/Routes';
+import AuthSiteRoute from '../Helpers/AuthSiteRoute';
 import { checkIfLogedIn } from '../Actions/Auth';
 
 function mapStateToProps(state) {
   return {
     isLogedIn: state.Auth.isLogedIn,
     menuIsActive: state.Modal.menuIsActive,
-    loginModalIsActive: state.Modal.loginModalIsActive,
   };
 }
 
@@ -16,4 +15,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SiteRoute);
+export default connect(mapStateToProps, mapDispatchToProps)(AuthSiteRoute);
