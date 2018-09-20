@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 import List from '../../Helpers/List';
@@ -7,27 +7,41 @@ import ListableEpisode from '../../Containers/ListableEpisode';
 import ListableUser from './ListableUser';
 import Loader from '../Layout/Loader';
 
-const SearchResults = ({ type, results, isSearching }) => {
-  let component;
+class SearchResults extends Component {
+  shouldComponentUpdate(nextProps) {
+    const { results, isSearching } = this.props;
 
-  switch (type) {
-    case 'podcast':
-      component = ListablePodcast;
-      break;
-    case 'episode':
-      component = ListableEpisode;
-      break;
-    case 'user':
-      component = ListableUser;
-      break;
-    default:
-      break;
+    if (nextProps.results === results && nextProps.isSearching === isSearching) {
+      return false;
+    }
+
+    return true;
   }
 
-  return !isSearching
-    ? <List component={component} data={results} />
-    : <Loader />;
-};
+  render() {
+    const { type, results, isSearching } = this.props;
+    let component;
+
+
+    switch (type) {
+      case 'podcast':
+        component = ListablePodcast;
+        break;
+      case 'episode':
+        component = ListableEpisode;
+        break;
+      case 'user':
+        component = ListableUser;
+        break;
+      default:
+        break;
+    }
+
+    return !isSearching
+      ? <List component={component} data={results} />
+      : <Loader />;
+  }
+}
 
 SearchResults.propTypes = {
   type: PropTypes.string.isRequired,
