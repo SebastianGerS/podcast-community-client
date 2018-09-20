@@ -1,9 +1,9 @@
 import JWT from 'jsonwebtoken';
 import config from '../../Config/config';
-import Fetch from '../../Helpers/Fetch';
+import { Fetch } from '../../Helpers/Fetch';
 import ActionTypes from './types';
 import { atemptSetMessage } from '../Message';
-import { toggleLoginModal } from '../Modal';
+import { toggleLoginModal, toggleMenu } from '../Modal';
 import * as Auth from '../../Helpers/Auth';
 
 export const startUserLogin = () => (
@@ -78,6 +78,7 @@ export const atemptLogout = () => (dispatch) => {
   Auth.removeToken();
   if (Auth.logedout()) {
     dispatch(userLogedout());
+    dispatch(toggleMenu());
     dispatch(atemptSetMessage({ message: 'You have been logedout', type: 'warning' }));
   } else {
     dispatch(userLogoutFailure());
