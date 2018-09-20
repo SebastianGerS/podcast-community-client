@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Switch } from 'react-router-dom';
 import Views from './Views';
-import SiteRoute from './Containers/Routes';
+import SiteRoute from './Containers/SiteRoute';
+import AuthSiteRoute from './Containers/AuthSiteRoute';
 
 const Router = () => (
   <BrowserRouter>
@@ -18,6 +19,10 @@ const Router = () => (
       <SiteRoute
         path="/register"
         component={Views.Register}
+      />
+      <AuthSiteRoute
+        path="/profile/:userId"
+        component={Views.Profile}
       />
     </Switch>
   </BrowserRouter>
