@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { SiteLink, AuthSiteLink, AdminSiteLink } from '../../Containers/Links';
 import LogoutButton from '../../Containers/LogoutButton';
 
-const Menu = ({ closeMenu }) => (
+const Menu = ({ closeMenu, userId }) => (
   <nav className="menu">
     <button className="menu-button" type="button" onClick={closeMenu}>Menu</button>
     <ul className="menu-links">
@@ -11,7 +11,7 @@ const Menu = ({ closeMenu }) => (
         <SiteLink to="/search" title="Search" />
         <AdminSiteLink to="/" title="Handle Users" />
         <AdminSiteLink to="/" title="Send Email" />
-        <AuthSiteLink to="/" title="Profile" />
+        <AuthSiteLink to={`/profile/${userId}`} title="Profile" />
         <AuthSiteLink to="/" title="Subscribtions" />
       </div>
       <div>
@@ -27,6 +27,7 @@ const Menu = ({ closeMenu }) => (
 
 Menu.propTypes = {
   closeMenu: PropTypes.func.isRequired,
+  userId: PropTypes.string.isRequired,
 };
 
 export default Menu;
