@@ -1,9 +1,16 @@
 import config from '../Config/config';
+import { getToken } from './Auth';
 
 export async function Fetch(path, method, data) {
+  const token = getToken();
+
   const headers = new Headers({
     'Content-type': 'application/json',
   });
+
+  if (token) {
+    headers.set('Authorization', `${token}`);
+  }
 
   const body = Object.keys(data).length !== 0 ? data : undefined;
 
@@ -15,7 +22,6 @@ export async function Fetch(path, method, data) {
   if (body) {
     options.body = typeof body === 'string' ? body : JSON.stringify(body);
   }
-
   const response = await new Promise((resolve, reject) => {
     fetch(`${config.API_BASE_URL}${path}`, options)
       .then(res => res.json())
