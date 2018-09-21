@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
+import { scrollToTop } from '../../Helpers/UserAgent';
 
 class LogoutButton extends Component {
   constructor(props) {
@@ -11,6 +11,7 @@ class LogoutButton extends Component {
   logout() {
     const { atemptLogout } = this.props;
     atemptLogout();
+    scrollToTop();
   }
 
   render() {

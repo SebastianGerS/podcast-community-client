@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { scrollToTop } from '../../Helpers/UserAgent';
 
 class LoginForm extends Component {
   constructor(props) {
@@ -25,6 +26,7 @@ class LoginForm extends Component {
     const { atemptLogin } = this.props;
     const { email, password } = this.state;
     atemptLogin({ email, password });
+    scrollToTop();
   }
 
   render() {

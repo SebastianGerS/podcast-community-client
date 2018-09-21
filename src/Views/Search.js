@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { Component } from 'react';
 import SearchInterface from '../Components/Search/SearchInterface';
+import { scrollToTop } from '../Helpers/UserAgent';
 
-const Search = () => (
-  <div className="Search">
-    <SearchInterface />
-  </div>
-);
+class Search extends Component {
+  componentDidMount() {
+    scrollToTop();
+  }
+
+  render() {
+    return (
+      <div className="Search">
+        <SearchInterface />
+      </div>
+    );
+  }
+}
+
 
 export default Search;
