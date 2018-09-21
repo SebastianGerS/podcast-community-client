@@ -43,9 +43,16 @@ export const userRegistrationFailure = () => (
   { type: ActionTypes.USER_REGISTRATION_FAILUR }
 );
 
+export const gottSelf = user => ({
+  type: ActionTypes.GET_SELF_SUCCESS,
+  user,
+});
+
 export const login = token => Fetch('/login', 'POST', token);
 
 export const register = token => Fetch('/users', 'POST', token);
+
+export const getSelf = () => Fetch('/me', 'GET', {});
 
 export const atemptLogin = data => async (dispatch) => {
   dispatch(startUserLogin());
@@ -119,4 +126,18 @@ export const checkIfLogedIn = () => async (dispatch) => {
   } else if (Auth.logedout()) {
     dispatch(userLogedout());
   }
+};
+
+export const atemptGetSelf = () => async (dispatch) => {
+  const response = await getSelf();
+
+  if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ message: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
+
+  if (response.error) {
+    const message = response.message ? response.message : response.error.errmsg;
+
+    dispatch(atemptSetMessage({ message, type: 'warning' }));
+  }
+
+  if (response.user) dispatch(gottSelf(response.user));
 };
