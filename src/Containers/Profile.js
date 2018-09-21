@@ -10,7 +10,7 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    updateUser: data => dispatch(atemptUpdateUser(data)),
+    updateUser: (_id, body) => dispatch(atemptUpdateUser(_id, body)),
     getUser: id => dispatch(atemptGetUser(id)),
   };
 }
