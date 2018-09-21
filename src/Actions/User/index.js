@@ -29,7 +29,7 @@ export const getUserFailure = () => (
   { type: ActionTypes.GET_USER_FAILUR }
 );
 
-const updateUser = (id, body) => Fetch(`/users/${id}`, 'POST', body);
+const updateUser = body => Fetch('/users', 'PUT', body);
 
 const getUser = id => Fetch(`/users/${id}`, 'GET', {});
 
@@ -46,12 +46,14 @@ export const atemptGetUser = id => async (dispatch) => {
 
     dispatch(atemptSetMessage({ message: response.error.errmsg, type: 'info' }));
   }
+
   if (response.user) dispatch(gotUser(response.user));
 };
 
-export const atemptUpdateUser = ({ _id, body }) => async (dispatch) => {
+export const atemptUpdateUser = (_id, body) => async (dispatch) => {
   dispatch(startUpdateUser());
-  const response = await updateUser(_id, body).catch(error => error);
+
+  const response = await updateUser(body).catch(error => error);
   if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ message: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
 
   if (response.error) {
@@ -59,5 +61,10 @@ export const atemptUpdateUser = ({ _id, body }) => async (dispatch) => {
 
     dispatch(atemptSetMessage({ message: formatError(response.error.errmsg), type: 'info' }));
   }
-  if (response.user) dispatch(UserUpdated()); dispatch(atemptGetUser(_id));
+
+  if (response.info) {
+    dispatch(UserUpdated());
+    dispatch(atemptGetUser(_id));
+    dispatch(atemptSetMessage({ message: response.info, type: 'success' }));
+  }
 };
