@@ -36,7 +36,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0.5em 0;
-    p {
+    div,p {
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
@@ -44,6 +44,7 @@
       
       span {
         padding-right: 0.5em;
+        font-size: 14px;
       }
       span:last-child {
         word-break: break-word;
@@ -60,7 +61,6 @@
   }
   p {
     font-size: 14px;
-
   } 
   
 
