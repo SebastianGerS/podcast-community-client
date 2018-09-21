@@ -5,6 +5,7 @@ import Message from './MessageReducer';
 import Modal from './ModalReducer';
 import Player from './PlayerReducer';
 import User from './UserReducer';
+import Event from './EventReducer';
 
 export default combineReducers({
   Auth,
@@ -13,4 +14,5 @@ export default combineReducers({
   Modal,
   Player,
   User,
+  Event,
 });
