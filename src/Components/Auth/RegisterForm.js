@@ -112,11 +112,11 @@ class RegisterForm extends Component {
         </label>
         <label htmlFor="password">
         Password:
-          <input type="text" name="password" id="password" className={password.length < 8 ? 'invalid' : 'valid'} value={password} onChange={this.handleChange} />
+          <input type="password" name="password" id="password" className={password.length < 8 ? 'invalid' : 'valid'} value={password} onChange={this.handleChange} />
         </label>
         <label htmlFor="passwordConfirmation">
         Password Confirmation:
-          <input type="text" name="passwordConfirmation" id="passwordConfirmation" className={passwordConfirmation.length < 8 || passwordConfirmation !== password ? 'invalid' : 'valid'} value={passwordConfirmation} onChange={this.handleChange} />
+          <input type="password" name="passwordConfirmation" id="passwordConfirmation" className={passwordConfirmation.length < 8 || passwordConfirmation !== password ? 'invalid' : 'valid'} value={passwordConfirmation} onChange={this.handleChange} />
         </label>
         <button type="submit">Register</button>
       </form>
