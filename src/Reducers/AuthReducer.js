@@ -35,6 +35,10 @@ export default function (state = DEFAULT_STATE, action) {
       return { ...state, isRegistering: false, redirect: new Redirect({ to: '/' }) };
     case ActionTypes.USER_REGISTRATION_FAILUR:
       return { ...state, isRegistering: false };
+    case ActionTypes.GET_SELF_SUCCESS:
+      return {
+        ...state, user: new User(action.user),
+      };
     default:
       return { ...state };
   }
