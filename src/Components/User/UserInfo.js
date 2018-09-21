@@ -25,8 +25,8 @@ class UserInfo extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { info } = this.props;
-    if (nextProps.info.value !== info.value) {
+    const { value } = this.state;
+    if (nextProps.info.value !== value) {
       this.setState({
         value: nextProps.info.value,
       });
@@ -52,10 +52,13 @@ class UserInfo extends Component {
 
   updateValue() {
     const { name, value } = this.state;
-    const { updateUser, currentUserId } = this.props;
-    this.toggleInput();
+    const { updateUser, currentUserId, user } = this.props;
 
-    updateUser({ _id: currentUserId, body: { [name]: value } });
+    if (value !== user[name]) {
+      updateUser(currentUserId, { [name]: value });
+    }
+
+    this.toggleInput();
   }
 
   /* eslint-disable jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/no-autofocus,
@@ -70,12 +73,12 @@ class UserInfo extends Component {
         { !showInput && name !== 'bio'
           && (
             <div className="info">
-              <p onClick={this.toggleInput}>
+              <div onClick={this.toggleInput}>
                 <span>
                   {`${name.charAt(0).toUpperCase()}${name.substr(1, name.length - 1)}:`}
                 </span>
                 <span>{value}</span>
-              </p>
+              </div>
               { user._id === currentUserId
                 && <button className="edit" type="button" aria-label="edit" onClick={this.toggleInput} />
               }
@@ -87,12 +90,14 @@ class UserInfo extends Component {
         { showInput && name !== 'bio' && user._id === currentUserId
           && (
             <div className="info">
-              <p>
+              <div>
                 <span>
                   {`${name.charAt(0).toUpperCase()}${name.substr(1, name.length - 1)}:`}
                 </span>
-                <input onChange={this.onChange} value={value} onBlur={this.updateValue} onSubmit={this.updateValue} autoFocus="true" />
-              </p>
+                <form onSubmit={this.updateValue}>
+                  <input onChange={this.onChange} value={value} onBlur={this.updateValue} autoFocus="true" />
+                </form>
+              </div>
             </div>
           )
 
@@ -120,7 +125,9 @@ class UserInfo extends Component {
               <p>{`${name.charAt(0).toUpperCase()}${name.substr(1, name.length - 1)}:`}</p>
             </div>
             <div className="info">
-              <input value={value} onChange={this.onChange} onBlur={this.updateValue} autoFocus="true" />
+              <form onSubmit={this.updateValue}>
+                <input value={value} onChange={this.onChange} onBlur={this.updateValue} autoFocus="true" />
+              </form>
             </div>
           </div>
         )
