@@ -2,16 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 import List from '../../Helpers/List';
-import ListablePodcast from './ListablePodcast';
+import ListablePodcast from '../../Containers/ListablePodcast';
 import ListableEpisode from '../../Containers/ListableEpisode';
 import ListableUser from './ListableUser';
 import Loader from '../Layout/Loader';
 
 class SearchResults extends Component {
   shouldComponentUpdate(nextProps) {
-    const { results, isSearching } = this.props;
+    const { results, isSearching, isCreatingEvent } = this.props;
 
-    if (nextProps.results === results && nextProps.isSearching === isSearching) {
+    if (nextProps.results === results
+      && nextProps.isSearching === isSearching
+      && nextProps.isCreatingEvent === isCreatingEvent) {
       return false;
     }
 
@@ -47,6 +49,7 @@ SearchResults.propTypes = {
   type: PropTypes.string.isRequired,
   results: PropTypes.arrayOf(Immutable.Record).isRequired,
   isSearching: PropTypes.bool.isRequired,
+  isCreatingEvent: PropTypes.bool.isRequired,
 };
 
 export default SearchResults;
