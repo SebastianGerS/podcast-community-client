@@ -10,28 +10,39 @@ import MenuModal from '../Components/Layout/MenuModal';
 import MenuBar from '../Containers/MenuBar';
 import MessageInterface from '../Containers/MessageInterface';
 
-const SiteRoute = ({
-  component: Component, path, menuIsActive, loginModalIsActive, ...rest
-}) => (
-  <Route
-    path={path}
-    {...rest}
-    render={props => (
-      <div className="App">
-        <Header />
-        <SearchBar path={path} />
-        <div className="content">
-          <MessageInterface />
-          <Component {...props} />
-        </div>
-        <Footer />
-        { loginModalIsActive && <LoginModal /> }
-        <PlaybackInterface />
-        { menuIsActive ? <MenuModal /> : <MenuBar /> }
-      </div>
-    )}
-  />
-);
+class SiteRoute extends React.Component {
+  componentWillMount() {
+    const { checkIfLogedIn } = this.props;
+    checkIfLogedIn();
+  }
+
+  render() {
+    const {
+      component: Component, path, menuIsActive, loginModalIsActive, ...rest
+    } = this.props;
+
+    return (
+      <Route
+        path={path}
+        {...rest}
+        render={props => (
+          <div className="App">
+            <Header />
+            <SearchBar path={path} />
+            <div className="content">
+              <MessageInterface />
+              <Component {...props} />
+            </div>
+            <Footer />
+            { loginModalIsActive && <LoginModal /> }
+            <PlaybackInterface />
+            { menuIsActive ? <MenuModal /> : <MenuBar /> }
+          </div>
+        )}
+      />
+    );
+  }
+}
 
 
 SiteRoute.propTypes = {
@@ -39,6 +50,7 @@ SiteRoute.propTypes = {
   path: PropTypes.string.isRequired,
   menuIsActive: PropTypes.bool.isRequired,
   loginModalIsActive: PropTypes.bool.isRequired,
+  checkIfLogedIn: PropTypes.func.isRequired,
 };
 
 export default SiteRoute;
