@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import SiteRoute from '../Helpers/SiteRoute';
+import { checkIfLogedIn } from '../Actions/Auth';
 
 function mapStateToProps(state) {
   return {
@@ -8,4 +9,10 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(SiteRoute);
+function mapDispatchToProps(dispatch) {
+  return {
+    checkIfLogedIn: () => dispatch(checkIfLogedIn()),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SiteRoute);
