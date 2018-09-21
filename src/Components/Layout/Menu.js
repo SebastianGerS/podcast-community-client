@@ -27,7 +27,7 @@ const Menu = ({ closeMenu, userId }) => (
 
 Menu.propTypes = {
   closeMenu: PropTypes.func.isRequired,
-  userId: PropTypes.string.isRequired,
+  userId: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
 };
 
 export default Menu;
