@@ -14,7 +14,7 @@ class Profile extends Component {
   render() {
     const { user, currentUserId, updateUser } = this.props;
     const username = typeof user.username === 'string' ? user.username : '';
-    const age = typeof user.age === 'string' ? user.age : null;
+    const age = typeof user.age === 'number' ? user.age : null;
     const email = typeof user.email === 'string' ? user.email : '';
     const bio = typeof user.bio === 'string' ? user.bio : '';
 
