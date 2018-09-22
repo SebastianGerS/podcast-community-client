@@ -11,7 +11,7 @@
 .top {
   position: fixed;
   left: 0;
-  top: 115px;
+  top: 122.45px;
 }
 
 .medium {
@@ -23,7 +23,7 @@
 }
 
 .smal {
-  height: 55.8vh,
+  height: 53.9vh,
 }
 
 .background-black {
@@ -45,7 +45,7 @@
   }
 
   .smal {
-    height: 40.5vh,
+    height: 37vh,
   }
 }
 
@@ -59,7 +59,7 @@
     height: 49.6vh,
   }
   .smal {
-    height: 47.1vh,
+    height: 44.2vh,
   }
 }
 
@@ -83,7 +83,7 @@
     height: 60vh;
   }
   .smal {
-    height: 49.2vh,
+    height: 46.5vh,
   }
 }
 
@@ -96,7 +96,20 @@
     height: 41.7vh,
   }
   .smal {
-    height: 54vh,
+    height: 51.2vh,
+  }
+}
+
+@media only screen and (min-height: 411px) and (orientation: landscape) {
+
+  .medium {
+    height: 64vh;
+  }
+  .large {
+    height: 41.7vh,
+  }
+  .smal {
+    height: 51.5vh,
   }
 }
 
@@ -111,7 +124,7 @@
   }
 
   .smal {
-    height: 60.8vh,
+    height: 59.1vh,
   }
 }
 @media only screen and (min-height: 667px) {
@@ -124,7 +137,7 @@
     height: 72.7vh,
   }
   .smal {
-    height: 62.2vh,
+    height: 60.9vh,
   }
 }
 @media only screen and (min-height: 731px) {
@@ -138,48 +151,51 @@
     }
 
     .smal {
-      height: 65.9vh,
+      height: 64.5vh,
     }
 }
 
 @media only screen and (min-height: 812px) {
 
   .medium {
-    height: 78vh;
+    height: 76.5vh;
   }
   .large {
     height: 77.7vh,
   }
   .smal {
-    height: 69.6vh,
+    height: 68.2vh,
   }
 }
 
 @media only screen and (min-width: 768px) and (orientation: portrait) {
 
   .medium {
-    height: 76.4vh;
+    height: 76.7vh;
   }
   .top {
-    top: 171px;
+    top: 170.45px;
   }
   .large {
     height: 76.5vh,
+  }
+  .smal {
+    height: 69.9vh,
   }
 }
 @media only screen and (min-width: 1024px)  {
 
   .medium {
-    height: 64.5vh;
+    height: 68vh;
   }
   .top {
-    top: 217px;
+    top: 205.45px;
   }
   .large {
     height: 60.4vh,
   }
   .smal {
-    height: 59.3vh,
+    height: 62.9vh,
   }
 }
 
@@ -196,42 +212,42 @@
 @media only screen and (min-width: 1336px) and (orientation: landscape) and (min-height: 1024px) {
 
   .medium {
-    height: 73.5vh;
+    height: 76vh;
   }
   .top {
-    top: 217px;
+    top: 205.45px;
   } 
   .large {
     height: 70.2vh,
   }
   .smal {
-    height: 69.3vh,
+    height: 72.3vh,
   }
 }
 
 @media only screen and (min-width: 1024px) and (min-height: 1336px) {
 
   .medium {
-    height: 84vh;
+    height: 80vh;
   }
   .top {
-    top: 217px;
+    top: 205.45px;
   }
   .large {
     height: 77.6vh,
   }
   .smal {
-    height: 72.7vh,
+    height: 74.8vh,
   }
 }
 
 @media only screen and (min-width: 1400px) {
 
   .medium {
-    height: 69.5vh;
+    height: 72.4vh;
   }
   .top {
-    top: 217px;
+    top: 205.45px;
   }
   .large {
     height: 66vh,
@@ -245,7 +261,7 @@
 
 
   .top {
-    top: 257px;
+    top: 245px;
   }
 
   .medium {
