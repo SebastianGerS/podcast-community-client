@@ -38,20 +38,12 @@ class RegisterForm extends Component {
       atemptSetMessage({ message: 'please select a username', type: 'warning' });
       return false;
     }
-    if (email === '') {
-      atemptSetMessage({ message: 'please select email address', type: 'warning' });
-      return false;
-    }
     if (!email.includes('@')) {
       atemptSetMessage({ message: 'please enter a valid email address', type: 'warning' });
       return false;
     }
     if (password !== passwordConfirmation) {
       atemptSetMessage({ message: 'Passwordconfirmation does not match', type: 'warning' });
-      return false;
-    }
-    if (password === '') {
-      atemptSetMessage({ message: 'please select a password', type: 'warning' });
       return false;
     }
     if (password.length < 8) {
@@ -101,7 +93,7 @@ class RegisterForm extends Component {
         </label>
         <label htmlFor="email">
         Email:
-          <input type="text" name="email" id="email" className={email === '' || !email.includes('@') ? 'invalid' : 'valid'} value={email} onChange={this.handleChange} />
+          <input type="text" name="email" id="email" className={!email.includes('@') ? 'invalid' : 'valid'} value={email} onChange={this.handleChange} />
         </label>
         <label htmlFor="type">
         Account Type:
