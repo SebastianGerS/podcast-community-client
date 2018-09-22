@@ -11,6 +11,7 @@ class LoginForm extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.login = this.login.bind(this);
+    this.validateUserData = this.validateUserData.bind(this);
   }
 
   handleChange(e) {
@@ -25,8 +26,25 @@ class LoginForm extends Component {
     e.preventDefault();
     const { atemptLogin } = this.props;
     const { email, password } = this.state;
-    atemptLogin({ email, password });
     scrollToTop();
+    if (this.validateUserData) {
+      atemptLogin({ email, password });
+    }
+  }
+
+  validateUserData() {
+    const { password, email } = this.state;
+    const { atemptSetMessage } = this.props;
+    if (!email.includes('@')) {
+      atemptSetMessage({ message: 'please enter a valid email address', type: 'warning' });
+      return false;
+    }
+    if (password.length < 8) {
+      atemptSetMessage({ message: 'passwords must be atleast 8 characters long', type: 'warning' });
+      return false;
+    }
+
+    return true;
   }
 
   render() {
@@ -35,12 +53,12 @@ class LoginForm extends Component {
       <form className="login-form" onSubmit={this.login}>
         <label htmlFor="email">
         Email:
-          <input type="text" name="email" id="email" value={email} onChange={this.handleChange} />
+          <input type="text" name="email" id="email" className={!email.includes('@') ? 'invalid' : 'valid'} value={email} onChange={this.handleChange} />
         </label>
 
         <label htmlFor="password">
         Password:
-          <input type="password" name="password" id="password" value={password} onChange={this.handleChange} />
+          <input type="password" name="password" id="password" className={password.length < 8 ? 'invalid' : 'valid'} value={password} onChange={this.handleChange} />
         </label>
 
         <button type="submit">Login</button>
@@ -50,5 +68,6 @@ class LoginForm extends Component {
 }
 LoginForm.propTypes = {
   atemptLogin: PropTypes.func.isRequired,
+  atemptSetMessage: PropTypes.func.isRequired,
 };
 export default LoginForm;
