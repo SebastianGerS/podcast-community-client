@@ -7,13 +7,13 @@ class TopPodcasts extends Component {
     super(props);
     this.state = {
       data: [
-        { podcast: 'Sean Carroll\'s MindScape', lastestEpisodeDate: '16/8/18', logo: 'https://www.preposterousuniverse.com/wp-content/uploads/mindscape-med.png' },
-        { podcast: 'Sean Carroll\'s MindScape', lastestEpisodeDate: '16/8/18', logo: 'https://www.preposterousuniverse.com/wp-content/uploads/mindscape-med.png' },
-        { podcast: 'Sean Carroll\'s MindScape', lastestEpisodeDate: '16/8/18', logo: 'https://www.preposterousuniverse.com/wp-content/uploads/mindscape-med.png' },
-        { podcast: 'Sean Carroll\'s MindScape', lastestEpisodeDate: '16/8/18', logo: 'https://www.preposterousuniverse.com/wp-content/uploads/mindscape-med.png' },
-        { podcast: 'Sean Carroll\'s MindScape', lastestEpisodeDate: '16/8/18', logo: 'https://www.preposterousuniverse.com/wp-content/uploads/mindscape-med.png' },
-        { podcast: 'Sean Carroll\'s MindScape', lastestEpisodeDate: '16/8/18', logo: 'https://www.preposterousuniverse.com/wp-content/uploads/mindscape-med.png' },
-        { podcast: 'Sean Carroll\'s MindScape', lastestEpisodeDate: '16/8/18', logo: 'https://www.preposterousuniverse.com/wp-content/uploads/mindscape-med.png' },
+        { title: 'Sean Carroll\'s MindScape', lastest_pub_date_ms: 1536369452000, image: 'https://www.preposterousuniverse.com/wp-content/uploads/mindscape-med.png' },
+        { title: 'Sean Carroll\'s MindScape', lastest_pub_date_ms: 1536369452000, image: 'https://www.preposterousuniverse.com/wp-content/uploads/mindscape-med.png' },
+        { title: 'Sean Carroll\'s MindScape', lastest_pub_date_ms: 1536369452000, image: 'https://www.preposterousuniverse.com/wp-content/uploads/mindscape-med.png' },
+        { title: 'Sean Carroll\'s MindScape', lastest_pub_date_ms: 1536369452000, image: 'https://www.preposterousuniverse.com/wp-content/uploads/mindscape-med.png' },
+        { title: 'Sean Carroll\'s MindScape', lastest_pub_date_ms: 1536369452000, image: 'https://www.preposterousuniverse.com/wp-content/uploads/mindscape-med.png' },
+        { title: 'Sean Carroll\'s MindScape', lastest_pub_date_ms: 1536369452000, image: 'https://www.preposterousuniverse.com/wp-content/uploads/mindscape-med.png' },
+        { title: 'Sean Carroll\'s MindScape', lastest_pub_date_ms: 1536369452000, image: 'https://www.preposterousuniverse.com/wp-content/uploads/mindscape-med.png' },
       ],
 
     };
