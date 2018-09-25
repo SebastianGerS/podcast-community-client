@@ -24,6 +24,15 @@ const Router = () => (
         path="/profile/:userId"
         component={Views.Profile}
       />
+      <AuthSiteRoute
+        exact
+        path="/my-subscriptions"
+        component={Views.MySubscriptions}
+      />
+      <AuthSiteRoute
+        path="/my-subscriptions/categories/:categoryId"
+        component={Views.Category}
+      />
     </Switch>
   </BrowserRouter>
 );
