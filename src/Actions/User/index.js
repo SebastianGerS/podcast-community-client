@@ -1,6 +1,7 @@
 import ActionTypes from './types';
 import { Fetch, formatError } from '../../Helpers/Fetch';
 import { atemptSetMessage } from '../Message';
+import { atemptGetSelf } from '../Auth';
 
 export const startUpdateUser = () => (
   { type: ActionTypes.UPDATE_USER_START }
@@ -29,9 +30,61 @@ export const getUserFailure = () => (
   { type: ActionTypes.GET_USER_FAILUR }
 );
 
+export const startGetSubscriptions = () => ({
+  type: ActionTypes.GET_SUBSCRIPTIONS_START,
+
+});
+export const gotSubscriptions = ({ subscriptions, categories }) => ({
+  type: ActionTypes.GET_SUBSCRIPTIONS_SUCCESS,
+  subscriptions,
+  categories,
+});
+export const getSubscriptionsFailure = () => ({
+  type: ActionTypes.GET_SUBSCRIPTIONS_FAILUR,
+
+});
+export const startCreateCategory = () => ({
+  type: ActionTypes.CREATE_CATEGORY_START,
+});
+export const catagoryCreated = () => ({
+  type: ActionTypes.CREATE_CATEGORY_SUCCESS,
+});
+export const createCategoryFailure = () => ({
+  type: ActionTypes.CREATE_CATEGORY_FAILUR,
+
+});
+export const startUpdateCategory = () => ({
+  type: ActionTypes.UPDATE_CATEGORY_START,
+});
+export const catagoryUpdated = () => ({
+  type: ActionTypes.UPDATE_CATEGORY_SUCCESS,
+});
+export const updateCategoryFailure = () => ({
+  type: ActionTypes.UPDATE_CATEGORY_FAILUR,
+
+});
+export const startDeleteCategory = () => ({
+  type: ActionTypes.DELETE_CATEGORY_START,
+});
+export const catagoryDeleted = () => ({
+  type: ActionTypes.DELETE_CATEGORY_SUCCESS,
+});
+export const deleteCategoryFailure = () => ({
+  type: ActionTypes.DELETE_CATEGORY_FAILUR,
+
+});
+
 const updateUser = body => Fetch('/users', 'PUT', body);
 
-const getUser = id => Fetch(`/users/${id}`, 'GET', {});
+const getUser = userId => Fetch(`/users/${userId}`, 'GET', {});
+
+const getSubscriptions = userId => Fetch(`/users/${userId}/subscriptions`, 'GET', {});
+
+const createCategory = body => Fetch('/categories', 'POST', body);
+
+const updateCategory = (id, body) => Fetch(`/categories/${id}`, 'PUT', body);
+
+const deleteCategory = id => Fetch(`/categories/${id}`, 'DELETE', {});
 
 
 export const atemptGetUser = id => async (dispatch) => {
@@ -66,5 +119,76 @@ export const atemptUpdateUser = (_id, body) => async (dispatch) => {
     dispatch(UserUpdated());
     dispatch(atemptGetUser(_id));
     dispatch(atemptSetMessage({ message: response.info, type: 'success' }));
+  }
+};
+
+export const atemptGetSubscriptions = userId => async (dispatch) => {
+  dispatch(startGetSubscriptions());
+
+  const response = await getSubscriptions(userId);
+  console.log(response);
+
+  if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ message: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
+
+  if (response.error) {
+    dispatch(getSubscriptionsFailure());
+
+    dispatch(atemptSetMessage({ message: formatError(response.error.errmsg), type: 'info' }));
+  }
+  if (response.subscriptions) {
+    dispatch(gotSubscriptions(response));
+    dispatch(atemptGetSelf());
+  }
+};
+
+export const atemptCreateCategory = ({ name, userId }) => async (dispatch) => {
+  dispatch(startCreateCategory());
+  const response = await createCategory({ name }).catch(error => error);
+
+  if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ message: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
+
+  if (response.error) {
+    dispatch(createCategoryFailure());
+
+    dispatch(atemptSetMessage({ message: formatError(response.error.errmsg), type: 'info' }));
+  }
+  if (response.category) {
+    dispatch(catagoryCreated());
+
+    dispatch(atemptGetSubscriptions(userId));
+  }
+};
+
+export const atemptUpdateCategory = ({ userId, categoryId, body }) => async (dispatch) => {
+  dispatch(startUpdateCategory());
+  const response = await updateCategory(categoryId, body).catch(error => error);
+
+  if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ message: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
+
+  if (response.error) {
+    dispatch(updateCategoryFailure());
+
+    dispatch(atemptSetMessage({ message: formatError(response.error.errmsg), type: 'info' }));
+  }
+  if (response.category) {
+    dispatch(catagoryUpdated());
+    dispatch(atemptGetSubscriptions(userId));
+  }
+};
+
+export const atemptDeleteCategory = (userId, categoryId) => async (dispatch) => {
+  dispatch(startDeleteCategory());
+  const response = await deleteCategory(categoryId).catch(error => error);
+
+  if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ message: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
+
+  if (response.error) {
+    dispatch(deleteCategoryFailure());
+
+    dispatch(atemptSetMessage({ message: formatError(response.error.errmsg), type: 'info' }));
+  }
+  if (response.category) {
+    dispatch(catagoryDeleted());
+    dispatch(atemptGetSubscriptions(userId));
   }
 };
