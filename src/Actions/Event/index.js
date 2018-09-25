@@ -2,6 +2,7 @@ import ActionTypes from './types';
 import { Fetch } from '../../Helpers/Fetch';
 import { atemptSetMessage } from '../Message';
 import { atemptGetSelf } from '../Auth';
+import { atemptGetSubscriptions } from '../User';
 
 
 const startToggleSubscribtion = () => ({
@@ -18,7 +19,7 @@ const toggleSubscribtionFailure = () => ({
 
 const createEvent = body => Fetch('/events', 'POST', body);
 /* eslint-disable import/prefer-default-export */
-export const atemptToggleSubscribtion = podcastId => async (dispatch) => {
+export const atemptToggleSubscribtion = (userId, podcastId) => async (dispatch) => {
   dispatch(startToggleSubscribtion());
 
   const event = {
@@ -41,5 +42,6 @@ export const atemptToggleSubscribtion = podcastId => async (dispatch) => {
     dispatch(atemptGetSelf());
     dispatch(atemptSetMessage({ message: `Sucessfully ${response.event.type}d`, type: 'success' }));
     dispatch(subscribtionToggled());
+    dispatch(atemptGetSubscriptions(userId));
   }
 };
