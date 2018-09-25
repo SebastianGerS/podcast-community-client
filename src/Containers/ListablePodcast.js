@@ -5,14 +5,15 @@ import { atemptToggleSubscribtion } from '../Actions/Event';
 function mapStateToProps(state) {
   return {
     isToggelingSubscription: state.Event.isToggelingSubscription,
-    subscriptions: state.Auth.user.subscriptions,
+    user: state.Auth.user,
     isLogedIn: state.Auth.isLogedIn,
   };
 }
 function mapDispatchToProps(dispatch) {
   return {
-    atemptToggleSubsription: podcastId => dispatch(atemptToggleSubscribtion(podcastId)),
-
+    atemptToggleSubsription: (userId, podcastId) => dispatch(
+      atemptToggleSubscribtion(userId, podcastId),
+    ),
   };
 }
 
