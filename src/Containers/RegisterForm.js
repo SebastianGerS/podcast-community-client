@@ -11,7 +11,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     atemptRegister: user => dispatch(atemptRegister(user)),
-    atemptSetMessage: user => dispatch(atemptSetMessage(user)),
+    atemptSetMessage: message => dispatch(atemptSetMessage(message)),
   };
 }
 
