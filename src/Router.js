@@ -33,6 +33,10 @@ const Router = () => (
         path="/my-subscriptions/categories/:categoryId"
         component={Views.Category}
       />
+      <AuthSiteRoute
+        path="/settings"
+        component={Views.Settings}
+      />
     </Switch>
   </BrowserRouter>
 );
