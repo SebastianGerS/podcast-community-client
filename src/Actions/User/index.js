@@ -126,7 +126,6 @@ export const atemptGetSubscriptions = userId => async (dispatch) => {
   dispatch(startGetSubscriptions());
 
   const response = await getSubscriptions(userId);
-  console.log(response);
 
   if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ message: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
 
