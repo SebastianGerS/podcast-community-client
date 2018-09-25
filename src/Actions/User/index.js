@@ -105,7 +105,6 @@ export const atemptGetUser = id => async (dispatch) => {
 
 export const atemptUpdateUser = (_id, body) => async (dispatch) => {
   dispatch(startUpdateUser());
-
   const response = await updateUser(body).catch(error => error);
   if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ message: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
 
@@ -118,6 +117,7 @@ export const atemptUpdateUser = (_id, body) => async (dispatch) => {
   if (response.info) {
     dispatch(UserUpdated());
     dispatch(atemptGetUser(_id));
+    dispatch(atemptGetSelf());
     dispatch(atemptSetMessage({ message: response.info, type: 'success' }));
   }
 };
