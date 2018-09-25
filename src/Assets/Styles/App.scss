@@ -34,12 +34,15 @@ input, select {
 
 
     &.invalid {
-        background-image: url(../Icons/remove.svg);
+        background-image: url(../Icons/remove-red.svg);
       }
       
     &.valid {
        background-image: url(../Icons/checkmark.svg);
     }
+}
+li.active, button.active {
+    text-decoration: underline;
 }
 
 select {
