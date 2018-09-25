@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import UserSettings from '../Components/Settings/UserSettings';
+import UserSettings from '../Containers/UserSettings';
 import { scrollToTop } from '../Helpers/UserAgent';
 
 class Settings extends Component {
