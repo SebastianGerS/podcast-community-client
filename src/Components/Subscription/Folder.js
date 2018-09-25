@@ -48,7 +48,7 @@ class Folder extends Component {
       <div className="folder">
         <button type="button" className="remove" onClick={this.removeCategory} aria-label="remove" />
         {isCreating
-          ? <form onSubmit={this.addCategory}><input value={name} onChange={this.onChange} /></form>
+          ? <form onSubmit={this.addCategory}><input value={name} onChange={this.onChange} placeholder="Category Name" /></form>
           : (
             <Link to={`/my-subscriptions/categories/${data._id}`}>
               <div className="podcasts">

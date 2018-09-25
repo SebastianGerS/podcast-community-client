@@ -29,11 +29,11 @@ class Categories extends Component {
       <div className="categories">
         {!isCreating
           && <button type="button" onClick={this.toggleNewCategory} className="add-button">Add Category</button>}
+        {isCreating
+          && <Folder isCreating={isCreating} toggleNewCategory={this.toggleNewCategory} />}
         { typeof categories[0].name === 'string'
           ? <List component={Folder} data={categories} />
           : null}
-        {isCreating
-          && <Folder isCreating={isCreating} toggleNewCategory={this.toggleNewCategory} />}
       </div>
     );
   }
