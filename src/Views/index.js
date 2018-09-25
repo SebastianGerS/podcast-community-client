@@ -4,6 +4,7 @@ import Register from './Register';
 import Profile from './Profile';
 import MySubscriptions from './MySubscriptions';
 import Category from './Category';
+import Settings from './Settings';
 
 export default {
   Home,
@@ -12,4 +13,5 @@ export default {
   Profile,
   MySubscriptions,
   Category,
+  Settings,
 };
