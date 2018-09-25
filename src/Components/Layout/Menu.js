@@ -12,7 +12,7 @@ const Menu = ({ closeMenu, userId }) => (
         <AdminSiteLink to="/" title="Handle Users" />
         <AdminSiteLink to="/" title="Send Email" />
         <AuthSiteLink to={`/profile/${userId}`} title="Profile" />
-        <AuthSiteLink to="/" title="Subscribtions" />
+        <AuthSiteLink to="/my-subscriptions" title="Subscriptions" />
       </div>
       <div>
         <AuthSiteLink to="/" title="Feed" />
