@@ -18,7 +18,7 @@ const Menu = ({ closeMenu, userId }) => (
         <AuthSiteLink to="/" title="Feed" />
         <AuthSiteLink to="/" title="ListenList" />
         <AuthSiteLink to="/" title="Follows" />
-        <AuthSiteLink to="/" title="Settings" />
+        <AuthSiteLink to="/settings" title="Settings" />
         <LogoutButton />
       </div>
     </ul>
