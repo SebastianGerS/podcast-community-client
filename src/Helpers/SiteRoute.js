@@ -16,6 +16,11 @@ class SiteRoute extends React.Component {
     checkIfLogedIn();
   }
 
+  componentDidUpdate() {
+    const { checkIfLogedIn } = this.props;
+    checkIfLogedIn();
+  }
+
   render() {
     const {
       component: Component, path, menuIsActive, loginModalIsActive, ...rest
