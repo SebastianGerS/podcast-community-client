@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Podcast from '../../Models/Podcast';
 import Star from '../../Assets/Icons/star.svg';
 import { getDatefromMilisecond } from '../../Helpers/Time';
+import User from '../../Models/User';
 
 class ListablePodcast extends Component {
   constructor(props) {
@@ -15,45 +16,51 @@ class ListablePodcast extends Component {
   }
 
   toggleSubscription() {
-    const { data, atemptToggleSubsription, isLogedIn } = this.props;
+    const {
+      data, atemptToggleSubsription, isLogedIn, user,
+    } = this.props;
     if (isLogedIn) {
       this.setState({
         subscribing: true,
       });
-      atemptToggleSubsription(data.id);
+      atemptToggleSubsription(user._id, data.id);
     }
   }
 
   render() {
     const {
-      data, isToggelingSubscription, subscriptions, isLogedIn,
+      data, isToggelingSubscription, user, isLogedIn,
     } = this.props;
 
     const { subscribing } = this.state;
+    const title = typeof data.title === 'string' ? data.title : data.title_original;
+    const publisher = typeof data.publisher === 'string' ? data.publisher : data.publisher_original;
+    const description = typeof data.description === 'string' ? data.description : data.description_original;
 
     let subscribeText = 'Subscribe';
     if (isLogedIn) {
       if (isToggelingSubscription && subscribing) {
         subscribeText = '';
       } else {
-        subscribeText = subscriptions.includes(data.id) ? 'Unsubscribe' : 'Subscribe';
+        subscribeText = user.subscriptions.includes(data.id) ? 'Unsubscribe' : 'Subscribe';
       }
     }
+
     return (
       <div className="listable-podcast-searchresult">
-        <h3>{data.title_original.length > 35 ? `${data.title_original.substring(0, 31)}...` : data.title_original}</h3>
+        <h3>{title.length > 35 ? `${title.substring(0, 31)}...` : title}</h3>
         <div>
           <figure>
             <img src={data.thumbnail} alt="podcastlogo" />
           </figure>
           <p>
-            <span>{`By ${data.publisher_original.length > 27 ? `${data.publisher_original.substring(0, 23)}...` : data.publisher_original}`}</span>
+            <span>{`By ${publisher.length > 27 ? `${publisher.substring(0, 23)}...` : publisher}`}</span>
             <span>{ `Last updated ${getDatefromMilisecond(data.lastest_pub_date_ms)}`}</span>
           </p>
         </div>
         <div>
           <p>
-            {data.description_original.length > 150 ? `${data.description_original.substring(0, 147)}...` : data.description_original}
+            {description.length > 150 ? `${description.substring(0, 147)}...` : description}
           </p>
         </div>
         <div>
@@ -79,7 +86,7 @@ ListablePodcast.propTypes = {
   data: PropTypes.shape(Podcast).isRequired,
   atemptToggleSubsription: PropTypes.func.isRequired,
   isToggelingSubscription: PropTypes.bool.isRequired,
-  subscriptions: PropTypes.arrayOf(PropTypes.string).isRequired,
+  user: PropTypes.shape(User).isRequired,
   isLogedIn: PropTypes.bool.isRequired,
 };
 
