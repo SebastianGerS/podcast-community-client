@@ -21,6 +21,8 @@ export default function (state = DEFAULT_STATE, action) {
       };
     case ActionTypes.USER_LOGIN_FAILUR:
       return { ...state, isLoginIn: false };
+    case ActionTypes.IS_LOGED_IN:
+      return { ...state, isLogedIn: true, user: typeof state.user.id !== 'string' ? new User(action.user) : state.user };
     case ActionTypes.USER_LOGOUT_START:
       return { ...state, isLogingOut: true };
     case ActionTypes.USER_LOGOUT_SUCCESS:
