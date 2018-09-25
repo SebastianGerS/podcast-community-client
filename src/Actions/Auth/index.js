@@ -48,6 +48,11 @@ export const gottSelf = user => ({
   user,
 });
 
+export const isLogedIn = user => ({
+  type: ActionTypes.IS_LOGED_IN,
+  user,
+});
+
 export const login = token => Fetch('/login', 'POST', token);
 
 export const register = token => Fetch('/users', 'POST', token);
@@ -122,7 +127,7 @@ export const checkIfLogedIn = () => async (dispatch) => {
 
   const decoded = await Auth.verifytoken(token).catch(error => error);
   if (decoded.user) {
-    dispatch(userLogedin(decoded.user));
+    dispatch(isLogedIn(decoded.user));
   } else if (Auth.logedout()) {
     dispatch(userLogedout());
   }
@@ -131,13 +136,15 @@ export const checkIfLogedIn = () => async (dispatch) => {
 export const atemptGetSelf = () => async (dispatch) => {
   const response = await getSelf();
 
-  if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ message: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
+  if (response.message === 'Failed to fetch') {
+    dispatch(atemptSetMessage({ message: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
+  }
+
 
   if (response.error) {
     const message = response.message ? response.message : response.error.errmsg;
 
     dispatch(atemptSetMessage({ message, type: 'warning' }));
   }
-
   if (response.user) dispatch(gottSelf(response.user));
 };
