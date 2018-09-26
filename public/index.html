@@ -41,7 +41,7 @@
 
 
     .loader.fade {
-      animation: fade 2s 1 linear forwards;
+      animation: fade 500ms 1 linear forwards;
     }
 
 
@@ -82,13 +82,16 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
     <script>
-      if('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
+       window.addEventListener('load', () => {
           var loader =  document.querySelector('.loader')
       
           loader.classList.add('fade');
         
-           setTimeout(() => {loader.remove()}, 2000)
+           setTimeout(() => {loader.remove()}, 500)
+       });
+
+      if('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
           
           navigator.serviceWorker.register('./service-worker-custom.js')
           .then(registration => {
