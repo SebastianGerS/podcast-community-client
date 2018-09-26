@@ -15,10 +15,12 @@ class ListableEpisode extends Component {
 
   toggleEpisode() {
     const {
-      setAudio, stop, data, episode,
+      setAudio, stop, data, episode, isPlaying,
     } = this.props;
     stop();
     if (episode.id !== data.id) {
+      setAudio(data);
+    } else if (!isPlaying) {
       setAudio(data);
     }
   }
