@@ -6,11 +6,30 @@ import { formatTime } from '../../Helpers/Time';
 class ProgressBar extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      isDraging: false,
+      dragPosition: 0,
+    };
     this.handleDrag = this.handleDrag.bind(this);
+    this.handleDragEnd = this.handleDragEnd.bind(this);
+    this.handleTouchEnd = this.handleTouchEnd.bind(this);
     this.handleTouch = this.handleTouch.bind(this);
   }
 
-  handleDrag(e) {
+  shouldComponentUpdate(nextProps) {
+    const { pos } = this.props;
+    const { isDraging } = this.state;
+
+    if (pos !== nextProps.pos && isDraging) {
+      this.setState({
+        isDraging: false,
+      });
+    }
+
+    return true;
+  }
+
+  handleDragEnd(e) {
     const { getDuration, seek } = this.props;
     const duration = getDuration();
 
@@ -19,7 +38,26 @@ class ProgressBar extends Component {
     seek(newPosition);
   }
 
-  handleTouch(e) {
+  handleDrag(e) {
+    const { getDuration } = this.props;
+    const { isDraging } = this.state;
+
+    if (!isDraging) {
+      this.setState({
+        isDraging: true,
+      });
+    }
+
+    const duration = getDuration();
+
+    const newPosition = ((e.clientX - getStartingPoint()) * getSecondsPerPixel(duration));
+
+    this.setState({
+      dragPosition: newPosition,
+    });
+  }
+
+  handleTouchEnd(e) {
     const { getDuration, seek } = this.props;
     const duration = getDuration();
     const { clientX } = e.changedTouches[0];
@@ -28,10 +66,34 @@ class ProgressBar extends Component {
     seek(newPosition);
   }
 
+  handleTouch(e) {
+    const { getDuration } = this.props;
+    const { isDraging } = this.state;
+    if (!isDraging) {
+      this.setState({
+        isDraging: true,
+      });
+    }
+    const duration = getDuration();
+    const { clientX } = e.changedTouches[0];
+    const newPosition = ((clientX - getStartingPoint()) * getSecondsPerPixel(duration));
+
+    this.setState({
+      dragPosition: newPosition,
+    });
+  }
+
   render() {
     const { getDuration, pos } = this.props;
-    const duration = getDuration();
-    const precent = pos && duration ? (pos / duration) * 100 : 0;
+    const { isDraging, dragPosition } = this.state;
+    const duration = typeof getDuration() === 'number' ? getDuration() : 0;
+    let precent;
+    if (isDraging) {
+      precent = dragPosition && duration ? (dragPosition / duration) * 100 : 0;
+    } else {
+      precent = pos && duration ? (pos / duration) * 100 : 0;
+    }
+
 
     const style = {
       width: `${precent > 100 ? 100 : precent}%`,
@@ -41,14 +103,14 @@ class ProgressBar extends Component {
     return (
       <div className="progress-bar">
         <div className="info">
-          <p>{formatTime(pos)}</p>
-          <p>{`- ${formatTime(duration - pos)}`}</p>
+          <p>{typeof pos === 'number' ? formatTime(pos) : formatTime(0)}</p>
+          <p>{`- ${typeof pos === 'number' ? formatTime(duration - pos) : formatTime(0)}`}</p>
         </div>
         <div className="bar">
           <div className="start" />
           <div className="line">
-            <div className="progress" style={style} onDragEnd={e => this.handleDrag(e)}>
-              <div draggable className="marker" onDragEnd={this.handleDrag} onTouchEnd={this.handleTouch} />
+            <div className="progress" style={style} onDragEnd={e => this.handleDragEnd(e)}>
+              <div draggable className="marker" onDragEnd={this.handleDragEnd} onTouchEnd={this.handleTouchEnd} onDrag={this.handleDrag} onTouchMove={this.handleTouch} />
             </div>
           </div>
           <div className="end" style={precent >= 100 ? { backgroundColor: '#FEF6F6' } : {}} />
