@@ -5,6 +5,7 @@ import PlaybackModal from './PlaybackModal';
 import PlaybackBar from './PlaybackBar';
 import Episode from '../../Models/Episode';
 import ErrorBoundray from '../../Containers/ErrorBoundray';
+import { savePosInLocalStorage, checkifInPosList, getEpisodePosFromList } from '../../Helpers/Downloads';
 
 class PlaybackInterface extends Component {
   constructor(props) {
@@ -28,13 +29,25 @@ class PlaybackInterface extends Component {
 
   shouldComponentUpdate(nextProps) {
     const { timer } = this.state;
+    const { episode, src } = this.props;
     if (nextProps.startEpisode && typeof nextProps.episode.id === 'string') {
       setTimeout(this.togglePlay, 200);
     } else if (!nextProps.isPlaying && timer) {
       this.stopTimer();
     }
 
+    if (nextProps.src !== src && typeof episode.id === 'string' && this.getSeek() !== 0) {
+      savePosInLocalStorage({ id: episode.id, pos: this.getSeek() });
+    }
+    if (nextProps.src !== src && checkifInPosList(nextProps.episode.id)) {
+      setTimeout(() => this.setSeek(getEpisodePosFromList(nextProps.episode.id)), 250);
+    }
     return true;
+  }
+
+  componentWillUnmount() {
+    const { episode } = this.props;
+    savePosInLocalStorage({ id: episode.id, pos: this.getSeek() });
   }
 
   getSeek() {
@@ -53,7 +66,6 @@ class PlaybackInterface extends Component {
 
   getDuration() {
     if (this.player) {
-      // window.alert(this.player.duration());
       return this.player.duration();
     }
 
