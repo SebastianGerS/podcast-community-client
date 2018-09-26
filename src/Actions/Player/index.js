@@ -45,8 +45,13 @@ export const download = episode => (dispatch) => {
     await fetch(path)
       .then(async (res) => {
         cache.put(path, res.clone());
-        const blob = await res.blob();
-        saveAs(blob, `${episode.title_original}.mp3`);
+        if (!navigator.userAgent.includes('Mobi')) {
+          const blob = await res.blob();
+          blob.lastModifiedDate = new Date();
+          blob.name = path;
+          saveAs(blob, `${episode.title_original}.mp3`);
+        }
+
         saveToListOfDownloads(episode.id);
         dispatch(downloaded());
       }).catch(() => {
