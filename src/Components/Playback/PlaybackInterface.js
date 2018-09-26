@@ -26,13 +26,15 @@ class PlaybackInterface extends Component {
     this.updatePosition = this.updatePosition.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
+  shouldComponentUpdate(nextProps) {
     const { timer } = this.state;
     if (nextProps.startEpisode && typeof nextProps.episode.id === 'string') {
       setTimeout(this.togglePlay, 200);
     } else if (!nextProps.isPlaying && timer) {
       this.stopTimer();
     }
+
+    return true;
   }
 
   getSeek() {
@@ -51,6 +53,7 @@ class PlaybackInterface extends Component {
 
   getDuration() {
     if (this.player) {
+      // window.alert(this.player.duration());
       return this.player.duration();
     }
 
