@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getStartingPoint, getSecondsPerPixel } from '../../Helpers/UserAgent';
-import { formatTime, getMillisecondsFromTimeString } from '../../Helpers/Time';
+import { formatTime, getSecondsFromTimeString } from '../../Helpers/Time';
 import Episode from '../../Models/Episode';
 
 class ProgressBar extends Component {
@@ -32,7 +32,7 @@ class ProgressBar extends Component {
 
   handleDragEnd(e) {
     const { getDuration, seek, episode } = this.props;
-    const duration = typeof getDuration() === 'number' ? getDuration() : getMillisecondsFromTimeString(episode.audio_length);
+    const duration = typeof getDuration() === 'number' ? getDuration() : getSecondsFromTimeString(episode.audio_length);
 
     const newPosition = ((e.clientX - getStartingPoint()) * getSecondsPerPixel(duration));
 
@@ -49,7 +49,7 @@ class ProgressBar extends Component {
       });
     }
 
-    const duration = typeof getDuration() === 'number' ? getDuration() : getMillisecondsFromTimeString(episode.audio_length);
+    const duration = typeof getDuration() === 'number' ? getDuration() : getSecondsFromTimeString(episode.audio_length);
 
     const newPosition = ((e.clientX - getStartingPoint()) * getSecondsPerPixel(duration));
 
@@ -60,7 +60,7 @@ class ProgressBar extends Component {
 
   handleTouchEnd(e) {
     const { getDuration, seek, episode } = this.props;
-    const duration = typeof getDuration() === 'number' ? getDuration() : getMillisecondsFromTimeString(episode.audio_length);
+    const duration = typeof getDuration() === 'number' ? getDuration() : getSecondsFromTimeString(episode.audio_length);
     const { clientX } = e.changedTouches[0];
     const newPosition = ((clientX - getStartingPoint()) * getSecondsPerPixel(duration));
 
@@ -75,7 +75,7 @@ class ProgressBar extends Component {
         isDraging: true,
       });
     }
-    const duration = typeof getDuration() === 'number' ? getDuration() : getMillisecondsFromTimeString(episode.audio_length);
+    const duration = typeof getDuration() === 'number' ? getDuration() : getSecondsFromTimeString(episode.audio_length);
     const { clientX } = e.changedTouches[0];
     const newPosition = ((clientX - getStartingPoint()) * getSecondsPerPixel(duration));
 
@@ -87,7 +87,7 @@ class ProgressBar extends Component {
   render() {
     const { getDuration, pos, episode } = this.props;
     const { isDraging, dragPosition } = this.state;
-    const duration = typeof getDuration() === 'number' ? getDuration() : getMillisecondsFromTimeString(episode.audio_length);
+    const duration = typeof getDuration() === 'number' ? getDuration() : getSecondsFromTimeString(episode.audio_length);
     let precent;
     if (isDraging) {
       precent = dragPosition && duration ? (dragPosition / duration) * 100 : 0;
@@ -98,7 +98,6 @@ class ProgressBar extends Component {
     const style = {
       width: `${precent > 100 ? 100 : precent}%`,
     };
-
 
     return (
       <div className="progress-bar">
