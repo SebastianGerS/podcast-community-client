@@ -17,7 +17,7 @@ export default function (state = DEFAULT_STATE, action) {
     case ActionTypes.START_PLAYBACK:
       return { ...state, isPlaying: true, startEpisode: false };
     case ActionTypes.STOP_PLAYBACK:
-      return { ...state, isPlaying: false };
+      return { ...state, isPlaying: false, startEpisode: false };
     case ActionTypes.SET_EPISODE:
       return {
         ...state, episode: new Episode(action.episode), startEpisode: true, src: action.src,
