@@ -2,6 +2,7 @@ import { saveAs } from 'file-saver';
 import actionTypes from './types';
 import { setMessage } from '../Message';
 import { saveToListOfDownloads } from '../../Helpers/Downloads';
+import Config from '../../Config/config';
 
 export const play = () => ({
   type: actionTypes.START_PLAYBACK,
@@ -18,7 +19,7 @@ export const selectEpisode = (episode, src) => ({
 });
 
 export const setAudio = episode => async (dispatch) => {
-  const src = `http://localhost:1337/audio/${episode.id}`;
+  const src = `${Config.API_BASE_URL}/audio/${episode.id}`;
   dispatch(selectEpisode(episode, src));
 };
 export const startDownloading = episodeId => ({
@@ -40,7 +41,7 @@ export const failedDownload = () => ({
 export const download = episode => (dispatch) => {
   dispatch(startDownloading(episode.id));
   caches.open('thru-the-ether').then(async (cache) => {
-    const path = `http://localhost:1337/audio/${episode.id}`;
+    const path = `${Config.API_BASE_URL}/audio/${episode.id}`;
     await fetch(path)
       .then(async (res) => {
         cache.put(path, res.clone());
