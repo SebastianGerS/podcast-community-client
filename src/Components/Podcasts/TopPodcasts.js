@@ -1,32 +1,27 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ListablePodcast from './ListablePodcast';
 import List from '../../Helpers/List';
+import Podcast from '../../Models/Podcast';
 
 class TopPodcasts extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: [
-        { title: 'Sean Carroll\'s MindScape', lastest_pub_date_ms: 1536369452000, image: 'https://www.preposterousuniverse.com/wp-content/uploads/mindscape-med.png' },
-        { title: 'Sean Carroll\'s MindScape', lastest_pub_date_ms: 1536369452000, image: 'https://www.preposterousuniverse.com/wp-content/uploads/mindscape-med.png' },
-        { title: 'Sean Carroll\'s MindScape', lastest_pub_date_ms: 1536369452000, image: 'https://www.preposterousuniverse.com/wp-content/uploads/mindscape-med.png' },
-        { title: 'Sean Carroll\'s MindScape', lastest_pub_date_ms: 1536369452000, image: 'https://www.preposterousuniverse.com/wp-content/uploads/mindscape-med.png' },
-        { title: 'Sean Carroll\'s MindScape', lastest_pub_date_ms: 1536369452000, image: 'https://www.preposterousuniverse.com/wp-content/uploads/mindscape-med.png' },
-        { title: 'Sean Carroll\'s MindScape', lastest_pub_date_ms: 1536369452000, image: 'https://www.preposterousuniverse.com/wp-content/uploads/mindscape-med.png' },
-        { title: 'Sean Carroll\'s MindScape', lastest_pub_date_ms: 1536369452000, image: 'https://www.preposterousuniverse.com/wp-content/uploads/mindscape-med.png' },
-      ],
+  componentWillMount() {
+    const { getTopPodcasts } = this.props;
 
-    };
+    getTopPodcasts();
   }
 
   render() {
-    const { data } = this.state;
-    return (
+    const { topPodcasts } = this.props;
+    return typeof topPodcasts[0].id === 'string' ? (
       <div>
-        <List data={data} component={ListablePodcast} />
+        <List data={topPodcasts} component={ListablePodcast} />
       </div>
-    );
+    ) : null;
   }
 }
-
+TopPodcasts.propTypes = {
+  topPodcasts: PropTypes.arrayOf(PropTypes.shape(Podcast)).isRequired,
+  getTopPodcasts: PropTypes.func.isRequired,
+};
 export default TopPodcasts;

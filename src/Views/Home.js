@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import TopPodcasts from '../Components/Podcasts/TopPodcasts';
+import TopPodcasts from '../Containers/TopPodcasts';
 import { scrollToTop } from '../Helpers/UserAgent';
 
 class Home extends Component {

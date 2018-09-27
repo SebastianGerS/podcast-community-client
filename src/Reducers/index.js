@@ -6,6 +6,7 @@ import Modal from './ModalReducer';
 import Player from './PlayerReducer';
 import User from './UserReducer';
 import Event from './EventReducer';
+import Podcast from './PodcastReducer';
 
 export default combineReducers({
   Auth,
@@ -15,4 +16,5 @@ export default combineReducers({
   Player,
   User,
   Event,
+  Podcast,
 });
