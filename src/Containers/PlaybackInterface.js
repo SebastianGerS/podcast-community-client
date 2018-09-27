@@ -12,6 +12,7 @@ function mapStateToProps(state) {
     isPlaying: state.Player.isPlaying,
     startEpisode: state.Player.startEpisode,
     src: state.Player.src,
+    height: state.Modal.height,
   };
 }
 
