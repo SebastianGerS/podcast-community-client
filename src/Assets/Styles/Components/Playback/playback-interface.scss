@@ -30,7 +30,7 @@
   }
 
   .podcast-img {
-    height: 175px;
+    height: 125px;
   }  
 
   .expand {
@@ -96,7 +96,8 @@
       height: 20px;
     } 
     .podcast-img {
-      height: 50px;
+      height: 0;
+      display: none;
     }  
     
     .forward {
@@ -110,7 +111,7 @@
       background-size: 30px;
     }
     .toggle {
-     margin-bottom: -10px
+     margin-bottom: -40px
     }
     
     figure > .podcast-img {
@@ -128,6 +129,18 @@
   }
   
 }
+@media only screen and (min-height: 360px) and (orientation: landscape){
+  .playbackinterface {
+    .podcast-img {
+      height: 50px;
+      display: initial;
+    }
+    .toggle {
+      margin-bottom: -10px
+     }
+  }  
+}
+
 
 @media only screen and (min-height: 640px) {
 
@@ -136,6 +149,10 @@
     figure > .podcast-img {
       margin-top: 1em;
     }
+    .podcast-img {
+      height: 175px;
+      display: initial;
+    }  
   }
 }
 @media only screen and (min-height: 731px) {
