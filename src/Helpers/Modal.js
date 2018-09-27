@@ -1,11 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { getMediumModalHeight, getSmalModalHeight } from './UserAgent';
 
 const Modal = ({ component: Component, ...rest }) => {
-  const { size, backgroundColor, ...props } = rest;
+  const {
+    size, backgroundColor, height, ...props
+  } = rest;
 
+  const styles = {
+    height: size === 'smal' ? getSmalModalHeight(height) : getMediumModalHeight(height),
+  };
   return (
-    <div className={`modal top ${size || 'smal'} ${backgroundColor ? `background-${backgroundColor}` : 'background-black'}`}>
+    <div className={`modal top ${backgroundColor ? `background-${backgroundColor}` : 'background-black'}`} style={styles}>
       <Component {...props} />
     </div>
   );
@@ -13,5 +19,6 @@ const Modal = ({ component: Component, ...rest }) => {
 
 Modal.propTypes = {
   component: PropTypes.func.isRequired,
+  height: PropTypes.number.isRequired,
 };
 export default Modal;

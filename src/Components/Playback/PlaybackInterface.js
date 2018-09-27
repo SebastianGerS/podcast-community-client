@@ -6,6 +6,7 @@ import PlaybackBar from './PlaybackBar';
 import Episode from '../../Models/Episode';
 import ErrorBoundray from '../../Containers/ErrorBoundray';
 import { savePosInLocalStorage, checkifInPosList, getEpisodePosFromList } from '../../Helpers/Downloads';
+import { getMediumModalHeight } from '../../Helpers/UserAgent';
 
 class PlaybackInterface extends Component {
   constructor(props) {
@@ -166,22 +167,23 @@ class PlaybackInterface extends Component {
 
   render() {
     const {
-      toggleModal, modalIsActive, menuIsActive, episode, isPlaying, src,
+      toggleModal, modalIsActive, menuIsActive, episode, isPlaying, src, height,
     } = this.props;
     const { pos } = this.state;
-    const size = modalIsActive ? 'medium' : '';
     const type = modalIsActive ? 'modal' : 'bar';
     let layoutPos;
+    const style = {};
 
     if (modalIsActive) {
       layoutPos = 'top';
+      style.height = getMediumModalHeight(height);
     } else if (menuIsActive) {
       layoutPos = 'bottom-1';
     } else {
       layoutPos = 'bottom-2';
     }
     return (
-      <div className={`playbackinterface ${type} ${layoutPos} ${size}`}>
+      <div className={`playbackinterface ${type} ${layoutPos}`} style={style}>
         <div className="toggle">
           <button type="button" aria-label="toggle-playback-modal-button " className={modalIsActive ? 'fold' : 'expand'} onClick={() => toggleModal('playback', modalIsActive)} />
         </div>
@@ -244,5 +246,6 @@ PlaybackInterface.propTypes = {
   episode: PropTypes.shape(Episode).isRequired,
   startEpisode: PropTypes.bool.isRequired,
   src: PropTypes.string.isRequired,
+  height: PropTypes.number.isRequired,
 };
 export default PlaybackInterface;
