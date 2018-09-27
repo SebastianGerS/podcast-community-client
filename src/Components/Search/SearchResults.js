@@ -6,6 +6,7 @@ import ListablePodcast from '../../Containers/ListablePodcast';
 import ListableEpisode from '../../Containers/ListableEpisode';
 import ListableUser from './ListableUser';
 import Loader from '../Layout/Loader';
+import { scrollToTop } from '../../Helpers/UserAgent';
 
 class SearchResults extends Component {
   shouldComponentUpdate(nextProps) {
@@ -15,6 +16,9 @@ class SearchResults extends Component {
       && nextProps.isSearching === isSearching
       && nextProps.isCreatingEvent === isCreatingEvent) {
       return false;
+    }
+    if (nextProps.results !== results) {
+      scrollToTop();
     }
 
     return true;
