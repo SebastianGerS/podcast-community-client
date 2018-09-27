@@ -47,9 +47,6 @@ li.active, button.active {
 
 select {
     background-image: url(../Icons/drop-down-black.svg);
-    background-repeat: no-repeat;
-    background-position: 97% 50%;
-    background-size: 20px;
     margin-top: 0.25em;
 }
 
@@ -93,6 +90,10 @@ form {
 
         .content {
             padding-top: 140px;
+
+            input, select {
+                background-position: 98% 50%;
+            }
         }
     }
   }
@@ -103,6 +104,10 @@ form {
 
         .content {
             padding-top: 250px;
+
+            input, select {
+                background-position: 99% 50%;
+            }
         }
     }
   }
