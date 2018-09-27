@@ -11,7 +11,14 @@ import MessageInterface from '../Containers/MessageInterface';
 
 export default class AuthSiteRoute extends React.Component {
   componentWillMount() {
-    const { checkIfLogedIn } = this.props;
+    const {
+      checkIfLogedIn, setHeight, height, checkIfResized,
+    } = this.props;
+    if (!height) {
+      setHeight(window.innerHeight);
+      checkIfResized();
+    }
+
     checkIfLogedIn();
   }
 
