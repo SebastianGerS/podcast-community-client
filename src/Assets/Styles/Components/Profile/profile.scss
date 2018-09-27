@@ -5,6 +5,7 @@
   align-items:flex-start;
   min-height: 80vh;
   width:100%;
+  max-width: 500px;
   margin-top: 1.5em;
   padding: 0 1em;
 
@@ -20,16 +21,14 @@
       height: 125px;
       width: 125px;
       border-radius: 4px;
-      margin-right: 0.5em;
+      margin-right: 1em;
     }
-
   }
- 
 
   .profile-bottom {
     width:100%;
-
   }
+
   .info{
     display: flex;
     flex-direction: row;
@@ -41,6 +40,7 @@
       flex-direction: row;
       justify-content: flex-start;
       align-items: center;
+      width:100%;
       
       span {
         padding-right: 0.5em;
@@ -48,6 +48,7 @@
       }
       span:last-child {
         word-break: break-word;
+        width: 100%;
       }
     }
 
@@ -64,4 +65,102 @@
   } 
   
 
+}
+
+
+@media only screen and (min-width: 667px) {
+
+  .profile {
+    max-width: 900px;
+    .profile-top {      
+      .profile-img {
+        height: 175px;
+        width: 175px;
+        margin-right: 2em;
+      }
+    }
+   
+    .info{
+      div,p {
+        span {
+          font-size: 16px;
+      }
+  
+      .edit {
+        width: 30px;
+        min-width: 30px;
+        height:30px;
+      }
+    }
+    p {
+      font-size: 16px;
+    } 
+    
+  
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+
+  .profile {
+    max-width: 1400px;
+    .profile-top {
+      .profile-img {
+        height: 300px;
+        width: 300px;
+        margin-right: 5em;
+      }
+    }
+
+    .info{  
+      div,p {
+        span {
+          font-size: 20px;
+        }
+      }
+  
+      .edit {
+        width: 40px;
+        min-width: 40px;
+        height:40px;
+        background-size: 100% 
+      }
+    }
+    p {
+      font-size: 20px;
+    } 
+  }
+}
+
+@media only screen and (min-width: 1850px) {
+
+  .profile {
+    max-width: 2000px;
+    .profile-top {
+      .profile-img {
+        height: 400px;
+        width: 400px;
+        margin-right: 7em;
+      } 
+    }
+    .info{
+      div,p {
+        span {
+          font-size: 25px;
+        }
+        span:last-child {
+          word-break: break-word;
+        }
+      }
+      .edit {
+        width: 50px;
+        min-width: 50px;
+        height:50px;
+      }
+    }
+    p {
+      font-size: 25px;
+    } 
+  }
+}
 }
