@@ -9,6 +9,7 @@ function mapStateToProps(state) {
     term: state.Search.term,
     type: state.Search.type,
     offset: state.Search.offset,
+    isSearching: state.Search.isSearching,
     redirectToSearch: state.Search.redirectToSearch,
   };
 }

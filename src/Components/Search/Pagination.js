@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Pagination = ({
-  term, offset, type, search, morePages,
+  term, offset, type, search, morePages, isSearching,
 }) => (
   <div className="pagination">
-    { offset > 10
+    { offset > 10 && !isSearching
       && (
       <button
         type="button"
@@ -18,7 +18,7 @@ const Pagination = ({
       </button>
       )
     }
-    {morePages && (
+    {morePages && !isSearching && (
     <button
       type="button"
       className="next-page"
@@ -37,5 +37,6 @@ Pagination.propTypes = {
   type: PropTypes.string.isRequired,
   morePages: PropTypes.bool.isRequired,
   search: PropTypes.func.isRequired,
+  isSearching: PropTypes.bool.isRequired,
 };
 export default Pagination;
