@@ -61,4 +61,4 @@ export const savePosInLocalStorage = (item) => {
   localStorage.setItem('positions', JSON.stringify(newList));
 };
 
-export const isDowloaded = episodeId => checkIfIsInList('dowloads', episodeId);
+export const isDowloaded = episodeId => checkIfIsInList('downloads', episodeId);
