@@ -1,4 +1,6 @@
 .message {
+  position: fixed;
+  top: 122px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,4 +36,47 @@
   10% { opacity: 1; height: 45px;}
   75% { opacity: 0.5; height: 45px; }
   100% { opacity: 0; height: 0; }
+}
+
+@media only screen and (min-width: 768px) and (orientation: portrait) {
+
+  .message {
+    top: 170px;
+  }
+}
+@media only screen and (min-width: 1024px)  {
+
+  .message {
+    top: 205px;
+  }
+}
+
+@media only screen and (min-width: 1336px) and (orientation: landscape) and (min-height: 1024px) {
+
+  .message {
+    top: 205px;
+  } 
+}
+
+@media only screen and (min-width: 1024px) and (min-height: 1336px) {
+
+  .message {
+    top: 205px;
+  }
+}
+
+@media only screen and (min-width: 1400px) {
+
+  .message {
+    top: 205px;
+  }
+}
+
+@media only screen and (min-width: 1850px) and (orientation: landscape){
+
+
+  .message {
+    top: 245px;
+  }
+
 }
