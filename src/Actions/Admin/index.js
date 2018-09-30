@@ -1,17 +1,17 @@
-
 import JWT from 'jsonwebtoken';
 import config from '../../Config/config'; import actionTypes from './types';
 import { Fetch } from '../../Helpers/Fetch';
 import { atemptSetMessage } from '../Message';
 import { toggleUserModal } from '../Modal';
+import store from '../../Store';
 
 const startGetUsers = () => ({
   type: actionTypes.GET_USERS_START,
 });
 
-const gotUsers = users => ({
+const gotUsers = data => ({
   type: actionTypes.GET_USERS_SUCCESS,
-  users,
+  data,
 });
 const getUsersFailure = () => ({
   type: actionTypes.GET_USERS_FAILUR,
@@ -60,7 +60,7 @@ const userDeleted = () => ({
 });
 
 
-const getUsers = () => Fetch('/users', 'GET', {});
+const getUsers = (offset, type, term) => Fetch(`/search?term=${term}&type=${type}&offset=${offset}`, 'GET', {});
 
 const updateUser = (id, user) => Fetch(`/admin/users/${id}`, 'PUT', user);
 
@@ -68,18 +68,17 @@ const deleteUser = id => Fetch(`/admin/users/${id}`, 'DELETE', {});
 
 const createUser = user => Fetch('/admin/users', 'POST', user);
 
-export const atemptGetUsers = () => async (dispatch) => {
+export const atemptGetUsers = data => async (dispatch) => {
   dispatch(startGetUsers());
-
-  const response = await getUsers();
+  const { offset, type, term } = data;
+  const response = await getUsers(offset, type, term).catch(error => error);
   if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ message: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
 
   if (response.error) {
     dispatch(getUsersFailure());
     dispatch(atemptSetMessage({ message: response.error.errmsg, type: 'warning' }));
   }
-
-  if (response.users) dispatch(gotUsers(response.users));
+  if (response.results) dispatch(gotUsers(response));
 };
 
 export const selectUser = user => (dispatch) => {
@@ -104,7 +103,7 @@ export const atemptUpdateUser = (id, user) => async (dispatch) => {
 
   if (response.info) {
     dispatch(userUpdated());
-    dispatch(atemptGetUsers());
+    dispatch(atemptGetUsers({ term: '', type: 'user', offset: store.getState().Admin.offset - 10 }));
     dispatch(toggleUserModal());
     dispatch(atemptSetMessage({ message: response.info, type: 'success' }));
   }
@@ -127,7 +126,7 @@ export const atemptCreateUser = data => async (dispatch) => {
 
   if (response.token) {
     dispatch(userCreated());
-    dispatch(atemptGetUsers());
+    dispatch(atemptGetUsers({ term: '', type: 'user', offset: store.getState().Admin.offset - 10 }));
     dispatch(atemptSetMessage({ message: 'User was created', type: 'success' }));
     dispatch(toggleUserModal());
   }
@@ -152,7 +151,7 @@ export const atemptDeleteUser = userId => async (dispatch) => {
 
   if (response.info) {
     dispatch(userDeleted());
-    dispatch(atemptGetUsers());
+    dispatch(atemptGetUsers({ term: '', type: 'user', offset: store.getState().Admin.offset - 10 }));
     dispatch(atemptSetMessage({ message: response.info, type: 'warning' }));
     dispatch(toggleUserModal());
   }

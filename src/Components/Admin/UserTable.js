@@ -4,17 +4,18 @@ import UserRow from '../../Containers/UserRow';
 import TableBody from '../../Helpers/TableBody';
 import User from '../../Models/User';
 import UserModal from './UserModal';
+import Pagination from '../Layout/Pagination';
 
 class UserTable extends Component {
   componentWillMount() {
-    const { getUsers } = this.props;
+    const { getUsers, offset } = this.props;
 
-    getUsers();
+    getUsers({ term: '', type: 'user', offset });
   }
 
   render() {
     const {
-      users, isFetching, toggleUserModal, modalIsActive,
+      users, isFetching, toggleUserModal, modalIsActive, getUsers, offset, morePages,
     } = this.props;
     return (
       <div className="handle-users">
@@ -36,6 +37,14 @@ class UserTable extends Component {
           <TableBody data={users} component={UserRow} />
         </table>
         )}
+        <Pagination
+          term=""
+          type="user"
+          offset={offset}
+          search={getUsers}
+          morePages={morePages}
+          isSearching={isFetching}
+        />
       </div>
     );
   }
@@ -44,6 +53,8 @@ UserTable.propTypes = {
   users: PropTypes.arrayOf(PropTypes.shape(User)).isRequired,
   isFetching: PropTypes.bool.isRequired,
   modalIsActive: PropTypes.bool.isRequired,
+  morePages: PropTypes.bool.isRequired,
+  offset: PropTypes.number.isRequired,
   getUsers: PropTypes.func.isRequired,
   toggleUserModal: PropTypes.func.isRequired,
 };

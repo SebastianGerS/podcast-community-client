@@ -5,6 +5,8 @@ const DEFAULT_STATE = {
   isFetching: false,
   users: [new User()],
   user: new User(),
+  morePages: false,
+  offset: 0,
 
 };
 
@@ -16,7 +18,11 @@ export default function (state = DEFAULT_STATE, action) {
       };
     case ActionTypes.GET_USERS_SUCCESS:
       return {
-        ...state, isFetching: false, users: action.users.map(user => new User(user)),
+        ...state,
+        isFetching: false,
+        users: action.data.results.map(user => new User(user)),
+        morePages: action.data.morePages,
+        offset: action.data.next_offset,
       };
     case ActionTypes.GET_USERS_FAILUR:
       return {

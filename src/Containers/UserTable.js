@@ -9,12 +9,14 @@ function mapStateToProps(state) {
     users: state.Admin.users,
     isFetching: state.Admin.isFetching,
     modalIsActive: state.Modal.userModalIsActive,
+    morePages: state.Admin.morePages,
+    offset: state.Admin.offset,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    getUsers: () => dispatch(atemptGetUsers()),
+    getUsers: data => dispatch(atemptGetUsers(data)),
     toggleUserModal: () => dispatch(toggleUserModal()),
   };
 }
