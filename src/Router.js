@@ -37,6 +37,10 @@ const Router = () => (
         path="/settings"
         component={Views.Settings}
       />
+      <AuthSiteRoute
+        path="/users"
+        component={Views.Users}
+      />
     </Switch>
   </BrowserRouter>
 );
