@@ -10,6 +10,11 @@ export const togglePlaybackKModal = () => ({
 export const toggleMenu = () => ({
   type: actionTypes.TOGGLE_MENU,
 });
+
+export const toggleUserModal = () => ({
+  type: actionTypes.TOGGLE_USER_MODAL,
+});
+
 export const setHeight = height => ({
   type: actionTypes.SET_HEIGHT,
   height,

@@ -4,6 +4,7 @@ const DEFAULT_STATE = {
   loginModalIsActive: false,
   playbackModalIsActive: false,
   menuIsActive: false,
+  userModalIsActive: false,
   height: 0,
 };
 
@@ -15,11 +16,13 @@ export default function (state = DEFAULT_STATE, action) {
         loginModalIsActive: !state.loginModalIsActive,
         playbackModalIsActive: false,
         menuIsActive: false,
+        userModalIsActive: false,
       };
     case ActionTypes.TOGGLE_PLAYBACK_MODAL:
       return {
         ...state,
         loginModalIsActive: false,
+        userModalIsActive: false,
         playbackModalIsActive: !state.playbackModalIsActive,
         menuIsActive: false,
       };
@@ -28,7 +31,16 @@ export default function (state = DEFAULT_STATE, action) {
         ...state,
         loginModalIsActive: false,
         playbackModalIsActive: false,
+        userModalIsActive: false,
         menuIsActive: !state.menuIsActive,
+      };
+    case ActionTypes.TOGGLE_USER_MODAL:
+      return {
+        ...state,
+        loginModalIsActive: false,
+        playbackModalIsActive: false,
+        menuIsActive: false,
+        userModalIsActive: !state.userModalIsActive,
       };
     case ActionTypes.SET_HEIGHT:
       return {
