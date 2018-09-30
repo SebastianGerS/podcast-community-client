@@ -1,7 +1,8 @@
 import ActionTypes from './types';
 import { Fetch, formatError } from '../../Helpers/Fetch';
 import { atemptSetMessage } from '../Message';
-import { atemptGetSelf } from '../Auth';
+import { atemptGetSelf, userLogedout } from '../Auth';
+import { removeToken } from '../../Helpers/Auth';
 
 export const startUpdateUser = () => (
   { type: ActionTypes.UPDATE_USER_START }
@@ -74,7 +75,20 @@ export const deleteCategoryFailure = () => ({
 
 });
 
+export const startDeleteSelf = () => ({
+  type: ActionTypes.DELETE_SELF_START,
+});
+export const selfDeleted = () => ({
+  type: ActionTypes.DELETE_SELF_SUCCESS,
+});
+export const deleteSelfFailure = () => ({
+  type: ActionTypes.DELETE_SELF_FAILUR,
+
+});
+
 const updateUser = body => Fetch('/users', 'PUT', body);
+
+const deleteSelf = () => Fetch('/users', 'DELETE', {});
 
 const getUser = userId => Fetch(`/users/${userId}`, 'GET', {});
 
@@ -119,6 +133,26 @@ export const atemptUpdateUser = (_id, body) => async (dispatch) => {
     dispatch(atemptGetUser(_id));
     dispatch(atemptGetSelf());
     dispatch(atemptSetMessage({ message: response.info, type: 'success' }));
+  }
+};
+
+export const atemptDeleteSelf = () => async (dispatch) => {
+  dispatch(startDeleteSelf());
+  const response = await deleteSelf().catch(error => error);
+  if (response.message === 'Failed to fetch') {
+    dispatch(atemptSetMessage({ message: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
+    dispatch(deleteSelfFailure());
+  }
+  if (response.error) {
+    dispatch(deleteSelfFailure());
+    dispatch(atemptSetMessage({ message: formatError(response.error.errmsg), type: 'info' }));
+  }
+
+  if (response.info) {
+    dispatch(selfDeleted());
+    removeToken();
+    dispatch(userLogedout());
+    dispatch(atemptSetMessage({ message: 'Your Account was deleted', type: 'warning' }));
   }
 };
 
