@@ -9,7 +9,7 @@ const Menu = ({ closeMenu, userId }) => (
     <ul className="menu-links">
       <div>
         <SiteLink to="/search" title="Search" />
-        <AdminSiteLink to="/" title="Handle Users" />
+        <AdminSiteLink to="/users" title="Handle Users" />
         <AdminSiteLink to="/" title="Send Email" />
         <AuthSiteLink to={`/profile/${userId}`} title="Profile" />
         <AuthSiteLink to="/my-subscriptions" title="Subscriptions" />
