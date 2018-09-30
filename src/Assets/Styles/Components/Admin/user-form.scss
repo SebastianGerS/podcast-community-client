@@ -53,3 +53,254 @@
   }
   
 }
+@media only screen and (orientation: landscape){
+  .user-form {
+    padding: 0.25em ;
+  
+    .close {
+      background-size: 15px;
+      width: 15px;
+      height: 15px;
+    }
+    form {
+      padding-top:0.15em;
+      label {
+        font-size: 0.5em;
+        margin: 0.25em 0;
+        input, select {
+          margin-left: 0.5em;
+          padding: 0.25em;
+          font-size: 0.5em;
+          background-size: 7.5px;
+        }
+      }
+      .buttons {
+        button {
+          padding: 0.15em;
+          font-size: 0.5em;
+          margin: 0.5em 0.25em 0 0.25em;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (orientation: landscape) and (min-width: 640px) {
+  .user-form {
+    padding: 0.5em ;
+  
+    .close {
+      background-size: 15px;
+      width: 15px;
+      height: 15px;
+    }
+    form {
+      padding-top:0.25em;
+      label {
+        font-size: 0.65em;
+        margin: 0.3em 0;
+        input, select {
+          padding: 0.35em;
+          font-size: 0.65em;
+          background-size: 7.5px;
+        }
+      }
+      .buttons {
+        button {
+          padding: 0.25em;
+          font-size: 0.5em;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (orientation: portrait) and (min-height: 640px) {
+  .user-form {
+    padding: 1em ;
+  
+    .close {
+      background-size: 30px;
+      width: 30px;
+      height: 30px;
+    }
+    form {
+      padding-top:0.5em;
+      label {
+        font-size: 1em;
+        margin: 0.5em 0;
+        input, select {
+          padding: 0.5em;
+          font-size: 1em;
+          background-size: 15px;
+        }
+      }
+      .buttons {
+        button {
+          padding: 0.5em;
+          font-size: 1em;
+        }
+      }
+    }
+  }
+}
+@media only screen and (orientation: portrait) and (min-height: 731px) {
+  .user-form {
+    form {
+    
+      label {
+
+        margin: 0.75em 0;
+      }
+      .buttons {
+        margin-top: 1em;
+      }
+    }
+  }
+}
+
+@media only screen and (orientation: portrait) and (min-height: 812px) {
+  .user-form {
+    padding: 1em ;
+  
+    .close {
+      background-size: 30px;
+      width: 30px;
+      height: 30px;
+    }
+    form {
+      padding-top:0.5em;
+      label {
+        font-size: 1.2em;
+        margin: 0.75em 0;
+        input, select {
+          padding: 0.5em;
+          font-size: 1em;
+          background-size: 15px;
+        }
+      }
+      .buttons {
+        margin-top: 1em;
+        button {
+          padding: 0.5em;
+          font-size: 1.2em;
+        }
+      }
+    }
+  }
+}
+@media only screen and (orientation: portrait) and (min-height: 1024px) {
+  .user-form {
+    padding: 2em ;
+  
+    form {
+      padding-top:1em;
+      label {
+        font-size: 1.4em;
+        margin: 1em 0;
+        input, select {
+          padding: 0.5em;
+          font-size: 1.2em;
+          background-size: 25px;
+        }
+      }
+      .buttons {
+        margin-top: 1em;
+        button {
+          padding: 0.5em;
+          font-size: 1.4em;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (orientation: portrait) and (min-height: 1366px) {
+  .user-form {
+    padding: 2em ;
+  
+    .close {
+      background-size: 40px;
+      width: 40px;
+      height: 40px;
+    }
+    form {
+      padding-top:1em;
+      label {
+        font-size: 1.5em;
+        margin: 1.2em 0;
+        input, select {
+          padding: 0.5em;
+          font-size: 1.25em;
+          background-size: 30px;
+        }
+      }
+      .buttons {
+        margin-top: 1em;
+        button {
+          padding: 0.5em;
+          font-size: 1.5em;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (orientation: landscape) and (min-height: 768px) {
+  .user-form {
+    padding: 1.5em ;
+  
+    .close {
+      background-size: 30px;
+      width: 30px;
+      height: 30px;
+    }
+    form {
+      padding-top:0.75em;
+      label {
+        font-size: 1em;
+        margin: 0.75em 0;
+        input, select {
+          padding: 0.5em;
+          font-size: 0.9em;
+          background-size: 20px;
+        }
+      }
+      .buttons {
+        margin-top: 0.5em;
+        button {
+          padding: 0.5em;
+          font-size: 1em;
+        }
+      }
+    }
+  }
+}
+@media only screen and (orientation: landscape) and (min-height: 1024px) {
+  .user-form {
+    padding: 2em ;
+  
+    .close {
+      background-size: 40px;
+      width: 40px;
+      height: 40px;
+    }
+    form {
+      padding-top:0.75em;
+      label {
+        font-size: 1.2em;
+        margin: 1em 0;
+        input, select {
+          font-size: 1em;
+          background-size: 25px;
+        }
+      }
+      .buttons {
+        margin-top: 1em;
+        button {
+          font-size: 1.2em;
+        }
+      }
+    }
+  }
+}
