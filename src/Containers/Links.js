@@ -5,6 +5,7 @@ import { toggleMenu } from '../Actions/Modal';
 function mapStateToProps(state) {
   return {
     isLogedIn: state.Auth.isLogedIn,
+    isAdmin: state.Auth.isAdmin,
   };
 }
 

@@ -9,6 +9,7 @@ const DEFAULT_STATE = {
   isRegistering: false,
   user: new User(),
   redirect: new Redirect(),
+  isAdmin: false,
 };
 
 export default function (state = DEFAULT_STATE, action) {
@@ -17,17 +18,22 @@ export default function (state = DEFAULT_STATE, action) {
       return { ...state, isLogingIn: true };
     case ActionTypes.USER_LOGIN_SUCCESS:
       return {
-        ...state, isLogedIn: true, isLoginIn: false, user: new User(action.user),
+        ...state, isLogedIn: true, isLoginIn: false, user: new User(action.user), isAdmin: action.user.type === 'admin',
       };
     case ActionTypes.USER_LOGIN_FAILUR:
       return { ...state, isLoginIn: false };
     case ActionTypes.IS_LOGED_IN:
-      return { ...state, isLogedIn: true, user: typeof state.user.id !== 'string' ? new User(action.user) : state.user };
+      return {
+        ...state,
+        isLogedIn: true,
+        user: typeof state.user.id !== 'string' ? new User(action.user) : state.user,
+        isAdmin: typeof state.user.id !== 'string' ? action.user.type === 'admin' : state.user.type === 'admin',
+      };
     case ActionTypes.USER_LOGOUT_START:
       return { ...state, isLogingOut: true };
     case ActionTypes.USER_LOGOUT_SUCCESS:
       return {
-        ...state, isLogedIn: false, isLogingOut: false, user: new User(),
+        ...state, isLogedIn: false, isLogingOut: false, user: new User(), isAdmin: false,
       };
     case ActionTypes.USER_LOGOUT_FAILUR:
       return { ...state, isLogingOut: false };

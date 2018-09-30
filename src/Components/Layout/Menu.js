@@ -9,16 +9,16 @@ const Menu = ({ closeMenu, userId }) => (
     <ul className="menu-links">
       <div>
         <SiteLink to="/search" title="Search" />
-        <AdminSiteLink to="/" title="Handle Users" />
-        <AdminSiteLink to="/" title="Send Email" />
+        <AdminSiteLink to="/users" title="Handle Users" />
         <AuthSiteLink to={`/profile/${userId}`} title="Profile" />
         <AuthSiteLink to="/my-subscriptions" title="Subscriptions" />
+        <AuthSiteLink to="/" title="Feed" />
       </div>
       <div>
-        <AuthSiteLink to="/" title="Feed" />
         <AuthSiteLink to="/" title="ListenList" />
         <AuthSiteLink to="/" title="Follows" />
         <AuthSiteLink to="/settings" title="Settings" />
+        <AdminSiteLink to="/" title="Send Email" />
         <LogoutButton />
       </div>
     </ul>

@@ -78,6 +78,7 @@ class UserSettings extends Component {
 
   render() {
     const { type, password, passwordConfirmation } = this.state;
+    const { user, deleteUser } = this.props;
     /* eslint-disable jsx-a11y/label-has-associated-control, jsx-a11y/label-has-for */
     return (
       <div className="user-settings">
@@ -88,6 +89,7 @@ class UserSettings extends Component {
             <select name="type" id="type" onChange={this.handleChange} value={type}>
               <option value="public">Public</option>
               <option value="private">Private</option>
+              { user.type === 'admin' && <option value="admin">Admin</option>}
             </select>
           </label>
           <button type="submit">Update</button>
@@ -104,6 +106,8 @@ class UserSettings extends Component {
           </label>
           <button type="submit">Update</button>
         </form>
+        <h3>Delete Account</h3>
+        <button type="button" onClick={() => deleteUser(user._id)} className="delete">Delete</button>
       </div>
     );
   }
@@ -112,6 +116,7 @@ class UserSettings extends Component {
 UserSettings.propTypes = {
   user: PropTypes.shape(User).isRequired,
   updateUser: PropTypes.func.isRequired,
+  deleteUser: PropTypes.func.isRequired,
   atemptSetMessage: PropTypes.func.isRequired,
 };
 

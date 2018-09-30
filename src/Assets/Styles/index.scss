@@ -30,6 +30,8 @@
 @import './Components/MySubscriptions/category.scss';
 @import './Components/MySubscriptions/catalog.scss';
 @import './Components/Settings/user-settings.scss';
+@import './Components/Admin/user-table.scss';
+@import './Components/Admin/user-form.scss';
 
 
 @import './Views/home.scss';
@@ -39,3 +41,4 @@
 @import './Views/my-subscriptions.scss';
 @import './Views/category.scss';
 @import './Views/settings.scss';
+@import './Views/users.scss';

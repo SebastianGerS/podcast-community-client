@@ -3,6 +3,7 @@ import { BrowserRouter, Switch } from 'react-router-dom';
 import Views from './Views';
 import SiteRoute from './Containers/SiteRoute';
 import AuthSiteRoute from './Containers/AuthSiteRoute';
+import AdminAuthSiteRoute from './Containers/AdminAuthSiteRoute';
 
 const Router = () => (
   <BrowserRouter>
@@ -36,6 +37,10 @@ const Router = () => (
       <AuthSiteRoute
         path="/settings"
         component={Views.Settings}
+      />
+      <AdminAuthSiteRoute
+        path="/users"
+        component={Views.Users}
       />
     </Switch>
   </BrowserRouter>

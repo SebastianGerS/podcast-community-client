@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import UserSettings from '../Components/Settings/UserSettings';
-import { atemptUpdateUser } from '../Actions/User';
+import { atemptUpdateUser, atemptDeleteSelf } from '../Actions/User';
 import { atemptSetMessage } from '../Actions/Message';
 
 function mapStateToProps(state) {
@@ -11,6 +11,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     updateUser: (_id, body) => dispatch(atemptUpdateUser(_id, body)),
+    deleteUser: () => dispatch(atemptDeleteSelf()),
     atemptSetMessage: message => dispatch(atemptSetMessage(message)),
   };
 }

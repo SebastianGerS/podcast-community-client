@@ -44,11 +44,18 @@ export default function (state = DEFAULT_STATE, action) {
           : [new Category()],
       };
     case ActionTypes.GET_SUBSCRIPTINONS_FAILUR:
+      return { ...state, isFetchingSubscriptions: false };
     case ActionTypes.CREATE_CATEGORY_START:
       return { ...state, isUpdating: true };
     case ActionTypes.CREATE_CATEGORY_SUCCESS:
       return { ...state, isUpdating: false };
     case ActionTypes.CREATE_CATEGORY_FAILUR:
+      return { ...state, isUpdating: false };
+    case ActionTypes.DELETE_SELF_START:
+      return { ...state, isUpdating: true };
+    case ActionTypes.DELETE_SELF_SUCCESS:
+      return { ...state, isUpdating: false };
+    case ActionTypes.DELETE_SELF_FAILUR:
       return { ...state, isUpdating: false };
     case ActionTypes.UPDATE_CATEGORY_START:
       return { ...state, isUpdating: true };

@@ -19,13 +19,18 @@
      margin-top: 0.5em;
    }
     button {
-      border-radius: 4px;
-      font-size: 1.2em;
-      margin: 1em 0 0.5em 0;
-      padding: 0.5em;
       background-color: rgba(86,204,242, 0.68);
   
     }
   }
+  button {
+    border-radius: 4px;
+    font-size: 1.2em;
+    margin: 1em 0 0.5em 0;
+    padding: 0.5em;
+    background-color: #FA7070;
+    width:100%;
+  }
+
   
 }

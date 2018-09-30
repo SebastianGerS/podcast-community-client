@@ -35,23 +35,20 @@ ConnectedAuthSiteLink.propTypes = {
 };
 
 export const ConnectedAdminSiteLink = ({
-  to, title, closeMenu, isLogedIn,
-}) => {
-  const admin = true;
+  to, title, closeMenu, isLogedIn, isAdmin,
+}) => (isLogedIn && isAdmin ? (
+  <li>
+    <Link to={to} onClick={closeMenu}>
+      {title}
+    </Link>
+  </li>
 
-  return isLogedIn && admin ? (
-    <li>
-      <Link to={to} onClick={closeMenu}>
-        {title}
-      </Link>
-    </li>
-
-  ) : null;
-};
+) : null);
 
 ConnectedAdminSiteLink.propTypes = {
   to: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   closeMenu: PropTypes.func.isRequired,
   isLogedIn: PropTypes.bool.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
 };

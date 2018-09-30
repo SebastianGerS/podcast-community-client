@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
-import SearchInterface from '../Containers/SearchInterface';
+import UserTable from '../Containers/UserTable';
 import { scrollToTop } from '../Helpers/UserAgent';
 
-class Search extends Component {
+class Users extends Component {
   componentDidMount() {
     scrollToTop();
   }
 
   render() {
     return (
-      <div className="Search">
-        <SearchInterface />
+      <div className="Users">
+        <UserTable />
       </div>
     );
   }
 }
 
 
-export default Search;
+export default Users;
