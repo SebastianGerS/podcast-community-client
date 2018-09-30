@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import SearchControlles from '../../Containers/SearchControlles';
 import SearchResluts from '../../Containers/SearchResults';
-import Pagination from './Pagination';
+import Pagination from '../Layout/Pagination';
 
 const SearchInterface = ({
   term, offset, type, search, morePages, isSearching,
