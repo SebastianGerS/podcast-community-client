@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Pagination from '../Components/Search/Pagination';
+import SearchInterface from '../Components/Search/SearchInterface';
 import { atemptSearch } from '../Actions/Search';
 
 function mapStateToProps(state) {
@@ -19,4 +19,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Pagination);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchInterface);

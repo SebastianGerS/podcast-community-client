@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SearchInterface from '../Components/Search/SearchInterface';
+import SearchInterface from '../Containers/SearchInterface';
 import { scrollToTop } from '../Helpers/UserAgent';
 
 class Search extends Component {
