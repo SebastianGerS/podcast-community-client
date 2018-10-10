@@ -1,4 +1,4 @@
-import { saveAs } from 'file-saver';
+import downloadjs from 'downloadjs';
 import actionTypes from './types';
 import { setMessage } from '../Message';
 import { saveToListOfDownloads } from '../../Helpers/Downloads';
@@ -42,18 +42,13 @@ export const download = episode => (dispatch) => {
   dispatch(startDownloading(episode.id));
   caches.open('thru-the-ether').then(async (cache) => {
     const path = `${Config.API_BASE_URL}/audio/${episode.id}`;
+    dispatch(downloaded());
     await fetch(path)
       .then(async (res) => {
         cache.put(path, res.clone());
-        if (!navigator.userAgent.includes('Mobi')) {
-          const blob = await res.blob();
-          blob.lastModifiedDate = new Date();
-          blob.name = path;
-          saveAs(blob, `${episode.title_original}.mp3`);
-        }
-
+        const blob = await res.blob();
+        downloadjs(blob, `${episode.title_original}.mp3`, 'application/octet-stream');
         saveToListOfDownloads(episode.id);
-        dispatch(downloaded());
       }).catch(() => {
         dispatch(failedDownload());
         dispatch(setMessage({ message: 'failed to download the episode', type: 'error' }));
