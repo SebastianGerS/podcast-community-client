@@ -6,7 +6,6 @@ function mapStateToProps(state) {
     type: state.Search.type,
     results: state.Search.results,
     isSearching: state.Search.isSearching,
-    isCreatingEvent: state.Event.isCreatingEvent,
   };
 }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 import Header from '../Containers/Header';
@@ -9,72 +9,62 @@ import MenuModal from '../Components/Layout/MenuModal';
 import MenuBar from '../Containers/MenuBar';
 import MessageInterface from '../Containers/MessageInterface';
 
-export default class AuthSiteRoute extends React.Component {
-  componentWillMount() {
-    const {
-      checkIfLogedIn, setHeight, height, checkIfResized,
-    } = this.props;
+export default function AdminAuthSiteRoute({
+  component: Component, path, menuIsActive, isLogedIn, isAdmin,
+  computedMatch, checkIfLogedIn, setHeight, height, checkIfResized, ...rest
+}) {
+  useEffect(() => {
     if (!height) {
       setHeight(window.innerHeight);
       checkIfResized();
     }
 
     checkIfLogedIn();
-  }
+  }, []);
 
-  componentWillUpdate() {
-    const { checkIfLogedIn } = this.props;
+  useEffect(() => {
     checkIfLogedIn();
-  }
+  });
 
-  toggleModal(name) {
-    const { modals } = this.state;
-    const newModalstate = modals.map((modal) => {
-      if (modal.name === name && !modal.active) {
-        return { name: modal.name, active: true };
-      }
-      return { name: modal.name, active: false };
-    });
-
-    this.setState({
-      modals: [
-        ...newModalstate,
-      ],
-    });
-  }
-
-  render() {
-    const {
-      component: Component, path, menuIsActive, isLogedIn, isAdmin, computedMatch, ...rest
-    } = this.props;
-    return (
-      <Route
-        path={path}
-        computedMatch={computedMatch}
-        {...rest}
-        render={props => (
-          <div className="App">
-            <Header />
-            <SearchBar path={path} />
-            <div className="content">
-              <MessageInterface />
-              { isLogedIn && isAdmin
-                ? <Component {...props} params={computedMatch.params} />
-                : <Redirect to="/" />
-              }
-            </div>
-            <Footer />
-            <PlaybackInterface />
-            { menuIsActive ? <MenuModal /> : <MenuBar /> }
+  return (
+    <Route
+      path={path}
+      computedMatch={computedMatch}
+      {...rest}
+      render={props => (
+        <div className="App">
+          <Header />
+          <SearchBar path={path} />
+          <div className="content">
+            <MessageInterface />
+            { isLogedIn && isAdmin
+              ? <Component {...props} params={computedMatch.params} />
+              : <Redirect to="/" />
+            }
           </div>
-        )}
-      />
-    );
-  }
+          <Footer />
+          <PlaybackInterface />
+          { menuIsActive ? <MenuModal /> : <MenuBar /> }
+        </div>
+      )}
+    />
+  );
 }
 
-AuthSiteRoute.propTypes = {
+AdminAuthSiteRoute.propTypes = {
   component: PropTypes.func.isRequired,
-  path: PropTypes.string.isRequired,
+  path: PropTypes.bool.isRequired,
   menuIsActive: PropTypes.bool.isRequired,
+  isLogedIn: PropTypes.bool.isRequired,
+  isAdmin: PropTypes.bool.isRequired,
+  computedMatch: PropTypes.shape({
+    isExact: PropTypes.bool.isRequired,
+    params: PropTypes.object.isRequired,
+    path: PropTypes.bool.isRequired,
+    url: PropTypes.bool.isRequired,
+  }).isRequired,
+  checkIfLogedIn: PropTypes.func.isRequired,
+  setHeight: PropTypes.func.isRequired,
+  height: PropTypes.number.isRequired,
+  checkIfResized: PropTypes.bool.isRequired,
 };

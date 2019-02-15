@@ -1,76 +1,61 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Episode from '../../Models/Episode';
 import Star from '../../Assets/Icons/star.svg';
 import { getDatefromMilisecond } from '../../Helpers/Time';
 import DownloadButton from './DownloadButton';
 
-
-class ListableEpisode extends Component {
-  constructor(props) {
-    super(props);
-
-    this.toggleEpisode = this.toggleEpisode.bind(this);
-  }
-
-  toggleEpisode() {
-    const {
-      setAudio, stop, data, episode, isPlaying,
-    } = this.props;
+function ListableEpisode({
+  setAudio, stop, data, episode, isPlaying, download, isDownloading,
+}) {
+  const toggleEpisode = () => {
     stop();
     if (episode.id !== data.id) {
       setAudio(data);
     } else if (!isPlaying) {
       setAudio(data);
     }
-  }
+  };
 
-
-  render() {
-    const {
-      data, isPlaying, episode, download, isDownloading,
-    } = this.props;
-
-    return (
-      <div className="listable-episode">
-        <h3>{data.title_original.length > 35 ? `${data.title_original.substring(0, 31)}...` : data.title_original}</h3>
-        <div>
-          <figure>
-            <img src={data.thumbnail} alt="podcastlogo" />
-          </figure>
+  return (
+    <div className="listable-episode">
+      <h3>{data.title_original.length > 35 ? `${data.title_original.substring(0, 31)}...` : data.title_original}</h3>
+      <div>
+        <figure>
+          <img src={data.thumbnail} alt="podcastlogo" />
+        </figure>
+        <p>
+          <span>{data.podcast_title_original.length > 30 ? `${data.podcast_title_original.substring(0, 26)}...` : data.podcast_title_original}</span>
+          <span>{`By ${data.publisher_original.length > 27 ? `${data.publisher_original.substring(0, 23)}...` : data.publisher_original}`}</span>
+          <span>{`Relseed: ${getDatefromMilisecond(data.pub_date_ms)}`}</span>
+        </p>
+      </div>
+      <div>
+        <figure className="info-box">
+          <img src={Star} alt="star" />
+          <figcaption>5.0</figcaption>
+        </figure>
+        <div className="info-box">
           <p>
-            <span>{data.podcast_title_original.length > 30 ? `${data.podcast_title_original.substring(0, 26)}...` : data.podcast_title_original}</span>
-            <span>{`By ${data.publisher_original.length > 27 ? `${data.publisher_original.substring(0, 23)}...` : data.publisher_original}`}</span>
-            <span>{`Relseed: ${getDatefromMilisecond(data.pub_date_ms)}`}</span>
+              length:&ensp;
+            <span>
+              {data.audio_length}
+            </span>
           </p>
-        </div>
-        <div>
-          <figure className="info-box">
-            <img src={Star} alt="star" />
-            <figcaption>5.0</figcaption>
-          </figure>
-          <div className="info-box">
-            <p>
-                length:&ensp;
-              <span>
-                {data.audio_length}
-              </span>
-            </p>
-          </div>
-        </div>
-        <div>
-          <p>
-            {data.description_original.length > 150 ? `${data.description_original.substring(0, 147)}...` : data.description_original}
-          </p>
-        </div>
-        <div>
-          <DownloadButton episode={data} isDownloading={isDownloading} download={download} />
-          <button type="button" className={`${episode.id === data.id && isPlaying ? 'pause-button' : 'play-button'}`} onClick={this.toggleEpisode} />
-          <button type="button" className="more-options-button" />
         </div>
       </div>
-    );
-  }
+      <div>
+        <p>
+          {data.description_original.length > 150 ? `${data.description_original.substring(0, 147)}...` : data.description_original}
+        </p>
+      </div>
+      <div>
+        <DownloadButton episode={data} isDownloading={isDownloading} download={download} />
+        <button type="button" className={`${episode.id === data.id && isPlaying ? 'pause-button' : 'play-button'}`} onClick={toggleEpisode} />
+        <button type="button" className="more-options-button" />
+      </div>
+    </div>
+  );
 }
 
 ListableEpisode.propTypes = {

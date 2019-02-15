@@ -1,20 +1,17 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import UserTable from '../Containers/UserTable';
 import { scrollToTop } from '../Helpers/UserAgent';
 
-class Users extends Component {
-  componentDidMount() {
+function Users() {
+  useEffect(() => {
     scrollToTop();
-  }
+  }, []);
 
-  render() {
-    return (
-      <div className="Users">
-        <UserTable />
-      </div>
-    );
-  }
+  return (
+    <div className="Users">
+      <UserTable />
+    </div>
+  );
 }
-
 
 export default Users;
