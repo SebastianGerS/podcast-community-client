@@ -1,19 +1,17 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import RegisterForm from '../Containers/RegisterForm';
 import { scrollToTop } from '../Helpers/UserAgent';
 
-class Register extends Component {
-  componentDidMount() {
+function Register() {
+  useEffect(() => {
     scrollToTop();
-  }
+  }, []);
 
-  render() {
-    return (
-      <div className="Register">
-        <RegisterForm />
-      </div>
-    );
-  }
+  return (
+    <div className="Register">
+      <RegisterForm />
+    </div>
+  );
 }
 
 export default Register;

@@ -1,21 +1,17 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Message from './Message';
 
-class MessageInterface extends Component {
-  componentDidUpdate(prevProps) {
-    const { message, removeMessage, showMessage } = this.props;
-    if (prevProps.message !== message && showMessage) {
+function MessageInterface({
+  message, removeMessage, showMessage, type,
+}) {
+  useEffect(() => {
+    if (showMessage) {
       setTimeout(removeMessage, 6000);
     }
-  }
+  }, [message]);
 
-  render() {
-    const { showMessage, ...rest } = this.props;
-
-    return (
-      showMessage ? <Message {...rest} /> : null);
-  }
+  return (showMessage ? <Message type={type} message={message} /> : null);
 }
 
 MessageInterface.propTypes = {

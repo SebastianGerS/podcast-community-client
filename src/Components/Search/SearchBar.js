@@ -1,65 +1,39 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-class SearchBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      term: '',
-    };
+function SearchBar({
+  type, search, isLogedIn, redirectToSearch, path,
+}) {
+  const [term, setTerm] = useState('');
 
-    this.search = this.search.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  componentDidUpdate(prevProps) {
-    const { type } = this.props;
-    if (prevProps.type !== type) {
-      this.search();
-    }
-  }
-
-  search(e) {
+  const triggerSearch = (e) => {
     if (e) e.preventDefault();
-
-    const {
-      type, search, path,
-    } = this.props;
-    const { term } = this.state;
-
     search({
       term, type, offset: 0, path,
     });
-  }
+  };
 
-  handleChange(e) {
-    const { name, value } = e.target;
+  useEffect(() => {
+    if (term.length > 3) {
+      triggerSearch();
+    }
+  }, [type, term]);
 
-    this.setState({
-      [name]: value,
-    });
-  }
-
-  render() {
-    const { isLogedIn, redirectToSearch, path } = this.props;
-    const { term } = this.state;
-
-    return (
-      <div className="searchbar">
-        {redirectToSearch && path !== '/search' ? <Redirect to="/search" /> : null}
-        <form onSubmit={this.search}>
-          <input placeholder="Search..." name="term" value={term} onChange={this.handleChange} />
-        </form>
-        <div>
-          { isLogedIn
-            ? <button type="button" aria-label="toggle-follows-modal" className="follows" />
-            : <Link to="/register">Register</Link>
-          }
-        </div>
+  return (
+    <div className="searchbar">
+      {redirectToSearch && path !== '/search' ? <Redirect to="/search" /> : null}
+      <form onSubmit={triggerSearch}>
+        <input placeholder="Search..." name="term" value={term} onChange={e => setTerm(e.target.value)} />
+      </form>
+      <div>
+        { isLogedIn
+          ? <button type="button" aria-label="toggle-follows-modal" className="follows" />
+          : <Link to="/register">Register</Link>
+        }
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 SearchBar.propTypes = {

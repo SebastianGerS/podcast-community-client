@@ -1,22 +1,20 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import UserProfile from '../Containers/Profile';
 import { scrollToTop } from '../Helpers/UserAgent';
 
-class Profile extends Component {
-  componentDidMount() {
+function Profile({ params }) {
+  useEffect(() => {
     scrollToTop();
-  }
+  }, []);
 
-  render() {
-    const { params } = this.props;
-    return (
-      <div className="Profile">
-        <UserProfile userId={params.userId} />
-      </div>
-    );
-  }
+  return (
+    <div className="Profile">
+      <UserProfile userId={params.userId} />
+    </div>
+  );
 }
+
 Profile.propTypes = {
   params: PropTypes.objectOf(PropTypes.string).isRequired,
 };
