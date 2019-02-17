@@ -3,28 +3,14 @@ import PropTypes from 'prop-types';
 import { scrollToTop } from '../../Helpers/UserAgent';
 import { invalidEmail, invalidPassword } from '../../Helpers/Validation';
 
-function LoginForm({ atemptSetMessage, atemptLogin }) {
+function LoginForm({ atemptLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const validUserData = () => {
-    if (invalidEmail(email)) {
-      atemptSetMessage({ message: 'please enter a valid email address', type: 'warning' });
-      return false;
-    }
-    if (invalidPassword(password)) {
-      atemptSetMessage({ message: 'passwords must be atleast 8 characters long', type: 'warning' });
-      return false;
-    }
-    return true;
-  };
 
   const login = (e) => {
     e.preventDefault();
     scrollToTop();
-    if (validUserData()) {
-      atemptLogin({ email, password });
-    }
+    atemptLogin({ email, password });
   };
 
   return (
@@ -46,7 +32,6 @@ function LoginForm({ atemptSetMessage, atemptLogin }) {
 
 LoginForm.propTypes = {
   atemptLogin: PropTypes.func.isRequired,
-  atemptSetMessage: PropTypes.func.isRequired,
 };
 
 export default LoginForm;

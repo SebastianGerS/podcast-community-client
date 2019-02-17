@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import { atemptRegister } from '../Actions/Auth';
-import { atemptSetMessage } from '../Actions/Message';
 import RegisterForm from '../Components/Auth/RegisterForm';
 
 function mapStateToProps(state) {
@@ -11,7 +10,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     atemptRegister: user => dispatch(atemptRegister(user)),
-    atemptSetMessage: message => dispatch(atemptSetMessage(message)),
   };
 }
 

@@ -6,47 +6,25 @@ import {
   invalidEmail, invalidPassword, invalidUsername, invalidPasswordConfirmation,
 } from '../../Helpers/Validation';
 
-function RegisterForm({ atemptSetMessage, atemptRegister, redirect }) {
+function RegisterForm({ atemptRegister, redirect }) {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [type, setType] = useState('private');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
 
-  const validUserData = () => {
-    if (invalidUsername(username)) {
-      atemptSetMessage({ message: 'please select a username', type: 'warning' });
-      return false;
-    }
-    if (invalidEmail(email)) {
-      atemptSetMessage({ message: 'please enter a valid email address', type: 'warning' });
-      return false;
-    }
-    if (invalidPasswordConfirmation(password, passwordConfirmation)) {
-      atemptSetMessage({ message: 'Passwordconfirmation does not match', type: 'warning' });
-      return false;
-    }
-    if (invalidPassword(password)) {
-      atemptSetMessage({ message: 'passwords must be atleast 8 characters long', type: 'warning' });
-      return false;
-    }
-
-    return true;
-  };
-
   const register = (e) => {
     e.preventDefault();
 
-    if (validUserData()) {
-      const user = {
-        username,
-        email,
-        password,
-        passwordConfirmation,
-        type,
-      };
-      atemptRegister(user);
-    }
+    const user = {
+      username,
+      email,
+      password,
+      passwordConfirmation,
+      type,
+    };
+
+    atemptRegister(user);
   };
 
   const renderRedirect = () => (typeof redirect.to === 'string' ? <Redirect to={redirect.to} /> : null);
@@ -85,7 +63,6 @@ function RegisterForm({ atemptSetMessage, atemptRegister, redirect }) {
 
 RegisterForm.propTypes = {
   atemptRegister: PropTypes.func.isRequired,
-  atemptSetMessage: PropTypes.func.isRequired,
   redirect: PropTypes.instanceOf(Immutable.Record).isRequired,
 };
 
