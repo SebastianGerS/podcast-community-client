@@ -1,24 +1,29 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Immutable from 'immutable';
 import Message from './Message';
 
 function MessageInterface({
-  message, removeMessage, showMessage, type,
+  messages, removeMessage,
 }) {
-  useEffect(() => {
-    if (showMessage) {
-      setTimeout(removeMessage, 6000);
-    }
-  }, [message]);
+  const [newMessage, setNewMessage] = useState(messages.first());
 
-  return (showMessage ? <Message type={type} message={message} /> : null);
+  useEffect(() => {
+    if (!newMessage && messages.size > 0) {
+      setNewMessage(messages.first());
+      setTimeout(() => {
+        setNewMessage(undefined);
+        removeMessage();
+      }, 6000);
+    }
+  }, [messages]);
+
+  return (newMessage ? <Message message={newMessage} /> : null);
 }
 
 MessageInterface.propTypes = {
-  showMessage: PropTypes.bool.isRequired,
   removeMessage: PropTypes.func.isRequired,
-  message: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
+  messages: PropTypes.instanceOf(Immutable.List).isRequired,
 };
 
 export default MessageInterface;

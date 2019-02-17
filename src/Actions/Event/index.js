@@ -31,16 +31,16 @@ export const atemptToggleSubscribtion = (userId, podcastId) => async (dispatch) 
 
   const response = await createEvent(event).catch(error => error);
 
-  if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ message: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
+  if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ text: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
 
   if (response.error) {
     dispatch(toggleSubscribtionFailure());
-    dispatch(atemptSetMessage({ message: response.error.errmsg, type: 'warning' }));
+    dispatch(atemptSetMessage({ text: response.error.errmsg, type: 'warning' }));
   }
 
   if (response.event) {
     dispatch(atemptGetSelf());
-    dispatch(atemptSetMessage({ message: `Sucessfully ${response.event.type}d`, type: 'success' }));
+    dispatch(atemptSetMessage({ text: `Sucessfully ${response.event.type}d`, type: 'success' }));
     dispatch(subscribtionToggled());
     dispatch(atemptGetSubscriptions(userId));
   }
