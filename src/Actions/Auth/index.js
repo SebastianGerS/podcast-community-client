@@ -5,6 +5,9 @@ import ActionTypes from './types';
 import { atemptSetMessage } from '../Message';
 import { toggleLoginModal, toggleMenu } from '../Modal';
 import * as Auth from '../../Helpers/Auth';
+import {
+  invalidEmail, invalidPassword, invalidUsername, invalidPasswordConfirmation,
+} from '../../Helpers/Validation';
 
 export const startUserLogin = () => (
   { type: ActionTypes.USER_LOGIN_START }
@@ -59,28 +62,69 @@ export const register = token => Fetch('/users', 'POST', token);
 
 export const getSelf = () => Fetch('/me', 'GET', {});
 
-export const atemptLogin = data => async (dispatch) => {
-  dispatch(startUserLogin());
-
-  const tempToken = JWT.sign(data, config.JWT_SECRET);
-
-  const response = await login(JSON.stringify({ token: tempToken })).catch(error => error);
-
-  if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ message: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
-
-  if (response.error) {
-    dispatch(userLoginFailure());
-    dispatch(atemptSetMessage({ message: response.error.errmsg, type: 'warning' }));
+export const validUsername = username => (dispatch) => {
+  if (invalidUsername(username)) {
+    dispatch(atemptSetMessage({ text: 'Please select a username', type: 'warning' }));
+    return false;
   }
+  return true;
+};
 
-  if (response.token) {
-    Auth.setToken(response.token);
+export const validEmail = email => (dispatch) => {
+  if (invalidEmail(email)) {
+    dispatch(atemptSetMessage({ text: 'Please enter a valid email address', type: 'warning' }));
+    return false;
+  }
+  return true;
+};
 
-    const decoded = await Auth.verifytoken(response.token).catch(error => error);
-    if (Auth.getToken() && decoded.user) {
-      dispatch(userLogedin(decoded.user));
-      dispatch(toggleLoginModal());
-      dispatch(atemptSetMessage({ message: 'You are now logedin', type: 'success' }));
+export const validPassword = password => (dispatch) => {
+  if (invalidPassword(password)) {
+    dispatch(atemptSetMessage({ text: 'Passwords must be atleast 8 characters long', type: 'warning' }));
+    return false;
+  }
+  return true;
+};
+
+export const validPasswordConfirmation = (password, passwordConfirmation) => (dispatch) => {
+  if (invalidPasswordConfirmation(password, passwordConfirmation)) {
+    dispatch(atemptSetMessage({ text: 'Passwordconfirmation does not match', type: 'warning' }));
+    return false;
+  }
+  return true;
+};
+
+export const validUserData = ({
+  email, username, password, passwordConfirmation,
+}) => dispatch => dispatch(validEmail(email))
+    && dispatch(validUsername(username))
+    && dispatch(validPassword(password))
+    && dispatch(validPasswordConfirmation(password, passwordConfirmation));
+
+export const atemptLogin = data => async (dispatch) => {
+  if (dispatch(validEmail(data.email)) && dispatch(validPassword(data.password))) {
+    dispatch(startUserLogin());
+
+    const tempToken = JWT.sign(data, config.JWT_SECRET);
+
+    const response = await login(JSON.stringify({ token: tempToken })).catch(error => error);
+
+    if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ text: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
+
+    if (response.error) {
+      dispatch(userLoginFailure());
+      dispatch(atemptSetMessage({ text: response.error.errmsg, type: 'warning' }));
+    }
+
+    if (response.token) {
+      Auth.setToken(response.token);
+
+      const decoded = await Auth.verifytoken(response.token).catch(error => error);
+      if (Auth.getToken() && decoded.user) {
+        dispatch(userLogedin(decoded.user));
+        dispatch(toggleLoginModal());
+        dispatch(atemptSetMessage({ text: 'You are now logedin', type: 'success' }));
+      }
     }
   }
 };
@@ -91,34 +135,36 @@ export const atemptLogout = () => (dispatch) => {
   if (Auth.logedout()) {
     dispatch(userLogedout());
     dispatch(toggleMenu());
-    dispatch(atemptSetMessage({ message: 'You have been logedout', type: 'warning' }));
+    dispatch(atemptSetMessage({ text: 'You have been logedout', type: 'warning' }));
   } else {
     dispatch(userLogoutFailure());
-    dispatch(atemptSetMessage({ message: 'logout failed', type: 'error' }));
+    dispatch(atemptSetMessage({ text: 'logout failed', type: 'error' }));
   }
 };
 
 
 export const atemptRegister = data => async (dispatch) => {
-  dispatch(startUserRegistration());
-  const tempToken = JWT.sign(data, config.JWT_SECRET);
+  if (dispatch(validUserData(data))) {
+    dispatch(startUserRegistration());
+    const tempToken = JWT.sign(data, config.JWT_SECRET);
 
-  const response = await register(JSON.stringify({ token: tempToken })).catch(error => error);
+    const response = await register(JSON.stringify({ token: tempToken })).catch(error => error);
 
-  if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ message: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
+    if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ text: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
 
-  if (response.error) {
-    dispatch(userRegistrationFailure());
-    const message = response.message ? response.message : response.error.errmsg;
+    if (response.error) {
+      dispatch(userRegistrationFailure());
+      const message = response.message ? response.message : response.error.errmsg;
 
-    dispatch(atemptSetMessage({ message, type: 'warning' }));
-  }
+      dispatch(atemptSetMessage({ message, type: 'warning' }));
+    }
 
-  if (response.token) {
-    Auth.setToken(response.token);
-    dispatch(userRegistered());
-    const decoded = await Auth.verifytoken(response.token).catch(error => error);
-    if (Auth.getToken() && decoded.user) dispatch(userLogedin(decoded.user));
+    if (response.token) {
+      Auth.setToken(response.token);
+      dispatch(userRegistered());
+      const decoded = await Auth.verifytoken(response.token).catch(error => error);
+      if (Auth.getToken() && decoded.user) dispatch(userLogedin(decoded.user));
+    }
   }
 };
 
@@ -137,14 +183,14 @@ export const atemptGetSelf = () => async (dispatch) => {
   const response = await getSelf();
 
   if (response.message === 'Failed to fetch') {
-    dispatch(atemptSetMessage({ message: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
+    dispatch(atemptSetMessage({ text: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
   }
 
 
   if (response.error) {
-    const message = response.message ? response.message : response.error.errmsg;
+    const text = response.message ? response.message : response.error.errmsg;
 
-    dispatch(atemptSetMessage({ message, type: 'warning' }));
+    dispatch(atemptSetMessage({ text, type: 'warning' }));
   }
   if (response.user) dispatch(gottSelf(response.user));
 };

@@ -1,39 +1,23 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import JWT from 'jsonwebtoken';
-import config from '../../Config/config';
 import User from '../../Models/User';
 import {
   invalidPassword, invalidPasswordConfirmation,
 } from '../../Helpers/Validation';
 
 function UserSettings({
-  user, updateUser, deleteUser, atemptSetMessage,
+  user, updateUser, deleteUser,
 }) {
   const [type, setType] = useState(user.type);
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
 
-  const validUserData = () => {
-    if (invalidPasswordConfirmation(password, passwordConfirmation)) {
-      atemptSetMessage({ message: 'Passwordconfirmation does not match', type: 'warning' });
-      return false;
-    }
-    if (invalidPassword(password)) {
-      atemptSetMessage({ message: 'passwords must be atleast 8 characters long', type: 'warning' });
-      return false;
-    }
-
-    return true;
-  };
-
   const atemptUpdateUser = (e) => {
     e.preventDefault();
     if (type !== user.type) {
       updateUser(user._id, { type });
-    } else if (validUserData()) {
-      const tempToken = JWT.sign(password, config.JWT_SECRET);
-      updateUser(user._id, { password: tempToken });
+    } else {
+      updateUser(user._id, { password, passwordConfirmation });
     }
   };
 
@@ -53,7 +37,7 @@ function UserSettings({
         <button type="submit">Update</button>
       </form>
       <h3>Change Password</h3>
-      <form onSubmit={updateUser}>
+      <form onSubmit={atemptUpdateUser}>
         <label htmlFor="password">
       Password:
           <input type="password" name="password" id="password" className={invalidPassword(password) ? 'invalid' : 'valid'} value={password} onChange={e => setPassword(e.target.value)} />
@@ -74,7 +58,6 @@ UserSettings.propTypes = {
   user: PropTypes.shape(User).isRequired,
   updateUser: PropTypes.func.isRequired,
   deleteUser: PropTypes.func.isRequired,
-  atemptSetMessage: PropTypes.func.isRequired,
 };
 
 export default UserSettings;

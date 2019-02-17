@@ -8,7 +8,8 @@ import {
 } from '../../Helpers/Validation';
 
 function UserForm({
-  setMessage, update, create, user, toggleUserModal, unsetUser, deleteUser,
+  validUsername, validEmail, validPassword, validPasswordConfirmation,
+  validUserData, update, create, user, toggleUserModal, unsetUser, deleteUser,
 }) {
   const existingUser = typeof user._id === 'string';
   const [username, setUsername] = useState(existingUser ? user.username : '');
@@ -17,78 +18,42 @@ function UserForm({
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
 
-  const validEmail = () => {
-    if (invalidEmail(email)) {
-      setMessage({ message: 'please enter a valid email address', type: 'warning' });
-      return false;
-    }
-    return true;
-  };
-
-  const validUsername = () => {
-    if (invalidUsername(username)) {
-      setMessage({ message: 'please select a username', type: 'warning' });
-      return false;
-    }
-    return true;
-  };
-
-  const validPassword = () => {
-    if (invalidPasswordConfirmation(password, passwordConfirmation)) {
-      setMessage({ message: 'Passwordconfirmation does not match', type: 'warning' });
-      return false;
-    }
-    if (invalidPassword(password)) {
-      setMessage({ message: 'passwords must be atleast 8 characters long', type: 'warning' });
-      return false;
-    }
-    return true;
-  };
-
-  const validUserData = () => {
-    if (validEmail() && validUsername() && validPassword()) {
-      return true;
-    }
-    return false;
-  };
-
   const handleUser = (e) => {
     e.preventDefault();
-    let passwordEdited = false;
+
     if (typeof user._id === 'string') {
       const fieldsToUpdate = {};
       if (username !== user.username) {
-        if (validUsername()) {
+        if (validUsername(username)) {
           fieldsToUpdate.username = username;
         }
       }
       if (email !== user.email) {
-        if (validEmail()) {
+        if (validEmail(email)) {
           fieldsToUpdate.email = email;
         }
       }
       if (password.length !== 0) {
-        passwordEdited = true;
-        if (validPassword()) {
+        if (validPassword(password) && validPasswordConfirmation(password, passwordConfirmation)) {
           fieldsToUpdate.password = JWT.sign(password, config.JWT_SECRET);
         }
       }
       if (type !== user.type) {
         fieldsToUpdate.type = type;
       }
-      if (passwordEdited && validPassword()) {
-        update(user._id, fieldsToUpdate);
-      } else if (!passwordEdited) {
+
+      if (Object.entries(fieldsToUpdate).length > 0) {
         update(user._id, fieldsToUpdate);
       }
     } else if (typeof user._id !== 'string') {
-      if (validUserData()) {
-        const newUser = {
-          username,
-          email,
-          password,
-          type,
-        };
+      const newUser = {
+        username,
+        email,
+        password,
+        type,
+      };
+
+      if (validUserData({ ...newUser, passwordConfirmation })) {
         create(newUser);
       }
     }
@@ -176,7 +141,11 @@ UserForm.propTypes = {
   create: PropTypes.func.isRequired,
   update: PropTypes.func.isRequired,
   deleteUser: PropTypes.func.isRequired,
-  setMessage: PropTypes.func.isRequired,
+  validEmail: PropTypes.func.isRequired,
+  validUsername: PropTypes.func.isRequired,
+  validPassword: PropTypes.func.isRequired,
+  validPasswordConfirmation: PropTypes.func.isRequired,
+  validUserData: PropTypes.func.isRequired,
   unsetUser: PropTypes.func.isRequired,
 
 };

@@ -4,7 +4,9 @@ import {
   atemptUpdateUser, unsetUser, atemptCreateUser, atemptDeleteUser,
 } from '../Actions/Admin';
 import { toggleUserModal } from '../Actions/Modal';
-import { atemptSetMessage } from '../Actions/Message';
+import {
+  validUsername, validEmail, validPassword, validPasswordConfirmation, validUserData,
+} from '../Actions/Auth';
 
 
 function mapStateToProps(state) {
@@ -20,7 +22,14 @@ function mapDispatchToProps(dispatch) {
     deleteUser: userId => dispatch(atemptDeleteUser(userId)),
     unsetUser: () => dispatch(unsetUser()),
     toggleUserModal: () => dispatch(toggleUserModal()),
-    setMessage: message => dispatch(atemptSetMessage(message)),
+    validUsername: username => dispatch(validUsername(username)),
+    validEmail: email => dispatch(validEmail(email)),
+    validPassword: password => dispatch(validPassword(password)),
+    validPasswordConfirmation: (password, passwordConfirmation) => dispatch(
+      validPasswordConfirmation(password,
+        passwordConfirmation),
+    ),
+    validUserData: user => dispatch(validUserData(user)),
   };
 }
 
