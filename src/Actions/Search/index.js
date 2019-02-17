@@ -103,12 +103,12 @@ export const atemptSearch = data => async (dispatch) => {
 
   const response = await search(query).catch(error => error);
 
-  if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ message: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
+  if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ text: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
 
   if (response.error) {
     dispatch(SearchFailure());
 
-    dispatch(atemptSetMessage({ message: response.error.errmsg, type: 'info' }));
+    dispatch(atemptSetMessage({ text: response.error.errmsg, type: 'info' }));
   }
   if (response.results) dispatch(searchComplete(response));
 };

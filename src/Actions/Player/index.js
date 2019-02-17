@@ -56,7 +56,7 @@ export const download = episode => (dispatch) => {
         dispatch(downloaded());
       }).catch(() => {
         dispatch(failedDownload());
-        dispatch(setMessage({ message: 'failed to download the episode', type: 'error' }));
+        dispatch(setMessage({ text: 'failed to download the episode', type: 'error' }));
       });
   });
 };

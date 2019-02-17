@@ -4,9 +4,7 @@ import { atemptRemoveMessage } from '../Actions/Message';
 
 function mapStateToProps(state) {
   return {
-    showMessage: state.Message.showMessage,
-    message: state.Message.message,
-    type: state.Message.type,
+    messages: state.Message.messages,
   };
 }
 function mapDispatchToProps(dispatch) {

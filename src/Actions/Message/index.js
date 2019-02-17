@@ -13,7 +13,6 @@ export const removeMessage = () => (
   }
 );
 
-
 export const atemptSetMessage = data => (dispatch) => {
   dispatch(setMessage(data));
 };
