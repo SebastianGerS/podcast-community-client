@@ -131,7 +131,7 @@ function PlaybackInterface({
           setSeek(getEpisodePosFromList(episode.id));
         }
 
-        if (prevPos !== 0) {
+        if (prevPos !== 0 && typeof prevPos !== 'object') {
           savePosInLocalStorage({ id: prevEpisode.id, pos: prevPos });
         }
       }
@@ -139,7 +139,7 @@ function PlaybackInterface({
   }, [player, src, startEpisode]);
 
   useEffect(() => {
-    if (player && prevPos !== 0) {
+    if (player && prevPos !== 0 && typeof prevPos !== 'object') {
       const newPos = prevEpisode.id === episode.id ? pos : prevPos;
       savePosInLocalStorage({ id: prevEpisode.id, pos: newPos });
     }
