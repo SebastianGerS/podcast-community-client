@@ -7,18 +7,34 @@ function MessageInterface({
   messages, removeMessage,
 }) {
   const [newMessage, setNewMessage] = useState(messages.first());
+  const [animation, setAnimtaion] = useState('');
+  const [fadeOutTimeout, setFadeOutTimeout] = useState();
 
   useEffect(() => {
     if (!newMessage && messages.size > 0) {
       setNewMessage(messages.first());
-      setTimeout(() => {
-        setNewMessage(undefined);
-        removeMessage();
-      }, 6000);
+      setAnimtaion('fade-in');
+      setFadeOutTimeout(setTimeout(() => {
+        setAnimtaion('fade-out');
+        setTimeout(() => {
+          setNewMessage(undefined);
+          removeMessage();
+        }, 300);
+      }, 4000));
+    } else if (messages.size > 1) {
+      if (animation !== 'fade-out') {
+        clearTimeout(fadeOutTimeout);
+        setAnimtaion('fade-out');
+        setTimeout(() => {
+          setNewMessage(undefined);
+          setFadeOutTimeout(undefined);
+          removeMessage();
+        }, 300);
+      }
     }
   }, [messages]);
 
-  return (newMessage ? <Message message={newMessage} /> : null);
+  return (newMessage ? <Message message={newMessage} animation={animation} /> : null);
 }
 
 MessageInterface.propTypes = {
