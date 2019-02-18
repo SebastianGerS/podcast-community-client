@@ -7,8 +7,8 @@
   width: 100%;
   height: 45px;
   z-index:9999;
-  opacity: 0;
-  animation: fade-in-out 6s linear 0s 1 alternate forwards;
+  
+  
 
   &.info {
     background-color: #56CCF2;
@@ -30,11 +30,26 @@
     font-size: 1em;
   }
 }
+.fade-in {
+  opacity: 0;
+  height: 0;
+  animation: fade-in 4s linear 0s 1 running forwards;
+}
 
-@keyframes fade-in-out {
+.fade-out {
+  opacity: 0.5;
+  height: 45px;
+  animation: fade-out 300ms linear 0s 1 running forwards;
+}
+
+@keyframes fade-in {
   0% { opacity: 0; height: 0;}
-  10% { opacity: 1; height: 45px;}
-  75% { opacity: 0.5; height: 45px; }
+  10% {opacity: 1; height: 45px;}
+  100% { opacity: 0.5; height: 45px;}
+}
+
+@keyframes fade-out {
+  0% { opacity: 0.5; height: 45px; }
   100% { opacity: 0; height: 0; }
 }
 
