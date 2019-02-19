@@ -2,8 +2,6 @@ import React from 'react';
 import { BrowserRouter, Switch } from 'react-router-dom';
 import Views from './Views';
 import SiteRoute from './Containers/SiteRoute';
-import AuthSiteRoute from './Containers/AuthSiteRoute';
-import AdminAuthSiteRoute from './Containers/AdminAuthSiteRoute';
 
 const Router = () => (
   <BrowserRouter>
@@ -11,35 +9,43 @@ const Router = () => (
       <SiteRoute
         exact
         path="/"
+        routeType="PUBLIC"
         component={Views.Home}
       />
       <SiteRoute
         path="/search"
+        routeType="PUBLIC"
         component={Views.Search}
       />
       <SiteRoute
         path="/register"
+        routeType="PUBLIC"
         component={Views.Register}
       />
-      <AuthSiteRoute
+      <SiteRoute
         path="/profile/:userId"
+        routeType="PROTECTED"
         component={Views.Profile}
       />
-      <AuthSiteRoute
+      <SiteRoute
         exact
         path="/my-subscriptions"
+        routeType="PROTECTED"
         component={Views.MySubscriptions}
       />
-      <AuthSiteRoute
+      <SiteRoute
         path="/my-subscriptions/categories/:categoryId"
+        routeType="PROTECTED"
         component={Views.Category}
       />
-      <AuthSiteRoute
+      <SiteRoute
         path="/settings"
+        routeType="PROTECTED"
         component={Views.Settings}
       />
-      <AdminAuthSiteRoute
+      <SiteRoute
         path="/users"
+        routeType="ADMIN"
         component={Views.Users}
       />
     </Switch>

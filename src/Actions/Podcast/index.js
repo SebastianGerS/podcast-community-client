@@ -24,12 +24,12 @@ const atemptGetTopPodcasts = () => async (dispatch) => {
   dispatch(startGetTopPodcasts());
   const response = await getTopPodcasts().catch(error => error);
 
-  if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ message: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
+  if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ text: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
 
   if (response.error) {
     dispatch(getTopPodcastsFailure());
 
-    dispatch(atemptSetMessage({ message: response.error.errmsg, type: 'info' }));
+    dispatch(atemptSetMessage({ text: response.error.errmsg, type: 'info' }));
   }
 
   if (response.length !== 0) dispatch(gotTopPodcasts(response));

@@ -11,7 +11,7 @@ class ErrorBoundary extends Component {
     const { setMessage } = this.props;
     this.setState({ hasError: true });
 
-    setMessage({ message: 'an error has occurd', type: 'error' });
+    setMessage({ text: 'an error has occurd', type: 'error' });
   }
 
   render() {

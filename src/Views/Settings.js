@@ -1,21 +1,18 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import UserSettings from '../Containers/UserSettings';
 import { scrollToTop } from '../Helpers/UserAgent';
 
-class Settings extends Component {
-  componentDidMount() {
+function Settings() {
+  useEffect(() => {
     scrollToTop();
-  }
+  }, []);
 
-  render() {
-    return (
-      <div className="Settings">
-        <h2>Settings</h2>
-        <UserSettings />
-      </div>
-    );
-  }
+  return (
+    <div className="Settings">
+      <h2>Settings</h2>
+      <UserSettings />
+    </div>
+  );
 }
-
 
 export default Settings;

@@ -72,11 +72,11 @@ export const atemptGetUsers = data => async (dispatch) => {
   dispatch(startGetUsers());
   const { offset, type, term } = data;
   const response = await getUsers(offset, type, term).catch(error => error);
-  if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ message: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
+  if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ text: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
 
   if (response.error) {
     dispatch(getUsersFailure());
-    dispatch(atemptSetMessage({ message: response.error.errmsg, type: 'warning' }));
+    dispatch(atemptSetMessage({ text: response.error.errmsg, type: 'warning' }));
   }
   if (response.results) dispatch(gotUsers(response));
 };
@@ -92,7 +92,7 @@ export const atemptUpdateUser = (id, user) => async (dispatch) => {
 
   if (response.message === 'Failed to fetch') {
     dispatch(userUpdateFailure());
-    dispatch(atemptSetMessage({ message: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
+    dispatch(atemptSetMessage({ text: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
   }
 
   if (response.error) {
@@ -105,7 +105,7 @@ export const atemptUpdateUser = (id, user) => async (dispatch) => {
     dispatch(userUpdated());
     dispatch(atemptGetUsers({ term: '', type: 'user', offset: store.getState().Admin.offset - 10 }));
     dispatch(toggleUserModal());
-    dispatch(atemptSetMessage({ message: response.info, type: 'success' }));
+    dispatch(atemptSetMessage({ text: response.info, type: 'success' }));
   }
 };
 
@@ -115,7 +115,7 @@ export const atemptCreateUser = data => async (dispatch) => {
 
   const response = await createUser(JSON.stringify({ token: tempToken })).catch(error => error);
 
-  if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ message: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
+  if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ text: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
 
   if (response.error) {
     dispatch(userCreationFailure());
@@ -127,7 +127,7 @@ export const atemptCreateUser = data => async (dispatch) => {
   if (response.token) {
     dispatch(userCreated());
     dispatch(atemptGetUsers({ term: '', type: 'user', offset: store.getState().Admin.offset - 10 }));
-    dispatch(atemptSetMessage({ message: 'User was created', type: 'success' }));
+    dispatch(atemptSetMessage({ text: 'User was created', type: 'success' }));
     dispatch(toggleUserModal());
   }
 };
@@ -139,7 +139,7 @@ export const atemptDeleteUser = userId => async (dispatch) => {
 
   if (response.message === 'Failed to fetch') {
     dispatch(userDeletionFailure());
-    dispatch(atemptSetMessage({ message: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
+    dispatch(atemptSetMessage({ text: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
   }
 
   if (response.error) {
@@ -152,7 +152,7 @@ export const atemptDeleteUser = userId => async (dispatch) => {
   if (response.info) {
     dispatch(userDeleted());
     dispatch(atemptGetUsers({ term: '', type: 'user', offset: store.getState().Admin.offset - 10 }));
-    dispatch(atemptSetMessage({ message: response.info, type: 'warning' }));
+    dispatch(atemptSetMessage({ text: response.info, type: 'warning' }));
     dispatch(toggleUserModal());
   }
 };

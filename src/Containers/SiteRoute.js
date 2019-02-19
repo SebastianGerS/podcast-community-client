@@ -5,6 +5,8 @@ import { checkIfResized, setHeight } from '../Actions/Modal';
 
 function mapStateToProps(state) {
   return {
+    isLogedIn: state.Auth.isLogedIn,
+    isAdmin: state.Auth.isAdmin,
     menuIsActive: state.Modal.menuIsActive,
     loginModalIsActive: state.Modal.loginModalIsActive,
     height: state.Modal.height,

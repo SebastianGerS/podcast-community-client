@@ -1,20 +1,18 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import TopPodcasts from '../Containers/TopPodcasts';
 import { scrollToTop } from '../Helpers/UserAgent';
 
-class Home extends Component {
-  componentDidMount() {
+function Home() {
+  useEffect(() => {
     scrollToTop();
-  }
+  }, []);
 
-  render() {
-    return (
-      <div className="Home">
-        <h2>Top Podcasts</h2>
-        <TopPodcasts />
-      </div>
-    );
-  }
+  return (
+    <div className="Home">
+      <h2>Top Podcasts</h2>
+      <TopPodcasts />
+    </div>
+  );
 }
 
 export default Home;

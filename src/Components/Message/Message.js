@@ -1,15 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import MessageModel from '../../Models/Message';
 
-const Message = ({ message, type }) => (
-  <div className={`message ${type}`}>
-    <p>{message}</p>
+const Message = ({ message, animation }) => (
+  <div className={`message ${message.type} ${animation} `}>
+    <p>{message.text}</p>
   </div>
 );
 
 Message.propTypes = {
-  message: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
+  message: PropTypes.shape(MessageModel).isRequired,
+  animation: PropTypes.string.isRequired,
 };
 
 export default Message;

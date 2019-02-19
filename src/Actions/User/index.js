@@ -1,8 +1,12 @@
+import JWT from 'jsonwebtoken';
 import ActionTypes from './types';
 import { Fetch, formatError } from '../../Helpers/Fetch';
 import { atemptSetMessage } from '../Message';
-import { atemptGetSelf, userLogedout } from '../Auth';
+import {
+  atemptGetSelf, userLogedout, validPassword, validPasswordConfirmation,
+} from '../Auth';
 import { removeToken } from '../../Helpers/Auth';
+import config from '../../Config/config';
 
 export const startUpdateUser = () => (
   { type: ActionTypes.UPDATE_USER_START }
@@ -106,33 +110,47 @@ export const atemptGetUser = id => async (dispatch) => {
 
   const response = await getUser(id).catch(error => error);
 
-  if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ message: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
+  if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ text: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
 
   if (response.error) {
     dispatch(getUserFailure());
 
-    dispatch(atemptSetMessage({ message: response.error.errmsg, type: 'info' }));
+    dispatch(atemptSetMessage({ text: response.error.errmsg, type: 'info' }));
   }
 
   if (response.user) dispatch(gotUser(response.user));
 };
 
-export const atemptUpdateUser = (_id, body) => async (dispatch) => {
-  dispatch(startUpdateUser());
-  const response = await updateUser(body).catch(error => error);
-  if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ message: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
+export const atemptUpdateUser = (_id, data) => async (dispatch) => {
+  let dataIsValid = true;
+  let body = data;
 
-  if (response.error) {
-    dispatch(userUpdateFailure());
+  if (data.password && data.passwordConfirmation) {
+    dataIsValid = dispatch(validPassword(data.password))
+    && dispatch(validPasswordConfirmation(data.validPasswordConfirmation));
 
-    dispatch(atemptSetMessage({ message: formatError(response.error.errmsg), type: 'info' }));
+    body = { password: JWT.sign(data.password, config.JWT_SECRET) };
   }
 
-  if (response.info) {
-    dispatch(UserUpdated());
-    dispatch(atemptGetUser(_id));
-    dispatch(atemptGetSelf());
-    dispatch(atemptSetMessage({ message: response.info, type: 'success' }));
+  if (dataIsValid) {
+    dispatch(startUpdateUser());
+
+    const response = await updateUser(body).catch(error => error);
+
+    if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ text: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
+
+    if (response.error) {
+      dispatch(userUpdateFailure());
+
+      dispatch(atemptSetMessage({ text: formatError(response.error.errmsg), type: 'info' }));
+    }
+
+    if (response.info) {
+      dispatch(UserUpdated());
+      dispatch(atemptGetUser(_id));
+      dispatch(atemptGetSelf());
+      dispatch(atemptSetMessage({ text: response.info, type: 'success' }));
+    }
   }
 };
 
@@ -140,19 +158,19 @@ export const atemptDeleteSelf = () => async (dispatch) => {
   dispatch(startDeleteSelf());
   const response = await deleteSelf().catch(error => error);
   if (response.message === 'Failed to fetch') {
-    dispatch(atemptSetMessage({ message: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
+    dispatch(atemptSetMessage({ text: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
     dispatch(deleteSelfFailure());
   }
   if (response.error) {
     dispatch(deleteSelfFailure());
-    dispatch(atemptSetMessage({ message: formatError(response.error.errmsg), type: 'info' }));
+    dispatch(atemptSetMessage({ text: formatError(response.error.errmsg), type: 'info' }));
   }
 
   if (response.info) {
     dispatch(selfDeleted());
     removeToken();
     dispatch(userLogedout());
-    dispatch(atemptSetMessage({ message: 'Your Account was deleted', type: 'warning' }));
+    dispatch(atemptSetMessage({ text: 'Your Account was deleted', type: 'warning' }));
   }
 };
 
@@ -161,12 +179,12 @@ export const atemptGetSubscriptions = userId => async (dispatch) => {
 
   const response = await getSubscriptions(userId);
 
-  if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ message: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
+  if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ text: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
 
   if (response.error) {
     dispatch(getSubscriptionsFailure());
 
-    dispatch(atemptSetMessage({ message: formatError(response.error.errmsg), type: 'info' }));
+    dispatch(atemptSetMessage({ text: formatError(response.error.errmsg), type: 'info' }));
   }
   if (response.subscriptions) {
     dispatch(gotSubscriptions(response));
@@ -178,12 +196,12 @@ export const atemptCreateCategory = ({ name, userId }) => async (dispatch) => {
   dispatch(startCreateCategory());
   const response = await createCategory({ name }).catch(error => error);
 
-  if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ message: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
+  if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ text: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
 
   if (response.error) {
     dispatch(createCategoryFailure());
 
-    dispatch(atemptSetMessage({ message: formatError(response.error.errmsg), type: 'info' }));
+    dispatch(atemptSetMessage({ text: formatError(response.error.errmsg), type: 'info' }));
   }
   if (response.category) {
     dispatch(catagoryCreated());
@@ -196,12 +214,12 @@ export const atemptUpdateCategory = ({ userId, categoryId, body }) => async (dis
   dispatch(startUpdateCategory());
   const response = await updateCategory(categoryId, body).catch(error => error);
 
-  if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ message: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
+  if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ text: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
 
   if (response.error) {
     dispatch(updateCategoryFailure());
 
-    dispatch(atemptSetMessage({ message: formatError(response.error.errmsg), type: 'info' }));
+    dispatch(atemptSetMessage({ text: formatError(response.error.errmsg), type: 'info' }));
   }
   if (response.category) {
     dispatch(catagoryUpdated());
@@ -213,12 +231,12 @@ export const atemptDeleteCategory = (userId, categoryId) => async (dispatch) => 
   dispatch(startDeleteCategory());
   const response = await deleteCategory(categoryId).catch(error => error);
 
-  if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ message: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
+  if (response.message === 'Failed to fetch') dispatch(atemptSetMessage({ text: 'unable to connect to resource pleas check your internet conection', type: 'error' }));
 
   if (response.error) {
     dispatch(deleteCategoryFailure());
 
-    dispatch(atemptSetMessage({ message: formatError(response.error.errmsg), type: 'info' }));
+    dispatch(atemptSetMessage({ text: formatError(response.error.errmsg), type: 'info' }));
   }
   if (response.category) {
     dispatch(catagoryDeleted());

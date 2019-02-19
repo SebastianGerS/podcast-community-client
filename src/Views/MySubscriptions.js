@@ -1,19 +1,17 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import UserSubscriptions from '../Containers/MySubscriptions';
 import { scrollToTop } from '../Helpers/UserAgent';
 
-class MySubscriptions extends Component {
-  componentDidMount() {
+function MySubscriptions() {
+  useEffect(() => {
     scrollToTop();
-  }
+  }, []);
 
-  render() {
-    return (
-      <div className="MySubscriptions">
-        <UserSubscriptions />
-      </div>
-    );
-  }
+  return (
+    <div className="MySubscriptions">
+      <UserSubscriptions />
+    </div>
+  );
 }
 
 export default MySubscriptions;

@@ -1,20 +1,23 @@
+import Immutable from 'immutable';
 import ActionTypes from '../Actions/Message/types';
+import Message from '../Models/Message';
 
 const DEFAULT_STATE = {
-  showMessage: false,
-  message: '',
-  type: '',
+  messages: Immutable.List(),
 };
 
 export default function (state = DEFAULT_STATE, action) {
   switch (action.type) {
     case ActionTypes.SET_MESSAGE:
       return {
-        ...state, showMessage: true, message: action.data.message, type: action.data.type,
+        ...state,
+        messages: state.messages.contains(new Message(action.data))
+          ? state.messages
+          : state.messages.push(new Message(action.data)),
       };
     case ActionTypes.REMOVE_MESSAGE:
       return {
-        ...state, showMessage: false, message: '', type: '',
+        ...state, messages: state.messages.shift(),
       };
     default:
       return { ...state };

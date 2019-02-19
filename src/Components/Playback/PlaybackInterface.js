@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ReactHowler from 'react-howler';
 import PlaybackModal from './PlaybackModal';
@@ -7,154 +7,109 @@ import Episode from '../../Models/Episode';
 import ErrorBoundray from '../../Containers/ErrorBoundray';
 import { savePosInLocalStorage, checkifInPosList, getEpisodePosFromList } from '../../Helpers/Downloads';
 import { getMediumModalHeight } from '../../Helpers/UserAgent';
+import usePrevious from '../../Helpers/CustomHooks';
 
-class PlaybackInterface extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      pos: 0,
-      timer: undefined,
-    };
-    this.togglePlay = this.togglePlay.bind(this);
-    this.seek = this.seek.bind(this);
-    this.backward = this.backward.bind(this);
-    this.forward = this.forward.bind(this);
-    this.getSeek = this.getSeek.bind(this);
-    this.getDuration = this.getDuration.bind(this);
-    this.setSeek = this.setSeek.bind(this);
-    this.handleTimer = this.handleTimer.bind(this);
-    this.startTimer = this.startTimer.bind(this);
-    this.stopTimer = this.stopTimer.bind(this);
-    this.updatePosition = this.updatePosition.bind(this);
-  }
+function PlaybackInterface({
+  startEpisode, play, stop, toggleModal, modalIsActive,
+  menuIsActive, episode, isPlaying, src, height,
+}) {
+  const [pos, setPos] = useState(0);
+  const [timer, setTimer] = useState(undefined);
+  const [player, setPlayer] = useState(undefined);
 
-  shouldComponentUpdate(nextProps) {
-    const { timer } = this.state;
-    const { episode, src } = this.props;
-    if (nextProps.startEpisode && typeof nextProps.episode.id === 'string') {
-      setTimeout(this.togglePlay, 200);
-    } else if (!nextProps.isPlaying && timer) {
-      this.stopTimer();
-    }
+  const prevPos = usePrevious(pos);
+  const prevEpisode = usePrevious(episode);
 
-    if (nextProps.src !== src && typeof episode.id === 'string' && this.getSeek() !== 0) {
-      savePosInLocalStorage({ id: episode.id, pos: this.getSeek() });
-    }
-    if (nextProps.src !== src && checkifInPosList(nextProps.episode.id)) {
-      setTimeout(() => this.setSeek(getEpisodePosFromList(nextProps.episode.id)), 250);
-    }
-    return true;
-  }
-
-  componentWillUnmount() {
-    const { episode } = this.props;
-    savePosInLocalStorage({ id: episode.id, pos: this.getSeek() });
-  }
-
-  getSeek() {
-    if (this.player) {
-      return this.player.seek();
+  const getSeek = () => {
+    if (player) {
+      return player.seek();
     }
 
     return 0;
-  }
+  };
 
-  setSeek(value) {
-    if (this.player) {
-      this.player.seek(value);
+  const setSeek = (value) => {
+    if (player) {
+      player.seek(value);
     }
-  }
+  };
 
-  getDuration() {
-    if (this.player) {
-      return this.player.duration();
+  const getDuration = () => {
+    if (player) {
+      return player.duration();
     }
 
     return 0;
-  }
+  };
 
+  const startTimer = (cb) => {
+    const newTimer = setInterval(cb, 1000);
+    setTimer(newTimer);
+  };
 
-  togglePlay() {
-    const {
-      play, stop, isPlaying, episode,
-    } = this.props;
+  const stopTimer = () => {
+    clearInterval(timer);
+    setTimer(undefined);
+  };
+
+  const updatePosition = () => {
+    const newPos = getSeek();
+    setPos(newPos);
+  };
+
+  const handleTimer = () => {
+    if (!timer) {
+      startTimer(updatePosition);
+    } else {
+      stopTimer();
+      startTimer(updatePosition);
+    }
+  };
+
+  const togglePlay = () => {
     if (typeof episode.id === 'string') {
       if (isPlaying) {
         stop();
-        this.stopTimer();
+        stopTimer();
       } else {
         play();
-        this.handleTimer();
+        handleTimer();
       }
     }
-  }
+  };
 
-  startTimer(cb) {
-    const timer = setInterval(cb, 1000);
-    this.setState({
-      timer,
-    });
-  }
+  const seek = (newPos) => {
+    let currentPosition = getSeek();
+    const duration = getDuration();
 
-  stopTimer() {
-    const { timer } = this.state;
-    clearInterval(timer);
-    this.setState({
-      timer: undefined,
-    });
-  }
-
-  handleTimer() {
-    const { timer } = this.state;
-
-    if (!timer) {
-      this.startTimer(this.updatePosition);
-    } else {
-      this.stopTimer();
-      this.startTimer(this.updatePosition);
-    }
-  }
-
-  updatePosition() {
-    const pos = this.getSeek();
-    this.setState({
-      pos,
-    });
-  }
-
-  seek(pos) {
-    let currentPosition = this.getSeek();
-    const duration = this.getDuration();
-    const { timer } = this.state;
-
-    if (pos < 0) {
+    if (newPos < 0) {
       currentPosition = 0;
-    } else if (pos > duration) {
+    } else if (newPos > duration) {
       currentPosition = duration;
     } else {
-      currentPosition = pos;
+      currentPosition = newPos;
     }
-    this.setSeek(currentPosition);
+    setSeek(currentPosition);
 
     if (!timer) {
-      this.updatePosition();
+      updatePosition();
     }
-  }
+  };
 
-  forward() {
-    let currentPosition = this.getSeek();
-    const duration = this.getDuration();
+  const forward = () => {
+    let currentPosition = getSeek();
+    const duration = getDuration();
     if ((currentPosition + 15) > duration) {
       currentPosition = duration;
     } else {
       currentPosition += 15;
     }
 
-    this.setSeek(currentPosition);
-  }
+    setSeek(currentPosition);
+  };
 
-  backward() {
-    let currentPosition = this.getSeek();
+  const backward = () => {
+    let currentPosition = getSeek();
 
     if ((currentPosition - 15) < 0) {
       currentPosition = 0;
@@ -162,80 +117,101 @@ class PlaybackInterface extends Component {
       currentPosition -= 15;
     }
 
-    this.setSeek(currentPosition);
-  }
+    setSeek(currentPosition);
+  };
 
-  render() {
-    const {
-      toggleModal, modalIsActive, menuIsActive, episode, isPlaying, src, height,
-    } = this.props;
-    const { pos } = this.state;
-    const type = modalIsActive ? 'modal' : 'bar';
-    let layoutPos;
-    const style = {};
+  useEffect(() => {
+    if (player) {
+      if (startEpisode && typeof episode.id === 'string') {
+        togglePlay();
+      }
 
-    if (modalIsActive) {
-      layoutPos = 'top';
-      style.height = getMediumModalHeight(height);
-    } else if (menuIsActive) {
-      layoutPos = 'bottom-1';
-    } else {
-      layoutPos = 'bottom-2';
+      if (typeof episode.id === 'string' && startEpisode) {
+        if (checkifInPosList(episode.id)) {
+          setSeek(getEpisodePosFromList(episode.id));
+        }
+
+        if (prevPos !== 0 && typeof prevPos !== 'object') {
+          savePosInLocalStorage({ id: prevEpisode.id, pos: prevPos });
+        }
+      }
     }
-    return (
-      <div className={`playbackinterface ${type} ${layoutPos}`} style={style}>
-        <div className="toggle">
-          <button type="button" aria-label="toggle-playback-modal-button " className={modalIsActive ? 'fold' : 'expand'} onClick={() => toggleModal('playback', modalIsActive)} />
-        </div>
-        { !modalIsActive
-        && (
-        <PlaybackBar
-          isPlaying={isPlaying}
-          togglePlay={this.togglePlay}
-          episode={episode}
-          seek={this.seek}
-          forward={this.forward}
+  }, [player, src, startEpisode]);
 
+  useEffect(() => {
+    if (player && prevPos !== 0 && typeof prevPos !== 'object') {
+      const newPos = prevEpisode.id === episode.id ? pos : prevPos;
+      savePosInLocalStorage({ id: prevEpisode.id, pos: newPos });
+    }
+  }, [isPlaying]);
+
+  const type = modalIsActive ? 'modal' : 'bar';
+
+  let layoutPos;
+  const style = {};
+
+  if (modalIsActive) {
+    layoutPos = 'top';
+    style.height = getMediumModalHeight(height);
+  } else if (menuIsActive) {
+    layoutPos = 'bottom-1';
+  } else {
+    layoutPos = 'bottom-2';
+  }
+  return (
+    <div className={`playbackinterface ${type} ${layoutPos}`} style={style}>
+      <div className="toggle">
+        <button type="button" aria-label="toggle-playback-modal-button " className={modalIsActive ? 'fold' : 'expand'} onClick={() => toggleModal('playback', modalIsActive)} />
+      </div>
+      { !modalIsActive
+      && (
+      <PlaybackBar
+        isPlaying={isPlaying}
+        togglePlay={togglePlay}
+        episode={episode}
+        seek={seek}
+        forward={forward}
+
+      />
+      )
+      }
+      { modalIsActive
+        && (
+        <PlaybackModal
+          isPlaying={isPlaying}
+          togglePlay={togglePlay}
+          episode={episode}
+          seek={seek}
+          backward={backward}
+          forward={forward}
+          getDuration={getDuration}
+          getSeek={getSeek}
+          pos={pos}
         />
         )
-        }
-        { modalIsActive
-          && (
-          <PlaybackModal
-            isPlaying={isPlaying}
-            togglePlay={this.togglePlay}
-            episode={episode}
-            seek={this.seek}
-            backward={this.backward}
-            forward={this.forward}
-            getDuration={this.getDuration}
-            getSeek={this.getSeek}
-            pos={pos}
+      }
+      {
+        /* eslint-disable no-return-assign */
+        typeof episode.id === 'string'
+        && (
+        <ErrorBoundray>
+          <ReactHowler
+            src={src}
+            playing={isPlaying}
+            volume={1}
+            preload
+            format={['mp3', 'webm']}
+            ref={playerRef => (setPlayer(playerRef))}
+            html5
           />
-          )
-        }
-        {
-          /* eslint-disable no-return-assign */
-          typeof episode.id === 'string'
-          && (
-          <ErrorBoundray>
-            <ReactHowler
-              src={src}
-              playing={isPlaying}
-              volume={1}
-              preload
-              format={['mp3', 'webm']}
-              ref={ref => (this.player = ref)}
-              html5
-            />
-          </ErrorBoundray>
-          )
-       }
+        </ErrorBoundray>
+        )
+     }
 
-      </div>
-    );
-  }
+    </div>
+  );
 }
+
 PlaybackInterface.propTypes = {
   toggleModal: PropTypes.func.isRequired,
   play: PropTypes.func.isRequired,
