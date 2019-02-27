@@ -32,6 +32,8 @@ const atemptGetTopPodcasts = () => async (dispatch) => {
     dispatch(atemptSetMessage({ text: response.error.errmsg, type: 'info' }));
   }
 
-  if (response.length !== 0) dispatch(gotTopPodcasts(response));
+  if (response.length !== 0 && !response.error && !response.message) {
+    dispatch(gotTopPodcasts(response));
+  }
 };
 export default atemptGetTopPodcasts;
