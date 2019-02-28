@@ -10,9 +10,9 @@
 /build
 /builds
 /current
+default.conf
 
 # css
-
 **/*.css
 
 # misc
