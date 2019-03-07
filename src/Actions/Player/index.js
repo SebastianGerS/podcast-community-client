@@ -42,13 +42,14 @@ export const download = episode => (dispatch) => {
   dispatch(startDownloading(episode.id));
   caches.open('thru-the-ether').then(async (cache) => {
     const path = `${Config.API_BASE_URL}/audio/${episode.id}`;
-    dispatch(downloaded());
+
     await fetch(path)
       .then(async (res) => {
         cache.put(path, res.clone());
         const blob = await res.blob();
         downloadjs(blob, `${episode.title_original}.mp3`, 'application/octet-stream');
         saveToListOfDownloads(episode.id);
+        dispatch(downloaded());
       }).catch(() => {
         dispatch(failedDownload());
         dispatch(setMessage({ text: 'failed to download the episode', type: 'error' }));

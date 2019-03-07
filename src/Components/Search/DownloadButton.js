@@ -42,7 +42,7 @@ class DownloadButton extends Component {
 DownloadButton.propTypes = {
   episode: PropTypes.shape(Episode).isRequired,
   download: PropTypes.func.isRequired,
-  isDownloading: PropTypes.bool.isRequired,
+  isDownloading: PropTypes.string.isRequired,
 };
 
 export default DownloadButton;
