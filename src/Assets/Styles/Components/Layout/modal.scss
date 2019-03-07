@@ -15,55 +15,47 @@
 }
 
 .background-black {
-  background-color: #2E2929;
+  background-color: #2e2929;
 }
 
 @media only screen and (min-width: 768px) and (orientation: portrait) {
-
   .top {
     top: 170.45px;
   }
 }
-@media only screen and (min-width: 1024px)  {
 
+@media only screen and (min-width: 1024px) {
   .top {
     top: 205.45px;
   }
 }
 
 @media only screen and (min-width: 1024px) and (orientation: portrait) {
-
   .top {
     top: 217px;
   }
-
 }
-@media only screen and (min-width: 1336px) and (orientation: landscape) and (min-height: 1024px) {
 
+@media only screen and (min-width: 1336px) and (orientation: landscape) and (min-height: 1024px) {
   .top {
     top: 205.45px;
-  } 
+  }
 }
 
 @media only screen and (min-width: 1024px) and (min-height: 1336px) {
-
   .top {
     top: 205.45px;
   }
 }
 
 @media only screen and (min-width: 1400px) {
-
   .top {
     top: 205.45px;
   }
 }
 
-@media only screen and (min-width: 1850px) and (orientation: landscape){
-
-
+@media only screen and (min-width: 1850px) and (orientation: landscape) {
   .top {
     top: 245px;
   }
-
 }

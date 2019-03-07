@@ -1,5 +1,4 @@
 .listable-episode {
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,45 +9,50 @@
   border-radius: 4px;
   margin: 0.5em 0;
   padding: 0.5em;
+
   div {
     display: inline-flex;
     flex-direction: row;
     width: 100%;
     padding: 0.25em 0;
 
-    figure{
+    figure {
       width: 50px;
       height: 50px;
       margin: 0.5em 0.25em 0.5em 0.5em;
+
       img {
         width: 100%;
-        border-radius:  4px;
-  
+        border-radius: 4px;
       }
     }
+
     p > span {
       margin-left: 0;
       margin-top: 0.25em;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
-      color: rgba(254, 246, 246, 0.68)
+      color: rgba(254, 246, 246, 0.68);
     }
-   
   }
+
   div:last-child {
     justify-content: space-between;
     align-items: center;
     margin-bottom: -0.5em;
   }
+
   h3 {
     padding: 0.5em 0;
   }
+
   p {
     margin-left: 0.5em;
     margin-top: 0.3em;
     font-size: 14px;
   }
+
   .info-box {
     display: inline-flex;
     flex-direction: row;
@@ -56,7 +60,7 @@
     align-items: center;
     margin: 0;
     margin-left: 0.5em;
-    background-color:#2F3C47;
+    background-color: #2f3c47;
     height: 17px;
     border-radius: 4px;
     max-width: 100px;
@@ -64,13 +68,12 @@
 
     img {
       width: 15px;
-      height:15px;
-
+      height: 15px;
     }
 
     figcaption {
       font-size: 0.75em;
-      color:#FEF6F6;
+      color: #fef6f6;
     }
 
     p {
@@ -80,16 +83,16 @@
       flex-direction: row;
 
       span {
-        color:#f6c821;
+        color: #f6c821;
         margin-top: 0;
       }
-      
     }
   }
 
   .info-box:last-child {
     justify-content: center;
   }
+
   .more-options-button {
     background-image: url(../Icons/more.svg);
     background-repeat: no-repeat;
@@ -99,7 +102,6 @@
   }
 
   .play-button {
-   
     background-image: url(../Icons/play-arrow.svg);
     background-repeat: no-repeat;
     background-size: contain;
@@ -113,7 +115,5 @@
     background-size: contain;
     width: 40px;
     height: 40px;
-
   }
-
 }

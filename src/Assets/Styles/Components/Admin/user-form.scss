@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 1em ;
+  padding: 1em;
 
   .close {
     background-image: url(../Icons/remove-white.svg);
@@ -14,9 +14,11 @@
     height: 30px;
     align-self: flex-end;
   }
+
   form {
-    padding-top:0.5em;
-    width:100%;
+    padding-top: 0.5em;
+    width: 100%;
+
     label {
       font-size: 0.85em;
       align-self: flex-start;
@@ -24,56 +26,63 @@
       flex-direction: row;
       align-items: center;
       margin: 0.5em 0;
-      input, select {
+
+      input,
+      select {
         margin-left: 0.5em;
         padding: 0.25em;
         font-size: 0.9em;
         background-size: 15px;
       }
     }
+
     .buttons {
       display: flex;
       flex-direction: row;
+
       button {
-        color: #2E2929;
+        color: #2e2929;
         padding: 0.25em;
         border-radius: 4px;
         width: 100%;
         font-size: 1em;
         margin: 0.5em 0.25em 0 0.25em;
-        background-color: #FA7070;;
+        background-color: #fa7070;
       }
 
       button:last-child {
-        background-color: #78D69F;
+        background-color: #78d69f;
       }
     }
-   
-    
   }
-  
 }
-@media only screen and (orientation: landscape){
+
+@media only screen and (orientation: landscape) {
   .user-form {
-    padding: 0.25em ;
-  
+    padding: 0.25em;
+
     .close {
       background-size: 15px;
       width: 15px;
       height: 15px;
     }
+
     form {
-      padding-top:0.15em;
+      padding-top: 0.15em;
+
       label {
         font-size: 0.5em;
         margin: 0.25em 0;
-        input, select {
+
+        input,
+        select {
           margin-left: 0.5em;
           padding: 0.25em;
           font-size: 0.5em;
           background-size: 7.5px;
         }
       }
+
       .buttons {
         button {
           padding: 0.15em;
@@ -87,24 +96,29 @@
 
 @media only screen and (orientation: landscape) and (min-width: 640px) {
   .user-form {
-    padding: 0.5em ;
-  
+    padding: 0.5em;
+
     .close {
       background-size: 15px;
       width: 15px;
       height: 15px;
     }
+
     form {
-      padding-top:0.25em;
+      padding-top: 0.25em;
+
       label {
         font-size: 0.65em;
         margin: 0.3em 0;
-        input, select {
+
+        input,
+        select {
           padding: 0.35em;
           font-size: 0.65em;
           background-size: 7.5px;
         }
       }
+
       .buttons {
         button {
           padding: 0.25em;
@@ -117,24 +131,29 @@
 
 @media only screen and (orientation: portrait) and (min-height: 640px) {
   .user-form {
-    padding: 1em ;
-  
+    padding: 1em;
+
     .close {
       background-size: 30px;
       width: 30px;
       height: 30px;
     }
+
     form {
-      padding-top:0.5em;
+      padding-top: 0.5em;
+
       label {
         font-size: 1em;
         margin: 0.5em 0;
-        input, select {
+
+        input,
+        select {
           padding: 0.5em;
           font-size: 1em;
           background-size: 15px;
         }
       }
+
       .buttons {
         button {
           padding: 0.5em;
@@ -144,14 +163,14 @@
     }
   }
 }
+
 @media only screen and (orientation: portrait) and (min-height: 731px) {
   .user-form {
     form {
-    
       label {
-
         margin: 0.75em 0;
       }
+
       .buttons {
         margin-top: 1em;
       }
@@ -161,26 +180,32 @@
 
 @media only screen and (orientation: portrait) and (min-height: 812px) {
   .user-form {
-    padding: 1em ;
-  
+    padding: 1em;
+
     .close {
       background-size: 30px;
       width: 30px;
       height: 30px;
     }
+
     form {
-      padding-top:0.5em;
+      padding-top: 0.5em;
+
       label {
         font-size: 1.2em;
         margin: 0.75em 0;
-        input, select {
+
+        input,
+        select {
           padding: 0.5em;
           font-size: 1em;
           background-size: 15px;
         }
       }
+
       .buttons {
         margin-top: 1em;
+
         button {
           padding: 0.5em;
           font-size: 1.2em;
@@ -189,23 +214,29 @@
     }
   }
 }
+
 @media only screen and (orientation: portrait) and (min-height: 1024px) {
   .user-form {
-    padding: 2em ;
-  
+    padding: 2em;
+
     form {
-      padding-top:1em;
+      padding-top: 1em;
+
       label {
         font-size: 1.4em;
         margin: 1em 0;
-        input, select {
+
+        input,
+        select {
           padding: 0.5em;
           font-size: 1.2em;
           background-size: 25px;
         }
       }
+
       .buttons {
         margin-top: 1em;
+
         button {
           padding: 0.5em;
           font-size: 1.4em;
@@ -217,26 +248,32 @@
 
 @media only screen and (orientation: portrait) and (min-height: 1366px) {
   .user-form {
-    padding: 2em ;
-  
+    padding: 2em;
+
     .close {
       background-size: 40px;
       width: 40px;
       height: 40px;
     }
+
     form {
-      padding-top:1em;
+      padding-top: 1em;
+
       label {
         font-size: 1.5em;
         margin: 1.2em 0;
-        input, select {
+
+        input,
+        select {
           padding: 0.5em;
           font-size: 1.25em;
           background-size: 30px;
         }
       }
+
       .buttons {
         margin-top: 1em;
+
         button {
           padding: 0.5em;
           font-size: 1.5em;
@@ -248,26 +285,32 @@
 
 @media only screen and (orientation: landscape) and (min-height: 768px) {
   .user-form {
-    padding: 1.5em ;
-  
+    padding: 1.5em;
+
     .close {
       background-size: 30px;
       width: 30px;
       height: 30px;
     }
+
     form {
-      padding-top:0.75em;
+      padding-top: 0.75em;
+
       label {
         font-size: 1em;
         margin: 0.75em 0;
-        input, select {
+
+        input,
+        select {
           padding: 0.5em;
           font-size: 0.9em;
           background-size: 20px;
         }
       }
+
       .buttons {
         margin-top: 0.5em;
+
         button {
           padding: 0.5em;
           font-size: 1em;
@@ -276,27 +319,34 @@
     }
   }
 }
+
 @media only screen and (orientation: landscape) and (min-height: 1024px) {
   .user-form {
-    padding: 2em ;
-  
+    padding: 2em;
+
     .close {
       background-size: 40px;
       width: 40px;
       height: 40px;
     }
+
     form {
-      padding-top:0.75em;
+      padding-top: 0.75em;
+
       label {
         font-size: 1.2em;
         margin: 1em 0;
-        input, select {
+
+        input,
+        select {
           font-size: 1em;
           background-size: 25px;
         }
       }
+
       .buttons {
         margin-top: 1em;
+
         button {
           font-size: 1.2em;
         }

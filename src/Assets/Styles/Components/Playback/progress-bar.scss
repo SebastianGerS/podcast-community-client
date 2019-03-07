@@ -2,7 +2,7 @@
   width: 90%;
 
   .info {
-    display:flex;
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
@@ -14,22 +14,20 @@
   }
 
   .bar {
-    display:flex;
+    display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin-top:0.6em;
+    margin-top: 0.6em;
 
     .start {
-
       position: relative;
       left: 0;
       height: 40px;
       width: 10px;
-      background-color: grey;
-      margin-left:5px;
-      background-color: #FEF6F6;
+      margin-left: 5px;
+      background-color: #fef6f6;
     }
 
     .end {
@@ -38,7 +36,7 @@
       height: 40px;
       width: 10px;
       background-color: grey;
-      margin-right:5px;
+      margin-right: 5px;
     }
 
     .line {
@@ -50,14 +48,14 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-        background-color: #FEF6F6;
+        background-color: #fef6f6;
         height: 12px;
-        width:25%;
+        width: 25%;
       }
 
       .marker {
         padding: 12px;
-        background-color: #FEF6F6;
+        background-color: #fef6f6;
         border-radius: 100%;
         position: relative;
         left: 100%;
@@ -68,27 +66,26 @@
   }
 }
 
-@media only screen and (min-height: 320px) and (orientation: landscape){
+@media only screen and (min-height: 320px) and (orientation: landscape) {
   .progress-bar {
-    
-    .info{
+    .info {
       font-size: 0.75em;
     }
+
     .bar {
-      margin-top:0.1em;
+      margin-top: 0.1em;
     }
   }
 }
 
 @media only screen and (min-height: 731px) {
-
   .progress-bar {
-    
-    .info{
+    .info {
       font-size: 1em;
     }
+
     .bar {
-      margin-top:0.5em;
+      margin-top: 0.5em;
     }
   }
 }

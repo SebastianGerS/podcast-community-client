@@ -1,13 +1,14 @@
 .categories {
   padding-top: 1em;
-  .add-button{
-    background-color:rgba(120, 214, 159, 0.68);
+
+  .add-button {
+    background-color: rgba(120, 214, 159, 0.68);
     padding: 0.5em 2em 0.5em 0.5em;
     border-radius: 4px;
     font-size: 1.2em;
     float: right;
     margin-right: 1em;
-    color:#2E2929;  
+    color: #2e2929;
     background-image: url(../Icons/pluss.svg);
     background-size: 25px;
     background-position: 97% 50%;
