@@ -1,123 +1,192 @@
 body {
-    background-color: #2E2929;
+  background-color: #2e2929;
 }
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video, button, input, 
-select, optgroup, textarea {
-    color:#FEF6F6;
-    font-family: radley, 'Times New Roman', Times, serif;
-    box-sizing: border-box;
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video,
+button,
+input,
+select,
+optgroup,
+textarea {
+  color: #fef6f6;
+  font-family: radley, 'Times New Roman', Times, serif;
+  box-sizing: border-box;
 }
 
-input, select {
-    background-color:  #FEF6F6;
-    color: #2E2929;
-    padding: 0.3em 2em 0.3em 0.3em;
-    border-radius: 4px;
-    width: 100%;
-    font-size: 1.2em;
-    background-repeat: no-repeat;
-    background-position: 97% 50%;
-    background-size: 25px;
+input,
+select {
+  background-color: #fef6f6;
+  color: #2e2929;
+  padding: 0.3em 2em 0.3em 0.3em;
+  border-radius: 4px;
+  width: 100%;
+  font-size: 1.2em;
+  background-repeat: no-repeat;
+  background-position: 97% 50%;
+  background-size: 25px;
 
+  &.invalid {
+    background-image: url(../Icons/remove-red.svg);
+  }
 
-    &.invalid {
-        background-image: url(../Icons/remove-red.svg);
-      }
-      
-    &.valid {
-       background-image: url(../Icons/checkmark.svg);
-    }
+  &.valid {
+    background-image: url(../Icons/checkmark.svg);
+  }
 }
-li.active, button.active {
-    text-decoration: underline;
+
+li.active,
+button.active {
+  text-decoration: underline;
 }
 
 select {
-    background-image: url(../Icons/drop-down-black.svg);
-    margin-top: 0.25em;
+  background-image: url(../Icons/drop-down-black.svg);
+  margin-top: 0.25em;
 }
 
 form {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+
+  label {
     display: flex;
     flex-direction: column;
     align-content: center;
     justify-content: center;
-
-    label {
-        display: flex;
-        flex-direction: column;
-        align-content: center;
-        justify-content: center;
-        align-self: center;
-    }
+    align-self: center;
+  }
 }
 
 .App {
+  .content {
+    padding-top: 120px;
+    margin-bottom: 60px;
+    min-height: 95vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
-    .content {
-        padding-top: 120px;
-        margin-bottom: 60px;
-        min-height: 95vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    
-        .page-header {
-        margin-top: 1em;
-        margin-bottom: 1em;
-          font-size: 3em;
-        }
+    .page-header {
+      margin-top: 1em;
+      margin-bottom: 1em;
+      font-size: 3em;
     }
+  }
 }
 
 @media only screen and (min-width: 667px) {
+  .App {
+    .content {
+      padding-top: 140px;
 
-    .App {
-
-        .content {
-            padding-top: 140px;
-
-            input, select {
-                background-position: 98% 50%;
-            }
-        }
+      input,
+      select {
+        background-position: 98% 50%;
+      }
     }
   }
-  
-  @media only screen and (min-width: 1024px) {
-  
-    .App {
+}
 
-        .content {
-            padding-top: 250px;
+@media only screen and (min-width: 1024px) {
+  .App {
+    .content {
+      padding-top: 250px;
 
-            input, select {
-                background-position: 99% 50%;
-            }
-        }
+      input,
+      select {
+        background-position: 99% 50%;
+      }
     }
   }
-  
-  @media only screen and (min-width: 1850px) {
-  
-    .App {
+}
 
-        .content {
-            padding-top: 300px;
-        }
+@media only screen and (min-width: 1850px) {
+  .App {
+    .content {
+      padding-top: 300px;
     }
   }
+}

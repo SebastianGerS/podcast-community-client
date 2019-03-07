@@ -1,212 +1,213 @@
 
-  header {
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: #fef6f6;
+  height: 70px;
+  width: 100%;
+  padding-top: 0.75em;
+  color: #2e2929;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+
+  h1 {
+    color: #2e2929;
+  }
+
+  figure {
+    padding: 0 1em;
+  }
+
+  div {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-    background-color: #FEF6F6;
-    height: 70px;
-    width:100%;
-    padding-top:0.75em;
-    color: #2E2929;
-    position: fixed;
-    top:0;
-    left:0;
-    z-index: 1000;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 
-    h1 {
-      color: #2E2929;
+  button {
+    font-size: 1em;
+    color: #2e2929;
+  }
+
+  p {
+    color: #2e2929;
+    font-size: 0.7em;
+    text-align: center;
+  }
+
+  .login-button {
+    padding: 0.8em 1em;
+  }
+
+  .logo {
+    animation: App-logo-spin infinite 20s linear;
+    height: 50px;
+  }
+
+  .site-title {
+    font-size: 1.4em;
+    padding-bottom: 0.25em;
+  }
+
+  .notifications-button {
+    padding: 0 0.5em 0 0;
+
+    button {
+      height: 50px;
+      width: 50px;
+      background-image: url(../Icons/notifications.svg);
+      background-size: 50px;
     }
+  }
+}
 
-    figure {
-      padding: 0 1em;
-    }
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
 
-    div {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+@media only screen and (min-height: 320px) and (orientation: landscape) {
+  header {
+    height: 90px;
+    padding-top: 1em;
+
+    p {
+      font-size: 1em;
     }
 
     button {
       font-size: 1em;
-      color: #2E2929;
-    }
-
-    p {
-      color: #2E2929;
-      font-size: 0.70em;
-      text-align: center;
     }
 
     .login-button {
-      padding: 0.8em 1em;
-    }
-
-    .logo {
-      animation: App-logo-spin infinite 20s linear;
-      height: 50px;
-    }
-
-    .site-title {
-      font-size: 1.4em;
-      padding-bottom: 0.25em;
+      padding: 0.75em 1em;
+      min-width: 5em;
     }
 
     .notifications-button {
-      padding: 0 0.5em 0 0;
       button {
-        height:50px;
-        width:50px;
-        background-image: url(../Icons/notifications.svg);
-        background-size: 50px;
-      } 
-    }
-  }
-
-  @keyframes App-logo-spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-  @media only screen and (min-height: 320px) and (orientation: landscape){
-
-    header {
-
-      height: 90px;
-      padding-top:1em;
-
-      p {
-        font-size: 1em;
-      }
-
-      button {
-        font-size: 1em;
-      }
-
-      .login-button {
-        padding: 0.75em 1em;
-        min-width: 5em
-      }
-      .notifications-button {
-        button {
-          height:3em;
-          width:3em;
-          background-size: 3em;
-        } 
-      }
-
-      .logo {
         height: 3em;
-      }
-
-      .site-title {
-        font-size: 1.5em;
+        width: 3em;
+        background-size: 3em;
       }
     }
+
+    .logo {
+      height: 3em;
+    }
+
+    .site-title {
+      font-size: 1.5em;
+    }
   }
-  @media only screen and (min-width: 667px) and (orientation: portrait) {
+}
 
-    header {
+@media only screen and (min-width: 667px) and (orientation: portrait) {
+  header {
+    height: 110px;
+    padding-top: 1em;
 
-      height: 110px;
-      padding-top:1em;
+    p {
+      font-size: 1em;
+    }
 
-      p {
-        font-size: 1em;
+    button {
+      font-size: 1.5em;
+    }
+
+    .login-button {
+      padding: 1.3em 1em;
+      min-width: 5em;
+    }
+
+    .notifications-button {
+      button {
+        height: 3.5em;
+        width: 3.5em;
+        background-size: 3.5em;
       }
+    }
+
+    .logo {
+      height: 5em;
+    }
+
+    .site-title {
+      font-size: 3em;
+    }
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  header {
+    height: 130px;
+    padding-top: 1.5em;
+
+    figure {
+      padding: 0 1.5em;
+    }
+
+    button {
+      font-size: 1.5em;
+    }
+
+    .login-button {
+      padding: 1.3em 1.5em;
+    }
+
+    .notifications-button {
+      margin-top: -0.25em;
 
       button {
-        font-size: 1.5em;
+        height: 4em;
+        width: 4em;
+        background-size: 4em;
       }
+    }
 
-      .login-button {
-        padding: 1.3em 1em;
-        min-width: 5em
-      }
-      .notifications-button {
-        button {
-          height:3.5em;
-          width:3.5em;
-          background-size: 3.5em;
-        } 
-      }
+    .logo {
+      height: 5em;
+    }
 
-      .logo {
-        height: 5em;
-      }
-
-      .site-title {
-        font-size: 3em;
-      }
+    .site-title {
+      font-size: 3em;
     }
   }
+}
 
-  @media only screen and (min-width: 1024px) {
+@media only screen and (min-width: 1850px) {
+  header {
+    height: 170px;
+    padding-top: 2em;
 
-    header {
-      height: 130px;
-      padding-top:1.5em;
+    figure {
+      padding: 0 2em;
+    }
 
-      figure {
-        padding: 0 1.5em;
-      }
+    p {
+      font-size: 1.5em;
+    }
 
-      button {
-        font-size: 1.5em;
-      }
-      .login-button {
-        padding: 1.3em 1.5em;
-      }
-      .notifications-button {
-        margin-top: -0.25em;
-        button {
-          height:4em;
-          width:4em;
-          background-size: 4em;
-        } 
-      }
+    button {
+      font-size: 2em;
+    }
 
-      .logo {
-        height: 5em;
-      }
+    .login-button {
+      padding: 1.3em 2em;
+      min-width: 7em;
+    }
 
-      .site-title {
-        font-size: 3em;
-      }
+    .logo {
+      height: 7em;
+    }
+
+    .site-title {
+      font-size: 4em;
     }
   }
-
-  @media only screen and (min-width: 1850px) {
-
-    header {
-
-        height: 170px;
-        padding-top:2em;
-        
-        figure {
-          padding: 0 2em;
-        }
-
-        p {
-          font-size: 1.5em;
-        }
-    
-        button {
-          font-size: 2em;
-        }
-
-        .login-button {
-          padding: 1.3em 2m;
-          min-width: 7em
-        }
-
-        .logo {
-          height: 7em;
-        }
-
-        .site-title {
-          font-size: 4em;
-        }
-    }
 }

@@ -4,32 +4,34 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  .subscription-navigation{
+
+  .subscription-navigation {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-bottom: 1px solid #FEF6F6;
+    border-bottom: 1px solid #fef6f6;
     width: 100%;
-    h2{
+
+    h2 {
       font-size: 1.5em;
       margin-bottom: 1em;
     }
-  
+
     ul {
       display: flex;
       flex-direction: row;
       align-items: center;
       justify-content: center;
-  
+
       li {
         margin: 0 0.5em;
         padding-bottom: 0.5em;
       }
+
       button {
         font-size: 1.1em;
       }
     }
   }
- 
 }

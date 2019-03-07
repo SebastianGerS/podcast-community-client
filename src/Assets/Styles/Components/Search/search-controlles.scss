@@ -3,26 +3,30 @@
   flex-direction: column;
   justify-content: flex-start;
 
-  .filter-sort{
+  .filter-sort {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     padding: 0.25em 0.75em 0.5em 0.75em;
-    border-bottom: 1px solid #FEF6F6;
+    border-bottom: 1px solid #fef6f6;
+
     button {
       font-size: 22px;
     }
+
     button::after {
       content: url(../Icons/drop-down-white.svg);
       margin-left: 5px;
     }
   }
-  .type{
+
+  .type {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     padding: 0.25em 0;
-    border-bottom: 1px solid #FEF6F6;
+    border-bottom: 1px solid #fef6f6;
+
     button {
       font-size: 18px;
     }
@@ -31,6 +35,4 @@
   .active {
     text-decoration: underline;
   }
-
-  
 }

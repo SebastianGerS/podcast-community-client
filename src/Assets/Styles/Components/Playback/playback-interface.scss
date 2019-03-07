@@ -1,12 +1,11 @@
 .playbackinterface {
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  
-  width:100%;
+  width: 100%;
   padding: 0;
-  background-color: #F6C821;
+  background-color: #f6c821;
   opacity: 0.9;
 
   &.bar {
@@ -31,7 +30,7 @@
 
   .podcast-img {
     height: 125px;
-  }  
+  }
 
   .expand {
     background-image: url(../Icons/expand.svg);
@@ -42,14 +41,15 @@
     background-image: url(../Icons/fold.svg);
     height: 30px;
   }
-  
-  .play{
+
+  .play {
     background-image: url(../Icons/play-arrow.svg);
-  
   }
+
   .pause {
     background-image: url(../Icons/pause.svg);
   }
+
   .forward {
     height: 50px;
     width: 50px;
@@ -65,14 +65,17 @@
     background-size: 50px;
     margin: 0;
   }
+
   figure > .podcast-img {
     margin-top: 0.15em;
   }
+
   figure {
     figcaption {
-      font-size: 1em
+      font-size: 1em;
     }
   }
+
   button {
     height: 35px;
     width: 35px;
@@ -82,44 +85,51 @@
   }
 }
 
-@media only screen and (min-height: 320px) and (orientation: landscape){
+@media only screen and (min-height: 320px) and (orientation: landscape) {
   .playbackinterface {
     &.bar {
       height: 40px;
     }
+
     &.bottom-2 {
       position: sticky;
       left: 0;
       bottom: 38.5px;
     }
+
     .podcast-thumb {
       height: 20px;
-    } 
+    }
+
     .podcast-img {
       height: 0;
       display: none;
-    }  
-    
+    }
+
     .forward {
       height: 30px;
       width: 30px;
       background-size: 30px;
     }
+
     .backward {
       height: 30px;
       width: 30px;
       background-size: 30px;
     }
+
     .toggle {
-     margin-bottom: -40px
+      margin-bottom: -40px;
     }
-    
+
     figure > .podcast-img {
       margin-top: 0.15em;
     }
+
     p {
-      font-size: 0.75em
+      font-size: 0.75em;
     }
+
     button {
       height: 20px;
       width: 20px;
@@ -127,111 +137,102 @@
       margin: 0 0.25em;
     }
   }
-  
 }
-@media only screen and (min-height: 360px) and (orientation: landscape){
+
+@media only screen and (min-height: 360px) and (orientation: landscape) {
   .playbackinterface {
     .podcast-img {
       height: 50px;
       display: initial;
     }
+
     .toggle {
-      margin-bottom: -10px
-     }
-  }  
+      margin-bottom: -10px;
+    }
+  }
 }
 
-
 @media only screen and (min-height: 640px) {
-
   .playbackinterface {
+    .podcast-img {
+      height: 175px;
+      display: initial;
+    }
 
     figure > .podcast-img {
       margin-top: 1em;
     }
-    .podcast-img {
-      height: 175px;
-      display: initial;
-    }  
   }
 }
+
 @media only screen and (min-height: 731px) {
+  .playbackinterface {
+    .podcast-img {
+      height: 225px;
+    }
 
-    .playbackinterface {
+    figure > .podcast-img {
+      margin-top: 2em;
+    }
 
-      .podcast-img {
-        height: 225px;
-      }  
-
-      figure > .podcast-img {
-        margin-top: 2em;
+    &.modal {
+      .forward {
+        height: 50px;
+        width: 50px;
+        background-size: 50px;
       }
-      &.modal {
-        .forward {
-          height: 50px;
-          width: 50px;
-          background-size: 50px;
-        }
 
-        button {
-          height: 40px;
-          width: 40px;
-          background-size: 40px;
-        }
-        .backward {
-          height: 50px;
-          width: 50px;
-          background-size: 50px;
-        }
-        .toggle {
-          margin-bottom: -10px
-         }
+      button {
+        height: 40px;
+        width: 40px;
+        background-size: 40px;
       }
-      
-     
-      p {
-        font-size: 1em
+
+      .backward {
+        height: 50px;
+        width: 50px;
+        background-size: 50px;
       }
+
+      .toggle {
+        margin-bottom: -10px;
+      }
+    }
+
+    p {
+      font-size: 1em;
+    }
   }
 }
-
 
 @media only screen and (min-width: 1336px) and (orientation: landscape) and (min-height: 1024px) {
-
   .playbackinterface {
-
     .podcast-img {
       height: 275px;
-    }  
+    }
   }
 }
 
 @media only screen and (min-width: 1024px) and (min-height: 1336px) {
-
   .playbackinterface {
-
     .podcast-img {
       height: 275px;
-    }  
+    }
   }
 }
 
 @media only screen and (min-width: 1400px) {
-
   .playbackinterface {
-
     .podcast-img {
       height: 275px;
-    }  
+    }
   }
 }
 
-@media only screen and (min-width: 1850px) and (orientation: landscape){
-
+@media only screen and (min-width: 1850px) and (orientation: landscape) {
   .playbackinterface {
-
     .podcast-img {
       height: 375px;
-    }  
+    }
   }
 }

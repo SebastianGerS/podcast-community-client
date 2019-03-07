@@ -9,31 +9,32 @@
   border-radius: 4px;
   margin: 0.5em 0;
   padding: 0.5em;
+
   div {
-   
     width: 100%;
+
     a {
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
       align-items: center;
-      figure{
+
+      figure {
         width: 75px;
         height: 75px;
         margin: 0.5em 1em 0.5em 0.5em;
+
         img {
           width: 100%;
-  
         }
       }
-  
+
       p {
         font-size: 1.3em;
       }
     }
-    
   }
-  
+
   button {
     background-size: contain;
     background-repeat: no-repeat;
@@ -41,6 +42,6 @@
     height: 30px;
     width: 30px;
     align-self: flex-end;
-    margin-bottom: -1em
+    margin-bottom: -1em;
   }
 }
