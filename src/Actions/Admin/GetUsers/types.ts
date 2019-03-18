@@ -1,0 +1,7 @@
+export const GET_USERS_START = 'GET_USERS_START';
+export const GET_USERS_SUCCESS = 'GET_USERS_SUCCESS';
+export const GET_USERS_FAILUR = 'GET_USERS_FAILUR';
+
+export type GET_USERS_START = typeof GET_USERS_START;
+export type GET_USERS_SUCCESS = typeof GET_USERS_SUCCESS;
+export type GET_USERS_FAILUR = typeof GET_USERS_FAILUR;

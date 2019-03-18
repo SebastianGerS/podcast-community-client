@@ -1,6 +1,6 @@
 import React from 'react';
-import SearchControlles from '../../Containers/SearchControlles';
-import SearchResluts from '../../Containers/SearchResults';
+import SearchControlles from '../../Containers/Search/SearchControlles';
+import SearchResluts from '../../Containers/Search/SearchResults';
 import Pagination from '../Layout/Pagination';
 
 interface Props {

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import UserTable from '../Containers/UserTable';
+import UserTable from '../Containers/Admin/UserTable';
 import { scrollToTop } from '../Helpers/UserAgent';
 
 function Users(): JSX.Element {

@@ -1,6 +1,6 @@
 import React, { useState, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-import List from '../../Helpers/List';
+import List from '../Common/List';
 import ListablePodcast from './ListablePodcast';
 import { Category } from '../../Models/Category';
 

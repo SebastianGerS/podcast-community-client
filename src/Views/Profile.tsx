@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import UserProfile from '../Containers/Profile';
+import UserProfile from '../Containers/User/Profile';
 import { scrollToTop } from '../Helpers/UserAgent';
 
 interface Props {

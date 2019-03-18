@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import UserCategory from '../Containers/Category';
+import UserCategory from '../Containers/Subscription/Category';
 import { scrollToTop } from '../Helpers/UserAgent';
 
 interface Props {

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import UserRow from '../../Containers/UserRow';
-import TableBody from '../../Helpers/TableBody';
+import UserRow from '../../Containers/Admin/UserRow';
+import TableBody from '../Common/TableBody';
 import { User } from '../../Models/User';
 import UserModal from './UserModal';
 import Pagination from '../Layout/Pagination';

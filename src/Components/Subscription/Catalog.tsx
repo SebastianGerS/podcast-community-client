@@ -1,6 +1,6 @@
 import React from 'react';
-import List from '../../Helpers/List';
-import ListablePodcast from '../../Containers/ListablePodcast';
+import List from '../Common/List';
+import ListablePodcast from '../../Containers/Search/ListablePodcast';
 import Loader from '../Layout/Loader';
 import { Podcast } from '../../Models/Podcast';
 

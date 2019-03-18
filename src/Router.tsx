@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch } from 'react-router-dom';
 import Views from './Views';
-import SiteRoute from './Containers/SiteRoute';
+import SiteRoute from './Containers/Helpers/SiteRoute';
 
 const Router = (): JSX.Element => (
   <BrowserRouter>

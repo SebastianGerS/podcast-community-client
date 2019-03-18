@@ -1,13 +1,13 @@
 import React, { useEffect, ComponentProps } from 'react';
 import { Route, Redirect, RouteProps } from 'react-router-dom';
-import Header from '../Containers/Header';
-import SearchBar from '../Containers/SearchBar';
-import PlaybackInterface from '../Containers/PlaybackInterface';
+import Header from '../Containers/Layout/Header';
+import SearchBar from '../Containers/Search/SearchBar';
+import PlaybackInterface from '../Containers/Playback/PlaybackInterface';
 import Footer from '../Components/Layout/Footer';
 import MenuModal from '../Components/Layout/MenuModal';
 import LoginModal from '../Components/Auth/LoginModal';
-import MenuBar from '../Containers/MenuBar';
-import MessageInterface from '../Containers/MessageInterface';
+import MenuBar from '../Containers/Layout/MenuBar';
+import MessageInterface from '../Containers/Message/MessageInterface';
 
 
 interface SiteRouteProps extends RouteProps{

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import RegisterForm from '../Containers/RegisterForm';
+import RegisterForm from '../Containers/Auth/RegisterForm';
 import { scrollToTop } from '../Helpers/UserAgent';
 
 function Register(): JSX.Element {

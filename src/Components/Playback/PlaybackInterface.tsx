@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactHowler from 'react-howler';
 import PlaybackModal from './PlaybackModal';
 import PlaybackBar from './PlaybackBar';
-import ErrorBoundray from '../../Containers/ErrorBoundray';
+import ErrorBoundray from '../../Containers/Helpers/ErrorBoundray';
 import { savePosInLocalStorage, checkifInPosList, getEpisodePosFromList } from '../../Helpers/Downloads';
 import { getMediumModalHeight } from '../../Helpers/UserAgent';
 import usePrevious from '../../Helpers/CustomHooks';

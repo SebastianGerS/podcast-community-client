@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import ListablePodcast from './ListablePodcast';
-import List from '../../Helpers/List';
+import List from '../Common/List';
 import { Podcast } from '../../Models/Podcast';
 
 interface Props {

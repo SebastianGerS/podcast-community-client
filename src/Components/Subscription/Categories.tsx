@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import List from '../../Helpers/List';
-import Folder from '../../Containers/Folder';
+import List from '../Common/List';
+import Folder from '../../Containers/Subscription/Folder';
 import { Category } from '../../Models/Category';
 
 interface Props {

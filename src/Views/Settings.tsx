@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import UserSettings from '../Containers/UserSettings';
+import UserSettings from '../Containers/Settings/UserSettings';
 import { scrollToTop } from '../Helpers/UserAgent';
 
 function Settings(): JSX.Element {

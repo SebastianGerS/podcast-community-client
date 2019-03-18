@@ -1,8 +1,8 @@
 import React, {
   useState, useEffect, useMemo,
 } from 'react';
-import List from '../../Helpers/List';
-import ListablePodcast from '../../Containers/ListablePodcast';
+import List from '../Common/List';
+import ListablePodcast from '../../Containers/Search/ListablePodcast';
 import { Podcast } from '../../Models/Podcast';
 import { Category } from '../../Models/Category';
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, ComponentType } from 'react';
-import List from '../../Helpers/List';
-import ListablePodcast from '../../Containers/ListablePodcast';
-import ListableEpisode from '../../Containers/ListableEpisode';
+import List from '../Common/List';
+import ListablePodcast from '../../Containers/Search/ListablePodcast';
+import ListableEpisode from '../../Containers/Search/ListableEpisode';
 import ListableUser from './ListableUser';
 import Loader from '../Layout/Loader';
 import { scrollToTop } from '../../Helpers/UserAgent';

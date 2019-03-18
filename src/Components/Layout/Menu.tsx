@@ -1,6 +1,6 @@
 import React from 'react';
-import { SiteLink, AuthSiteLink, AdminSiteLink } from '../../Containers/Links';
-import LogoutButton from '../../Containers/LogoutButton';
+import { SiteLink, AuthSiteLink, AdminSiteLink } from '../../Containers/Common/Links';
+import LogoutButton from '../../Containers/Auth/LogoutButton';
 
 interface Props {
   closeMenu: () => void;

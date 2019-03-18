@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import SearchInterface from '../Containers/SearchInterface';
+import SearchInterface from '../Containers/Search/SearchInterface';
 import { scrollToTop } from '../Helpers/UserAgent';
 
 function Search(): JSX.Element {
