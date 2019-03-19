@@ -1,4 +1,5 @@
 import Immutable from 'immutable';
+import { Episode } from './Episode';
 
 export interface Podcast {
   description: string | StringConstructor;
@@ -18,6 +19,7 @@ export interface Podcast {
   title_original: string | StringConstructor;
   id: string | StringConstructor;
   itunes_id: number | NumberConstructor;
+  episodes: Episode[] | ArrayConstructor;
 }
 
 export const Podcast = Immutable.Record<Podcast>({
@@ -38,4 +40,5 @@ export const Podcast = Immutable.Record<Podcast>({
   title_original: String,
   id: String,
   itunes_id: Number,
+  episodes: Array,
 });

@@ -2,6 +2,7 @@ import Immutable from 'immutable';
 
 export interface Episode {
   description_original: string | StringConstructor;
+  description: string | StringConstructor;
   publisher_highlighted: string | StringConstructor;
   podcast_listennotes_url: string | StringConstructor;
   description_highlighted: string | StringConstructor;
@@ -21,11 +22,13 @@ export interface Episode {
   audio: string | StringConstructor;
   id: string | StringConstructor;
   title_original: string | StringConstructor;
+  title: string | StringConstructor;
   itunes_id: number | NumberConstructor;
 }
 
 export const Episode = Immutable.Record<Episode>({
   description_original: String,
+  description: String,
   publisher_highlighted: String,
   podcast_listennotes_url: String,
   description_highlighted: String,
@@ -45,5 +48,6 @@ export const Episode = Immutable.Record<Episode>({
   audio: String,
   id: String,
   title_original: String,
+  title: String,
   itunes_id: Number,
 });
