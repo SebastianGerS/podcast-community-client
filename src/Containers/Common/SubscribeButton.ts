@@ -1,10 +1,13 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import ListablePodcast from '../../Components/Search/ListablePodcast';
+import SubscribeButton from '../../Components/Common/SubscribeButton';
 import { atemptToggleSubscription, ToggleSubscriptionAction } from '../../Actions/Event';
-import { EventState } from '../../Reducers/EventReducer';
-import { AuthState } from '../../Reducers/AuthReducer';
+import { SetMessage } from '../../Actions/Message';
 import { User } from '../../Models/User';
+import { AuthState } from '../../Reducers/AuthReducer';
+import { EventState } from '../../Reducers/EventReducer';
+import { GetSubscriptionsAction } from '../../Actions/User';
+import { GetSelfSuccess } from '../../Actions/Auth';
 
 interface State {
   AuthReducer: AuthState;
@@ -17,7 +20,7 @@ interface StateProps {
   isLogedIn: boolean;
 }
 
-function mapStateToProps({ AuthReducer, EventReducer }: State): StateProps {
+function mapStateToProps({ EventReducer, AuthReducer }: State): StateProps {
   return {
     isToggelingSubscription: EventReducer.isToggelingSubscription,
     user: AuthReducer.user,
@@ -29,7 +32,11 @@ interface DispatchProps {
   atemptToggleSubsription: (userId: string, podcastId: string) => void;
 }
 
-function mapDispatchToProps(dispatch: Dispatch<ToggleSubscriptionAction>): DispatchProps {
+type SubscriptionButtonActions =(
+  ToggleSubscriptionAction | GetSubscriptionsAction | SetMessage | GetSelfSuccess
+);
+
+function mapDispatchToProps(dispatch: Dispatch<SubscriptionButtonActions>): DispatchProps {
   return {
     atemptToggleSubsription: (
       userId: string, podcastId: string,
@@ -37,4 +44,4 @@ function mapDispatchToProps(dispatch: Dispatch<ToggleSubscriptionAction>): Dispa
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ListablePodcast);
+export default connect(mapStateToProps, mapDispatchToProps)(SubscribeButton);

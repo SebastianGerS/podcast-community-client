@@ -1,28 +1,16 @@
-import React, { useState } from 'react';
-import Star from '../../Assets/Icons/star.svg';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { getDatefromMilisecond } from '../../Helpers/Time';
-import { User } from '../../Models/User';
 import { Podcast } from '../../Models/Podcast';
+import SubscribeButton from '../../Containers/Common/SubscribeButton';
+import Rating from '../Common/Rating';
+import MoreOptionsButton from '../Common/MoreOptionsButton';
 
 interface Props {
-  atemptToggleSubsription: (UserId: string | StringConstructor, podcastId: string | StringConstructor) => void;
   data: Podcast;
-  isToggelingSubscription: boolean;
-  user: User;
-  isLogedIn: boolean;
 }
-function ListablePodcast({
-  atemptToggleSubsription, data, isToggelingSubscription, user, isLogedIn,
-}: Props): JSX.Element {
-  const [subscribing, setSubscribing] = useState(false);
 
-  const toggleSubscription = (): void => {
-    if (isLogedIn) {
-      setSubscribing(true);
-      atemptToggleSubsription(user._id, data.id);
-    }
-  };
-
+function ListablePodcast({ data }: Props): JSX.Element {
   const title = (
     typeof data.title === 'string'
       ? data.title
@@ -47,58 +35,37 @@ function ListablePodcast({
         : ''
   );
 
-  const subscriptions = Array.isArray(user.subscriptions) ? user.subscriptions : [];
   const podcastId = typeof data.id === 'string' ? data.id : '';
-  let subscribeText = 'Subscribe';
-
-  if (isLogedIn) {
-    if (isToggelingSubscription && subscribing) {
-      subscribeText = '';
-    } else {
-      subscribeText = subscriptions.includes(podcastId) ? 'Unsubscribe' : 'Subscribe';
-    }
-  }
 
   return (
     <div className="listable-podcast-searchresult">
-      <h3>{title.length > 35 ? `${title.substring(0, 31)}...` : title}</h3>
-      <div>
-        <figure>
-          <img src={typeof data.thumbnail === 'string' ? data.thumbnail : ''} alt="podcastlogo" />
-        </figure>
-        <p>
-          <span>{`By ${publisher.length > 27 ? `${publisher.substring(0, 23)}...` : publisher}`}</span>
-          <span>
-            {`Last updated ${
-              getDatefromMilisecond(
-                typeof data.lastest_pub_date_ms === 'number' ? data.lastest_pub_date_ms : 0,
-              )}
-            `}
-          </span>
-        </p>
-      </div>
+      <Link to={`/podcasts/${typeof data.id === 'string' ? data.id : ''}`}>
+        <h3>{title.length > 35 ? `${title.substring(0, 31)}...` : title}</h3>
+        <div>
+          <figure>
+            <img src={typeof data.thumbnail === 'string' ? data.thumbnail : ''} alt="podcastlogo" />
+          </figure>
+          <p>
+            <span>{`By ${publisher.length > 27 ? `${publisher.substring(0, 23)}...` : publisher}`}</span>
+            <span>
+              {`Last updated ${
+                getDatefromMilisecond(
+                  typeof data.lastest_pub_date_ms === 'number' ? data.lastest_pub_date_ms : 0,
+                )}
+              `}
+            </span>
+          </p>
+        </div>
+      </Link>
       <div>
         <p>
           {description.length > 150 ? `${description.substring(0, 147)}...` : description}
         </p>
       </div>
       <div>
-        <figure className="rating">
-          <img src={Star} alt="podcastLogo" />
-          <figcaption>5.0</figcaption>
-        </figure>
-        <button
-          type="button"
-          className={
-            `subscribe-button
-              ${isToggelingSubscription && subscribing ? 'loading' : ''}
-              ${subscribeText === 'Unsubscribe' ? 'unsubscribe' : ''}`
-          }
-          onClick={toggleSubscription}
-        >
-          {subscribeText}
-        </button>
-        <button type="button" aria-label="more-options-button" className="more-options-button" />
+        <Rating />
+        <SubscribeButton podcastId={podcastId} />
+        <MoreOptionsButton />
       </div>
     </div>
   );
