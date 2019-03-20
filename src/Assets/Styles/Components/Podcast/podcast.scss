@@ -5,16 +5,25 @@
   align-items: center;
 
   .podcast-title {
-    font-size: 4em;
+    width: 80%;
+    font-size: 3em;
     text-align: center;
+    margin: 1em 0;
   }
 
   .podcast-description {
-    width: 100%;
+    width: 55%;
+
+    p {
+      font-size: 0.9em;
+      line-height: 1.3em;
+      word-spacing: 0.15em;
+    }
   }
 
   .podcast-img {
-    width: 100%;
+    width: 60%;
+    margin-bottom: 0.5em;
 
     img {
       width: 100%;
@@ -30,5 +39,25 @@
     align-items: center;
     margin-top: 1em;
     width: 100%;
+
+    .subscribe-button {
+      margin-right: -27px;
+    }
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .podcast {
+    .podcast-title {
+      width: 90%;
+    }
+
+    .podcast-description {
+      width: 75%;
+    }
+
+    .podcast-img {
+      width: 80%;
+    }
   }
 }
