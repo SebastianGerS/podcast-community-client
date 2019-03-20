@@ -4,7 +4,7 @@ import Loader from '../Layout/Loader';
 import SubscribeButton from '../../Containers/Common/SubscribeButton';
 import Rating from '../Common/Rating';
 import MoreOptionsButton from '../Common/MoreOptionsButton';
-import Episodes from './Episodes';
+import Episodes from '../../Containers/Podcasts/Episodes';
 
 interface Props {
   podcast: Podcast;
@@ -54,7 +54,7 @@ function PodcastComponent({
         <SubscribeButton podcastId={podcastId} />
         <MoreOptionsButton />
       </div>
-      <Episodes episodes={Array.isArray(podcast.episodes) ? podcast.episodes : []} />
+      <Episodes podcastTitle={title} podcastId={podcastId} />
     </div>
   ) : <Loader />;
 }

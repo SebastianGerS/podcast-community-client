@@ -27,8 +27,8 @@ function PodcastEpisode({
     }
   };
 
-  const title = typeof data.title === 'string' ? data.title : '';
-  const description = typeof data.description === 'string' ? data.description : '';
+  const title = typeof data.title_original === 'string' ? data.title_original : '';
+  const description = typeof data.description_original === 'string' ? data.description_original : '';
 
   return (
     <div className="listable-episode">
@@ -50,7 +50,7 @@ function PodcastEpisode({
           <p>
               length:&ensp;
             <span>
-              {typeof data.audio_length === 'number' ? `${Math.round(data.audio_length / 60)} min` : 'unknown'}
+              {typeof data.audio_length === 'string' ? data.audio_length : 'unknown'}
             </span>
           </p>
         </div>
