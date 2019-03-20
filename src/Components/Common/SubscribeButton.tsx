@@ -4,13 +4,13 @@ import { User } from '../../Models/User';
 interface Props {
   podcastId: string;
   user: User;
-  atemptToggleSubsription: (userId: string, podcastId: string) => void;
+  attemptToggleSubsription: (userId: string, podcastId: string) => void;
   isLogedIn: boolean;
   isToggelingSubscription: boolean;
 }
 
 function SubscribeButton({
-  podcastId, user, atemptToggleSubsription, isLogedIn, isToggelingSubscription,
+  podcastId, user, attemptToggleSubsription, isLogedIn, isToggelingSubscription,
 }: Props): JSX.Element {
   const [subscribing, setSubscribing] = useState(false);
   const userId = typeof user._id === 'string' ? user._id : '';
@@ -18,7 +18,7 @@ function SubscribeButton({
   const toggleSubscription = (): void => {
     if (isLogedIn) {
       setSubscribing(true);
-      atemptToggleSubsription(userId, podcastId);
+      attemptToggleSubsription(userId, podcastId);
     }
   };
 

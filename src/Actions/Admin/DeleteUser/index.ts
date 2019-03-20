@@ -3,9 +3,9 @@ import { Dispatch } from 'redux';
 import store from '../../../Store';
 import * as actionTypes from './types';
 import { Fetch, Response } from '../../../Helpers/Fetch';
-import { atemptSetMessage, SetMessage } from '../../Message';
+import { attemptSetMessage, SetMessage } from '../../Message';
 import { toggleUserModal, ToggleUserModal } from '../../Modal';
-import { atemptGetUsers, GetUsersAction } from '../GetUsers';
+import { attemptGetUsers, GetUsersAction } from '../GetUsers';
 
 interface DeleteUserStart {
   type: actionTypes.DELETE_USER_START;
@@ -36,11 +36,11 @@ export type DeleteUserAction = DeleteUserStart | DeleteUserSuccess | DeleteUserF
 const deleteUser = (id: string): Promise<Response> => Fetch(`/admin/users/${id}`, 'DELETE', {});
 
 
-type AtemptDeleteUserAction = (
+type AttemptDeleteUserAction = (
   dispatch: Dispatch<DeleteUserAction | SetMessage | GetUsersAction | ToggleUserModal>
 ) => Promise<void>;
 
-export const atemptDeleteUser = (userId: string): AtemptDeleteUserAction => async (
+export const attemptDeleteUser = (userId: string): AttemptDeleteUserAction => async (
   dispatch: Dispatch<DeleteUserAction | SetMessage | GetUsersAction | ToggleUserModal>,
 ): Promise<void> => {
   dispatch(startUserDeletion());
@@ -49,7 +49,7 @@ export const atemptDeleteUser = (userId: string): AtemptDeleteUserAction => asyn
 
   if (response.message === 'Failed to fetch') {
     dispatch(userDeletionFailure());
-    atemptSetMessage(
+    attemptSetMessage(
       {
         text: 'Unable to connect to the Thru the Ether Api at this time',
         type: 'error',
@@ -61,13 +61,13 @@ export const atemptDeleteUser = (userId: string): AtemptDeleteUserAction => asyn
     dispatch(userDeletionFailure());
     const text = response.message ? response.message : response.error.errmsg;
 
-    (atemptSetMessage({ text, type: 'warning' }))(dispatch);
+    (attemptSetMessage({ text, type: 'warning' }))(dispatch);
   }
 
   if (response.info) {
     dispatch(userDeleted());
-    atemptGetUsers({ term: '', type: 'user', offset: store.getState().AdminReducer.offset - 10 })(dispatch);
-    atemptSetMessage({ text: response.info, type: 'warning' })(dispatch);
+    attemptGetUsers({ term: '', type: 'user', offset: store.getState().AdminReducer.offset - 10 })(dispatch);
+    attemptSetMessage({ text: response.info, type: 'warning' })(dispatch);
     dispatch(toggleUserModal());
   }
 };

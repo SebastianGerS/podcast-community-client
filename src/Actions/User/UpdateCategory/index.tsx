@@ -2,9 +2,9 @@
 import { Dispatch } from 'redux';
 import * as ActionTypes from './types';
 import { Fetch, formatError, Response } from '../../../Helpers/Fetch';
-import { atemptSetMessage, SetMessage } from '../../Message';
+import { attemptSetMessage, SetMessage } from '../../Message';
 import { GetSelfSuccess } from '../../Auth';
-import { atemptGetSubscriptions, GetSubscriptionsAction } from '../GetSubscriptions';
+import { attemptGetSubscriptions, GetSubscriptionsAction } from '../GetSubscriptions';
 
 interface UpdateCategoryStart {
   type: ActionTypes.UPDATE_CATEGORY_START;
@@ -40,20 +40,20 @@ export interface UpdateCategory {
   body: object;
 }
 
-type AtemptUpdateCategoryAction = (
+type AttemptUpdateCategoryAction = (
   dispatch: Dispatch<UpdateCategoryAction | SetMessage | GetSubscriptionsAction | GetSelfSuccess>
 ) => Promise<void>;
 
-export const atemptUpdateCategory = (
+export const attemptUpdateCategory = (
   { userId, categoryId, body }: UpdateCategory,
-): AtemptUpdateCategoryAction => async (
+): AttemptUpdateCategoryAction => async (
   dispatch: Dispatch<UpdateCategoryAction | SetMessage | GetSubscriptionsAction | GetSelfSuccess>,
 ): Promise<void> => {
   dispatch(startUpdateCategory());
   const response = await updateCategory(categoryId, body).catch(error => error);
 
   if (response.message === 'Failed to fetch') {
-    atemptSetMessage(
+    attemptSetMessage(
       {
         text: 'Unable to connect to the Thru the Ether Api at this time',
         type: 'error',
@@ -64,10 +64,10 @@ export const atemptUpdateCategory = (
   if (response.error) {
     dispatch(updateCategoryFailure());
 
-    atemptSetMessage({ text: formatError(response.error.errmsg), type: 'info' })(dispatch);
+    attemptSetMessage({ text: formatError(response.error.errmsg), type: 'info' })(dispatch);
   }
   if (response.category) {
     dispatch(catagoryUpdated());
-    atemptGetSubscriptions(userId)(dispatch);
+    attemptGetSubscriptions(userId)(dispatch);
   }
 };

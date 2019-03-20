@@ -2,13 +2,13 @@ import React from 'react';
 import { scrollToTop } from '../../Helpers/UserAgent';
 
 interface Props {
-  atemptLogout: () => void;
+  attemptLogout: () => void;
   isLogedIn: boolean;
 }
 
-function LogoutButton({ atemptLogout, isLogedIn }: Props): JSX.Element | null {
+function LogoutButton({ attemptLogout, isLogedIn }: Props): JSX.Element | null {
   function logout(): void {
-    atemptLogout();
+    attemptLogout();
     scrollToTop();
   }
 

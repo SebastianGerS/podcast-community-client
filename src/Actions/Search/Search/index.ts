@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import * as ActionTypes from './types';
 import { Fetch, Response } from '../../../Helpers/Fetch';
-import { atemptSetMessage, SetMessage } from '../../Message';
+import { attemptSetMessage, SetMessage } from '../../Message';
 import { Podcast } from '../../../Models/Podcast';
 import { Episode } from '../../../Models/Episode';
 import { User } from '../../../Models/User';
@@ -47,7 +47,7 @@ export const SearchFailure = (): SearchFailure => (
   { type: ActionTypes.SEARCH_FAILUR }
 );
 
-export type AtemptSearchActions = SearchStart | SearchSuccess | SearchFailure;
+export type AttemptSearchActions = SearchStart | SearchSuccess | SearchFailure;
 
 const search = (path: string): Promise<Response> => Fetch(path, 'GET', {});
 
@@ -58,10 +58,10 @@ export interface SearchData {
   path: string;
 }
 
-type AtemptSearchAction = (dispatch: Dispatch<AtemptSearchActions|SetMessage>) => Promise<void>;
+type AttemptSearchAction = (dispatch: Dispatch<AttemptSearchActions|SetMessage>) => Promise<void>;
 
-export const atemptSearch = (data: SearchData): AtemptSearchAction => async (
-  dispatch: Dispatch<AtemptSearchActions|SetMessage>,
+export const attemptSearch = (data: SearchData): AttemptSearchAction => async (
+  dispatch: Dispatch<AttemptSearchActions|SetMessage>,
 ): Promise<void> => {
   const {
     term, type, offset, path,
@@ -76,7 +76,7 @@ export const atemptSearch = (data: SearchData): AtemptSearchAction => async (
   const response = await search(query).catch(error => error);
 
   if (response.message === 'Failed to fetch') {
-    atemptSetMessage(
+    attemptSetMessage(
       {
         text: 'Unable to connect to the Thru the Ether Api at this time',
         type: 'error',
@@ -87,7 +87,7 @@ export const atemptSearch = (data: SearchData): AtemptSearchAction => async (
   if (response.error) {
     dispatch(SearchFailure());
 
-    atemptSetMessage({ text: response.error.errmsg, type: 'info' })(dispatch);
+    attemptSetMessage({ text: response.error.errmsg, type: 'info' })(dispatch);
   }
   if (response.results) dispatch(searchComplete(response));
 };

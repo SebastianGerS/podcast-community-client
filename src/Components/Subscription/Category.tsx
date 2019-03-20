@@ -38,7 +38,7 @@ function CategoryComponent({
   const [category, setCategory] = useState(() => calcInitialCategory());
   const [idsNotInCategory, setIdNotInCategory] = useState(() => calcInitialIdsNotInCategory());
 
-  const attemptAddToCategory = (): void => {
+  const atttemptAddToCategory = (): void => {
     addToCategory({ userId, categoryId: category._id, body: { podcasts: podcast } });
   };
 
@@ -78,7 +78,7 @@ function CategoryComponent({
               })
               }
             </select>
-            <button type="button" onClick={attemptAddToCategory} className="add-button">Add</button>
+            <button type="button" onClick={atttemptAddToCategory} className="add-button">Add</button>
           </form>
         )
       }

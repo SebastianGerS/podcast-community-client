@@ -2,9 +2,9 @@
 import { Dispatch } from 'redux';
 import * as ActionTypes from './types';
 import { Fetch, formatError, Response } from '../../../Helpers/Fetch';
-import { atemptSetMessage, SetMessage } from '../../Message';
+import { attemptSetMessage, SetMessage } from '../../Message';
 import { GetSelfSuccess } from '../../Auth';
-import { atemptGetSubscriptions, GetSubscriptionsAction } from '../GetSubscriptions';
+import { attemptGetSubscriptions, GetSubscriptionsAction } from '../GetSubscriptions';
 
 interface DeleteCategoryStart {
   type: ActionTypes.DELETE_CATEGORY_START;
@@ -34,18 +34,18 @@ export type DeleteCategoryAction = DeleteCategoryStart | DeleteCategorySuccess |
 
 const deleteCategory = (id: string): Promise<Response> => Fetch(`/categories/${id}`, 'DELETE', {});
 
-type AtemptDeleteCategoryAction = (
+type AttemptDeleteCategoryAction = (
   dispatch: Dispatch<DeleteCategoryAction | SetMessage | GetSubscriptionsAction | GetSelfSuccess>
 ) => Promise<void>;
 
-export const atemptDeleteCategory = (userId: string, categoryId: string): AtemptDeleteCategoryAction => async (
+export const attemptDeleteCategory = (userId: string, categoryId: string): AttemptDeleteCategoryAction => async (
   dispatch: Dispatch<DeleteCategoryAction | SetMessage | GetSubscriptionsAction | GetSelfSuccess>,
 ): Promise<void> => {
   dispatch(startDeleteCategory());
   const response = await deleteCategory(categoryId).catch(error => error);
 
   if (response.message === 'Failed to fetch') {
-    atemptSetMessage(
+    attemptSetMessage(
       {
         text: 'Unable to connect to the Thru the Ether Api at this time',
         type: 'error',
@@ -56,10 +56,10 @@ export const atemptDeleteCategory = (userId: string, categoryId: string): Atempt
   if (response.error) {
     dispatch(deleteCategoryFailure());
 
-    atemptSetMessage({ text: formatError(response.error.errmsg), type: 'info' })(dispatch);
+    attemptSetMessage({ text: formatError(response.error.errmsg), type: 'info' })(dispatch);
   }
   if (response.category) {
     dispatch(catagoryDeleted());
-    atemptGetSubscriptions(userId)(dispatch);
+    attemptGetSubscriptions(userId)(dispatch);
   }
 };

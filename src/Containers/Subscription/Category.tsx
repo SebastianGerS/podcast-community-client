@@ -2,7 +2,7 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import CategoryComponent from '../../Components/Subscription/Category';
 import {
-  atemptGetSubscriptions, atemptUpdateCategory, GetSubscriptionsAction, UpdateCategoryAction, UpdateCategory,
+  attemptGetSubscriptions, attemptUpdateCategory, GetSubscriptionsAction, UpdateCategoryAction, UpdateCategory,
 } from '../../Actions/User';
 import { UserState } from '../../Reducers/UserReducer';
 import { AuthState } from '../../Reducers/AuthReducer';
@@ -39,8 +39,8 @@ interface DispatchProps {
 
 function mapDispatchToProps(dispatch: Dispatch<CategoryActions>): DispatchProps {
   return {
-    getSubscriptions: (userId: string) => atemptGetSubscriptions(userId)(dispatch),
-    addToCategory: (data: UpdateCategory) => atemptUpdateCategory(data)(dispatch),
+    getSubscriptions: (userId: string) => attemptGetSubscriptions(userId)(dispatch),
+    addToCategory: (data: UpdateCategory) => attemptUpdateCategory(data)(dispatch),
   };
 }
 

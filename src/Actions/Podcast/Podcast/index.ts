@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import * as ActionTypes from './types';
 import { Fetch, Response } from '../../../Helpers/Fetch';
-import { atemptSetMessage, SetMessage } from '../../Message';
+import { attemptSetMessage, SetMessage } from '../../Message';
 import { Podcast } from '../../../Models/Podcast';
 
 interface GetPodcastStart {
@@ -34,9 +34,9 @@ const getPodcast = (podcastId: string): Promise<Response> => Fetch(`/podcasts/${
 
 export type GetPodcastAction = GetPodcastStart | GetPodcastSuccess |GetPodcastFailure;
 
-type AtemptGetPodcastAction = (dispatch: Dispatch<GetPodcastAction | SetMessage>) => Promise<void>;
+type AttemptGetPodcastAction = (dispatch: Dispatch<GetPodcastAction | SetMessage>) => Promise<void>;
 
-export const atemptGetPodcast = (podcastId: string): AtemptGetPodcastAction => async (
+export const attemptGetPodcast = (podcastId: string): AttemptGetPodcastAction => async (
   dispatch: Dispatch<GetPodcastAction | SetMessage>,
 ): Promise<void> => {
   dispatch(startGetPodcast());
@@ -44,7 +44,7 @@ export const atemptGetPodcast = (podcastId: string): AtemptGetPodcastAction => a
   const response = await getPodcast(podcastId).catch(error => error);
 
   if (response.message === 'Failed to fetch') {
-    atemptSetMessage(
+    attemptSetMessage(
       {
         text: 'Unable to connect to the Thru the Ether Api at this time',
         type: 'error',
@@ -55,7 +55,7 @@ export const atemptGetPodcast = (podcastId: string): AtemptGetPodcastAction => a
   if (response.error) {
     dispatch(getPodcastFailure());
 
-    atemptSetMessage({ text: response.error.errmsg, type: 'info' })(dispatch);
+    attemptSetMessage({ text: response.error.errmsg, type: 'info' })(dispatch);
   }
 
   if (response.length !== 0 && !response.error && !response.message) {

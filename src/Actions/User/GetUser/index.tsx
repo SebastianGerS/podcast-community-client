@@ -2,7 +2,7 @@
 import { Dispatch } from 'redux';
 import * as ActionTypes from './types';
 import { Fetch, Response } from '../../../Helpers/Fetch';
-import { atemptSetMessage, SetMessage } from '../../Message';
+import { attemptSetMessage, SetMessage } from '../../Message';
 import { User } from '../../../Models/User';
 
 interface GetUserStart {
@@ -37,9 +37,9 @@ export type GetUserAction = GetUserStart | GetUserSuccess | GetUserFailure;
 
 const getUser = (userId: string): Promise<Response> => Fetch(`/users/${userId}`, 'GET', {});
 
-type AtemptGetuserAction = (dispatch: Dispatch<GetUserAction | SetMessage>) => Promise<void>;
+type AttemptGetuserAction = (dispatch: Dispatch<GetUserAction | SetMessage>) => Promise<void>;
 
-export const atemptGetUser = (id: string): AtemptGetuserAction => async (
+export const attemptGetUser = (id: string): AttemptGetuserAction => async (
   dispatch: Dispatch<GetUserAction | SetMessage>,
 ): Promise<void> => {
   dispatch(startGettingUser());
@@ -47,7 +47,7 @@ export const atemptGetUser = (id: string): AtemptGetuserAction => async (
   const response = await getUser(id).catch(error => error);
 
   if (response.message === 'Failed to fetch') {
-    atemptSetMessage(
+    attemptSetMessage(
       {
         text: 'Unable to connect to the Thru the Ether Api at this time',
         type: 'error',
@@ -58,7 +58,7 @@ export const atemptGetUser = (id: string): AtemptGetuserAction => async (
   if (response.error) {
     dispatch(getUserFailure());
 
-    atemptSetMessage({ text: response.error.errmsg, type: 'info' })(dispatch);
+    attemptSetMessage({ text: response.error.errmsg, type: 'info' })(dispatch);
   }
 
   if (response.user) dispatch(gotUser(response.user));

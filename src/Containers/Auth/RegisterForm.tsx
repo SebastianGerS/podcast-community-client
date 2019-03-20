@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { atemptRegister, UserRegistrationAction, UserData } from '../../Actions/Auth';
+import { attemptRegister, UserRegistrationAction, UserData } from '../../Actions/Auth';
 import RegisterForm from '../../Components/Auth/RegisterForm';
 import { AuthState } from '../../Reducers/AuthReducer';
 import { RedirectModel } from '../../Models/Redirect';
@@ -19,12 +19,12 @@ function mapStateToProps({ AuthReducer }: State): StateProps {
 }
 
 interface DispatchProps {
-  atemptRegister: (user: UserData) => void;
+  attemptRegister: (user: UserData) => void;
 }
 
 function mapDispatchToProps(dispatch: Dispatch<UserRegistrationAction>): DispatchProps {
   return {
-    atemptRegister: (user: UserData) => atemptRegister(user)(dispatch),
+    attemptRegister: (user: UserData) => attemptRegister(user)(dispatch),
   };
 }
 

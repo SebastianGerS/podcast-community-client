@@ -6,11 +6,11 @@ import {
 import { RedirectModel } from '../../Models/Redirect';
 
 interface Props {
-  atemptRegister: (user: object) => void;
+  attemptRegister: (user: object) => void;
   redirect: RedirectModel;
 }
 
-function RegisterForm({ atemptRegister, redirect }: Props): JSX.Element {
+function RegisterForm({ attemptRegister, redirect }: Props): JSX.Element {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [type, setType] = useState('private');
@@ -28,7 +28,7 @@ function RegisterForm({ atemptRegister, redirect }: Props): JSX.Element {
       type,
     };
 
-    atemptRegister(user);
+    attemptRegister(user);
   };
 
   const renderRedirect = (): JSX.Element | null => (

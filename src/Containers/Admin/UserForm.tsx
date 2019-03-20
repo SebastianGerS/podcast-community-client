@@ -2,7 +2,7 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import UserForm from '../../Components/Admin/UserForm';
 import {
-  atemptUpdateUser, unsetUser, atemptCreateUser, atemptDeleteUser, AdminActions,
+  attemptUpdateUser, unsetUser, attemptCreateUser, attemptDeleteUser, AdminActions,
 } from '../../Actions/Admin';
 import { toggleUserModal, ToggleUserModal } from '../../Actions/Modal';
 import {
@@ -43,9 +43,9 @@ type UserFormActions = AdminActions | SetMessage | ToggleUserModal;
 
 function mapDispatchToProps(dispatch: Dispatch<UserFormActions>): DispatchProps {
   return {
-    update: (id: string, user: User) => atemptUpdateUser(id, user)(dispatch),
-    create: (user: User) => atemptCreateUser(user)(dispatch),
-    deleteUser: (userId: string) => atemptDeleteUser(userId)(dispatch),
+    update: (id: string, user: User) => attemptUpdateUser(id, user)(dispatch),
+    create: (user: User) => attemptCreateUser(user)(dispatch),
+    deleteUser: (userId: string) => attemptDeleteUser(userId)(dispatch),
     unsetUser: () => dispatch(unsetUser()),
     toggleUserModal: () => dispatch(toggleUserModal()),
     validUsername: (username: string) => validUsername(username)(dispatch),

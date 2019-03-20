@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import { Fetch, Response } from '../../../Helpers/Fetch';
 import * as ActionTypes from './types';
-import { atemptSetMessage, SetMessage } from '../../Message';
+import { attemptSetMessage, SetMessage } from '../../Message';
 import { User } from '../../../Models/User';
 
 export interface GetSelfSuccess {
@@ -16,15 +16,15 @@ export const gottSelf = (user: User): GetSelfSuccess => ({
 
 export const getSelf = (): Promise<Response> => Fetch('/me', 'GET', {});
 
-export type AtemptGetSelfAction = (dispatch: Dispatch<GetSelfSuccess|SetMessage>) => Promise<void>;
+export type AttemptGetSelfAction = (dispatch: Dispatch<GetSelfSuccess|SetMessage>) => Promise<void>;
 
-export const atemptGetSelf = (): AtemptGetSelfAction => async (
+export const attemptGetSelf = (): AttemptGetSelfAction => async (
   dispatch: Dispatch<GetSelfSuccess|SetMessage>,
 ): Promise<void> => {
   const response = await getSelf();
 
   if (response.message === 'Failed to fetch') {
-    atemptSetMessage(
+    attemptSetMessage(
       {
         text: 'Unable to connect to the Thru the Ether Api at this time',
         type: 'error',
@@ -35,7 +35,7 @@ export const atemptGetSelf = (): AtemptGetSelfAction => async (
   if (response.error) {
     const text = response.message ? response.message : response.error.errmsg;
 
-    atemptSetMessage({ text, type: 'warning' })(dispatch);
+    attemptSetMessage({ text, type: 'warning' })(dispatch);
   }
   if (response.user) dispatch(gottSelf(response.user));
 };

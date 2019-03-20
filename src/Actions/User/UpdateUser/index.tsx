@@ -3,13 +3,13 @@ import { Dispatch } from 'redux';
 import JWT from 'jsonwebtoken';
 import * as ActionTypes from './types';
 import { Fetch, formatError, Response } from '../../../Helpers/Fetch';
-import { atemptSetMessage, SetMessage } from '../../Message';
+import { attemptSetMessage, SetMessage } from '../../Message';
 import {
-  atemptGetSelf, validPassword, validPasswordConfirmation, GetSelfSuccess,
+  attemptGetSelf, validPassword, validPasswordConfirmation, GetSelfSuccess,
 } from '../../Auth';
 
 import config from '../../../Config/config';
-import { atemptGetUser, GetUserAction } from '../GetUser';
+import { attemptGetUser, GetUserAction } from '../GetUser';
 
 interface UpdateUserStart {
   type: ActionTypes.UPDATE_USER_START;
@@ -46,11 +46,11 @@ interface UpdateUserData {
   passwordConfirmation?: string;
 }
 
-type AtemptUpdateUserAction = (
+type AttemptUpdateUserAction = (
   dispatch: Dispatch<UpdateUserAction | SetMessage | GetUserAction | GetSelfSuccess>
 ) => Promise<void>;
 
-export const atemptUpdateUser = (_id: string, data: UpdateUserData): AtemptUpdateUserAction => async (
+export const attemptUpdateUser = (_id: string, data: UpdateUserData): AttemptUpdateUserAction => async (
   dispatch: Dispatch<UpdateUserAction | SetMessage | GetUserAction | GetSelfSuccess>,
 ): Promise<void> => {
   let dataIsValid = true;
@@ -69,7 +69,7 @@ export const atemptUpdateUser = (_id: string, data: UpdateUserData): AtemptUpdat
     const response = await updateUser(body).catch(error => error);
 
     if (response.message === 'Failed to fetch') {
-      atemptSetMessage(
+      attemptSetMessage(
         {
           text: 'Unable to connect to the Thru the Ether Api at this time',
           type: 'error',
@@ -80,14 +80,14 @@ export const atemptUpdateUser = (_id: string, data: UpdateUserData): AtemptUpdat
     if (response.error) {
       dispatch(userUpdateFailure());
 
-      atemptSetMessage({ text: formatError(response.error.errmsg), type: 'info' })(dispatch);
+      attemptSetMessage({ text: formatError(response.error.errmsg), type: 'info' })(dispatch);
     }
 
     if (response.info) {
       dispatch(UserUpdated());
-      atemptGetUser(_id)(dispatch);
-      atemptGetSelf()(dispatch);
-      atemptSetMessage({ text: response.info, type: 'success' })(dispatch);
+      attemptGetUser(_id)(dispatch);
+      attemptGetSelf()(dispatch);
+      attemptSetMessage({ text: response.info, type: 'success' })(dispatch);
     }
   }
 };

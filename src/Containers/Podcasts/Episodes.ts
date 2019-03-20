@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import Episodes from '../../Components/Podcasts/Episodes';
-import { atemptGetPodcastEpisodes, GetPodcastEpisodesAction, EpisodesSearchData } from '../../Actions/Podcast';
+import { attemptGetPodcastEpisodes, GetPodcastEpisodesAction, EpisodesSearchData } from '../../Actions/Podcast';
 import { PodcastState } from '../../Reducers/PodcastReducer';
 import { Episode } from '../../Models/Episode';
 
@@ -35,7 +35,7 @@ type EpisodesActions = GetPodcastEpisodesAction;
 
 function mapDispatchToProps(dispatch: Dispatch<EpisodesActions>): DispatchProps {
   return {
-    getEpisodes: (data: EpisodesSearchData) => atemptGetPodcastEpisodes(data)(dispatch),
+    getEpisodes: (data: EpisodesSearchData) => attemptGetPodcastEpisodes(data)(dispatch),
   };
 }
 

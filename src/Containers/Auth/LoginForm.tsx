@@ -1,15 +1,15 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import LoginForm from '../../Components/Auth/LoginForm';
-import { atemptLogin, UserLoginAction, UserData } from '../../Actions/Auth';
+import { attemptLogin, UserLoginAction, UserData } from '../../Actions/Auth';
 
 interface DispatchProps {
-  atemptLogin: (data: UserData) => void;
+  attemptLogin: (data: UserData) => void;
 }
 
 function mapDispatchToProps(dispatch: Dispatch<UserLoginAction>): DispatchProps {
   return {
-    atemptLogin: (data: UserData) => atemptLogin(data)(dispatch),
+    attemptLogin: (data: UserData) => attemptLogin(data)(dispatch),
   };
 }
 

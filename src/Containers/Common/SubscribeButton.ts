@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import SubscribeButton from '../../Components/Common/SubscribeButton';
-import { atemptToggleSubscription, ToggleSubscriptionAction } from '../../Actions/Event';
+import { attemptToggleSubscription, ToggleSubscriptionAction } from '../../Actions/Event';
 import { SetMessage } from '../../Actions/Message';
 import { User } from '../../Models/User';
 import { AuthState } from '../../Reducers/AuthReducer';
@@ -29,7 +29,7 @@ function mapStateToProps({ EventReducer, AuthReducer }: State): StateProps {
 }
 
 interface DispatchProps {
-  atemptToggleSubsription: (userId: string, podcastId: string) => void;
+  attemptToggleSubsription: (userId: string, podcastId: string) => void;
 }
 
 type SubscriptionButtonActions =(
@@ -38,9 +38,9 @@ type SubscriptionButtonActions =(
 
 function mapDispatchToProps(dispatch: Dispatch<SubscriptionButtonActions>): DispatchProps {
   return {
-    atemptToggleSubsription: (
+    attemptToggleSubsription: (
       userId: string, podcastId: string,
-    ) => atemptToggleSubscription(userId, podcastId)(dispatch),
+    ) => attemptToggleSubscription(userId, podcastId)(dispatch),
   };
 }
 

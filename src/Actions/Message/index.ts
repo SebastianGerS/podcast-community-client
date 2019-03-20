@@ -24,15 +24,15 @@ export const removeMessage = (): RemoveMessage => (
   }
 );
 
-type AtemptSetMessageAction = (dispatch: Dispatch<SetMessage>) => void;
+type AttemptSetMessageAction = (dispatch: Dispatch<SetMessage>) => void;
 
-export const atemptSetMessage = (data: Message): AtemptSetMessageAction => (dispatch: Dispatch<SetMessage>): void => {
+export const attemptSetMessage = (data: Message): AttemptSetMessageAction => (dispatch: Dispatch<SetMessage>): void => {
   dispatch(setMessage(data));
 };
 
-type AtemptRemoveMessageAction = (dispatch: Dispatch<RemoveMessage>) => void;
+type AttemptRemoveMessageAction = (dispatch: Dispatch<RemoveMessage>) => void;
 
-export const atemptRemoveMessage = (): AtemptRemoveMessageAction => (dispatch: Dispatch<RemoveMessage>): void => {
+export const attemptRemoveMessage = (): AttemptRemoveMessageAction => (dispatch: Dispatch<RemoveMessage>): void => {
   dispatch(removeMessage());
 };
 
