@@ -4,7 +4,8 @@ import { PodcastActions } from '../Actions/Podcast';
 import { Episode } from '../Models/Episode';
 
 export interface PodcastState {
-  isFetching: boolean;
+  isFetchingPodcast: boolean;
+  isFetchingTopPodcasts: boolean;
   isFetchingEpisodes: boolean;
   topPodcasts: Podcast[];
   podcast: Podcast;
@@ -13,7 +14,8 @@ export interface PodcastState {
   morePages: boolean;
 }
 const DEFAULT_STATE: PodcastState = {
-  isFetching: false,
+  isFetchingPodcast: false,
+  isFetchingTopPodcasts: false,
   isFetchingEpisodes: false,
   topPodcasts: [new Podcast()],
   podcast: new Podcast(),
@@ -25,28 +27,35 @@ const DEFAULT_STATE: PodcastState = {
 export default function (state: PodcastState = DEFAULT_STATE, action: PodcastActions): PodcastState {
   switch (action.type) {
     case ActionTypes.GET_TOP_PODCASTS_START:
-      return { ...state, isFetching: true };
+      return { ...state, isFetchingTopPodcasts: true };
     case ActionTypes.GET_TOP_PODCASTS_SUCCESS:
       return {
         ...state,
-        isFetching: false,
+        isFetchingTopPodcasts: false,
         topPodcasts: action.podcasts.map(podcast => new Podcast(podcast)),
       };
     case ActionTypes.GET_TOP_PODCASTS_FAILURE:
       return {
-        ...state, isFetching: false,
+        ...state, isFetchingTopPodcasts: false,
       };
     case ActionTypes.GET_PODCAST_START:
-      return { ...state, isFetching: true };
+      return {
+        ...state,
+        isFetchingPodcast: true,
+        podcast: new Podcast(),
+        episodes: [new Episode()],
+        offset: 0,
+        morePages: false,
+      };
     case ActionTypes.GET_PODCAST_SUCCESS:
       return {
         ...state,
-        isFetching: false,
+        isFetchingPodcast: false,
         podcast: new Podcast(action.podcast),
       };
     case ActionTypes.GET_PODCAST_FAILURE:
       return {
-        ...state, isFetching: false,
+        ...state, isFetchingPodcast: false,
       };
     case ActionTypes.GET_PODCAST_EPISODES_START:
       return { ...state, isFetchingEpisodes: true };
