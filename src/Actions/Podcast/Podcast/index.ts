@@ -42,7 +42,7 @@ export const atemptGetPodcast = (podcastId: string): AtemptGetPodcastAction => a
   dispatch(startGetPodcast());
 
   const response = await getPodcast(podcastId).catch(error => error);
-  console.log(response);
+
   if (response.message === 'Failed to fetch') {
     atemptSetMessage(
       {
