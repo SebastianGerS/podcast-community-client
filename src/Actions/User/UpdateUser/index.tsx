@@ -71,7 +71,7 @@ export const atemptUpdateUser = (_id: string, data: UpdateUserData): AtemptUpdat
     if (response.message === 'Failed to fetch') {
       atemptSetMessage(
         {
-          text: 'unable to connect to resource pleas check your internet conection',
+          text: 'Unable to connect to the Thru the Ether Api at this time',
           type: 'error',
         },
       )(dispatch);

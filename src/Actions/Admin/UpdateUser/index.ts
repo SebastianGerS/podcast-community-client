@@ -49,7 +49,7 @@ export const atemptUpdateUser = (id: string, user: User): AtemptUpdateUserAction
     dispatch(userUpdateFailure());
     atemptSetMessage(
       {
-        text: 'unable to connect to resource pleas check your internet conection',
+        text: 'Unable to connect to the Thru the Ether Api at this time',
         type: 'error',
       },
     )(dispatch);
