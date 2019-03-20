@@ -60,7 +60,7 @@
     "stylelint-config-standard": "^18.2.0"
   },
   "lint-staged": {
-    "*.tsx": [
+    "*.{tsx,ts,js,jsx}": [
       "yarn eslint",
       "git add"
     ],

@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import UserTable from '../../Components/Admin/UserTable';
-import { atemptGetUsers, UserSearch, GetUsersAction } from '../../Actions/Admin';
+import { attemptGetUsers, UserSearch, GetUsersAction } from '../../Actions/Admin';
 import { AdminState } from '../../Reducers/AdminReducer';
 import { ModalState } from '../../Reducers/ModalReducer';
 import { User } from '../../Models/User';
@@ -37,7 +37,7 @@ interface DispatchProps {
 
 function mapDispatchToProps(dispatch: Dispatch<GetUsersAction | ToggleUserModal | SetMessage>): DispatchProps {
   return {
-    getUsers: (data: UserSearch) => atemptGetUsers(data)(dispatch),
+    getUsers: (data: UserSearch) => attemptGetUsers(data)(dispatch),
     toggleUserModal: () => dispatch(toggleUserModal()),
   };
 }

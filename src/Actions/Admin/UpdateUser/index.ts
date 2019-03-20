@@ -1,9 +1,9 @@
 import { Dispatch } from 'redux';
 import * as actionTypes from './types';
 import { Fetch, Response } from '../../../Helpers/Fetch';
-import { atemptSetMessage, SetMessage } from '../../Message';
+import { attemptSetMessage, SetMessage } from '../../Message';
 import { toggleUserModal, ToggleUserModal } from '../../Modal';
-import { atemptGetUsers, GetUsersAction } from '../GetUsers';
+import { attemptGetUsers, GetUsersAction } from '../GetUsers';
 import store from '../../../Store';
 import { User } from '../../../Models/User';
 
@@ -35,11 +35,11 @@ export type AdminUpdateUserAction = AdminUpdateUserStart | AdminUpdateUserSucces
 
 const updateUser = (id: string, user: User): Promise<Response> => Fetch(`/admin/users/${id}`, 'PUT', user);
 
-type AtemptUpdateUserAction = (
+type AttemptUpdateUserAction = (
   dispatch: Dispatch<AdminUpdateUserAction | SetMessage | GetUsersAction | ToggleUserModal>
 ) => Promise<void>
 
-export const atemptUpdateUser = (id: string, user: User): AtemptUpdateUserAction => async (
+export const attemptUpdateUser = (id: string, user: User): AttemptUpdateUserAction => async (
   dispatch: Dispatch<AdminUpdateUserAction | SetMessage | GetUsersAction | ToggleUserModal>,
 ): Promise<void> => {
   dispatch(startUpdateUser());
@@ -47,9 +47,9 @@ export const atemptUpdateUser = (id: string, user: User): AtemptUpdateUserAction
 
   if (response.message === 'Failed to fetch') {
     dispatch(userUpdateFailure());
-    atemptSetMessage(
+    attemptSetMessage(
       {
-        text: 'unable to connect to resource pleas check your internet conection',
+        text: 'Unable to connect to the Thru the Ether Api at this time',
         type: 'error',
       },
     )(dispatch);
@@ -58,13 +58,13 @@ export const atemptUpdateUser = (id: string, user: User): AtemptUpdateUserAction
   if (response.error) {
     dispatch(userUpdateFailure());
     const text = response.error.errmsg ? response.error.errmsg : response.message;
-    (atemptSetMessage({ text, type: 'warning' }))(dispatch);
+    (attemptSetMessage({ text, type: 'warning' }))(dispatch);
   }
 
   if (response.info) {
     dispatch(userUpdated());
-    atemptGetUsers({ term: '', type: 'user', offset: store.getState().AdminReducer.offset - 10 })(dispatch);
+    attemptGetUsers({ term: '', type: 'user', offset: store.getState().AdminReducer.offset - 10 })(dispatch);
     dispatch(toggleUserModal());
-    (atemptSetMessage({ text: response.info, type: 'success' }))(dispatch);
+    (attemptSetMessage({ text: response.info, type: 'success' }))(dispatch);
   }
 };

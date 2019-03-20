@@ -1,7 +1,7 @@
 import React, { MouseEvent } from 'react';
 
 interface Props {
-  atemptSetType: (type: string) => void;
+  attemptSetType: (type: string) => void;
   type: string;
 }
 
@@ -10,11 +10,11 @@ export interface NamedButton extends HTMLButtonElement {
 }
 
 function SearchControlles({
-  atemptSetType, type,
+  attemptSetType, type,
 }: Props): JSX.Element {
   const setType = (e: MouseEvent<NamedButton>): void => {
     if (e.currentTarget) {
-      atemptSetType(e.currentTarget.name);
+      attemptSetType(e.currentTarget.name);
     }
   };
 

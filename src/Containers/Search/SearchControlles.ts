@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import SearchControlles from '../../Components/Search/SearchControlles';
-import { atemptSetSearchTypes, SetSearchTypeAction } from '../../Actions/Search';
+import { attemptSetSearchTypes, SetSearchTypeAction } from '../../Actions/Search';
 import { SearchState } from '../../Reducers/SearchReducer';
 
 interface State {
@@ -19,12 +19,12 @@ function mapStateToProps({ SearchReducer }: State): StateProps {
 }
 
 interface DispatchProps {
-  atemptSetType: (data: string) => void;
+  attemptSetType: (data: string) => void;
 }
 
 function mapDispatchToProps(dispatch: Dispatch<SetSearchTypeAction>): DispatchProps {
   return {
-    atemptSetType: (data: string) => atemptSetSearchTypes(data)(dispatch),
+    attemptSetType: (data: string) => attemptSetSearchTypes(data)(dispatch),
   };
 }
 

@@ -6,6 +6,7 @@ import MySubscriptions from './MySubscriptions';
 import Category from './Category';
 import Settings from './Settings';
 import Users from './Users';
+import Podcasts from './Podcasts';
 
 export default {
   Home,
@@ -16,4 +17,5 @@ export default {
   Category,
   Settings,
   Users,
+  Podcasts,
 };

@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import JWT from 'jsonwebtoken';
 import * as ActionTypes from './types';
-import { atemptSetMessage, SetMessage } from '../../Message';
+import { attemptSetMessage, SetMessage } from '../../Message';
 import { toggleLoginModal, ToggleLoginModal } from '../../Modal';
 import { Fetch, Response } from '../../../Helpers/Fetch';
 import { validEmail, validPassword } from '../Validation';
@@ -46,24 +46,24 @@ interface LoginData {
   password: string;
 }
 
-type AtemptLoginAction = (
+type AttemptLoginAction = (
   dispatch: Dispatch<UserLoginAction | SetMessage | ToggleLoginModal>
 ) => Promise<void>
 
-export const atemptLogin = (data: LoginData): AtemptLoginAction => async (
+export const attemptLogin = (data: LoginData): AttemptLoginAction => async (
   dispatch: Dispatch<UserLoginAction | SetMessage | ToggleLoginModal>,
 ): Promise<void> => {
   if (validEmail(data.email)(dispatch) && validPassword(data.password)(dispatch)) {
     dispatch(startUserLogin());
 
-    const tempToken = JWT.sign(data, config.JWT_SECRET);
+    const ttemptoken = JWT.sign(data, config.JWT_SECRET);
 
-    const response = await login(JSON.stringify({ token: tempToken })).catch(error => error);
+    const response = await login(JSON.stringify({ token: ttemptoken })).catch(error => error);
 
     if (response.message === 'Failed to fetch') {
-      atemptSetMessage(
+      attemptSetMessage(
         {
-          text: 'unable to connect to resource pleas check your internet conection',
+          text: 'Unable to connect to the Thru the Ether Api at this time',
           type: 'error',
         },
       )(dispatch);
@@ -71,7 +71,7 @@ export const atemptLogin = (data: LoginData): AtemptLoginAction => async (
 
     if (response.error) {
       dispatch(userLoginFailure());
-      atemptSetMessage({ text: response.error.errmsg, type: 'warning' })(dispatch);
+      attemptSetMessage({ text: response.error.errmsg, type: 'warning' })(dispatch);
     }
 
     if (response.token) {
@@ -81,7 +81,7 @@ export const atemptLogin = (data: LoginData): AtemptLoginAction => async (
       if (Auth.getToken() && decoded.user) {
         dispatch(userLogedin(decoded.user));
         dispatch(toggleLoginModal());
-        atemptSetMessage({ text: 'You are now logedin', type: 'success' })(dispatch);
+        attemptSetMessage({ text: 'You are now logedin', type: 'success' })(dispatch);
       }
     }
   }

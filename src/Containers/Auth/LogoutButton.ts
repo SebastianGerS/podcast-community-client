@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import LogoutButton from '../../Components/Auth/LogoutButton';
-import { atemptLogout, UserLogoutAction } from '../../Actions/Auth';
+import { attemptLogout, UserLogoutAction } from '../../Actions/Auth';
 import { AuthState } from '../../Reducers/AuthReducer';
 
 interface State {
@@ -19,12 +19,12 @@ function mapStateToProps({ AuthReducer }: State): StateProps {
 }
 
 interface DispatchProps {
-  atemptLogout: () => void;
+  attemptLogout: () => void;
 }
 
 function mapDispatchToProps(dispatch: Dispatch<UserLogoutAction>): DispatchProps {
   return {
-    atemptLogout: () => atemptLogout()(dispatch),
+    attemptLogout: () => attemptLogout()(dispatch),
   };
 }
 

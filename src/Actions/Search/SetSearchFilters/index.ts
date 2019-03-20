@@ -31,9 +31,9 @@ export const setSearchFiltersFailure = (): SetSearchFiltersFailure => (
 
 export type SetSearchFiltersAction = SetSearchFiltersStart | SetSearchFiltersSuccess | SetSearchFiltersFailure;
 
-type AtemptSetSearchFiltersAction = (dispatch: Dispatch<SetSearchFiltersAction>) => void;
+type AttemptSetSearchFiltersAction = (dispatch: Dispatch<SetSearchFiltersAction>) => void;
 
-export const atemptSetSearchFilters = (data: string): AtemptSetSearchFiltersAction => (
+export const attemptSetSearchFilters = (data: string): AttemptSetSearchFiltersAction => (
   dispatch: Dispatch<SetSearchFiltersAction>,
 ): void => {
   dispatch(startSetSearchFilters());

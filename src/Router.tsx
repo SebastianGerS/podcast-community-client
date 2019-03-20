@@ -23,6 +23,11 @@ const Router = (): JSX.Element => (
         component={Views.Register}
       />
       <SiteRoute
+        path="/podcasts/:podcastId"
+        routeType="PUBLIC"
+        component={Views.Podcasts}
+      />
+      <SiteRoute
         path="/profile/:userId"
         routeType="PROTECTED"
         component={Views.Profile}

@@ -3,7 +3,7 @@ import JWT from 'jsonwebtoken';
 import config from '../../../Config/config';
 import { Fetch, Response } from '../../../Helpers/Fetch';
 import * as ActionTypes from './types';
-import { atemptSetMessage, SetMessage } from '../../Message';
+import { attemptSetMessage, SetMessage } from '../../Message';
 import * as Auth from '../../../Helpers/Auth';
 import { validUserData, UserData } from '../Validation';
 import { userLogedin, UserLoginSuccess } from '../Login';
@@ -36,23 +36,23 @@ export type UserRegistrationAction = UserRegistrationStart | UserRegistrationSuc
 
 export const register = (token: string): Promise<Response> => Fetch('/users', 'POST', token);
 
-type AtemptRegisterAction =(
+type AttemptRegisterAction =(
   dispatch: Dispatch<UserRegistrationAction|SetMessage|UserLoginSuccess>
 ) => Promise<void>;
 
-export const atemptRegister = (data: UserData): AtemptRegisterAction => async (
+export const attemptRegister = (data: UserData): AttemptRegisterAction => async (
   dispatch: Dispatch<UserRegistrationAction|SetMessage|UserLoginSuccess>,
 ): Promise<void> => {
   if (validUserData(data)(dispatch)) {
     dispatch(startUserRegistration());
-    const tempToken = JWT.sign(data, config.JWT_SECRET);
+    const ttemptoken = JWT.sign(data, config.JWT_SECRET);
 
-    const response = await register(JSON.stringify({ token: tempToken })).catch(error => error);
+    const response = await register(JSON.stringify({ token: ttemptoken })).catch(error => error);
 
     if (response.message === 'Failed to fetch') {
-      atemptSetMessage(
+      attemptSetMessage(
         {
-          text: 'unable to connect to resource pleas check your internet conection',
+          text: 'Unable to connect to the Thru the Ether Api at this time',
           type: 'error',
         },
       )(dispatch);
@@ -62,7 +62,7 @@ export const atemptRegister = (data: UserData): AtemptRegisterAction => async (
       dispatch(userRegistrationFailure());
       const text: string = response.message ? response.message : response.error.errmsg;
 
-      atemptSetMessage({ text, type: 'warning' })(dispatch);
+      attemptSetMessage({ text, type: 'warning' })(dispatch);
     }
 
     if (response.token) {

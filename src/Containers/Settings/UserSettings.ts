@@ -2,7 +2,7 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import UserSettings from '../../Components/Settings/UserSettings';
 import {
-  atemptUpdateUser, atemptDeleteSelf, DeleteSelfAction, UpdateUserAction, GetUserAction,
+  attemptUpdateUser, attemptDeleteSelf, DeleteSelfAction, UpdateUserAction, GetUserAction,
 } from '../../Actions/User';
 import { AuthState } from '../../Reducers/AuthReducer';
 import { SetMessage } from '../../Actions/Message';
@@ -34,8 +34,8 @@ interface DispatchProps {
 
 function mapDispatchToProps(dispatch: Dispatch<UserSettingActions>): DispatchProps {
   return {
-    updateUser: (_id: string, data: object) => atemptUpdateUser(_id, data)(dispatch),
-    deleteUser: () => atemptDeleteSelf()(dispatch),
+    updateUser: (_id: string, data: object) => attemptUpdateUser(_id, data)(dispatch),
+    deleteUser: () => attemptDeleteSelf()(dispatch),
   };
 }
 

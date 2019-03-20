@@ -1,9 +1,9 @@
 import { Dispatch } from 'redux';
 import * as ActionTypes from './types';
 import { Fetch, Response } from '../../Helpers/Fetch';
-import { atemptSetMessage, SetMessage } from '../Message';
-import { atemptGetSelf, GetSelfSuccess } from '../Auth';
-import { atemptGetSubscriptions, GetSubscriptionsAction } from '../User';
+import { attemptSetMessage, SetMessage } from '../Message';
+import { attemptGetSelf, GetSelfSuccess } from '../Auth';
+import { attemptGetSubscriptions, GetSubscriptionsAction } from '../User';
 
 interface ToggleSubscriptionStart {
   type: ActionTypes.TOGGLE_SUBSCRIPTION_START;
@@ -33,12 +33,12 @@ export type ToggleSubscriptionAction = ToggleSubscriptionStart | ToggleSubscript
 
 const createEvent = (body: object): Promise<Response> => Fetch('/events', 'POST', body);
 
-type AtemptToggleSubscription = (
+type AttemptToggleSubscription = (
   dispatch: Dispatch<ToggleSubscriptionAction | GetSelfSuccess | GetSubscriptionsAction | GetSelfSuccess | SetMessage>
 ) => Promise<void>;
 
 /* eslint-disable import/prefer-default-export */
-export const atemptToggleSubscription = (userId: string, podcastId: string): AtemptToggleSubscription => async (
+export const attemptToggleSubscription = (userId: string, podcastId: string): AttemptToggleSubscription => async (
   dispatch: Dispatch<ToggleSubscriptionAction | GetSelfSuccess | GetSubscriptionsAction | GetSelfSuccess | SetMessage>,
 ): Promise<void> => {
   dispatch(startToggleSubscription());
@@ -53,9 +53,9 @@ export const atemptToggleSubscription = (userId: string, podcastId: string): Ate
   const response = await createEvent(event).catch(error => error);
 
   if (response.message === 'Failed to fetch') {
-    atemptSetMessage(
+    attemptSetMessage(
       {
-        text: 'unable to connect to resource pleas check your internet conection',
+        text: 'Unable to connect to the Thru the Ether Api at this time',
         type: 'error',
       },
     )(dispatch);
@@ -63,14 +63,14 @@ export const atemptToggleSubscription = (userId: string, podcastId: string): Ate
 
   if (response.error) {
     dispatch(toggleSubscriptionFailure());
-    atemptSetMessage({ text: response.error.errmsg, type: 'warning' })(dispatch);
+    attemptSetMessage({ text: response.error.errmsg, type: 'warning' })(dispatch);
   }
 
   if (response.event) {
-    atemptGetSelf()(dispatch);
-    atemptSetMessage({ text: `Sucessfully ${response.event.type}d`, type: 'success' })(dispatch);
+    attemptGetSelf()(dispatch);
+    attemptSetMessage({ text: `Sucessfully ${response.event.type}d`, type: 'success' })(dispatch);
     dispatch(subscriptionToggled());
-    atemptGetSubscriptions(userId)(dispatch);
+    attemptGetSubscriptions(userId)(dispatch);
   }
 };
 

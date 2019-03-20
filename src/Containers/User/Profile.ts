@@ -2,7 +2,7 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import Profile from '../../Components/User/Profile';
 import {
-  atemptUpdateUser, atemptGetUser, UpdateUserAction, GetUserAction,
+  attemptUpdateUser, attemptGetUser, UpdateUserAction, GetUserAction,
 } from '../../Actions/User';
 import { AuthState } from '../../Reducers/AuthReducer';
 import { UserState } from '../../Reducers/UserReducer';
@@ -33,8 +33,8 @@ interface DispatchProps {
 
 function mapDispatchToProps(dispatch: Dispatch<UpdateUserAction | GetUserAction | SetMessage>): DispatchProps {
   return {
-    updateUser: (_id: string, body: object) => atemptUpdateUser(_id, body)(dispatch),
-    getUser: (id: string) => atemptGetUser(id)(dispatch),
+    updateUser: (_id: string, body: object) => attemptUpdateUser(_id, body)(dispatch),
+    getUser: (id: string) => attemptGetUser(id)(dispatch),
   };
 }
 

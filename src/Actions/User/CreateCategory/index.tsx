@@ -2,9 +2,9 @@
 import { Dispatch } from 'redux';
 import * as ActionTypes from './types';
 import { Fetch, formatError, Response } from '../../../Helpers/Fetch';
-import { atemptSetMessage, SetMessage } from '../../Message';
+import { attemptSetMessage, SetMessage } from '../../Message';
 import { GetSelfSuccess } from '../../Auth';
-import { atemptGetSubscriptions, GetSubscriptionsAction } from '../GetSubscriptions';
+import { attemptGetSubscriptions, GetSubscriptionsAction } from '../GetSubscriptions';
 
 interface CreateCategoryStart {
   type: ActionTypes.CREATE_CATEGORY_START;
@@ -39,20 +39,20 @@ export interface CategoryData {
   userId: string;
 }
 
-type AtemptCreateCategoryAction = (
+type AttemptCreateCategoryAction = (
   dispatch: Dispatch<CreateCategoryAction | SetMessage | GetSubscriptionsAction | GetSelfSuccess>
 ) => Promise<void>;
 
-export const atemptCreateCategory = ({ name, userId }: CategoryData): AtemptCreateCategoryAction => async (
+export const attemptCreateCategory = ({ name, userId }: CategoryData): AttemptCreateCategoryAction => async (
   dispatch: Dispatch<CreateCategoryAction | SetMessage | GetSubscriptionsAction | GetSelfSuccess>,
 ): Promise<void> => {
   dispatch(startCreateCategory());
   const response = await createCategory({ name }).catch(error => error);
 
   if (response.message === 'Failed to fetch') {
-    atemptSetMessage(
+    attemptSetMessage(
       {
-        text: 'unable to connect to resource pleas check your internet conection',
+        text: 'Unable to connect to the Thru the Ether Api at this time',
         type: 'error',
       },
     )(dispatch);
@@ -61,11 +61,11 @@ export const atemptCreateCategory = ({ name, userId }: CategoryData): AtemptCrea
   if (response.error) {
     dispatch(createCategoryFailure());
 
-    atemptSetMessage({ text: formatError(response.error.errmsg), type: 'info' })(dispatch);
+    attemptSetMessage({ text: formatError(response.error.errmsg), type: 'info' })(dispatch);
   }
   if (response.category) {
     dispatch(catagoryCreated());
 
-    atemptGetSubscriptions(userId)(dispatch);
+    attemptGetSubscriptions(userId)(dispatch);
   }
 };

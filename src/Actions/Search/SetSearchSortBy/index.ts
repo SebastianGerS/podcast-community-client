@@ -31,9 +31,9 @@ export const setSearchSortByFailure = (): SetSearchSortByFailure => (
 
 export type SetSearchSortByAction = SetSearchSortByStart | SetSearchSortBySuccess | SetSearchSortByFailure;
 
-type AtemptSetSearchSortByAction = (dispatch: Dispatch<SetSearchSortByAction>) => void;
+type AttemptSetSearchSortByAction = (dispatch: Dispatch<SetSearchSortByAction>) => void;
 
-export const atemptSetSearchSortBy = (data: string): AtemptSetSearchSortByAction => (
+export const attemptSetSearchSortBy = (data: string): AttemptSetSearchSortByAction => (
   dispatch: Dispatch<SetSearchSortByAction>,
 ): void => {
   dispatch(startSetSearchSortBy());

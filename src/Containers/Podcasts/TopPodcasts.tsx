@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import TopPodcasts from '../../Components/Podcasts/TopPodcasts';
-import { atemptGetTopPodcasts, GetTopPodcastsAction } from '../../Actions/Podcast';
+import { attemptGetTopPodcasts, GetTopPodcastsAction } from '../../Actions/Podcast';
 import { PodcastState } from '../../Reducers/PodcastReducer';
 import { Podcast } from '../../Models/Podcast';
 import { SetMessage } from '../../Actions/Message';
@@ -26,7 +26,7 @@ interface DispatchProps {
 
 function mapDispatchToProps(dispatch: Dispatch<GetTopPodcastsAction | SetMessage>): DispatchProps {
   return {
-    getTopPodcasts: () => atemptGetTopPodcasts()(dispatch),
+    getTopPodcasts: () => attemptGetTopPodcasts()(dispatch),
   };
 }
 

@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import SearchInterface from '../../Components/Search/SearchInterface';
-import { atemptSearch, SearchData, AtemptSearchActions } from '../../Actions/Search';
+import { attemptSearch, SearchData, AttemptSearchActions } from '../../Actions/Search';
 import { SearchState } from '../../Reducers/SearchReducer';
 import { AuthState } from '../../Reducers/AuthReducer';
 
@@ -36,9 +36,9 @@ interface DispatchProps {
   search: (query: SearchData) => void;
 }
 
-function mapDispatchToProps(dispatch: Dispatch<AtemptSearchActions>): DispatchProps {
+function mapDispatchToProps(dispatch: Dispatch<AttemptSearchActions>): DispatchProps {
   return {
-    search: (query: SearchData) => atemptSearch(query)(dispatch),
+    search: (query: SearchData) => attemptSearch(query)(dispatch),
   };
 }
 

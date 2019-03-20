@@ -2,7 +2,7 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { List } from 'immutable';
 import MessageInterface from '../../Components/Message/MessageInterface';
-import { atemptRemoveMessage, RemoveMessage } from '../../Actions/Message';
+import { attemptRemoveMessage, RemoveMessage } from '../../Actions/Message';
 import { MessageState } from '../../Reducers/MessageReducer';
 import { Message } from '../../Models/Message';
 
@@ -26,7 +26,7 @@ interface DispatchProps {
 
 function mapDispatchToProps(dispatch: Dispatch<RemoveMessage>): DispatchProps {
   return {
-    removeMessage: () => atemptRemoveMessage()(dispatch),
+    removeMessage: () => attemptRemoveMessage()(dispatch),
   };
 }
 

@@ -2,8 +2,8 @@
 import { Dispatch } from 'redux';
 import * as ActionTypes from './types';
 import { Fetch, formatError, Response } from '../../../Helpers/Fetch';
-import { atemptSetMessage, SetMessage } from '../../Message';
-import { atemptGetSelf, GetSelfSuccess } from '../../Auth';
+import { attemptSetMessage, SetMessage } from '../../Message';
+import { attemptGetSelf, GetSelfSuccess } from '../../Auth';
 import { Podcast } from '../../../Models/Podcast';
 import { Category } from '../../../Models/Category';
 
@@ -41,11 +41,11 @@ export type GetSubscriptionsAction = GetSubscriptionsStart | GetSubscriptionsSuc
 
 const getSubscriptions = (userId: string): Promise<Response> => Fetch(`/users/${userId}/subscriptions`, 'GET', {});
 
-type AtemptGetSubscriptionsAction = (
+type AttemptGetSubscriptionsAction = (
   dispatch: Dispatch<GetSubscriptionsAction | SetMessage | GetSelfSuccess>
 ) => Promise<void>;
 
-export const atemptGetSubscriptions = (userId: string): AtemptGetSubscriptionsAction => async (
+export const attemptGetSubscriptions = (userId: string): AttemptGetSubscriptionsAction => async (
   dispatch: Dispatch<GetSubscriptionsAction | SetMessage | GetSelfSuccess>,
 ): Promise<void> => {
   dispatch(startGetSubscriptions());
@@ -53,9 +53,9 @@ export const atemptGetSubscriptions = (userId: string): AtemptGetSubscriptionsAc
   const response = await getSubscriptions(userId);
 
   if (response.message === 'Failed to fetch') {
-    atemptSetMessage(
+    attemptSetMessage(
       {
-        text: 'unable to connect to resource pleas check your internet conection',
+        text: 'Unable to connect to the Thru the Ether Api at this time',
         type: 'error',
       },
     )(dispatch);
@@ -64,10 +64,10 @@ export const atemptGetSubscriptions = (userId: string): AtemptGetSubscriptionsAc
   if (response.error) {
     dispatch(getSubscriptionsFailure());
 
-    atemptSetMessage({ text: formatError(response.error.errmsg), type: 'info' })(dispatch);
+    attemptSetMessage({ text: formatError(response.error.errmsg), type: 'info' })(dispatch);
   }
   if (response.subscriptions) {
     dispatch(gotSubscriptions(response));
-    atemptGetSelf()(dispatch);
+    attemptGetSelf()(dispatch);
   }
 };

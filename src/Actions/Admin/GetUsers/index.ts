@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import * as actionTypes from './types';
 import { Fetch, Response } from '../../../Helpers/Fetch';
-import { atemptSetMessage, SetMessage } from '../../Message';
+import { attemptSetMessage, SetMessage } from '../../Message';
 import { User } from '../../../Models/User';
 
 interface GetUsersStart {
@@ -50,18 +50,18 @@ const getUsers = (
   { offset, type, term }: UserSearch,
 ): Promise<Response> => Fetch(`/search?term=${term}&type=${type}&offset=${offset}`, 'GET', {});
 
-export type AtemptGetUsersAction = (dispatch: Dispatch<GetUsersAction | SetMessage>) => Promise<void>;
+export type AttemptGetUsersAction = (dispatch: Dispatch<GetUsersAction | SetMessage>) => Promise<void>;
 
-export const atemptGetUsers = (data: UserSearch): AtemptGetUsersAction => async (
+export const attemptGetUsers = (data: UserSearch): AttemptGetUsersAction => async (
   dispatch: Dispatch<GetUsersAction | SetMessage>,
 ): Promise<void> => {
   dispatch(startGetUsers());
 
   const response = await getUsers(data).catch(error => error);
   if (response.message === 'Failed to fetch') {
-    atemptSetMessage(
+    attemptSetMessage(
       {
-        text: 'unable to connect to resource pleas check your internet conection',
+        text: 'Unable to connect to the Thru the Ether Api at this time',
         type: 'error',
       },
     )(dispatch);
@@ -69,7 +69,7 @@ export const atemptGetUsers = (data: UserSearch): AtemptGetUsersAction => async 
 
   if (response.error) {
     dispatch(getUsersFailure());
-    (atemptSetMessage({ text: response.error.errmsg, type: 'warning' }))(dispatch);
+    (attemptSetMessage({ text: response.error.errmsg, type: 'warning' }))(dispatch);
   }
   if (response.results) dispatch(gotUsers(response));
 };

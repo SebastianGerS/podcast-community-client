@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import ListableEpisode from '../../Components/Search/ListableEpisode';
+import PodcastEpisode from '../../Components/Podcasts/PodcastEpisode';
 import {
   setAudio, stop, download, DownloadActions, SetEpisode, StopPlayback,
 } from '../../Actions/Player';
@@ -40,4 +40,4 @@ function mapDispatchToProps(dispatch: Dispatch<ListableEpisodeAction>): Dispatch
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ListableEpisode);
+export default connect(mapStateToProps, mapDispatchToProps)(PodcastEpisode);

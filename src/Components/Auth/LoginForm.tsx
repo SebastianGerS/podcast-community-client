@@ -3,16 +3,16 @@ import { scrollToTop } from '../../Helpers/UserAgent';
 import { invalidEmail, invalidPassword } from '../../Helpers/Validation';
 
 interface Props {
-  atemptLogin: (data: object) => void;
+  attemptLogin: (data: object) => void;
 }
-function LoginForm({ atemptLogin }: Props): JSX.Element {
+function LoginForm({ attemptLogin }: Props): JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const login = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     scrollToTop();
-    atemptLogin({ email, password });
+    attemptLogin({ email, password });
   };
 
   return (

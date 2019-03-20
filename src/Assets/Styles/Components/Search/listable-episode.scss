@@ -13,6 +13,7 @@
   div {
     display: inline-flex;
     flex-direction: row;
+    justify-content: space-evenly;
     width: 100%;
     padding: 0.25em 0;
 
@@ -59,11 +60,11 @@
     justify-content: space-evenly;
     align-items: center;
     margin: 0;
-    margin-left: 0.5em;
     background-color: #2f3c47;
     height: 17px;
     border-radius: 4px;
-    max-width: 100px;
+    width: fit-content;
+    padding: 0 5px;
     text-align: center;
 
     img {
@@ -91,29 +92,5 @@
 
   .info-box:last-child {
     justify-content: center;
-  }
-
-  .more-options-button {
-    background-image: url(../Icons/more.svg);
-    background-repeat: no-repeat;
-    background-size: contain;
-    width: 70px;
-    height: 70px;
-  }
-
-  .play-button {
-    background-image: url(../Icons/play-arrow.svg);
-    background-repeat: no-repeat;
-    background-size: contain;
-    width: 40px;
-    height: 40px;
-  }
-
-  .pause-button {
-    background-image: url(../Icons/pause.svg);
-    background-repeat: no-repeat;
-    background-size: contain;
-    width: 40px;
-    height: 40px;
   }
 }

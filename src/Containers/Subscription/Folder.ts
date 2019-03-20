@@ -2,8 +2,8 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import Folder from '../../Components/Subscription/Folder';
 import {
-  atemptCreateCategory,
-  atemptDeleteCategory,
+  attemptCreateCategory,
+  attemptDeleteCategory,
   CreateCategoryAction,
   DeleteCategoryAction,
   CategoryData,
@@ -36,8 +36,8 @@ interface DispatchProps {
 
 function mapDispatchToProps(dispatch: Dispatch<FolderActions>): DispatchProps {
   return {
-    createCategory: (data: CategoryData) => atemptCreateCategory(data)(dispatch),
-    deleteCategory: (userId: string, categoryId: string) => atemptDeleteCategory(userId, categoryId)(dispatch),
+    createCategory: (data: CategoryData) => attemptCreateCategory(data)(dispatch),
+    deleteCategory: (userId: string, categoryId: string) => attemptDeleteCategory(userId, categoryId)(dispatch),
   };
 }
 

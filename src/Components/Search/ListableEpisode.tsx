@@ -1,30 +1,16 @@
 import React from 'react';
 import Star from '../../Assets/Icons/star.svg';
-import { getDatefromMilisecond } from '../../Helpers/Time';
-import DownloadButton from './DownloadButton';
+import { getDatefromMilisecond, getSecondsFromTimeString } from '../../Helpers/Time';
+import DownloadButton from '../../Containers/Common/DownloadButton';
 import { Episode } from '../../Models/Episode';
+import MoreOptionsButton from '../Common/MoreOptionsButton';
+import PlayButton from '../../Containers/Common/PlayButton';
 
 interface Props {
-  setAudio: (data: Episode) => void;
-  stop: () => void;
   data: Episode;
-  episode: Episode;
-  isPlaying: boolean;
-  download: () => void;
-  isDownloading: string;
 }
 
-function ListableEpisode({
-  setAudio, stop, data, episode, isPlaying, download, isDownloading,
-}: Props): JSX.Element {
-  const toggleEpisode = (): void => {
-    stop();
-    if (episode.id !== data.id) {
-      setAudio(data);
-    } else if (!isPlaying) {
-      setAudio(data);
-    }
-  };
+function ListableEpisode({ data }: Props): JSX.Element {
   const episodeTitle = typeof data.title_original === 'string' ? data.title_original : '';
   const podcastTitle = typeof data.podcast_title_original === 'string' ? data.podcast_title_original : '';
   const publisher = typeof data.publisher_original === 'string' ? data.publisher_original : '';
@@ -52,10 +38,11 @@ function ListableEpisode({
         </figure>
         <div className="info-box">
           <p>
-              length:&ensp;
-            <span>
-              {data.audio_length}
-            </span>
+            {
+              typeof data.audio_length === 'string'
+                ? `${Math.round(getSecondsFromTimeString(data.audio_length) / 60)} min`
+                : 'unknown'
+            }
           </p>
         </div>
       </div>
@@ -65,13 +52,9 @@ function ListableEpisode({
         </p>
       </div>
       <div>
-        <DownloadButton episode={data} isDownloading={isDownloading} download={download} />
-        <button
-          type="button"
-          className={`${episode.id === data.id && isPlaying ? 'pause-button' : 'play-button'}`}
-          onClick={toggleEpisode}
-        />
-        <button type="button" className="more-options-button" />
+        <DownloadButton episode={data} />
+        <PlayButton episode={data} />
+        <MoreOptionsButton />
       </div>
     </div>
   );

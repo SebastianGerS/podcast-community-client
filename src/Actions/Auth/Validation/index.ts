@@ -1,5 +1,5 @@
 import { Dispatch } from 'redux';
-import { atemptSetMessage, SetMessage } from '../../Message';
+import { attemptSetMessage, SetMessage } from '../../Message';
 import {
   invalidEmail, invalidPassword, invalidUsername, invalidPasswordConfirmation,
 } from '../../../Helpers/Validation';
@@ -8,7 +8,7 @@ type ValidateAction = (dispatch: Dispatch<SetMessage>) => boolean;
 
 export const validUsername = (username: string): ValidateAction => (dispatch: Dispatch<SetMessage>): boolean => {
   if (invalidUsername(username)) {
-    atemptSetMessage({ text: 'Please select a username', type: 'warning' })(dispatch);
+    attemptSetMessage({ text: 'Please select a username', type: 'warning' })(dispatch);
     return false;
   }
   return true;
@@ -16,7 +16,7 @@ export const validUsername = (username: string): ValidateAction => (dispatch: Di
 
 export const validEmail = (email: string): ValidateAction => (dispatch: Dispatch<SetMessage>): boolean => {
   if (invalidEmail(email)) {
-    atemptSetMessage({ text: 'Please enter a valid email address', type: 'warning' })(dispatch);
+    attemptSetMessage({ text: 'Please enter a valid email address', type: 'warning' })(dispatch);
     return false;
   }
   return true;
@@ -24,7 +24,7 @@ export const validEmail = (email: string): ValidateAction => (dispatch: Dispatch
 
 export const validPassword = (password: string): ValidateAction => (dispatch: Dispatch<SetMessage>): boolean => {
   if (invalidPassword(password)) {
-    atemptSetMessage({ text: 'Passwords must be atleast 8 characters long', type: 'warning' })(dispatch);
+    attemptSetMessage({ text: 'Passwords must be atleast 8 characters long', type: 'warning' })(dispatch);
     return false;
   }
   return true;
@@ -34,7 +34,7 @@ export const validPasswordConfirmation = (password: string, passwordConfirmation
   dispatch: Dispatch<SetMessage>,
 ): boolean => {
   if (invalidPasswordConfirmation(password, passwordConfirmation)) {
-    atemptSetMessage({ text: 'Passwordconfirmation does not match', type: 'warning' })(dispatch);
+    attemptSetMessage({ text: 'Passwordconfirmation does not match', type: 'warning' })(dispatch);
     return false;
   }
   return true;

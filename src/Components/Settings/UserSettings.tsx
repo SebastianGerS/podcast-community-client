@@ -16,7 +16,7 @@ function UserSettings({
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
 
-  const atemptUpdateUser = (e: FormEvent): void => {
+  const attemptUpdateUser = (e: FormEvent): void => {
     e.preventDefault();
     if (typeof user._id === 'string') {
       if (type !== user.type) {
@@ -32,7 +32,7 @@ function UserSettings({
   return (
     <div className="user-settings">
       <h3>Change Type</h3>
-      <form onSubmit={atemptUpdateUser}>
+      <form onSubmit={attemptUpdateUser}>
         <label htmlFor="type">
       UserType:
           <select name="type" id="type" onChange={e => setType(e.target.value)} value={type}>
@@ -44,7 +44,7 @@ function UserSettings({
         <button type="submit">Update</button>
       </form>
       <h3>Change Password</h3>
-      <form onSubmit={atemptUpdateUser}>
+      <form onSubmit={attemptUpdateUser}>
         <label htmlFor="password">
       Password:
           <input

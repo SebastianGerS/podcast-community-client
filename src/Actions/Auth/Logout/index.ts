@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 import * as ActionTypes from './types';
-import { atemptSetMessage, SetMessage } from '../../Message';
+import { attemptSetMessage, SetMessage } from '../../Message';
 import { toggleMenu, ToggleMenu } from '../../Modal';
 import * as Auth from '../../../Helpers/Auth';
 
@@ -30,9 +30,9 @@ export const userLogoutFailure = (): UserLogoutFailure => (
 
 export type UserLogoutAction = UserLogoutStart | UserLogoutSuccess | UserLogoutFailure;
 
-type AtemptLogoutAction = (dispatch: Dispatch<UserLogoutAction|SetMessage|ToggleMenu>) => void;
+type AttemptLogoutAction = (dispatch: Dispatch<UserLogoutAction|SetMessage|ToggleMenu>) => void;
 
-export const atemptLogout = (): AtemptLogoutAction => (
+export const attemptLogout = (): AttemptLogoutAction => (
   dispatch: Dispatch<UserLogoutAction|SetMessage|ToggleMenu>,
 ): void => {
   dispatch(startUserLogout());
@@ -40,9 +40,9 @@ export const atemptLogout = (): AtemptLogoutAction => (
   if (Auth.logedout()) {
     dispatch(userLogedout());
     dispatch(toggleMenu());
-    atemptSetMessage({ text: 'You have been logedout', type: 'warning' })(dispatch);
+    attemptSetMessage({ text: 'You have been logedout', type: 'warning' })(dispatch);
   } else {
     dispatch(userLogoutFailure());
-    atemptSetMessage({ text: 'logout failed', type: 'error' })(dispatch);
+    attemptSetMessage({ text: 'logout failed', type: 'error' })(dispatch);
   }
 };
