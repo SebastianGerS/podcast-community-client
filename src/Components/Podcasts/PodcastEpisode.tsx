@@ -1,32 +1,16 @@
 import React from 'react';
 import Star from '../../Assets/Icons/star.svg';
-import { getDatefromMilisecond } from '../../Helpers/Time';
-import DownloadButton from '../Search/DownloadButton';
+import { getDatefromMilisecond, getSecondsFromTimeString } from '../../Helpers/Time';
+import DownloadButton from '../../Containers/Common/DownloadButton';
 import { Episode } from '../../Models/Episode';
 import MoreOptionsButton from '../Common/MoreOptionsButton';
+import PlayButton from '../../Containers/Common/PlayButton';
 
 interface Props {
-  setAudio: (data: Episode) => void;
-  stop: () => void;
   data: Episode;
-  episode: Episode;
-  isPlaying: boolean;
-  download: () => void;
-  isDownloading: string;
 }
 
-function PodcastEpisode({
-  data, stop, setAudio, episode, download, isDownloading, isPlaying,
-}: Props): JSX.Element {
-  const toggleEpisode = (): void => {
-    stop();
-    if (episode.id !== data.id) {
-      setAudio(data);
-    } else if (!isPlaying) {
-      setAudio(data);
-    }
-  };
-
+function PodcastEpisode({ data }: Props): JSX.Element {
   const title = typeof data.title_original === 'string' ? data.title_original : '';
   const description = typeof data.description_original === 'string' ? data.description_original : '';
 
@@ -37,9 +21,7 @@ function PodcastEpisode({
       <div>
         <div className="info-box">
           <p>
-            <span>
-              {typeof data.pub_date_ms === 'number' ? getDatefromMilisecond(data.pub_date_ms) : 'unknown relesedate'}
-            </span>
+            {typeof data.pub_date_ms === 'number' ? getDatefromMilisecond(data.pub_date_ms) : 'unknown relesedate'}
           </p>
         </div>
         <figure className="info-box">
@@ -48,10 +30,11 @@ function PodcastEpisode({
         </figure>
         <div className="info-box">
           <p>
-              length:&ensp;
-            <span>
-              {typeof data.audio_length === 'string' ? data.audio_length : 'unknown'}
-            </span>
+            {
+              typeof data.audio_length === 'string'
+                ? `${Math.round(getSecondsFromTimeString(data.audio_length) / 60)} min`
+                : 'unknown'
+            }
           </p>
         </div>
       </div>
@@ -61,12 +44,8 @@ function PodcastEpisode({
         </p>
       </div>
       <div>
-        <DownloadButton episode={data} isDownloading={isDownloading} download={download} />
-        <button
-          type="button"
-          className={`${episode.id === data.id && isPlaying ? 'pause-button' : 'play-button'}`}
-          onClick={toggleEpisode}
-        />
+        <DownloadButton episode={data} />
+        <PlayButton episode={data} />
         <MoreOptionsButton />
       </div>
     </div>

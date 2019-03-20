@@ -1,24 +1,32 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Podcast } from '../../Models/Podcast';
 import Loader from '../Layout/Loader';
 import SubscribeButton from '../../Containers/Common/SubscribeButton';
 import Rating from '../Common/Rating';
 import MoreOptionsButton from '../Common/MoreOptionsButton';
 import Episodes from '../../Containers/Podcasts/Episodes';
+import usePrevious from '../../Helpers/CustomHooks';
 
 interface Props {
   podcast: Podcast;
-  isFetching: boolean;
+  isFetchingPodcast: boolean;
   getPodcast: (podcastId: string) => void;
   podcastId: string;
 }
 
 function PodcastComponent({
-  podcast, isFetching, getPodcast, podcastId,
+  podcast, isFetchingPodcast, getPodcast, podcastId,
 }: Props): JSX.Element {
+  const prevIsFetchingPodcast = usePrevious(isFetchingPodcast);
+  const [FetchedData, setFetchedData] = useState(false);
+
   useEffect(() => {
     getPodcast(podcastId);
   }, []);
+
+  useLayoutEffect(() => {
+    setFetchedData(!isFetchingPodcast && prevIsFetchingPodcast && podcastId === podcast.id);
+  }, [podcastId, podcast]);
 
   const title = (
     typeof podcast.title === 'string'
@@ -36,7 +44,7 @@ function PodcastComponent({
         : ''
   );
 
-  return !isFetching ? (
+  return FetchedData ? (
     <div className="podcast">
       <h3 className="podcast-title">{ title }</h3>
       <div className="podcast-img">

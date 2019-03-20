@@ -11,13 +11,13 @@ interface State {
 
 interface StateProps {
   podcast: Podcast;
-  isFetching: boolean;
+  isFetchingPodcast: boolean;
 }
 
 function mapStateToProps({ PodcastReducer }: State): StateProps {
   return {
     podcast: PodcastReducer.podcast,
-    isFetching: PodcastReducer.isFetching,
+    isFetchingPodcast: PodcastReducer.isFetchingPodcast,
   };
 }
 

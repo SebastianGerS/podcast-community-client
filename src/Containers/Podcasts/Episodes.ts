@@ -12,6 +12,7 @@ interface State {
 interface StateProps {
   episodes: Episode[];
   isFetchingEpisodes: boolean;
+  isFetchingPodcast: boolean;
   offset: number;
   morePages: boolean;
 }
@@ -20,6 +21,7 @@ function mapStateToProps({ PodcastReducer }: State): StateProps {
   return {
     episodes: PodcastReducer.episodes,
     isFetchingEpisodes: PodcastReducer.isFetchingEpisodes,
+    isFetchingPodcast: PodcastReducer.isFetchingPodcast,
     offset: PodcastReducer.offset,
     morePages: PodcastReducer.morePages,
   };

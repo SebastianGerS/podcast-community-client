@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Episode } from '../../Models/Episode';
 import List from '../Common/List';
-import PodcastEpisode from '../../Containers/Podcasts/PodcastEpisode';
+import PodcastEpisode from './PodcastEpisode';
 import { EpisodesSearchData } from '../../Actions/Podcast';
 import Loader from '../Layout/Loader';
 
@@ -11,15 +11,16 @@ interface Props {
   podcastTitle: string;
   podcastId: string;
   isFetchingEpisodes: boolean;
+  isFetchingPodcast: boolean;
   offset: number;
   morePages: boolean;
 }
 
 function Episodes({
-  episodes, getEpisodes, podcastTitle, podcastId, isFetchingEpisodes, offset, morePages,
+  episodes, getEpisodes, podcastTitle, podcastId, isFetchingEpisodes, offset, morePages, isFetchingPodcast,
 }: Props): JSX.Element {
   useEffect(() => {
-    if (podcastTitle.length > 0 && podcastId.length > 0) {
+    if (podcastTitle.length > 0 && podcastId.length > 0 && !isFetchingPodcast) {
       getEpisodes({
         term: podcastTitle, offset, ocid: podcastId,
       });
@@ -48,8 +49,9 @@ function Episodes({
   }, [episodes]);
 
 
-  return Array.isArray(episodes) ? (
+  return !isFetchingPodcast && Array.isArray(episodes) ? (
     <div className="episodes">
+      <div className="episodes-header"><h3>Episodes</h3></div>
       <List component={PodcastEpisode} data={episodes} />
       {isFetchingEpisodes ? <Loader /> : null}
     </div>
