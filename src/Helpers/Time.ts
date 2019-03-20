@@ -37,5 +37,5 @@ export const getDatefromMilisecond = (ms: number): string => {
 export const getSecondsFromTimeString = (string: string): number => {
   const [h, m, s] = string.split(':');
 
-  return +((+h * 60 * 60) + (+m * 60) + s);
+  return +((+h * 60 * 60) + (+m * 60) + (+s));
 };
