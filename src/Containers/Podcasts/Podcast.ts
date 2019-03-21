@@ -4,20 +4,25 @@ import PodcastComponent from '../../Components/Podcasts/Podcast';
 import { GetPodcastAction, attemptGetPodcast } from '../../Actions/Podcast';
 import { PodcastState } from '../../Reducers/PodcastReducer';
 import { Podcast } from '../../Models/Podcast';
+import { RedirectModel } from '../../Models/Redirect';
+import { RedirectState } from '../../Reducers/RedirectReducer';
 
 interface State {
   PodcastReducer: PodcastState;
+  RedirectReducer: RedirectState;
 }
 
 interface StateProps {
   podcast: Podcast;
   isFetchingPodcast: boolean;
+  redirect: RedirectModel;
 }
 
-function mapStateToProps({ PodcastReducer }: State): StateProps {
+function mapStateToProps({ PodcastReducer, RedirectReducer }: State): StateProps {
   return {
     podcast: PodcastReducer.podcast,
     isFetchingPodcast: PodcastReducer.isFetchingPodcast,
+    redirect: RedirectReducer.redirect,
   };
 }
 
