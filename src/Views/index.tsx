@@ -7,6 +7,8 @@ import Category from './Category';
 import Settings from './Settings';
 import Users from './Users';
 import Podcasts from './Podcasts';
+import Episodes from './Episodes';
+import Error from './Error';
 
 export default {
   Home,
@@ -18,4 +20,6 @@ export default {
   Settings,
   Users,
   Podcasts,
+  Episodes,
+  Error,
 };
