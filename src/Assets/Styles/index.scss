@@ -7,6 +7,7 @@
 @import './Components/Podcast/listablepodcast.scss';
 @import './Components/Podcast/podcast.scss';
 @import './Components/Podcast/episodes.scss';
+@import './Components/Episodes/episode.scss';
 @import './Components/Layout/list.scss';
 @import './Components/Playback/playback-bar.scss';
 @import './Components/Playback/playback-modal.scss';
@@ -19,6 +20,8 @@
 @import './Components/Common/more-options-button.scss';
 @import './Components/Common/play-button.scss';
 @import './Components/Common/download-button.scss';
+@import './Components/Common/info-box.scss';
+@import './Components/Common/error.scss';
 @import './Components/Auth/login-form.scss';
 @import './Components/Layout/menu.scss';
 @import './Components/Search/search-controlles.scss';
@@ -46,3 +49,5 @@
 @import './Views/settings.scss';
 @import './Views/users.scss';
 @import './Views/podcasts.scss';
+@import './Views/episodes.scss';
+@import './Views/error.scss';

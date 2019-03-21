@@ -7,6 +7,7 @@ import { attemptSetMessage, SetMessage } from '../../Message';
 import * as Auth from '../../../Helpers/Auth';
 import { validUserData, UserData } from '../Validation';
 import { userLogedin, UserLoginSuccess } from '../Login';
+import { setRedirect, SetRedirect } from '../../Redirect';
 
 interface UserRegistrationStart {
   type: ActionTypes.USER_REGISTRATION_START;
@@ -36,12 +37,13 @@ export type UserRegistrationAction = UserRegistrationStart | UserRegistrationSuc
 
 export const register = (token: string): Promise<Response> => Fetch('/users', 'POST', token);
 
+type AttemptRegisterActions = UserRegistrationAction | SetMessage | UserLoginSuccess | SetRedirect;
 type AttemptRegisterAction =(
-  dispatch: Dispatch<UserRegistrationAction|SetMessage|UserLoginSuccess>
+  dispatch: Dispatch<AttemptRegisterActions>
 ) => Promise<void>;
 
 export const attemptRegister = (data: UserData): AttemptRegisterAction => async (
-  dispatch: Dispatch<UserRegistrationAction|SetMessage|UserLoginSuccess>,
+  dispatch: Dispatch<AttemptRegisterActions>,
 ): Promise<void> => {
   if (validUserData(data)(dispatch)) {
     dispatch(startUserRegistration());
@@ -68,6 +70,7 @@ export const attemptRegister = (data: UserData): AttemptRegisterAction => async 
     if (response.token) {
       Auth.setToken(response.token);
       dispatch(userRegistered());
+      dispatch(setRedirect({ to: '/' }));
       const decoded = await Auth.verifytoken(response.token).catch(error => error);
       if (Auth.getToken() && decoded.user) dispatch(userLogedin(decoded.user));
     }

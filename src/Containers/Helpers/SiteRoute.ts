@@ -5,6 +5,7 @@ import { checkIfLogedIn, UserLogoutSuccess, IsLogedIn } from '../../Actions/Auth
 import { checkIfResized, setHeight, SetHeight } from '../../Actions/Modal';
 import { AuthState } from '../../Reducers/AuthReducer';
 import { ModalState } from '../../Reducers/ModalReducer';
+import { UnsetRedirect, unsetRedirect } from '../../Actions/Redirect';
 
 
 interface State {
@@ -30,12 +31,13 @@ function mapStateToProps({ AuthReducer, ModalReducer }: State): StateProps {
   };
 }
 
-type SiteRouteActions = UserLogoutSuccess | IsLogedIn | SetHeight;
+type SiteRouteActions = UserLogoutSuccess | IsLogedIn | SetHeight | UnsetRedirect;
 
 interface DispatchProps {
   checkIfLogedIn: () => void;
   checkIfResized: () => void;
   setHeight: (height: number) => void;
+  unsetRedirect: () => void;
 }
 
 function mapDispatchToProps(dispatch: Dispatch<SiteRouteActions>): DispatchProps {
@@ -43,6 +45,7 @@ function mapDispatchToProps(dispatch: Dispatch<SiteRouteActions>): DispatchProps
     checkIfLogedIn: () => checkIfLogedIn()(dispatch),
     checkIfResized: () => checkIfResized()(dispatch),
     setHeight: (height: number) => dispatch(setHeight(height)),
+    unsetRedirect: () => dispatch(unsetRedirect()),
   };
 }
 

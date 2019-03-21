@@ -1,4 +1,5 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import { Podcast } from '../../Models/Podcast';
 import Loader from '../Layout/Loader';
 import SubscribeButton from '../../Containers/Common/SubscribeButton';
@@ -6,16 +7,18 @@ import Rating from '../Common/Rating';
 import MoreOptionsButton from '../Common/MoreOptionsButton';
 import Episodes from '../../Containers/Podcasts/Episodes';
 import usePrevious from '../../Helpers/CustomHooks';
+import { RedirectModel } from '../../Models/Redirect';
 
 interface Props {
   podcast: Podcast;
   isFetchingPodcast: boolean;
   getPodcast: (podcastId: string) => void;
   podcastId: string;
+  redirect: RedirectModel;
 }
 
 function PodcastComponent({
-  podcast, isFetchingPodcast, getPodcast, podcastId,
+  podcast, isFetchingPodcast, getPodcast, podcastId, redirect,
 }: Props): JSX.Element {
   const prevIsFetchingPodcast = usePrevious(isFetchingPodcast);
   const [FetchedData, setFetchedData] = useState(false);
@@ -44,6 +47,10 @@ function PodcastComponent({
         : ''
   );
 
+  const renderRedirect = (): JSX.Element | null => (
+    typeof redirect.to === 'string' ? <Redirect to={redirect.to} /> : null
+  );
+
   return FetchedData ? (
     <div className="podcast">
       <h3 className="podcast-title">{ title }</h3>
@@ -64,7 +71,12 @@ function PodcastComponent({
       </div>
       <Episodes podcastTitle={title} podcastId={podcastId} />
     </div>
-  ) : <Loader />;
+  ) : (
+    <div>
+      {renderRedirect()}
+      <Loader />
+    </div>
+  );
 }
 
 export default PodcastComponent;

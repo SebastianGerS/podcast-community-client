@@ -8,6 +8,8 @@ import UserReducer from './UserReducer';
 import EventReducer from './EventReducer';
 import PodcastReducer from './PodcastReducer';
 import AdminReducer from './AdminReducer';
+import EpisodeReducer from './EpisodeReducer';
+import RedirectReducer from './RedirectReducer';
 
 export default combineReducers({
   AuthReducer,
@@ -19,4 +21,6 @@ export default combineReducers({
   EventReducer,
   PodcastReducer,
   AdminReducer,
+  EpisodeReducer,
+  RedirectReducer,
 });

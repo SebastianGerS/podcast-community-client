@@ -28,6 +28,11 @@ const Router = (): JSX.Element => (
         component={Views.Podcasts}
       />
       <SiteRoute
+        path="/episodes/:episodeId"
+        routeType="PUBLIC"
+        component={Views.Episodes}
+      />
+      <SiteRoute
         path="/profile/:userId"
         routeType="PROTECTED"
         component={Views.Profile}
@@ -52,6 +57,10 @@ const Router = (): JSX.Element => (
         path="/users"
         routeType="ADMIN"
         component={Views.Users}
+      />
+      <SiteRoute
+        routeType="PUBLIC"
+        component={Views.Error}
       />
     </Switch>
   </BrowserRouter>

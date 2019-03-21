@@ -3,6 +3,7 @@ import * as ActionTypes from './types';
 import { Fetch, Response } from '../../../Helpers/Fetch';
 import { attemptSetMessage, SetMessage } from '../../Message';
 import { Podcast } from '../../../Models/Podcast';
+import { setRedirect, SetRedirect } from '../../Redirect';
 
 interface GetPodcastStart {
   type: ActionTypes.GET_PODCAST_START;
@@ -32,7 +33,7 @@ const getPodcastFailure = (): GetPodcastFailure => ({
 
 const getPodcast = (podcastId: string): Promise<Response> => Fetch(`/podcasts/${podcastId}`, 'GET', {});
 
-export type GetPodcastAction = GetPodcastStart | GetPodcastSuccess |GetPodcastFailure;
+export type GetPodcastAction = GetPodcastStart | GetPodcastSuccess |GetPodcastFailure | SetRedirect;
 
 type AttemptGetPodcastAction = (dispatch: Dispatch<GetPodcastAction | SetMessage>) => Promise<void>;
 
@@ -54,7 +55,7 @@ export const attemptGetPodcast = (podcastId: string): AttemptGetPodcastAction =>
 
   if (response.error) {
     dispatch(getPodcastFailure());
-
+    dispatch(setRedirect({ to: '/podcasts' }));
     attemptSetMessage({ text: response.error.errmsg, type: 'info' })(dispatch);
   }
 
