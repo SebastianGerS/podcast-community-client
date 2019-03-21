@@ -2,19 +2,19 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { attemptRegister, UserRegistrationAction, UserData } from '../../Actions/Auth';
 import RegisterForm from '../../Components/Auth/RegisterForm';
-import { AuthState } from '../../Reducers/AuthReducer';
 import { RedirectModel } from '../../Models/Redirect';
+import { RedirectState } from '../../Reducers/RedirectReducer';
 
 interface State {
-  AuthReducer: AuthState;
+  RedirectReducer: RedirectState;
 }
 interface StateProps {
   redirect: RedirectModel;
 }
 
-function mapStateToProps({ AuthReducer }: State): StateProps {
+function mapStateToProps({ RedirectReducer }: State): StateProps {
   return {
-    redirect: AuthReducer.redirect,
+    redirect: RedirectReducer.redirect,
   };
 }
 

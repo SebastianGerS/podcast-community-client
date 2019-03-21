@@ -1,6 +1,5 @@
 import * as ActionTypes from '../Actions/Auth/types';
 import { User } from '../Models/User';
-import { RedirectModel } from '../Models/Redirect';
 import { AuthActions } from '../Actions/Auth';
 
 export interface AuthState {
@@ -9,7 +8,6 @@ export interface AuthState {
   isLogingOut: boolean;
   isRegistering: boolean;
   user: User;
-  redirect: RedirectModel;
   isAdmin: boolean;
 }
 
@@ -19,7 +17,6 @@ const DEFAULT_STATE: AuthState = {
   isLogingOut: false,
   isRegistering: false,
   user: new User(),
-  redirect: new RedirectModel(),
   isAdmin: false,
 };
 
@@ -55,7 +52,7 @@ export default function (state: AuthState = DEFAULT_STATE, action: AuthActions):
     case ActionTypes.USER_REGISTRATION_START:
       return { ...state, isRegistering: true };
     case ActionTypes.USER_REGISTRATION_SUCCESS:
-      return { ...state, isRegistering: false, redirect: new RedirectModel({ to: '/' }) };
+      return { ...state, isRegistering: false };
     case ActionTypes.USER_REGISTRATION_FAILUR:
       return { ...state, isRegistering: false };
     case ActionTypes.GET_SELF_SUCCESS:

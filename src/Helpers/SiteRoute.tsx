@@ -13,7 +13,7 @@ import MessageInterface from '../Containers/Message/MessageInterface';
 interface SiteRouteProps extends RouteProps{
   routeType: string;
   component: (props?: ComponentProps<any>) => JSX.Element;
-  path: string;
+  path?: string;
   menuIsActive: boolean;
   loginModalIsActive: boolean;
   isLogedIn: boolean;
@@ -28,23 +28,23 @@ interface SiteRouteProps extends RouteProps{
   setHeight: (height: number) => void;
   height: number;
   checkIfResized: () => void;
+  unsetRedirect: () => void;
 }
 
 export default function SiteRoute({
   routeType, component: Component, path, menuIsActive, loginModalIsActive, isLogedIn, isAdmin,
-  computedMatch, checkIfLogedIn, setHeight, height, checkIfResized, ...rest
+  computedMatch, checkIfLogedIn, setHeight, height, checkIfResized, unsetRedirect, ...rest
 }: SiteRouteProps): JSX.Element {
   useEffect(() => {
     if (!height) {
       setHeight(window.innerHeight);
       checkIfResized();
     }
-
-    checkIfLogedIn();
   }, []);
 
   useEffect(() => {
     checkIfLogedIn();
+    unsetRedirect();
   });
   const params = computedMatch ? computedMatch.params : undefined;
   /* eslint-disable  no-nested-ternary */
@@ -55,7 +55,7 @@ export default function SiteRoute({
       render={props => (
         <div className="App">
           <Header />
-          <SearchBar path={path} />
+          <SearchBar path={path || '/'} />
           <div className="content">
             <MessageInterface />
             { routeType === 'ADMIN'
