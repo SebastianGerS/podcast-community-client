@@ -17,12 +17,14 @@ interface State {
 interface StateProps {
   currentUserId: string | StringConstructor;
   user: User;
+  isAdmin: boolean;
 }
 
 function mapStateToProps({ AuthReducer, UserReducer }: State): StateProps {
   return {
     currentUserId: AuthReducer.user._id,
     user: UserReducer.user,
+    isAdmin: AuthReducer.isAdmin,
   };
 }
 
