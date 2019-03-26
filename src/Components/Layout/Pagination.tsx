@@ -1,4 +1,5 @@
 import React from 'react';
+import { Filters } from '../../Models/Filters';
 
 interface Props {
   term: string;
@@ -7,10 +8,11 @@ interface Props {
   search: Function;
   morePages: boolean;
   isSearching: boolean;
+  filters?: Filters;
 }
 
 const Pagination = ({
-  term, offset, type, search, morePages, isSearching,
+  term, offset, type, search, morePages, isSearching, filters,
 }: Props): JSX.Element => (
   <div className="pagination">
     { offset > 10 && !isSearching
@@ -19,7 +21,7 @@ const Pagination = ({
           type="button"
           className="prev-page"
           onClick={() => search({
-            term, offset: offset - 20, type,
+            term, filters, offset: offset - 20, type,
           })}
         >
           PrevPage
@@ -31,7 +33,7 @@ const Pagination = ({
         type="button"
         className="next-page"
         onClick={() => search({
-          term, offset, type,
+          term, filters, offset, type,
         })}
       >
         NextPage
