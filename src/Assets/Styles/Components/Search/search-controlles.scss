@@ -15,8 +15,68 @@
     }
 
     button::after {
+      margin-left: 5px;
+    }
+
+    .closed::after {
       content: url(../Icons/drop-down-white.svg);
       margin-left: 5px;
+    }
+
+    .open::after {
+      content: url(../Icons/drop-down-open-white.svg);
+    }
+
+    .sortby {
+      color: #fef6f6;
+      background-color: #2e2929;
+      width: fit-content;
+      background-image: url(../Icons/drop-down-white.svg);
+      background-repeat: no-repeat;
+      background-size: 12px;
+      background-position-y: 62%;
+      background-position-x: 80%;
+    }
+  }
+
+  .filters {
+    margin-left: 1em;
+    width: 50%;
+
+    label {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin: 1em 0;
+
+      .multi-select,
+      input,
+      select {
+        margin-left: 1em;
+        width: 85%;
+      }
+    }
+
+    .episode-filters {
+      display: flex;
+      flex-direction: column;
+
+      .min-max-filters {
+        flex-direction: row;
+
+        label {
+          display: inline-flex;
+
+          input {
+            width: 65px;
+            padding: 0.5em;
+          }
+        }
+
+        label:first-child {
+          margin-right: 1em;
+        }
+      }
     }
   }
 
