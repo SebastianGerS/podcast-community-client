@@ -5,6 +5,7 @@ import { attemptSetMessage, SetMessage } from '../../Message';
 import { Podcast } from '../../../Models/Podcast';
 import { Episode } from '../../../Models/Episode';
 import { User } from '../../../Models/User';
+import { Filters } from '../../../Models/Filters';
 
 interface SearchStart {
   type: ActionTypes.SEARCH_START;
@@ -53,6 +54,7 @@ const search = (path: string): Promise<Response> => Fetch(path, 'GET', {});
 
 export interface SearchData {
   term: string;
+  filters: Filters;
   type: string;
   offset: number;
   path: string;
@@ -64,14 +66,16 @@ export const attemptSearch = (data: SearchData): AttemptSearchAction => async (
   dispatch: Dispatch<AttemptSearchActions|SetMessage>,
 ): Promise<void> => {
   const {
-    term, type, offset, path,
+    term, type, offset, path, filters,
   } = data;
 
   const redirecToSearch = path !== '/search';
 
   dispatch(startSearch(redirecToSearch));
 
-  const query = `/search?term=${term}&type=${type}&offset=${offset}`;
+  const encodedFilters = encodeURIComponent(JSON.stringify(filters));
+
+  const query = `/search?term=${term}&type=${type}&offset=${offset}&filters=${encodedFilters}`;
 
   const response = await search(query).catch(error => error);
 
