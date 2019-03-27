@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import UserInfo from './UserInfo';
 import Loader from '../Layout/Loader';
 import { User } from '../../Models/User';
+import FollowButton from '../../Containers/Common/FollowButton';
+import usePrevious from '../../Helpers/CustomHooks';
 
 interface Props {
   getUser: (userId: string) => void;
@@ -10,9 +12,10 @@ interface Props {
   currentUserId: string;
   updateUser: () => void;
   isAdmin: boolean;
+  isToggelingFollows: boolean;
 }
 function Profile({
-  getUser, userId, user, currentUserId, updateUser, isAdmin,
+  getUser, userId, user, currentUserId, updateUser, isAdmin, isToggelingFollows,
 }: Props): JSX.Element {
   const username = typeof user.username === 'string' ? user.username : '';
   const age = typeof user.age === 'number' ? user.age : undefined;
@@ -20,9 +23,17 @@ function Profile({
   const bio = typeof user.bio === 'string' ? user.bio : '';
   const followers = Array.isArray(user.followers) ? user.followers : [];
 
+  const prevToggelingFollows = usePrevious(isToggelingFollows);
+
   useEffect(() => {
     getUser(userId);
   }, [userId]);
+
+  useEffect(() => {
+    if (!isToggelingFollows && prevToggelingFollows) {
+      getUser(userId);
+    }
+  }, [isToggelingFollows]);
 
   const isAutharized = (): boolean => {
     let auth = false;
@@ -51,6 +62,7 @@ function Profile({
           <p className="info">{`Subscribtions: ${user.subscriptions.length}`}</p>
           <p className="info">{`Following: ${user.following.length}`}</p>
           <p className="info">{`Followers: ${user.followers.length}`}</p>
+          {currentUserId !== user._id && <FollowButton targetUser={user} type="button" />}
         </div>
       </div>
       <div className="profile-bottom">
