@@ -1,6 +1,7 @@
 import React, { useState, useEffect, FormEvent } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { SearchData } from '../../Actions/Search';
+import { Filters } from '../../Models/Filters';
 
 interface Props {
   type: string;
@@ -8,17 +9,19 @@ interface Props {
   isLogedIn: boolean;
   redirectToSearch: boolean;
   path: string;
+  filters: Filters;
+  sorting: string;
 }
 
 function SearchBar({
-  type, search, isLogedIn, redirectToSearch, path,
+  type, search, isLogedIn, redirectToSearch, path, filters, sorting,
 }: Props): JSX.Element {
   const [term, setTerm] = useState('');
 
   const triggerSearch = (e: FormEvent<HTMLFormElement> | null = null): void => {
     if (e) e.preventDefault();
     search({
-      term, type, offset: 0, path,
+      term, filters, type, offset: 0, path, sorting,
     });
   };
 
@@ -26,7 +29,7 @@ function SearchBar({
     if (term.length > 3) {
       triggerSearch();
     }
-  }, [type, term]);
+  }, [type, term, filters, sorting]);
 
   return (
     <div className="searchbar">

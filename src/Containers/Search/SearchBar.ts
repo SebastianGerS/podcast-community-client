@@ -4,6 +4,7 @@ import SearchBar from '../../Components/Search/SearchBar';
 import { attemptSearch, SearchData, AttemptSearchActions } from '../../Actions/Search';
 import { AuthState } from '../../Reducers/AuthReducer';
 import { SearchState } from '../../Reducers/SearchReducer';
+import { Filters } from '../../Models/Filters';
 
 interface State {
   AuthReducer: AuthState;
@@ -14,6 +15,8 @@ interface StateProps {
   isLogedIn: boolean;
   type: string;
   redirectToSearch: boolean;
+  filters: Filters;
+  sorting: string;
 }
 
 function mapStateToProps({ AuthReducer, SearchReducer }: State): StateProps {
@@ -21,6 +24,8 @@ function mapStateToProps({ AuthReducer, SearchReducer }: State): StateProps {
     isLogedIn: AuthReducer.isLogedIn,
     type: SearchReducer.type,
     redirectToSearch: SearchReducer.redirectToSearch,
+    filters: SearchReducer.filters,
+    sorting: SearchReducer.sorting,
   };
 }
 

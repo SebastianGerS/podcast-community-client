@@ -64,7 +64,7 @@ export const attemptGetPodcastEpisodes = (data: EpisodesSearchData): AttemptGetP
 
   dispatch(startGetPodcastEpisodes());
 
-  const query = `/search?term=${term}&type=episode&offset=${offset}&sortByDate=${true}&ocid=${ocid}`;
+  const query = `/search?term=${term}&type=episode&offset=${offset}&sorting=${true}&ocid=${ocid}`;
 
   const response = await getPodcastEpisodes(query).catch(error => error);
 

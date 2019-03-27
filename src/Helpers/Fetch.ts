@@ -4,6 +4,7 @@ import { User } from '../Models/User';
 import { Podcast } from '../Models/Podcast';
 import { Category } from '../Models/Category';
 import { Episode } from '../Models/Episode';
+import { Genre } from '../Models/Genre';
 
 export interface Response {
   message: string;
@@ -15,6 +16,8 @@ export interface Response {
   user: User;
   subscriptions: Podcast[];
   categories: Category[];
+  genres: Genre[];
+  languages: string[];
 }
 
 export async function Fetch(path: string, method: string, data: object | string): Promise<Response> {

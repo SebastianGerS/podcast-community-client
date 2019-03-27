@@ -1,5 +1,6 @@
 import { Dispatch } from 'redux';
 import * as ActionTypes from './types';
+import { Filters } from '../../../Models/Filters';
 
 interface SetSearchFiltersStart {
   type: ActionTypes.SET_SEARCHFILTERS_START;
@@ -11,10 +12,10 @@ export const startSetSearchFilters = (): SetSearchFiltersStart => (
 
 interface SetSearchFiltersSuccess {
   type: ActionTypes.SET_SEARCHFILTERS_SUCCESS;
-  filters: string;
+  filters: Filters;
 }
 
-export const setSearchFilters = (filters: string): SetSearchFiltersSuccess => (
+export const setSearchFilters = (filters: Filters): SetSearchFiltersSuccess => (
   {
     type: ActionTypes.SET_SEARCHFILTERS_SUCCESS,
     filters,
@@ -33,13 +34,13 @@ export type SetSearchFiltersAction = SetSearchFiltersStart | SetSearchFiltersSuc
 
 type AttemptSetSearchFiltersAction = (dispatch: Dispatch<SetSearchFiltersAction>) => void;
 
-export const attemptSetSearchFilters = (data: string): AttemptSetSearchFiltersAction => (
+export const attemptSetSearchFilters = (filters: Filters): AttemptSetSearchFiltersAction => (
   dispatch: Dispatch<SetSearchFiltersAction>,
 ): void => {
   dispatch(startSetSearchFilters());
 
-  if (data) {
-    dispatch(setSearchFilters(data));
+  if (filters) {
+    dispatch(setSearchFilters(filters));
   } else {
     dispatch(setSearchFiltersFailure());
   }

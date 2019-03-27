@@ -4,6 +4,7 @@ import SearchInterface from '../../Components/Search/SearchInterface';
 import { attemptSearch, SearchData, AttemptSearchActions } from '../../Actions/Search';
 import { SearchState } from '../../Reducers/SearchReducer';
 import { AuthState } from '../../Reducers/AuthReducer';
+import { Filters } from '../../Models/Filters';
 
 
 interface State {
@@ -19,6 +20,8 @@ interface StateProps {
   offset: number;
   isSearching: boolean;
   redirectToSearch: boolean;
+  filters: Filters;
+  sorting: string;
 }
 
 function mapStateToProps({ SearchReducer, AuthReducer }: State): StateProps {
@@ -30,6 +33,8 @@ function mapStateToProps({ SearchReducer, AuthReducer }: State): StateProps {
     offset: SearchReducer.offset,
     isSearching: SearchReducer.isSearching,
     redirectToSearch: SearchReducer.redirectToSearch,
+    filters: SearchReducer.filters,
+    sorting: SearchReducer.sorting,
   };
 }
 interface DispatchProps {
