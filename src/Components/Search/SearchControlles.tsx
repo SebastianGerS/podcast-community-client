@@ -42,14 +42,26 @@ function SearchControlles<T extends Option>({
 
   const setFilters = (e: ChangeEvent<HTMLSelectElement | HTMLInputElement>): void => {
     const { name, value } = e.currentTarget;
-    attemptSetFilters({
-      genres: filters.genres,
-      field: filters.field,
-      language: filters.language,
-      len_min: filters.len_min,
-      len_max: filters.len_max,
-      [`${name}`]: value,
-    });
+
+    if (value === '0') {
+      attemptSetFilters({
+        genres: filters.genres,
+        field: filters.field,
+        language: filters.language,
+        len_min: filters.len_min,
+        len_max: filters.len_max,
+        [`${name}`]: undefined,
+      });
+    } else {
+      attemptSetFilters({
+        genres: filters.genres,
+        field: filters.field,
+        language: filters.language,
+        len_min: filters.len_min,
+        len_max: filters.len_max,
+        [`${name}`]: value,
+      });
+    }
   };
 
   const setGenres = (option: Option): void => {
@@ -92,7 +104,7 @@ function SearchControlles<T extends Option>({
           <option value={1} id="sortby">Date</option>
         </select>
       </div>
-      {showFilters && (
+      {showFilters && type !== 'user' && (
         <div className="filters">
           <label htmlFor="genres">
             genres:
@@ -107,7 +119,7 @@ function SearchControlles<T extends Option>({
           <label htmlFor="field">
             search in:
             <select name="field" id="field" value={filters.field} onChange={setFilters}>
-              <option value={undefined}>Any field</option>
+              <option value={0}>Any field</option>
               <option value="title" id="field">Title</option>
               <option value="description" id="field">Description</option>
               <option value="author" id="field">Author</option>
@@ -130,6 +142,9 @@ function SearchControlles<T extends Option>({
                     name="len_max"
                     id="len_max"
                     value={filters.len_max}
+                    step={1}
+                    min={1}
+                    placeholder="min"
                     onChange={setFilters}
                   />
                 </label>
@@ -139,6 +154,9 @@ function SearchControlles<T extends Option>({
                     type="number"
                     name="len_min"
                     id="min"
+                    min={1}
+                    step={1}
+                    placeholder="min"
                     value={filters.len_min}
                     onChange={setFilters}
                   />
@@ -147,6 +165,19 @@ function SearchControlles<T extends Option>({
             </div>
           )
           }
+        </div>
+      )
+      }
+      { showFilters && type === 'user' && (
+        <div className="filters">
+          <label htmlFor="field">
+                  search in:
+            <select name="field" id="field" value={filters.field} onChange={setFilters}>
+              <option value={0}>Any field</option>
+              <option value="email" id="field">Email</option>
+              <option value="username" id="field">Username</option>
+            </select>
+          </label>
         </div>
       )
       }
