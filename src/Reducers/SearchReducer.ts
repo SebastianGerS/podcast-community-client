@@ -56,6 +56,7 @@ export default function (state: SearchState = DEFAULT_STATE, action: SearchActio
         isUpdatingSearchSettings: false,
         offset: 0,
         morePages: false,
+        filters: new Filters(),
       };
     case ActionTypes.SET_SEARCHTYPE_FAILUR:
       return { ...state, isUpdatingSearchSettings: false };
