@@ -9,10 +9,11 @@ interface Props {
   morePages: boolean;
   isSearching: boolean;
   filters?: Filters;
+  sorting?: string;
 }
 
 const Pagination = ({
-  term, offset, type, search, morePages, isSearching, filters,
+  term, offset, type, search, morePages, isSearching, filters, sorting,
 }: Props): JSX.Element => (
   <div className="pagination">
     { offset > 10 && !isSearching
@@ -21,7 +22,7 @@ const Pagination = ({
           type="button"
           className="prev-page"
           onClick={() => search({
-            term, filters, offset: offset - 20, type,
+            term, filters, offset: offset - 20, type, sorting,
           })}
         >
           PrevPage
@@ -33,7 +34,7 @@ const Pagination = ({
         type="button"
         className="next-page"
         onClick={() => search({
-          term, filters, offset, type,
+          term, filters, offset, type, sorting,
         })}
       >
         NextPage

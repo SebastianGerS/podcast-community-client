@@ -13,7 +13,7 @@ export interface SearchState {
   isUpdatingSearchSettings: boolean;
   type: string;
   filters: Filters;
-  sortBy: string;
+  sorting: string;
   results: (Podcast|Episode|User)[];
   term: string;
   morePages: boolean;
@@ -35,7 +35,7 @@ const DEFAULT_STATE: SearchState = {
       len_min: '',
     },
   ),
-  sortBy: '',
+  sorting: '0',
   results: [],
   term: '',
   morePages: false,
@@ -119,6 +119,20 @@ export default function (state: SearchState = DEFAULT_STATE, action: SearchActio
         languages: List(action.languages),
       };
     case ActionTypes.FETCH_FILTERS_FAILUR:
+      return {
+        ...state, isUpdatingSearchSettings: false,
+      };
+    case ActionTypes.SET_SEARCHSORTING_START:
+      return {
+        ...state, isUpdatingSearchSettings: true,
+      };
+    case ActionTypes.SET_SEARCHSORTING_SUCCESS:
+      return {
+        ...state,
+        isUpdatingSearchSettings: false,
+        sorting: action.sorting,
+      };
+    case ActionTypes.SET_SEARCHSORTING_FAILUR:
       return {
         ...state, isUpdatingSearchSettings: false,
       };

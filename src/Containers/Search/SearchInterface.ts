@@ -21,6 +21,7 @@ interface StateProps {
   isSearching: boolean;
   redirectToSearch: boolean;
   filters: Filters;
+  sorting: string;
 }
 
 function mapStateToProps({ SearchReducer, AuthReducer }: State): StateProps {
@@ -33,6 +34,7 @@ function mapStateToProps({ SearchReducer, AuthReducer }: State): StateProps {
     isSearching: SearchReducer.isSearching,
     redirectToSearch: SearchReducer.redirectToSearch,
     filters: SearchReducer.filters,
+    sorting: SearchReducer.sorting,
   };
 }
 interface DispatchProps {

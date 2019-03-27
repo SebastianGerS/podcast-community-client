@@ -58,6 +58,7 @@ export interface SearchData {
   type: string;
   offset: number;
   path: string;
+  sorting: string | number;
 }
 
 type AttemptSearchAction = (dispatch: Dispatch<AttemptSearchActions|SetMessage>) => Promise<void>;
@@ -66,7 +67,7 @@ export const attemptSearch = (data: SearchData): AttemptSearchAction => async (
   dispatch: Dispatch<AttemptSearchActions|SetMessage>,
 ): Promise<void> => {
   const {
-    term, type, offset, path, filters,
+    term, type, offset, path, filters, sorting,
   } = data;
 
   const redirecToSearch = path !== '/search';
@@ -75,7 +76,7 @@ export const attemptSearch = (data: SearchData): AttemptSearchAction => async (
 
   const encodedFilters = encodeURIComponent(JSON.stringify(filters));
 
-  const query = `/search?term=${term}&type=${type}&offset=${offset}&filters=${encodedFilters}`;
+  const query = `/search?term=${term}&type=${type}&offset=${offset}&filters=${encodedFilters}&sorting=${sorting}`;
 
   const response = await search(query).catch(error => error);
 

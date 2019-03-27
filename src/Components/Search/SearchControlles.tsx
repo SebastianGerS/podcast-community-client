@@ -19,6 +19,8 @@ interface Props {
   getFilters: () => void;
   languages: List<string>;
   genres: List<Genre>;
+  setSorting: (sorting: number | string) => void;
+  sorting: string;
 }
 
 export interface NamedButton extends HTMLButtonElement {
@@ -26,7 +28,7 @@ export interface NamedButton extends HTMLButtonElement {
 }
 
 function SearchControlles<T extends Option>({
-  attemptSetType, type, filters, attemptSetFilters, getFilters, languages, genres,
+  attemptSetType, type, filters, attemptSetFilters, getFilters, languages, genres, setSorting, sorting,
 }: Props): JSX.Element {
   const [showFilters, setShowFilters] = useState(false);
 
@@ -99,9 +101,15 @@ function SearchControlles<T extends Option>({
         >
           Filters
         </button>
-        <select className="sortby" name="sortby" id="sortby" value={0}>
+        <select
+          className="sortby"
+          name="sortby"
+          id="sortby"
+          value={sorting}
+          onChange={e => setSorting(e.currentTarget.value)}
+        >
           <option value={0} id="sortby">Relevance</option>
-          <option value={1} id="sortby">Date</option>
+          {type !== 'user' && <option value={1} id="sortby">Date</option> }
         </select>
       </div>
       {showFilters && type !== 'user' && (

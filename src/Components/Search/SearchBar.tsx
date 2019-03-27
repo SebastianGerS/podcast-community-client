@@ -10,17 +10,18 @@ interface Props {
   redirectToSearch: boolean;
   path: string;
   filters: Filters;
+  sorting: string;
 }
 
 function SearchBar({
-  type, search, isLogedIn, redirectToSearch, path, filters,
+  type, search, isLogedIn, redirectToSearch, path, filters, sorting,
 }: Props): JSX.Element {
   const [term, setTerm] = useState('');
 
   const triggerSearch = (e: FormEvent<HTMLFormElement> | null = null): void => {
     if (e) e.preventDefault();
     search({
-      term, filters, type, offset: 0, path,
+      term, filters, type, offset: 0, path, sorting,
     });
   };
 
@@ -28,7 +29,7 @@ function SearchBar({
     if (term.length > 3) {
       triggerSearch();
     }
-  }, [type, term, filters]);
+  }, [type, term, filters, sorting]);
 
   return (
     <div className="searchbar">

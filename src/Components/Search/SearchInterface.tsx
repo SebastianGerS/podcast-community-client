@@ -12,9 +12,10 @@ interface Props {
   morePages: boolean;
   isSearching: boolean;
   filters: Filters;
+  sorting: string;
 }
 const SearchInterface = ({
-  term, offset, type, search, morePages, isSearching, filters,
+  term, offset, type, search, morePages, isSearching, filters, sorting,
 }: Props): JSX.Element => (
   <div>
     <SearchControlles />
@@ -27,6 +28,7 @@ const SearchInterface = ({
       morePages={morePages}
       isSearching={isSearching}
       filters={filters}
+      sorting={sorting}
     />
   </div>
 );
