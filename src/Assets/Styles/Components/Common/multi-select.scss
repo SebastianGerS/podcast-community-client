@@ -10,7 +10,7 @@
     width: 100%;
     font-size: 1.2em;
     background-repeat: no-repeat;
-    background-position: 99% 50%;
+    background-position: 97% 50%;
     background-size: 25px;
     margin-top: 0.25em;
     min-height: 36px;
@@ -88,6 +88,22 @@
     .option:last-child {
       border-bottom: none;
       padding-bottom: 0.25em;
+    }
+  }
+}
+
+@media only screen and (min-width: 667px) {
+  .multi-select {
+    &-selections {
+      background-position: 98% 50%;
+    }
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .multi-select {
+    &-selections {
+      background-position: 99% 50%;
     }
   }
 }

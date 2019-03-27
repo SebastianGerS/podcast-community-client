@@ -40,12 +40,12 @@
   }
 
   .filters {
-    margin-left: 1em;
+    padding: 0 1em;
     width: 50%;
 
     label {
       display: flex;
-      justify-content: flex-start;
+      justify-content: space-between;
       align-items: center;
       margin: 1em 0;
 
@@ -53,7 +53,7 @@
       input,
       select {
         margin-left: 1em;
-        width: 85%;
+        width: 87%;
       }
     }
 
@@ -69,7 +69,7 @@
 
           input {
             width: 65px;
-            padding: 0.5em;
+            padding: 0.25em 0.5em;
           }
         }
 
@@ -94,5 +94,57 @@
 
   .active {
     text-decoration: underline;
+  }
+}
+
+@media only screen and (max-width: 823px) {
+  .search-controlles {
+    .filters {
+      width: 80%;
+
+      label {
+        .multi-select,
+        input,
+        select {
+          width: 82%;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 667px) {
+  .search-controlles {
+    .filters {
+      width: 100%;
+    }
+  }
+}
+
+@media only screen and (max-width: 414px) {
+  .search-controlles {
+    .filters {
+      label {
+        .multi-select,
+        input,
+        select {
+          width: 75%;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .search-controlles {
+    .filters {
+      label {
+        .multi-select,
+        input,
+        select {
+          width: 69%;
+        }
+      }
+    }
   }
 }
