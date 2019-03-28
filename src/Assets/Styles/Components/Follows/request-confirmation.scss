@@ -1,0 +1,21 @@
+.request-confirmation {
+  display: flex;
+  justify-content: space-evenly;
+
+  .request-confirm,
+  .request-reject {
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 50px;
+    width: 50px;
+    align-self: flex-end;
+  }
+
+  .request-confirm {
+    background-image: url(../Icons/checkmark.svg);
+  }
+
+  .request-reject {
+    background-image: url(../Icons/remove-black.svg);
+  }
+}

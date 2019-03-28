@@ -1,26 +1,23 @@
 .playbackmodal {
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  width:100%;
+  width: 100%;
   height: 100%;
 
-
-    
   p {
     text-align: center;
-    color:#2E2929;
+    color: #2e2929;
   }
 
   .playback-controles {
     align-self: flex-end;
     width: 100%;
-    display:flex;
+    display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
-    padding-bottom:1em;
+    padding-bottom: 1em;
   }
 }
-

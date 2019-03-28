@@ -1,0 +1,2 @@
+export const GET_SELF_SUCCESS = 'GET_SELF_SUCCESS';
+export type GET_SELF_SUCCESS = typeof GET_SELF_SUCCESS;

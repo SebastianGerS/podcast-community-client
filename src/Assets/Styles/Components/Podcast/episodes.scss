@@ -1,0 +1,27 @@
+.episodes {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3em;
+  width: 100%;
+
+  &-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0.5em 0;
+    margin-bottom: 1em;
+    border-top: 1px solid #fef6f6;
+    border-bottom: 1px solid #fef6f6;
+
+    h3 {
+      font-size: 2em;
+    }
+  }
+
+  .list {
+    width: 90%;
+  }
+}

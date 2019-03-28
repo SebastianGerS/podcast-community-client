@@ -13,21 +13,23 @@
     <link rel="icon" type="image/png" href="%PUBLIC_URL%/logos/pwa-192x192.png" sizes="192x192">
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logos/apple-touch-icon-180x180.png" sizes="180x180">
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
- 
+
     <title>Thru The Ether</title>
     <style>
-      body{
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-    .loader {
+
+    body {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    .app-loader {
       box-sizing: border-box;
       z-index: 9999;
-      background-color: #FEF6F6;
+      background-color: #fef6f6;
       width: 100%;
       height: 100%;
-      top:0;
+      top: 0;
       position: fixed;
       display: flex;
       justify-content: center;
@@ -37,37 +39,37 @@
     .loader-img {
       width: 50%;
       max-height: 50%;
-      animation: spin infinite 20s linear; 
+      animation: spin infinite 20s linear;
     }
 
-
-    .loader.fade {
+    .app-loader.fade {
       animation: fade 500ms 1 linear forwards;
     }
 
-
     @keyframes spin {
       from {
-        transform: rotate(0deg); 
-
+        transform: rotate(0deg);
       }
+
       to {
-        transform: rotate(360deg); 
-      } 
+        transform: rotate(360deg);
+      }
     }
+
     @keyframes fade {
       from {
         opacity: 1;
       }
+
       to {
         opacity: 0;
-      } 
+      }
     }
 
     </style>
   </head>
   <body>
-    <div class="loader"><img src="%PUBLIC_URL%/logos/logo.svg" class="loader-img"/></div>
+    <div class="app-loader"><img src="%PUBLIC_URL%/logos/logo.svg" class="loader-img"/></div>
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
@@ -84,16 +86,16 @@
     -->
     <script>
        window.addEventListener('load', () => {
-          var loader =  document.querySelector('.loader')
-      
+          var loader =  document.querySelector('.app-loader')
+
           loader.classList.add('fade');
-        
+
            setTimeout(() => {loader.remove()}, 500)
        });
 
       if('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          
+
           navigator.serviceWorker.register('./service-worker-custom.js')
           .then(registration => {
             console.log('registration successfull')
@@ -103,7 +105,7 @@
           .catch(err => {
             console.log(err);
           })
-        }) 
+        })
       } else {
         console.log('Service Worker api not avalible')
       }

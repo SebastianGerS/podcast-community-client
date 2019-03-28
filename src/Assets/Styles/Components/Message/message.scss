@@ -6,77 +6,103 @@
   align-items: center;
   width: 100%;
   height: 45px;
-  z-index:9999;
-  opacity: 0;
-  animation: fade-in-out 6s linear 0s 1 alternate forwards;
+  z-index: 9999;
 
   &.info {
-    background-color: #56CCF2;
+    background-color: #56ccf2;
   }
 
   &.success {
-    background-color: #78D69F;
+    background-color: #78d69f;
   }
 
   &.warning {
-    background-color: #F6C821;
+    background-color: #f6c821;
   }
 
   &.error {
-    background-color: #FA7070;
+    background-color: #fa7070;
   }
+
   p {
-    color: #2E2929;
+    color: #2e2929;
     font-size: 1em;
   }
 }
 
-@keyframes fade-in-out {
-  0% { opacity: 0; height: 0;}
-  10% { opacity: 1; height: 45px;}
-  75% { opacity: 0.5; height: 45px; }
-  100% { opacity: 0; height: 0; }
+.fade-in {
+  opacity: 0;
+  height: 0;
+  animation: fade-in 4s linear 0s 1 running forwards;
+}
+
+.fade-out {
+  opacity: 0.5;
+  height: 45px;
+  animation: fade-out 300ms linear 0s 1 running forwards;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    height: 0;
+  }
+
+  10% {
+    opacity: 1;
+    height: 45px;
+  }
+
+  100% {
+    opacity: 0.5;
+    height: 45px;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 0.5;
+    height: 45px;
+  }
+
+  100% {
+    opacity: 0;
+    height: 0;
+  }
 }
 
 @media only screen and (min-width: 768px) and (orientation: portrait) {
-
   .message {
     top: 170px;
   }
 }
-@media only screen and (min-width: 1024px)  {
 
+@media only screen and (min-width: 1024px) {
   .message {
     top: 205px;
   }
 }
 
 @media only screen and (min-width: 1336px) and (orientation: landscape) and (min-height: 1024px) {
-
   .message {
     top: 205px;
-  } 
+  }
 }
 
 @media only screen and (min-width: 1024px) and (min-height: 1336px) {
-
   .message {
     top: 205px;
   }
 }
 
 @media only screen and (min-width: 1400px) {
-
   .message {
     top: 205px;
   }
 }
 
-@media only screen and (min-width: 1850px) and (orientation: landscape){
-
-
+@media only screen and (min-width: 1850px) and (orientation: landscape) {
   .message {
     top: 245px;
   }
-
 }

@@ -2,22 +2,25 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color:  #2E2929;
-  color: #FEF6F6;
-  border-bottom: 1px solid #FEF6F6;
+  background-color: #2e2929;
+  color: #fef6f6;
+  border-bottom: 1px solid #fef6f6;
   position: fixed;
-  top:70px;
-  left:0;
+  top: 70px;
+  left: 0;
   z-index: 1000;
   width: 100%;
+
   a {
-    color: #FEF6F6;
+    color: #fef6f6;
     font-size: 1em;
   }
+
   form {
     margin: 0.5em 0.75em;
     width: 100%;
   }
+
   input {
     padding: 0.25em 0.5em;
     width: 100%;
@@ -28,22 +31,19 @@
     justify-content: center;
     align-items: center;
     padding: 0 0.5em 0 0.5em;
-    border-left: 1px solid #FEF6F6;
+    border-left: 1px solid #fef6f6;
   }
 
   .follows {
-    height:44px;
-    width:44px;
+    height: 44px;
+    width: 44px;
     background-size: contain;
-    background-image: url(../Icons/follows.svg)
+    background-image: url(../Icons/follows.svg);
   }
 }
 
-
-@media only screen and (min-width: 667px) and (orientation: portrait){
-
-  .searchbar{
-
+@media only screen and (min-width: 667px) and (orientation: portrait) {
+  .searchbar {
     top: 110px;
 
     a {
@@ -59,18 +59,16 @@
     }
 
     .follows {
-      height:5.5em;
-      width:5.5em;
+      height: 5.5em;
+      width: 5.5em;
       background-size: 5.5em;
     }
   }
 }
 
 @media only screen and (min-width: 1024px) {
-
   .searchbar {
-
-    top:130px;
+    top: 130px;
 
     form {
       margin: 1em;
@@ -85,23 +83,21 @@
     }
 
     .follows {
-      height:5.5em;
-      width:5.5em;
+      height: 5.5em;
+      width: 5.5em;
       background-size: 5.5em;
     }
   }
 }
 
 @media only screen and (min-width: 1850px) {
-
-  .searchbar{
-
-    top:170px;
+  .searchbar {
+    top: 170px;
 
     a {
       font-size: 2em;
     }
-    
+
     form {
       margin: 1em;
     }
@@ -115,8 +111,8 @@
     }
 
     .follows {
-      height:8em;
-      width:8em;
+      height: 8em;
+      width: 8em;
       background-size: 8em;
     }
   }

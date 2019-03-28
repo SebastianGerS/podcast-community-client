@@ -11,7 +11,8 @@
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  .remove{
+
+  .remove {
     margin: 0.5em;
     margin-bottom: 0;
     align-self: flex-end;
@@ -19,43 +20,44 @@
     width: 25px;
     background: url(../Icons/remove-black.svg) no-repeat;
     background-size: 25px;
-
   }
-  h3{
+
+  h3 {
     display: inline;
     padding-top: 1em;
-
   }
+
   .podcasts {
     max-width: 295px;
     min-width: 295px;
   }
-  form{
-    padding-top:1em;
+
+  form {
+    padding-top: 1em;
   }
+
   .list {
     padding: 0;
     justify-content: flex-start;
     align-items: flex-start;
-   
+
     .listable-podcast {
       padding: 0.7em;
     }
-    figure{
+
+    figure {
       .podcast-logo {
         min-width: 125px;
         width: 125px;
       }
-      figcaption{
+
+      figcaption {
         padding-top: 0.2em;
-        span{
+
+        span {
           padding-top: 0;
-        
         }
       }
-     
     }
   }
-  
-  
 }
