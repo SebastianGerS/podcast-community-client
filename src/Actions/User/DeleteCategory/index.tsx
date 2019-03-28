@@ -23,11 +23,11 @@ export const catagoryDeleted = (): DeleteCategorySuccess => ({
 });
 
 interface DeleteCategoryFailure {
-  type: ActionTypes.DELETE_CATEGORY_FAILUR;
+  type: ActionTypes.DELETE_CATEGORY_FAILURE;
 }
 
 export const deleteCategoryFailure = (): DeleteCategoryFailure => ({
-  type: ActionTypes.DELETE_CATEGORY_FAILUR,
+  type: ActionTypes.DELETE_CATEGORY_FAILURE,
 });
 
 export type DeleteCategoryAction = DeleteCategoryStart | DeleteCategorySuccess | DeleteCategoryFailure;

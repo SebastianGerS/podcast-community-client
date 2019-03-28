@@ -23,11 +23,11 @@ export const selfDeleted = (): DeleteSelfSuccess => ({
 });
 
 interface DeleteSelfFailure {
-  type: ActionTypes.DELETE_SELF_FAILUR;
+  type: ActionTypes.DELETE_SELF_FAILURE;
 }
 
 export const deleteSelfFailure = (): DeleteSelfFailure => ({
-  type: ActionTypes.DELETE_SELF_FAILUR,
+  type: ActionTypes.DELETE_SELF_FAILURE,
 });
 
 export type DeleteSelfAction = DeleteSelfStart | DeleteSelfSuccess | DeleteSelfFailure;

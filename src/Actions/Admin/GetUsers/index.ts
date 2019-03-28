@@ -31,11 +31,11 @@ const gotUsers = (data: Data): GetUsersSuccess => ({
 });
 
 interface GetUsersFailure {
-  type: actionTypes.GET_USERS_FAILUR;
+  type: actionTypes.GET_USERS_FAILURE;
 }
 
 const getUsersFailure = (): GetUsersFailure => ({
-  type: actionTypes.GET_USERS_FAILUR,
+  type: actionTypes.GET_USERS_FAILURE,
 });
 
 export type GetUsersAction = GetUsersStart | GetUsersSuccess | GetUsersFailure;

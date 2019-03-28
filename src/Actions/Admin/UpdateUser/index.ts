@@ -23,15 +23,15 @@ export const userUpdated = (): AdminUpdateUserSuccess => ({
   type: actionTypes.ADMIN_UPDATE_USER_SUCCESS,
 });
 
-interface AdminUpdateUserFailur {
-  type: actionTypes.ADMIN_UPDATE_USER_FAILUR;
+interface AdminUpdateUserFailure{
+  type: actionTypes.ADMIN_UPDATE_USER_FAILURE;
 }
 
-export const userUpdateFailure = (): AdminUpdateUserFailur => ({
-  type: actionTypes.ADMIN_UPDATE_USER_FAILUR,
+export const userUpdateFailure = (): AdminUpdateUserFailure => ({
+  type: actionTypes.ADMIN_UPDATE_USER_FAILURE,
 });
 
-export type AdminUpdateUserAction = AdminUpdateUserStart | AdminUpdateUserSuccess | AdminUpdateUserFailur;
+export type AdminUpdateUserAction = AdminUpdateUserStart | AdminUpdateUserSuccess | AdminUpdateUserFailure;
 
 const updateUser = (id: string, user: User): Promise<Response> => Fetch(`/admin/users/${id}`, 'PUT', user);
 

@@ -23,15 +23,15 @@ const userDeleted = (): DeleteUserSuccess => ({
   type: actionTypes.DELETE_USER_SUCCESS,
 });
 
-interface DeleteUserFailur {
-  type: actionTypes.DELETE_USER_FAILUR;
+interface DeleteUserFailure{
+  type: actionTypes.DELETE_USER_FAILURE;
 }
 
-const userDeletionFailure = (): DeleteUserFailur => ({
-  type: actionTypes.DELETE_USER_FAILUR,
+const userDeletionFailure = (): DeleteUserFailure => ({
+  type: actionTypes.DELETE_USER_FAILURE,
 });
 
-export type DeleteUserAction = DeleteUserStart | DeleteUserSuccess | DeleteUserFailur;
+export type DeleteUserAction = DeleteUserStart | DeleteUserSuccess | DeleteUserFailure;
 
 const deleteUser = (id: string): Promise<Response> => Fetch(`/admin/users/${id}`, 'DELETE', {});
 

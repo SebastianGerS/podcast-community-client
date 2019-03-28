@@ -30,11 +30,11 @@ export const gotSubscriptions = ({ subscriptions, categories }: Subscriptions): 
 });
 
 interface GetSubscriptionsFailure {
-  type: ActionTypes.GET_SUBSCRIPTIONS_FAILUR;
+  type: ActionTypes.GET_SUBSCRIPTIONS_FAILURE;
 }
 
 export const getSubscriptionsFailure = (): GetSubscriptionsFailure => ({
-  type: ActionTypes.GET_SUBSCRIPTIONS_FAILUR,
+  type: ActionTypes.GET_SUBSCRIPTIONS_FAILURE,
 });
 
 export type GetSubscriptionsAction = GetSubscriptionsStart | GetSubscriptionsSuccess | GetSubscriptionsFailure;

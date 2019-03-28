@@ -58,7 +58,7 @@ export default function (state: SearchState = DEFAULT_STATE, action: SearchActio
         morePages: false,
         filters: new Filters(),
       };
-    case ActionTypes.SET_SEARCHTYPE_FAILUR:
+    case ActionTypes.SET_SEARCHTYPE_FAILURE:
       return { ...state, isUpdatingSearchSettings: false };
     case ActionTypes.SEARCH_START:
       return { ...state, isSearching: true, redirectToSearch: action.redirect };
@@ -87,7 +87,7 @@ export default function (state: SearchState = DEFAULT_STATE, action: SearchActio
         morePages: action.data.morePages,
         isSearching: false,
       };
-    case ActionTypes.SEARCH_FAILUR:
+    case ActionTypes.SEARCH_FAILURE:
       return {
         ...state, isSearching: false, redirectToSearch: false, results: [], morePages: false,
       };
@@ -103,7 +103,7 @@ export default function (state: SearchState = DEFAULT_STATE, action: SearchActio
         offset: 0,
         morePages: false,
       };
-    case ActionTypes.SET_SEARCHFILTERS_FAILUR:
+    case ActionTypes.SET_SEARCHFILTERS_FAILURE:
       return {
         ...state, isUpdatingSearchSettings: false,
       };
@@ -118,7 +118,7 @@ export default function (state: SearchState = DEFAULT_STATE, action: SearchActio
         genres: List(action.genres),
         languages: List(action.languages),
       };
-    case ActionTypes.FETCH_FILTERS_FAILUR:
+    case ActionTypes.FETCH_FILTERS_FAILURE:
       return {
         ...state, isUpdatingSearchSettings: false,
       };
@@ -132,7 +132,7 @@ export default function (state: SearchState = DEFAULT_STATE, action: SearchActio
         isUpdatingSearchSettings: false,
         sorting: action.sorting,
       };
-    case ActionTypes.SET_SEARCHSORTING_FAILUR:
+    case ActionTypes.SET_SEARCHSORTING_FAILURE:
       return {
         ...state, isUpdatingSearchSettings: false,
       };

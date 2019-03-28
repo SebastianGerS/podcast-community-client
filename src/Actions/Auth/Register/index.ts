@@ -26,11 +26,11 @@ export const userRegistered = (): UserRegistrationSuccess => (
 );
 
 interface UserRegistrationFailure {
-  type: ActionTypes.USER_REGISTRATION_FAILUR;
+  type: ActionTypes.USER_REGISTRATION_FAILURE;
 }
 
 export const userRegistrationFailure = (): UserRegistrationFailure => (
-  { type: ActionTypes.USER_REGISTRATION_FAILUR }
+  { type: ActionTypes.USER_REGISTRATION_FAILURE }
 );
 
 export type UserRegistrationAction = UserRegistrationStart | UserRegistrationSuccess | UserRegistrationFailure;

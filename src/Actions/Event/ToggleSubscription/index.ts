@@ -35,7 +35,6 @@ type AttemptToggleSubscription = (
   dispatch: Dispatch<ToggleSubscriptionAction | GetSelfSuccess | GetSubscriptionsAction | GetSelfSuccess | SetMessage>
 ) => Promise<void>;
 
-/* eslint-disable import/prefer-default-export */
 export const attemptToggleSubscription = (userId: string, podcastId: string): AttemptToggleSubscription => async (
   dispatch: Dispatch<ToggleSubscriptionAction | GetSelfSuccess | GetSubscriptionsAction | GetSelfSuccess | SetMessage>,
 ): Promise<void> => {

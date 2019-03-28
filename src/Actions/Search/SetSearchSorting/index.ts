@@ -22,11 +22,11 @@ export const setSearchSorting = (sorting: string): SetSearchSortingSuccess => (
 );
 
 interface SetSearchSortingFailure {
-  type: ActionTypes.SET_SEARCHSORTING_FAILUR;
+  type: ActionTypes.SET_SEARCHSORTING_FAILURE;
 }
 
 export const setSearchSortingFailure = (): SetSearchSortingFailure => (
-  { type: ActionTypes.SET_SEARCHSORTING_FAILUR }
+  { type: ActionTypes.SET_SEARCHSORTING_FAILURE }
 );
 
 export type SetSearchSortingAction = SetSearchSortingStart | SetSearchSortingSuccess | SetSearchSortingFailure;

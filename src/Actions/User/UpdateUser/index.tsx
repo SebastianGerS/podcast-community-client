@@ -30,11 +30,11 @@ export const UserUpdated = (): UpdateUserSuccess => (
 );
 
 interface UpdateUserFailure {
-  type: ActionTypes.UPDATE_USER_FAILUR;
+  type: ActionTypes.UPDATE_USER_FAILURE;
 }
 
 export const userUpdateFailure = (): UpdateUserFailure => (
-  { type: ActionTypes.UPDATE_USER_FAILUR }
+  { type: ActionTypes.UPDATE_USER_FAILURE }
 );
 
 export type UpdateUserAction = UpdateUserStart | UpdateUserSuccess | UpdateUserFailure;

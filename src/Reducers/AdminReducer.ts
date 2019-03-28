@@ -33,7 +33,7 @@ export default function (state: AdminState = DEFAULT_STATE, action: AdminActions
         morePages: action.data.morePages,
         offset: action.data.next_offset,
       };
-    case ActionTypes.GET_USERS_FAILUR:
+    case ActionTypes.GET_USERS_FAILURE:
       return {
         ...state, isFetching: false,
       };
@@ -45,7 +45,7 @@ export default function (state: AdminState = DEFAULT_STATE, action: AdminActions
       return {
         ...state, isFetching: false,
       };
-    case ActionTypes.CREATE_USER_FAILUR:
+    case ActionTypes.CREATE_USER_FAILURE:
       return {
         ...state, isFetching: false,
       };
@@ -57,7 +57,7 @@ export default function (state: AdminState = DEFAULT_STATE, action: AdminActions
       return {
         ...state, isFetching: false, user: new User(),
       };
-    case ActionTypes.ADMIN_UPDATE_USER_FAILUR:
+    case ActionTypes.ADMIN_UPDATE_USER_FAILURE:
       return {
         ...state, isFetching: false,
       };
@@ -69,7 +69,7 @@ export default function (state: AdminState = DEFAULT_STATE, action: AdminActions
       return {
         ...state, isFetching: false, user: new User(),
       };
-    case ActionTypes.DELETE_USER_FAILUR:
+    case ActionTypes.DELETE_USER_FAILURE:
       return {
         ...state, isFetching: false,
       };

@@ -23,11 +23,11 @@ export const setSearchFilters = (filters: Filters): SetSearchFiltersSuccess => (
 );
 
 interface SetSearchFiltersFailure {
-  type: ActionTypes.SET_SEARCHFILTERS_FAILUR;
+  type: ActionTypes.SET_SEARCHFILTERS_FAILURE;
 }
 
 export const setSearchFiltersFailure = (): SetSearchFiltersFailure => (
-  { type: ActionTypes.SET_SEARCHFILTERS_FAILUR }
+  { type: ActionTypes.SET_SEARCHFILTERS_FAILURE }
 );
 
 export type SetSearchFiltersAction = SetSearchFiltersStart | SetSearchFiltersSuccess | SetSearchFiltersFailure;

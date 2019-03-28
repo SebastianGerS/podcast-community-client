@@ -26,11 +26,11 @@ export const gotUser = (user: User): GetUserSuccess => (
 );
 
 interface GetUserFailure {
-  type: ActionTypes.GET_USER_FAILUR;
+  type: ActionTypes.GET_USER_FAILURE;
 }
 
 export const getUserFailure = (): GetUserFailure => (
-  { type: ActionTypes.GET_USER_FAILUR }
+  { type: ActionTypes.GET_USER_FAILURE }
 );
 
 export type GetUserAction = GetUserStart | GetUserSuccess | GetUserFailure;

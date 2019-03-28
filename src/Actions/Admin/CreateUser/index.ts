@@ -26,11 +26,11 @@ const userCreationFailure = (): CreateUserSuccess => ({
 });
 
 interface CreateUserFailure {
-  type: actionTypes.CREATE_USER_FAILUR;
+  type: actionTypes.CREATE_USER_FAILURE;
 }
 
 const userCreated = (): CreateUserFailure => ({
-  type: actionTypes.CREATE_USER_FAILUR,
+  type: actionTypes.CREATE_USER_FAILURE,
 });
 
 export type CreateUserAction = CreateUserStart | CreateUserSuccess | CreateUserFailure;
