@@ -5,10 +5,11 @@ import { GetSubscriptionsAction } from './GetSubscriptions';
 import { CreateCategoryAction } from './CreateCategory';
 import { UpdateCategoryAction } from './UpdateCategory';
 import { DeleteCategoryAction } from './DeleteCategory';
+import { GetFollowsAction } from './GetFollowers';
 
 export type UserActions = (
   GetUserAction | UpdateUserAction | DeleteSelfAction | GetSubscriptionsAction
-  | CreateCategoryAction | UpdateCategoryAction | DeleteCategoryAction
+  | CreateCategoryAction | UpdateCategoryAction | DeleteCategoryAction | GetFollowsAction
 );
 
 export * from './GetUser';
@@ -18,3 +19,4 @@ export * from './GetSubscriptions';
 export * from './CreateCategory';
 export * from './UpdateCategory';
 export * from './DeleteCategory';
+export * from './GetFollowers';

@@ -20,7 +20,7 @@ interface StateProps {
   currentUserId: string | StringConstructor;
   user: User;
   isAdmin: boolean;
-  isToggelingFollows: boolean;
+  isCreatingUserEvent: boolean;
 }
 
 function mapStateToProps({ AuthReducer, UserReducer, EventReducer }: State): StateProps {
@@ -28,7 +28,7 @@ function mapStateToProps({ AuthReducer, UserReducer, EventReducer }: State): Sta
     currentUserId: AuthReducer.user._id,
     user: UserReducer.user,
     isAdmin: AuthReducer.isAdmin,
-    isToggelingFollows: EventReducer.isToggelingFollows,
+    isCreatingUserEvent: EventReducer.isCreatingUserEvent,
   };
 }
 

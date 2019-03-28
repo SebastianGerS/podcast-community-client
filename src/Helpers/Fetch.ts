@@ -18,6 +18,9 @@ export interface Response {
   categories: Category[];
   genres: Genre[];
   languages: string[];
+  followers: User[];
+  following: User[];
+  requests: User[];
 }
 
 export async function Fetch(path: string, method: string, data: object | string): Promise<Response> {

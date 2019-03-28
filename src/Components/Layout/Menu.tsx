@@ -19,7 +19,7 @@ const Menu = ({ closeMenu, userId }: Props): JSX.Element => (
       </div>
       <div>
         <AuthSiteLink to="/" title="ListenList" />
-        <AuthSiteLink to="/" title="Follows" />
+        <AuthSiteLink to="/follows" title="Follows" />
         <AuthSiteLink to="/settings" title="Settings" />
         <AdminSiteLink to="/" title="Send Email" />
         <LogoutButton />

@@ -1,12 +1,10 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import FollowButton from '../../Components/Common/FollowButton';
-import { attemptToggleFollows, ToggleFollowsAction } from '../../Actions/Event';
-import { SetMessage } from '../../Actions/Message';
+import { attemptToggleFollows, CreateUserEventAction } from '../../Actions/Event';
 import { User } from '../../Models/User';
 import { AuthState } from '../../Reducers/AuthReducer';
 import { EventState } from '../../Reducers/EventReducer';
-import { GetSelfSuccess } from '../../Actions/Auth';
 
 interface State {
   AuthReducer: AuthState;
@@ -14,32 +12,30 @@ interface State {
 }
 
 interface StateProps {
-  isToggelingFollows: boolean;
+  isCreatingUserEvent: boolean;
+  eventTargetUserId: string;
   currentUser: User;
   isLogedIn: boolean;
 }
 
 function mapStateToProps({ EventReducer, AuthReducer }: State): StateProps {
   return {
-    isToggelingFollows: EventReducer.isToggelingFollows,
+    isCreatingUserEvent: EventReducer.isCreatingUserEvent,
+    eventTargetUserId: EventReducer.eventTargetUserId,
     currentUser: AuthReducer.user,
     isLogedIn: AuthReducer.isLogedIn,
   };
 }
 
 interface DispatchProps {
-  toggleFollows: (userId: string, targetUserId: string) => void;
+  toggleFollows: (targetUserId: string) => void;
 }
 
-type FollowsButtonActions =(
-  ToggleFollowsAction | SetMessage | GetSelfSuccess
-);
-
-function mapDispatchToProps(dispatch: Dispatch<FollowsButtonActions>): DispatchProps {
+function mapDispatchToProps(dispatch: Dispatch<CreateUserEventAction>): DispatchProps {
   return {
     toggleFollows: (
-      userId: string, targetUserId: string,
-    ) => attemptToggleFollows(userId, targetUserId)(dispatch),
+      targetUserId: string,
+    ) => attemptToggleFollows(targetUserId)(dispatch),
   };
 }
 

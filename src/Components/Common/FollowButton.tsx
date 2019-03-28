@@ -5,14 +5,15 @@ import usePrevious from '../../Helpers/CustomHooks';
 interface Props{
   targetUser: User;
   currentUser: User;
-  toggleFollows: (userId: string, targetUserId: string) => void;
+  toggleFollows: (targetUserId: string) => void;
   isLogedIn: boolean;
-  isToggelingFollows: boolean;
+  isCreatingUserEvent: boolean;
+  eventTargetUserId: string;
   type: string;
 }
 
 function FollowButton({
-  targetUser, currentUser, toggleFollows, isLogedIn, isToggelingFollows, type,
+  targetUser, currentUser, toggleFollows, isLogedIn, isCreatingUserEvent, type, eventTargetUserId,
 }: Props): JSX.Element {
   const [hasBeenToggledOn, sethasBeenToggledOn] = useState(false);
   const currentUserId = typeof currentUser._id === 'string' ? currentUser._id : '';
@@ -33,31 +34,31 @@ function FollowButton({
 
     if (isLogedIn) {
       sethasBeenToggledOn(!requestSent);
-      toggleFollows(currentUserId, targetUserId);
+      toggleFollows(targetUserId);
     }
   };
 
   let icon;
   let text;
-  if (isToggelingFollows && hasBeenToggledOn) {
-    icon = 'button-spinner';
+  if (isCreatingUserEvent && hasBeenToggledOn && targetUserId === eventTargetUserId) {
+    icon = 'icon-spinner';
     text = '';
   } else if (currentUserFollowing.includes(targetUserId)) {
-    icon = 'following';
+    icon = 'icon-following';
     text = 'Following';
   } else if (
     (targetUserRequests.includes(currentUserId) && !hasBeenToggledOn)
     || (requestSent && !targetUserRequests.includes(currentUserId))) {
-    icon = 'requested';
+    icon = 'icon-requested';
     text = 'Requested';
   } else {
-    icon = 'follow';
+    icon = 'icon-follow';
     text = 'Follow';
   }
 
   return (
     <button
-      className={`follow-${type} ${icon}`}
+      className={`follow-is-${type} ${icon}`}
       aria-label="follow-button"
       type="button"
       onClick={onClick}

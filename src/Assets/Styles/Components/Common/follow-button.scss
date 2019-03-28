@@ -1,28 +1,28 @@
-.follow-icon,
-.follow-button {
-  background-size: 30px;
+.follow-is-icon,
+.follow-is-button {
   background-repeat: no-repeat;
 
-  &.follow {
+  &.icon-follow {
     background-image: url(../Icons/user-add.svg);
   }
 
-  &.button-spinner {
+  &.icon-spinner {
     background-image: url(../Icons/loader.svg);
   }
 
-  &.following {
-    background-image: url(../Icons/follows.svg);
+  &.icon-following {
+    background-image: url(../Icons/remove-black.svg);
   }
 
-  &.requested {
+  &.icon-requested {
     background-image: url(../Icons/requested.svg);
   }
 }
 
-.follow-button {
+.follow-is-button {
   background-color: #56ccf2;
   background-position: 97% 50%;
+  background-size: 30px;
   margin-top: 2em;
   color: #2e2929;
   font-size: 1.5em;
@@ -33,19 +33,20 @@
   box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.25);
   width: 230px;
 
-  &.button-spinner {
+  &.icon-spinner {
     background-position: 50%;
   }
 }
 
-.follow-icon {
+.follow-is-icon {
+  background-size: contain;
   height: 30px;
   width: 30px;
   align-self: flex-end;
 }
 
 @media only screen and (max-width: 500px) {
-  .follow-button {
+  .follow-is-button {
     background-size: 25px;
     font-size: 1.3em;
     width: 175px;
@@ -53,7 +54,7 @@
 }
 
 @media only screen and (max-width: 350px) {
-  .follow-button {
+  .follow-is-button {
     background-size: 20px;
     font-size: 1.2em;
     width: 150px;

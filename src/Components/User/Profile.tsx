@@ -12,10 +12,10 @@ interface Props {
   currentUserId: string;
   updateUser: () => void;
   isAdmin: boolean;
-  isToggelingFollows: boolean;
+  isCreatingUserEvent: boolean;
 }
 function Profile({
-  getUser, userId, user, currentUserId, updateUser, isAdmin, isToggelingFollows,
+  getUser, userId, user, currentUserId, updateUser, isAdmin, isCreatingUserEvent,
 }: Props): JSX.Element {
   const username = typeof user.username === 'string' ? user.username : '';
   const age = typeof user.age === 'number' ? user.age : undefined;
@@ -23,17 +23,17 @@ function Profile({
   const bio = typeof user.bio === 'string' ? user.bio : '';
   const followers = Array.isArray(user.followers) ? user.followers : [];
 
-  const prevToggelingFollows = usePrevious(isToggelingFollows);
+  const prevToggelingFollows = usePrevious(isCreatingUserEvent);
 
   useEffect(() => {
     getUser(userId);
   }, [userId]);
 
   useEffect(() => {
-    if (!isToggelingFollows && prevToggelingFollows) {
+    if (!isCreatingUserEvent && prevToggelingFollows) {
       getUser(userId);
     }
-  }, [isToggelingFollows]);
+  }, [isCreatingUserEvent]);
 
   const isAutharized = (): boolean => {
     let auth = false;

@@ -10,6 +10,11 @@
   margin: 0.5em 0;
   padding: 0.5em;
 
+  &.has-confirmation {
+    height: 155px;
+    padding: 0 0.5em;
+  }
+
   div {
     width: 100%;
 

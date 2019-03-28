@@ -1,2 +1,3 @@
 export * from './ToggleSubscription/types';
-export * from './ToggleFollows/types';
+export * from './CreateUserEvent/types';
+export * from './ToggleSubscription/types';

@@ -42,6 +42,8 @@
 @import './Components/Settings/user-settings.scss';
 @import './Components/Admin/user-table.scss';
 @import './Components/Admin/user-form.scss';
+@import './Components/Follows/follows.scss';
+@import './Components/Follows/request-confirmation.scss';
 @import './Views/home.scss';
 @import './Views/register.scss';
 @import './Views/search.scss';
@@ -53,3 +55,4 @@
 @import './Views/podcasts.scss';
 @import './Views/episodes.scss';
 @import './Views/error.scss';
+@import './Views/follows.scss';
