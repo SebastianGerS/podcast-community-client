@@ -4,13 +4,15 @@ import { EventActions } from '../Actions/Event';
 export interface EventState {
   isToggelingSubscription: boolean;
   isCreatingEvent: boolean;
-  isToggelingFollows: boolean;
+  isCreatingUserEvent: boolean;
+  eventTargetUserId: string;
 }
 
 const DEFAULT_STATE: EventState = {
   isToggelingSubscription: false,
-  isToggelingFollows: false,
+  isCreatingUserEvent: false,
   isCreatingEvent: false,
+  eventTargetUserId: '',
 };
 
 export default function (state: EventState = DEFAULT_STATE, action: EventActions): EventState {
@@ -27,17 +29,17 @@ export default function (state: EventState = DEFAULT_STATE, action: EventActions
       return {
         ...state, isToggelingSubscription: false, isCreatingEvent: false,
       };
-    case ActionTypes.TOGGLE_FOLLOWS_START:
+    case ActionTypes.CREATE_USER_EVENT_START:
       return {
-        ...state, isToggelingFollows: true, isCreatingEvent: true,
+        ...state, isCreatingUserEvent: true, isCreatingEvent: true, eventTargetUserId: action.eventTargetUserId,
       };
-    case ActionTypes.TOGGLE_FOLLOWS_SUCCESS:
+    case ActionTypes.CREATE_USER_EVENT_SUCCESS:
       return {
-        ...state, isToggelingFollows: false, isCreatingEvent: false,
+        ...state, isCreatingUserEvent: false, isCreatingEvent: false, eventTargetUserId: '',
       };
-    case ActionTypes.TOGGLE_FOLLOWS_FAILURE:
+    case ActionTypes.CREATE_USER_EVENT_FAILURE:
       return {
-        ...state, isToggelingFollows: false, isCreatingEvent: false,
+        ...state, isCreatingUserEvent: false, isCreatingEvent: false, eventTargetUserId: '',
       };
     default:
       return { ...state };
