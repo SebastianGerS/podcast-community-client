@@ -21,11 +21,11 @@ export const userLogedout = (): UserLogoutSuccess => (
 );
 
 interface UserLogoutFailure {
-  type: ActionTypes.USER_LOGOUT_FAILUR;
+  type: ActionTypes.USER_LOGOUT_FAILURE;
 }
 
 export const userLogoutFailure = (): UserLogoutFailure => (
-  { type: ActionTypes.USER_LOGOUT_FAILUR }
+  { type: ActionTypes.USER_LOGOUT_FAILURE }
 );
 
 export type UserLogoutAction = UserLogoutStart | UserLogoutSuccess | UserLogoutFailure;

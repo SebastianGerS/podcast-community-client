@@ -9,6 +9,7 @@ import Users from './Users';
 import Podcasts from './Podcasts';
 import Episodes from './Episodes';
 import Error from './Error';
+import Follows from './Follows';
 
 export default {
   Home,
@@ -22,4 +23,5 @@ export default {
   Podcasts,
   Episodes,
   Error,
+  Follows,
 };

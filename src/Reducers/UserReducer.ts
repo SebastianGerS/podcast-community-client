@@ -10,6 +10,10 @@ export interface UserState {
   isFetchingSubscriptions: boolean;
   subscriptions: Podcast[];
   categories: Category[];
+  followers: User[];
+  following: User[];
+  requests: User[];
+  isFetchingFollows: boolean;
 }
 
 const DEFAULT_STATE: UserState = {
@@ -18,6 +22,10 @@ const DEFAULT_STATE: UserState = {
   isFetchingSubscriptions: false,
   subscriptions: [new Podcast()],
   categories: [new Category()],
+  followers: [],
+  following: [],
+  requests: [],
+  isFetchingFollows: false,
 };
 
 export default function (state: UserState = DEFAULT_STATE, action: UserActions): UserState {
@@ -28,7 +36,7 @@ export default function (state: UserState = DEFAULT_STATE, action: UserActions):
       return {
         ...state, isUpdating: false, user: new User(action.user),
       };
-    case ActionTypes.GET_USER_FAILUR:
+    case ActionTypes.GET_USER_FAILURE:
       return { ...state, isUpdating: false };
     case ActionTypes.UPDATE_USER_START:
       return { ...state, isUpdating: true };
@@ -36,7 +44,7 @@ export default function (state: UserState = DEFAULT_STATE, action: UserActions):
       return {
         ...state, isUpdating: false,
       };
-    case ActionTypes.UPDATE_USER_FAILUR:
+    case ActionTypes.UPDATE_USER_FAILURE:
       return { ...state, isUpdating: false };
     case ActionTypes.GET_SUBSCRIPTIONS_START:
       return { ...state, isFetchingSubscriptions: true };
@@ -51,31 +59,49 @@ export default function (state: UserState = DEFAULT_STATE, action: UserActions):
           ? action.categories.map((category: Category) => new Category(category))
           : [new Category()],
       };
-    case ActionTypes.GET_SUBSCRIPTIONS_FAILUR:
+    case ActionTypes.GET_SUBSCRIPTIONS_FAILURE:
       return { ...state, isFetchingSubscriptions: false };
+    case ActionTypes.GET_FOLLOWS_START:
+      return { ...state, isFetchingFollows: true };
+    case ActionTypes.GET_FOLLOWS_SUCCESS:
+      return {
+        ...state,
+        isFetchingFollows: false,
+        followers: action.followers.length !== 0
+          ? action.followers.map((follower: User) => new User(follower))
+          : [],
+        following: action.following.length !== 0
+          ? action.following.map((follow: User) => new User(follow))
+          : [],
+        requests: action.requests.length !== 0
+          ? action.requests.map((request: User) => new User(request))
+          : [],
+      };
+    case ActionTypes.GET_FOLLOWS_FAILURE:
+      return { ...state, isFetchingFollows: false };
     case ActionTypes.CREATE_CATEGORY_START:
       return { ...state, isUpdating: true };
     case ActionTypes.CREATE_CATEGORY_SUCCESS:
       return { ...state, isUpdating: false };
-    case ActionTypes.CREATE_CATEGORY_FAILUR:
+    case ActionTypes.CREATE_CATEGORY_FAILURE:
       return { ...state, isUpdating: false };
     case ActionTypes.DELETE_SELF_START:
       return { ...state, isUpdating: true };
     case ActionTypes.DELETE_SELF_SUCCESS:
       return { ...state, isUpdating: false };
-    case ActionTypes.DELETE_SELF_FAILUR:
+    case ActionTypes.DELETE_SELF_FAILURE:
       return { ...state, isUpdating: false };
     case ActionTypes.UPDATE_CATEGORY_START:
       return { ...state, isUpdating: true };
     case ActionTypes.UPDATE_CATEGORY_SUCCESS:
       return { ...state, isUpdating: false };
-    case ActionTypes.UPDATE_CATEGORY_FAILUR:
+    case ActionTypes.UPDATE_CATEGORY_FAILURE:
       return { ...state, isUpdating: false };
     case ActionTypes.DELETE_CATEGORY_START:
       return { ...state, isUpdating: true };
     case ActionTypes.DELETE_CATEGORY_SUCCESS:
       return { ...state, isUpdating: false };
-    case ActionTypes.DELETE_CATEGORY_FAILUR:
+    case ActionTypes.DELETE_CATEGORY_FAILURE:
       return { ...state, isUpdating: false };
     default:
       return { ...state };

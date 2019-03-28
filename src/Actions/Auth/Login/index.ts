@@ -30,11 +30,11 @@ export const userLogedin = (user: User): UserLoginSuccess => (
 );
 
 interface UserLoginFailure {
-  type: ActionTypes.USER_LOGIN_FAILUR;
+  type: ActionTypes.USER_LOGIN_FAILURE;
 }
 
 export const userLoginFailure = (): UserLoginFailure => (
-  { type: ActionTypes.USER_LOGIN_FAILUR }
+  { type: ActionTypes.USER_LOGIN_FAILURE }
 );
 
 export type UserLoginAction = UserLoginStart | UserLoginSuccess | UserLoginFailure;

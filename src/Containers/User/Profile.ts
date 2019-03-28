@@ -8,23 +8,27 @@ import { AuthState } from '../../Reducers/AuthReducer';
 import { UserState } from '../../Reducers/UserReducer';
 import { SetMessage } from '../../Actions/Message';
 import { User } from '../../Models/User';
+import { EventState } from '../../Reducers/EventReducer';
 
 interface State {
   AuthReducer: AuthState;
   UserReducer: UserState;
+  EventReducer: EventState;
 }
 
 interface StateProps {
   currentUserId: string | StringConstructor;
   user: User;
   isAdmin: boolean;
+  isCreatingUserEvent: boolean;
 }
 
-function mapStateToProps({ AuthReducer, UserReducer }: State): StateProps {
+function mapStateToProps({ AuthReducer, UserReducer, EventReducer }: State): StateProps {
   return {
     currentUserId: AuthReducer.user._id,
     user: UserReducer.user,
     isAdmin: AuthReducer.isAdmin,
+    isCreatingUserEvent: EventReducer.isCreatingUserEvent,
   };
 }
 

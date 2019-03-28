@@ -27,11 +27,11 @@ export const fetchFiltersSuccess = (genres: Genre[], languages: string[]): Fetch
 );
 
 interface FetchFiltersFailure {
-  type: ActionTypes.FETCH_FILTERS_FAILUR;
+  type: ActionTypes.FETCH_FILTERS_FAILURE;
 }
 
 export const fetchFiltersFailure = (): FetchFiltersFailure => (
-  { type: ActionTypes.FETCH_FILTERS_FAILUR }
+  { type: ActionTypes.FETCH_FILTERS_FAILURE }
 );
 
 export type FetchFiltersAction = FetchFiltersStart | FetchFiltersSuccess | FetchFiltersFailure | SetMessage;

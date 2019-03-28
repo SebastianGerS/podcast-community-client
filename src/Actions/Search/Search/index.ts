@@ -41,11 +41,11 @@ export const searchComplete = (data: SearchResult): SearchSuccess => (
 );
 
 interface SearchFailure {
-  type: ActionTypes.SEARCH_FAILUR;
+  type: ActionTypes.SEARCH_FAILURE;
 }
 
 export const SearchFailure = (): SearchFailure => (
-  { type: ActionTypes.SEARCH_FAILUR }
+  { type: ActionTypes.SEARCH_FAILURE }
 );
 
 export type AttemptSearchActions = SearchStart | SearchSuccess | SearchFailure;

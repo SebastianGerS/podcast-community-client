@@ -23,11 +23,11 @@ export const catagoryUpdated = (): UpdateCategorySuccess => ({
 });
 
 interface UpdateCategoryFailure {
-  type: ActionTypes.UPDATE_CATEGORY_FAILUR;
+  type: ActionTypes.UPDATE_CATEGORY_FAILURE;
 }
 
 export const updateCategoryFailure = (): UpdateCategoryFailure => ({
-  type: ActionTypes.UPDATE_CATEGORY_FAILUR,
+  type: ActionTypes.UPDATE_CATEGORY_FAILURE,
 });
 
 export type UpdateCategoryAction = UpdateCategoryStart | UpdateCategorySuccess | UpdateCategoryFailure;

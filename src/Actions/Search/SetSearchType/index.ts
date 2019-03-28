@@ -22,11 +22,11 @@ export const setSearchType = (searchType: string): SetSearchTypeSuccess => (
 );
 
 interface SetSearchTypeFailure {
-  type: ActionTypes.SET_SEARCHTYPE_FAILUR;
+  type: ActionTypes.SET_SEARCHTYPE_FAILURE;
 }
 
 export const setSearchTypeFailure = (): SetSearchTypeFailure => (
-  { type: ActionTypes.SET_SEARCHTYPE_FAILUR }
+  { type: ActionTypes.SET_SEARCHTYPE_FAILURE }
 );
 
 export type SetSearchTypeAction = SetSearchTypeStart | SetSearchTypeSuccess | SetSearchTypeFailure;

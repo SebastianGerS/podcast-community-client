@@ -32,7 +32,7 @@ export default function (state: AuthState = DEFAULT_STATE, action: AuthActions):
         user: new User(action.user),
         isAdmin: action.user.type === 'admin',
       };
-    case ActionTypes.USER_LOGIN_FAILUR:
+    case ActionTypes.USER_LOGIN_FAILURE:
       return { ...state, isLogingIn: false };
     case ActionTypes.IS_LOGED_IN:
       return {
@@ -47,13 +47,13 @@ export default function (state: AuthState = DEFAULT_STATE, action: AuthActions):
       return {
         ...state, isLogedIn: false, isLogingOut: false, user: new User(), isAdmin: false,
       };
-    case ActionTypes.USER_LOGOUT_FAILUR:
+    case ActionTypes.USER_LOGOUT_FAILURE:
       return { ...state, isLogingOut: false };
     case ActionTypes.USER_REGISTRATION_START:
       return { ...state, isRegistering: true };
     case ActionTypes.USER_REGISTRATION_SUCCESS:
       return { ...state, isRegistering: false };
-    case ActionTypes.USER_REGISTRATION_FAILUR:
+    case ActionTypes.USER_REGISTRATION_FAILURE:
       return { ...state, isRegistering: false };
     case ActionTypes.GET_SELF_SUCCESS:
       return {

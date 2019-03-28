@@ -23,11 +23,11 @@ export const catagoryCreated = (): CreateCategorySuccess => ({
 });
 
 interface CreateCategoryFailure {
-  type: ActionTypes.CREATE_CATEGORY_FAILUR;
+  type: ActionTypes.CREATE_CATEGORY_FAILURE;
 }
 
 export const createCategoryFailure = (): CreateCategoryFailure => ({
-  type: ActionTypes.CREATE_CATEGORY_FAILUR,
+  type: ActionTypes.CREATE_CATEGORY_FAILURE,
 });
 
 export type CreateCategoryAction = CreateCategoryStart | CreateCategorySuccess | CreateCategoryFailure;

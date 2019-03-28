@@ -1,0 +1,55 @@
+.follows {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h2 {
+    font-size: 1.5em;
+    margin-bottom: 1em;
+  }
+
+  .requests-followers,
+  .followers,
+  .following,
+  .requests {
+    width: 100%;
+
+    p,
+    h3 {
+      padding: 1em 0 0 1em;
+    }
+
+    p {
+      font-size: 1em;
+    }
+
+    h3 {
+      font-size: 1.2em;
+    }
+  }
+
+  .follows-navigation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #fef6f6;
+    width: 100%;
+
+    ul {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+
+      li {
+        margin: 0 0.5em;
+        padding-bottom: 0.5em;
+      }
+
+      button {
+        font-size: 1.1em;
+      }
+    }
+  }
+}
