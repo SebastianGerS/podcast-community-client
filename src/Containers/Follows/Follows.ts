@@ -5,6 +5,7 @@ import { AuthState } from '../../Reducers/AuthReducer';
 import { User } from '../../Models/User';
 import { UserState } from '../../Reducers/UserReducer';
 import { attemptGetFollows, GetFollowsAction } from '../../Actions/User';
+import { SetMessage } from '../../Actions/Message';
 
 interface State {
   AuthReducer: AuthState;
@@ -30,7 +31,7 @@ interface DispatchState {
   getFollows: () => void;
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<GetFollowsAction>): DispatchState => ({
+const mapDispatchToProps = (dispatch: Dispatch<GetFollowsAction | SetMessage>): DispatchState => ({
   getFollows: () => attemptGetFollows()(dispatch),
 });
 

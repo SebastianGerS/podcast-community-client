@@ -4,6 +4,7 @@ import DownloadButton from '../../Components/Common/DownloadButton';
 import { download, DownloadActions } from '../../Actions/Player';
 import { PlayerState } from '../../Reducers/PlayerReducer';
 import { Episode } from '../../Models/Episode';
+import { SetMessage } from '../../Actions/Message';
 
 interface State {
   PlayerReducer: PlayerState;
@@ -19,7 +20,7 @@ function mapStateToProps({ PlayerReducer }: State): StateProps {
   };
 }
 
-type ListableEpisodeAction = DownloadActions;
+type ListableEpisodeAction = DownloadActions | SetMessage;
 
 interface DispatchProps {
   download: (episode: Episode) => void;

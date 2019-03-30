@@ -34,7 +34,7 @@ export type CreateUserEventAction = (
   CreateUserEventStart | CreateUserEventSuccess | CreateUserEventFailure
 );
 
-type CreateUserEventActions = CreateUserEventAction | GetSelfSuccess | SetMessage;
+export type CreateUserEventActions = CreateUserEventAction | GetSelfSuccess | SetMessage;
 
 type AttemptCreateUserEvent = (dispatch: Dispatch<CreateUserEventActions>) => Promise<void>;
 

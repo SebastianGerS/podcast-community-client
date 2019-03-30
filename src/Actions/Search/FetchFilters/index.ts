@@ -34,14 +34,14 @@ export const fetchFiltersFailure = (): FetchFiltersFailure => (
   { type: ActionTypes.FETCH_FILTERS_FAILURE }
 );
 
-export type FetchFiltersAction = FetchFiltersStart | FetchFiltersSuccess | FetchFiltersFailure | SetMessage;
+export type FetchFiltersAction = FetchFiltersStart | FetchFiltersSuccess | FetchFiltersFailure;
 
-type AttemptFetchFiltersAction = (dispatch: Dispatch<FetchFiltersAction>) => Promise<void>;
+type AttemptFetchFiltersAction = (dispatch: Dispatch<FetchFiltersAction | SetMessage>) => Promise<void>;
 
 const fetchFilters = (path: string): Promise<Response> => Fetch(path, 'GET', {});
 
 export const attemptFetchFilters = (): AttemptFetchFiltersAction => async (
-  dispatch: Dispatch<FetchFiltersAction>,
+  dispatch: Dispatch<FetchFiltersAction | SetMessage>,
 ): Promise<void> => {
   dispatch(startFetchFilters());
   const response = await fetchFilters('/filters');

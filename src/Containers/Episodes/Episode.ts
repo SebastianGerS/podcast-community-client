@@ -6,6 +6,7 @@ import { EpisodeState } from '../../Reducers/EpisodeReducer';
 import { Episode } from '../../Models/Episode';
 import { RedirectModel } from '../../Models/Redirect';
 import { RedirectState } from '../../Reducers/RedirectReducer';
+import { SetMessage } from '../../Actions/Message';
 
 interface State {
   EpisodeReducer: EpisodeState;
@@ -30,7 +31,7 @@ interface DispatchProps {
   getEpisode: (episodeId: string) => void;
 }
 
-type EpisodeComponentActions = GetEpisodeAction;
+type EpisodeComponentActions = GetEpisodeAction | SetMessage;
 
 function mapDispatchToProps(dispatch: Dispatch<EpisodeComponentActions>): DispatchProps {
   return {

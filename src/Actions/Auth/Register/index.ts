@@ -37,7 +37,7 @@ export type UserRegistrationAction = UserRegistrationStart | UserRegistrationSuc
 
 export const register = (token: string): Promise<Response> => Fetch('/users', 'POST', token);
 
-type AttemptRegisterActions = UserRegistrationAction | SetMessage | UserLoginSuccess | SetRedirect;
+export type AttemptRegisterActions = UserRegistrationAction | SetMessage | UserLoginSuccess | SetRedirect;
 type AttemptRegisterAction =(
   dispatch: Dispatch<AttemptRegisterActions>
 ) => Promise<void>;

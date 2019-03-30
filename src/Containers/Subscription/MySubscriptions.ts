@@ -7,6 +7,8 @@ import { AuthState } from '../../Reducers/AuthReducer';
 import { Category } from '../../Models/Category';
 import { Podcast } from '../../Models/Podcast';
 import { User } from '../../Models/User';
+import { SetMessage } from '../../Actions/Message';
+import { GetSelfSuccess } from '../../Actions/Auth';
 
 interface State {
   UserReducer: UserState;
@@ -33,7 +35,9 @@ interface DispatchProps {
   getSubscriptions: (userId: string) => void;
 }
 
-function mapDispatchToProps(dispatch: Dispatch<GetSubscriptionsAction>): DispatchProps {
+type MySubscriptionsActions = GetSubscriptionsAction | SetMessage | GetSelfSuccess;
+
+function mapDispatchToProps(dispatch: Dispatch<MySubscriptionsActions>): DispatchProps {
   return {
     getSubscriptions: (userId: string) => attemptGetSubscriptions(userId)(dispatch),
   };
