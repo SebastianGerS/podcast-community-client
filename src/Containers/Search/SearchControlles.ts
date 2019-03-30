@@ -11,6 +11,7 @@ import {
 import { SearchState } from '../../Reducers/SearchReducer';
 import { Filters } from '../../Models/Filters';
 import { Genre } from '../../Models/Genre';
+import { SetMessage } from '../../Actions/Message';
 
 interface State {
   SearchReducer: SearchState;
@@ -42,7 +43,7 @@ interface DispatchProps {
 }
 
 type SearchControllesActions = (
-  SetSearchTypeAction | SetSearchFiltersAction | FetchFiltersAction | SetSearchSortingAction
+  SetSearchTypeAction | SetSearchFiltersAction | FetchFiltersAction | SetSearchSortingAction | SetMessage
 );
 
 function mapDispatchToProps(dispatch: Dispatch<SearchControllesActions>): DispatchProps {

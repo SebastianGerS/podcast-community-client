@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import FollowButton from '../../Components/Common/FollowButton';
-import { attemptToggleFollows, CreateUserEventAction } from '../../Actions/Event';
+import { attemptToggleFollows, CreateUserEventActions } from '../../Actions/Event';
 import { User } from '../../Models/User';
 import { AuthState } from '../../Reducers/AuthReducer';
 import { EventState } from '../../Reducers/EventReducer';
@@ -31,7 +31,7 @@ interface DispatchProps {
   toggleFollows: (targetUserId: string) => void;
 }
 
-function mapDispatchToProps(dispatch: Dispatch<CreateUserEventAction>): DispatchProps {
+function mapDispatchToProps(dispatch: Dispatch<CreateUserEventActions>): DispatchProps {
   return {
     toggleFollows: (
       targetUserId: string,

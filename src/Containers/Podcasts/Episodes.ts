@@ -4,6 +4,7 @@ import Episodes from '../../Components/Podcasts/Episodes';
 import { attemptGetPodcastEpisodes, GetPodcastEpisodesAction, EpisodesSearchData } from '../../Actions/Podcast';
 import { PodcastState } from '../../Reducers/PodcastReducer';
 import { Episode } from '../../Models/Episode';
+import { SetMessage } from '../../Actions/Message';
 
 interface State {
   PodcastReducer: PodcastState;
@@ -31,7 +32,7 @@ interface DispatchProps {
   getEpisodes: (data: EpisodesSearchData) => void;
 }
 
-type EpisodesActions = GetPodcastEpisodesAction;
+type EpisodesActions = GetPodcastEpisodesAction | SetMessage;
 
 function mapDispatchToProps(dispatch: Dispatch<EpisodesActions>): DispatchProps {
   return {

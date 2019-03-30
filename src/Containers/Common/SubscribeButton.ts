@@ -32,7 +32,7 @@ interface DispatchProps {
   attemptToggleSubsription: (userId: string, podcastId: string) => void;
 }
 
-type SubscriptionButtonActions =(
+type SubscriptionButtonActions = (
   ToggleSubscriptionAction | GetSubscriptionsAction | SetMessage | GetSelfSuccess
 );
 
