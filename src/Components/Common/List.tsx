@@ -4,8 +4,9 @@ import { Episode } from '../../Models/Episode';
 import { Podcast } from '../../Models/Podcast';
 import { User } from '../../Models/User';
 import { Category } from '../../Models/Category';
+import { Notification } from '../../Models/Notification';
 
-type ListItem = Episode | Podcast | User | Category;
+type ListItem = Episode | Podcast | User | Category | Notification;
 interface ListItemProps {
   data: ListItem;
 }
