@@ -10,6 +10,7 @@ import PodcastReducer from './PodcastReducer';
 import AdminReducer from './AdminReducer';
 import EpisodeReducer from './EpisodeReducer';
 import RedirectReducer from './RedirectReducer';
+import NotificationReducer from './NotificationReducer';
 
 export default combineReducers({
   AuthReducer,
@@ -23,4 +24,5 @@ export default combineReducers({
   AdminReducer,
   EpisodeReducer,
   RedirectReducer,
+  NotificationReducer,
 });

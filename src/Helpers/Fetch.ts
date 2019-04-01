@@ -12,7 +12,7 @@ export interface Response {
     errmsg: string;
   };
   info: string;
-  results: (User | Podcast | Episode)[];
+  results: (User | Podcast | Episode | Notification)[];
   user: User;
   subscriptions: Podcast[];
   categories: Category[];
