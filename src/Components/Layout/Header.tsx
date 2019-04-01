@@ -5,9 +5,10 @@ import logo from '../../Assets/Icons/logo.svg';
 interface Props {
   toggleLogin: () => void;
   isLogedIn: boolean;
+  toggleNotifications: () => void;
 }
 
-const Header = ({ toggleLogin, isLogedIn }: Props): JSX.Element => (
+const Header = ({ toggleLogin, isLogedIn, toggleNotifications }: Props): JSX.Element => (
   <header>
     <figure>
       <Link to="/"><img src={logo} className="logo" alt="logo" /></Link>
@@ -20,7 +21,7 @@ const Header = ({ toggleLogin, isLogedIn }: Props): JSX.Element => (
     </div>
     <div className={isLogedIn ? 'notifications-button' : 'login-button'}>
       { isLogedIn
-        ? <button type="button" aria-label="toggle-notifications" />
+        ? <button type="button" aria-label="toggle-notifications" onClick={toggleNotifications} />
         : <button type="button" name="toggle-login-modal-button" onClick={toggleLogin}>Login</button>
       }
 

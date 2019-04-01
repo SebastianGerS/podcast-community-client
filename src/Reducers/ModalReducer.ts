@@ -6,6 +6,7 @@ export interface ModalState {
   playbackModalIsActive: boolean;
   menuIsActive: boolean;
   userModalIsActive: boolean;
+  notificationsModalIsActive: boolean;
   height: number;
 }
 
@@ -14,6 +15,7 @@ const DEFAULT_STATE: ModalState = {
   playbackModalIsActive: false,
   menuIsActive: false,
   userModalIsActive: false,
+  notificationsModalIsActive: false,
   height: 0,
 };
 
@@ -26,6 +28,7 @@ export default function Modal(state: ModalState = DEFAULT_STATE, action: ModalAc
         playbackModalIsActive: false,
         menuIsActive: false,
         userModalIsActive: false,
+        notificationsModalIsActive: false,
       };
     case ActionTypes.TOGGLE_PLAYBACK_MODAL:
       return {
@@ -34,6 +37,7 @@ export default function Modal(state: ModalState = DEFAULT_STATE, action: ModalAc
         userModalIsActive: false,
         playbackModalIsActive: !state.playbackModalIsActive,
         menuIsActive: false,
+        notificationsModalIsActive: false,
       };
     case ActionTypes.TOGGLE_MENU:
       return {
@@ -42,6 +46,7 @@ export default function Modal(state: ModalState = DEFAULT_STATE, action: ModalAc
         playbackModalIsActive: false,
         userModalIsActive: false,
         menuIsActive: !state.menuIsActive,
+        notificationsModalIsActive: false,
       };
     case ActionTypes.TOGGLE_USER_MODAL:
       return {
@@ -50,6 +55,17 @@ export default function Modal(state: ModalState = DEFAULT_STATE, action: ModalAc
         playbackModalIsActive: false,
         menuIsActive: false,
         userModalIsActive: !state.userModalIsActive,
+        notificationsModalIsActive: false,
+      };
+    case ActionTypes.TOGGLE_NOTIFICATIONS_MODAL:
+      return {
+        ...state,
+        loginModalIsActive: false,
+        playbackModalIsActive: false,
+        menuIsActive: false,
+        userModalIsActive: false,
+        notificationsModalIsActive: !state.notificationsModalIsActive,
+
       };
     case ActionTypes.SET_HEIGHT:
       return {

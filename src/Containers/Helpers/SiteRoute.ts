@@ -18,6 +18,7 @@ interface StateProps {
   isAdmin: boolean;
   menuIsActive: boolean;
   loginModalIsActive: boolean;
+  notificationsModalIsActive: boolean;
   height: number;
 }
 
@@ -27,6 +28,7 @@ function mapStateToProps({ AuthReducer, ModalReducer }: State): StateProps {
     isAdmin: AuthReducer.isAdmin,
     menuIsActive: ModalReducer.menuIsActive,
     loginModalIsActive: ModalReducer.loginModalIsActive,
+    notificationsModalIsActive: ModalReducer.notificationsModalIsActive,
     height: ModalReducer.height,
   };
 }

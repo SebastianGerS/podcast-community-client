@@ -8,7 +8,7 @@ import MenuModal from '../Components/Layout/MenuModal';
 import LoginModal from '../Components/Auth/LoginModal';
 import MenuBar from '../Containers/Layout/MenuBar';
 import MessageInterface from '../Containers/Message/MessageInterface';
-
+import NotificationsModal from '../Components/Notifications/NotificationsModal';
 
 interface SiteRouteProps extends RouteProps{
   routeType: string;
@@ -16,6 +16,7 @@ interface SiteRouteProps extends RouteProps{
   path?: string;
   menuIsActive: boolean;
   loginModalIsActive: boolean;
+  notificationsModalIsActive: boolean;
   isLogedIn: boolean;
   isAdmin: boolean;
   computedMatch?: {
@@ -33,7 +34,7 @@ interface SiteRouteProps extends RouteProps{
 
 export default function SiteRoute({
   routeType, component: Component, path, menuIsActive, loginModalIsActive, isLogedIn, isAdmin,
-  computedMatch, checkIfLogedIn, setHeight, height, checkIfResized, unsetRedirect, ...rest
+  computedMatch, checkIfLogedIn, setHeight, height, checkIfResized, unsetRedirect, notificationsModalIsActive, ...rest
 }: SiteRouteProps): JSX.Element {
   useEffect(() => {
     if (!height) {
@@ -77,6 +78,7 @@ export default function SiteRoute({
           </div>
           <Footer />
           { !isLogedIn && loginModalIsActive && <LoginModal /> }
+          { isLogedIn && notificationsModalIsActive && <NotificationsModal /> }
           <PlaybackInterface />
           { menuIsActive ? <MenuModal /> : <MenuBar /> }
         </div>
