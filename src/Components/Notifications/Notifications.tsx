@@ -1,6 +1,6 @@
 import React, { useEffect, UIEvent, useState } from 'react';
 import List from '../Common/List';
-import NotificationComponent from './Notification';
+import NotificationComponent from '../../Containers/Notifications/Notification';
 import { Notification } from '../../Models/Notification';
 
 export interface NotificationsProps {
@@ -8,10 +8,11 @@ export interface NotificationsProps {
   getNotifications: (offset: number) => void;
   nextOffset: number;
   morePages: boolean;
+  total: number;
 }
 
 function Notifications({
-  notifications, getNotifications, nextOffset, morePages,
+  notifications, getNotifications, nextOffset, morePages, total,
 }: NotificationsProps): JSX.Element {
   const [isFetching, setIsFetching] = useState(false);
   useEffect(() => {
@@ -23,7 +24,7 @@ function Notifications({
   const onScroll = (e: UIEvent): void => {
     if (
       (e.currentTarget.scrollTop) >= (e.currentTarget.scrollHeight - e.currentTarget.scrollHeight / 2)
-      && Array.isArray(notifications) && morePages && !isFetching
+      && Array.isArray(notifications) && morePages && !isFetching && nextOffset < total
     ) {
       setIsFetching(true);
       getNotifications(nextOffset);
@@ -36,7 +37,10 @@ function Notifications({
 
   return (
     <div className="notifications" onScroll={onScroll}>
-      <List component={NotificationComponent} data={notifications} />
+      { notifications.length > 0
+        ? <List component={NotificationComponent} data={notifications} />
+        : <p>You have no notifications</p>
+      }
     </div>
   );
 }

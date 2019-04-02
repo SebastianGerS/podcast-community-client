@@ -3,9 +3,10 @@ import { Notification } from '../../Models/Notification';
 
 interface Props {
   data: Notification;
+  deleteNotification: (notification: Notification) => void;
 }
 
-function NotificationComponent({ data }: Props): JSX.Element {
+function NotificationComponent({ data, deleteNotification }: Props): JSX.Element {
   const username = data.event.agent.item.username ? data.event.agent.item.username : '';
   const thumbnail = data.event.agent.item.profile_img ? data.event.agent.item.profile_img.thumb : '';
   let message;
@@ -28,7 +29,12 @@ function NotificationComponent({ data }: Props): JSX.Element {
 
   return (
     <div className={`notification ${data.observed ? 'observed' : 'unobserved'}`}>
-      <button className="remove-button" aria-label="remove-button" type="button" />
+      <button
+        className="remove-button"
+        aria-label="remove-button"
+        type="button"
+        onClick={() => deleteNotification(data)}
+      />
       <div>
         <figure>
           <img src={typeof thumbnail === 'string' ? thumbnail : ''} alt="profile_img" />

@@ -13,12 +13,14 @@ interface Props {
   notifications: Notification[];
   nextOffset: number;
   morePages: boolean;
+  total: number;
 }
 
 const mapStateToProps = ({ NotificationReducer }: State): Props => ({
   notifications: NotificationReducer.notifications,
   nextOffset: NotificationReducer.nextOffset,
   morePages: NotificationReducer.morePages,
+  total: NotificationReducer.total,
 });
 
 interface DispatchProps {
