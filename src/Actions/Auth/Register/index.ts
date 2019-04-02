@@ -8,6 +8,7 @@ import * as Auth from '../../../Helpers/Auth';
 import { validUserData, UserData } from '../Validation';
 import { userLogedin, UserLoginSuccess } from '../Login';
 import { setRedirect, SetRedirect } from '../../Redirect';
+import { openSocket } from '../../../Helpers/Sockets';
 
 interface UserRegistrationStart {
   type: ActionTypes.USER_REGISTRATION_START;
@@ -72,7 +73,8 @@ export const attemptRegister = (data: UserData): AttemptRegisterAction => async 
       dispatch(userRegistered());
       dispatch(setRedirect({ to: '/' }));
       const decoded = await Auth.verifytoken(response.token).catch(error => error);
-      if (Auth.getToken() && decoded.user) dispatch(userLogedin(decoded.user));
+      const socket = openSocket(decoded.user._id);
+      if (Auth.getToken() && decoded.user) dispatch(userLogedin(decoded.user, socket));
     }
   }
 };

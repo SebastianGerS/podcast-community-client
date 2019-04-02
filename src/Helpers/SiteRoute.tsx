@@ -46,6 +46,9 @@ export default function SiteRoute({
   useEffect(() => {
     checkIfLogedIn();
     unsetRedirect();
+    if (height === 0) {
+      setHeight(window.innerHeight);
+    }
   });
   const params = computedMatch ? computedMatch.params : undefined;
   /* eslint-disable  no-nested-ternary */

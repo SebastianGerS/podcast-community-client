@@ -8,6 +8,7 @@ import { validEmail, validPassword } from '../Validation';
 import config from '../../../Config/config';
 import * as Auth from '../../../Helpers/Auth';
 import { User } from '../../../Models/User';
+import { openSocket } from '../../../Helpers/Sockets';
 
 interface UserLoginStart {
   type: ActionTypes.USER_LOGIN_START;
@@ -20,12 +21,14 @@ export const startUserLogin = (): UserLoginStart => (
 export interface UserLoginSuccess {
   type: ActionTypes.USER_LOGIN_SUCCESS;
   user: User;
+  socket: any;
 }
 
-export const userLogedin = (user: User): UserLoginSuccess => (
+export const userLogedin = (user: User, socket: any): UserLoginSuccess => (
   {
     type: ActionTypes.USER_LOGIN_SUCCESS,
     user,
+    socket,
   }
 );
 
@@ -79,7 +82,8 @@ export const attemptLogin = (data: LoginData): AttemptLoginAction => async (
 
       const decoded = await Auth.verifytoken(response.token).catch(error => error);
       if (Auth.getToken() && decoded.user) {
-        dispatch(userLogedin(decoded.user));
+        const socket = openSocket(decoded.user._id);
+        dispatch(userLogedin(decoded.user, socket));
         dispatch(toggleLoginModal());
         attemptSetMessage({ text: 'You are now logedin', type: 'success' })(dispatch);
       }
