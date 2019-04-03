@@ -1,14 +1,20 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Notification } from '../../Models/Notification';
 
 interface Props {
   data: Notification;
   deleteNotification: (notification: Notification) => void;
+  updateNotification: (notificationId: string) => void;
+  toggleNotificationsModal: () => void;
 }
 
-function NotificationComponent({ data, deleteNotification }: Props): JSX.Element {
+function NotificationComponent({
+  data, deleteNotification, updateNotification, toggleNotificationsModal,
+}: Props): JSX.Element {
   const username = data.event.agent.item.username ? data.event.agent.item.username : '';
   const thumbnail = data.event.agent.item.profile_img ? data.event.agent.item.profile_img.thumb : '';
+
   let message;
 
   switch (data.event.type) {
@@ -26,6 +32,12 @@ function NotificationComponent({ data, deleteNotification }: Props): JSX.Element
       break;
   }
 
+  const update = (): void => {
+    if (!data.observed && typeof data._id === 'string') {
+      updateNotification(data._id);
+    }
+    toggleNotificationsModal();
+  };
 
   return (
     <div className={`notification ${data.observed ? 'observed' : 'unobserved'}`}>
@@ -35,14 +47,16 @@ function NotificationComponent({ data, deleteNotification }: Props): JSX.Element
         type="button"
         onClick={() => deleteNotification(data)}
       />
-      <div>
-        <figure>
-          <img src={typeof thumbnail === 'string' ? thumbnail : ''} alt="profile_img" />
-        </figure>
-        <p>
-          {message}
-        </p>
-      </div>
+      <Link to={`/profile/${data.event.agent.item._id}`} onClick={update}>
+        <div>
+          <figure>
+            <img src={typeof thumbnail === 'string' ? thumbnail : ''} alt="profile_img" />
+          </figure>
+          <p>
+            {message}
+          </p>
+        </div>
+      </Link>
     </div>
   );
 }
