@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../Assets/Icons/logo.svg';
+import NotificationsButton from '../../Containers/Notifications/NotificationsButton';
+import LoginButton from '../../Containers/Auth/LoginButton';
 
 interface Props {
-  toggleLogin: () => void;
   isLogedIn: boolean;
-  toggleNotifications: () => void;
 }
 
-const Header = ({ toggleLogin, isLogedIn, toggleNotifications }: Props): JSX.Element => (
+const Header = ({ isLogedIn }: Props): JSX.Element => (
   <header>
     <figure>
       <Link to="/"><img src={logo} className="logo" alt="logo" /></Link>
@@ -19,13 +19,10 @@ const Header = ({ toggleLogin, isLogedIn, toggleNotifications }: Props): JSX.Ele
         <p> – a podcast community</p>
       </Link>
     </div>
-    <div className={isLogedIn ? 'notifications-button' : 'login-button'}>
-      { isLogedIn
-        ? <button type="button" aria-label="toggle-notifications" onClick={toggleNotifications} />
-        : <button type="button" name="toggle-login-modal-button" onClick={toggleLogin}>Login</button>
-      }
-
-    </div>
+    { isLogedIn
+      ? <NotificationsButton />
+      : <LoginButton />
+    }
   </header>
 );
 

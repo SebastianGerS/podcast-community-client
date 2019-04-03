@@ -1,0 +1,47 @@
+.login-button {
+  padding: 0.8em 1em;
+
+  button {
+    font-size: 1em;
+    color: #2e2929;
+  }
+}
+
+@media only screen and (min-height: 320px) and (orientation: landscape) {
+  .login-button {
+    padding: 0.75em 1em;
+    min-width: 5em;
+  }
+}
+
+@media only screen and (min-width: 667px) and (orientation: portrait) {
+  .login-button {
+    padding: 1.3em 1em;
+    min-width: 5em;
+
+    button {
+      font-size: 1.5em;
+    }
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .login-button {
+    padding: 1.3em 1.5em;
+
+    button {
+      font-size: 1.5em;
+    }
+  }
+}
+
+@media only screen and (min-width: 1850px) {
+  .login-button {
+    padding: 1.3em 2em;
+    min-width: 7em;
+
+    button {
+      font-size: 2em;
+    }
+  }
+}
