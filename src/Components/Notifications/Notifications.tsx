@@ -15,11 +15,6 @@ function Notifications({
   notifications, getNotifications, nextOffset, morePages, total,
 }: NotificationsProps): JSX.Element {
   const [isFetching, setIsFetching] = useState(false);
-  useEffect(() => {
-    if (notifications.length === 0) {
-      getNotifications(nextOffset);
-    }
-  }, []);
 
   const onScroll = (e: UIEvent): void => {
     if (
@@ -39,7 +34,7 @@ function Notifications({
     <div className="notifications" onScroll={onScroll}>
       { notifications.length > 0
         ? <List component={NotificationComponent} data={notifications} />
-        : <p>You have no notifications</p>
+        : <div className="no-notifications"><p>You have no notifications</p></div>
       }
     </div>
   );
