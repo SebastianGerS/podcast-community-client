@@ -9,6 +9,7 @@ import config from '../../../Config/config';
 import * as Auth from '../../../Helpers/Auth';
 import { User } from '../../../Models/User';
 import { openSocket } from '../../../Helpers/Sockets';
+import { AddNewNotification } from '../../Notifications';
 
 interface UserLoginStart {
   type: ActionTypes.USER_LOGIN_START;
@@ -50,11 +51,11 @@ interface LoginData {
 }
 
 type AttemptLoginAction = (
-  dispatch: Dispatch<UserLoginAction | SetMessage | ToggleLoginModal>
+  dispatch: Dispatch<UserLoginAction | SetMessage | ToggleLoginModal | AddNewNotification>
 ) => Promise<void>
 
 export const attemptLogin = (data: LoginData): AttemptLoginAction => async (
-  dispatch: Dispatch<UserLoginAction | SetMessage | ToggleLoginModal>,
+  dispatch: Dispatch<UserLoginAction | SetMessage | ToggleLoginModal | AddNewNotification>,
 ): Promise<void> => {
   if (validEmail(data.email)(dispatch) && validPassword(data.password)(dispatch)) {
     dispatch(startUserLogin());
@@ -82,7 +83,8 @@ export const attemptLogin = (data: LoginData): AttemptLoginAction => async (
 
       const decoded = await Auth.verifytoken(response.token).catch(error => error);
       if (Auth.getToken() && decoded.user) {
-        const socket = openSocket(decoded.user._id);
+        const socket = openSocket(decoded.user._id, dispatch);
+
         dispatch(userLogedin(decoded.user, socket));
         dispatch(toggleLoginModal());
         attemptSetMessage({ text: 'You are now logedin', type: 'success' })(dispatch);

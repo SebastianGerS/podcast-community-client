@@ -9,6 +9,7 @@ import { validUserData, UserData } from '../Validation';
 import { userLogedin, UserLoginSuccess } from '../Login';
 import { setRedirect, SetRedirect } from '../../Redirect';
 import { openSocket } from '../../../Helpers/Sockets';
+import { AddNewNotification } from '../../Notifications';
 
 interface UserRegistrationStart {
   type: ActionTypes.USER_REGISTRATION_START;
@@ -38,7 +39,10 @@ export type UserRegistrationAction = UserRegistrationStart | UserRegistrationSuc
 
 export const register = (token: string): Promise<Response> => Fetch('/users', 'POST', token);
 
-export type AttemptRegisterActions = UserRegistrationAction | SetMessage | UserLoginSuccess | SetRedirect;
+export type AttemptRegisterActions = (
+  UserRegistrationAction | SetMessage | UserLoginSuccess | SetRedirect | AddNewNotification
+);
+
 type AttemptRegisterAction =(
   dispatch: Dispatch<AttemptRegisterActions>
 ) => Promise<void>;
@@ -73,7 +77,7 @@ export const attemptRegister = (data: UserData): AttemptRegisterAction => async 
       dispatch(userRegistered());
       dispatch(setRedirect({ to: '/' }));
       const decoded = await Auth.verifytoken(response.token).catch(error => error);
-      const socket = openSocket(decoded.user._id);
+      const socket = openSocket(decoded.user._id, dispatch);
       if (Auth.getToken() && decoded.user) dispatch(userLogedin(decoded.user, socket));
     }
   }

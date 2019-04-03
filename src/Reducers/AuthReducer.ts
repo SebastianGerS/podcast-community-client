@@ -62,6 +62,10 @@ export default function (state: AuthState = DEFAULT_STATE, action: AuthActions):
       return {
         ...state, user: new User(action.user),
       };
+    case ActionTypes.CREATE_SOCKET:
+      return {
+        ...state, socket: action.socket,
+      };
     default:
       return { ...state };
   }
