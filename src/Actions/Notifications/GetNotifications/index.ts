@@ -4,7 +4,6 @@ import * as ActionTypes from './types';
 import { Fetch, Response } from '../../../Helpers/Fetch';
 import { Notification } from '../../../Models/Notification';
 
-
 interface GetNotificationsStart {
   type: ActionTypes.GET_NOTIFICATIONS_START;
 }
@@ -19,6 +18,7 @@ interface NotificationResult {
   count: number;
   results: Notification[];
   total: number;
+  numberOfUnobserved: number;
 }
 
 interface GetNotificationsSuccess {
