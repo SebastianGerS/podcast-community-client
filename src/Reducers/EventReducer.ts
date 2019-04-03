@@ -42,7 +42,11 @@ export default function (state: EventState = DEFAULT_STATE, action: EventActions
       };
     case ActionTypes.CREATE_USER_EVENT_SUCCESS:
       return {
-        ...state, isCreatingUserEvent: false, isCreatingEvent: false, eventTargetUserId: '', createdEvent: action.event,
+        ...state,
+        isCreatingUserEvent: false,
+        isCreatingEvent: false,
+        eventTargetUserId: '',
+        createdEvent: action.event,
       };
     case ActionTypes.CREATE_USER_EVENT_FAILURE:
       return {

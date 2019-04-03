@@ -1,4 +1,4 @@
-import React, { MouseEvent, useState, useEffect } from 'react';
+import React, { MouseEvent, useState } from 'react';
 import { User } from '../../Models/User';
 import usePrevious from '../../Helpers/CustomHooks';
 import { Event } from '../../Models/Event';
@@ -11,12 +11,11 @@ interface Props{
   isCreatingUserEvent: boolean;
   eventTargetUserId: string;
   type: string;
-  socket: any;
   createdEvent: Event;
 }
 
 function FollowButton({
-  targetUser, currentUser, toggleFollows, isLogedIn, isCreatingUserEvent, type, eventTargetUserId, socket, createdEvent,
+  targetUser, currentUser, toggleFollows, isLogedIn, isCreatingUserEvent, type, eventTargetUserId, createdEvent,
 }: Props): JSX.Element {
   const [hasBeenToggledOn, sethasBeenToggledOn] = useState(false);
   const currentUserId = typeof currentUser._id === 'string' ? currentUser._id : '';
@@ -25,14 +24,6 @@ function FollowButton({
   const targetUserRequests = Array.isArray(targetUser.requests) ? targetUser.requests : [];
 
   const prevCurrentUserFollowing = usePrevious(currentUserFollowing);
-  const prevIsCreatingUserEvent = usePrevious(isCreatingUserEvent);
-
-  useEffect(() => {
-    if (prevIsCreatingUserEvent && !isCreatingUserEvent && isLogedIn && targetUserId === createdEvent.target.item
-      && (createdEvent.type === 'follow' || createdEvent.type === 'request')) {
-      socket.emit('user/notification', targetUserId);
-    }
-  }, [isCreatingUserEvent]);
 
   const requestSent = (
     hasBeenToggledOn
@@ -59,7 +50,7 @@ function FollowButton({
     text = 'Following';
   } else if (
     (targetUserRequests.includes(currentUserId) && !hasBeenToggledOn)
-    || (createdEvent.type === 'request' && targetUserId === eventTargetUserId)) {
+    || (createdEvent.type === 'request' && targetUserId === createdEvent.target.item)) {
     icon = 'icon-requested';
     text = 'Requested';
   } else {
