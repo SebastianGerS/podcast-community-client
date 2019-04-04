@@ -1,6 +1,7 @@
 import React, { MouseEvent, useState } from 'react';
 import { User } from '../../Models/User';
 import usePrevious from '../../Helpers/CustomHooks';
+import { Event } from '../../Models/Event';
 
 interface Props{
   targetUser: User;
@@ -10,10 +11,11 @@ interface Props{
   isCreatingUserEvent: boolean;
   eventTargetUserId: string;
   type: string;
+  createdEvent: Event;
 }
 
 function FollowButton({
-  targetUser, currentUser, toggleFollows, isLogedIn, isCreatingUserEvent, type, eventTargetUserId,
+  targetUser, currentUser, toggleFollows, isLogedIn, isCreatingUserEvent, type, eventTargetUserId, createdEvent,
 }: Props): JSX.Element {
   const [hasBeenToggledOn, sethasBeenToggledOn] = useState(false);
   const currentUserId = typeof currentUser._id === 'string' ? currentUser._id : '';
@@ -48,7 +50,7 @@ function FollowButton({
     text = 'Following';
   } else if (
     (targetUserRequests.includes(currentUserId) && !hasBeenToggledOn)
-    || (requestSent && !targetUserRequests.includes(currentUserId))) {
+    || (createdEvent.type === 'request' && targetUserId === createdEvent.target.item)) {
     icon = 'icon-requested';
     text = 'Requested';
   } else {

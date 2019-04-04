@@ -1,11 +1,13 @@
 import * as ActionTypes from '../Actions/Event/types';
 import { EventActions } from '../Actions/Event';
+import { Event } from '../Models/Event';
 
 export interface EventState {
   isToggelingSubscription: boolean;
   isCreatingEvent: boolean;
   isCreatingUserEvent: boolean;
   eventTargetUserId: string;
+  createdEvent: Event;
 }
 
 const DEFAULT_STATE: EventState = {
@@ -13,6 +15,7 @@ const DEFAULT_STATE: EventState = {
   isCreatingUserEvent: false,
   isCreatingEvent: false,
   eventTargetUserId: '',
+  createdEvent: new Event(),
 };
 
 export default function (state: EventState = DEFAULT_STATE, action: EventActions): EventState {
@@ -31,11 +34,19 @@ export default function (state: EventState = DEFAULT_STATE, action: EventActions
       };
     case ActionTypes.CREATE_USER_EVENT_START:
       return {
-        ...state, isCreatingUserEvent: true, isCreatingEvent: true, eventTargetUserId: action.eventTargetUserId,
+        ...state,
+        isCreatingUserEvent: true,
+        isCreatingEvent: true,
+        eventTargetUserId: action.eventTargetUserId,
+        createdEvent: new Event(),
       };
     case ActionTypes.CREATE_USER_EVENT_SUCCESS:
       return {
-        ...state, isCreatingUserEvent: false, isCreatingEvent: false, eventTargetUserId: '',
+        ...state,
+        isCreatingUserEvent: false,
+        isCreatingEvent: false,
+        eventTargetUserId: '',
+        createdEvent: action.event,
       };
     case ActionTypes.CREATE_USER_EVENT_FAILURE:
       return {

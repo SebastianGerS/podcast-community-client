@@ -9,12 +9,13 @@ interface Props {
   followers: User[];
   requests: User[];
   following: User[];
+  tabIndex: string | undefined;
 }
 
 function Follows({
-  user, followers, getFollows, requests, following,
+  user, followers, getFollows, requests, following, tabIndex,
 }: Props): JSX.Element {
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState(tabIndex ? +tabIndex : 0);
 
   useEffect(() => {
     getFollows();

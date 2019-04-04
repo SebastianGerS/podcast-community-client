@@ -1,0 +1,57 @@
+.notification {
+  display: flex;
+  flex-direction: column;
+  min-height: 90px;
+  width: 295px;
+  border-radius: 4px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  padding: 0.25em;
+  margin-bottom: 1em;
+
+  &.observed {
+    background-color: rgba(159, 205, 244, 0.29);
+  }
+
+  &.unobserved {
+    background-color: rgba(159, 205, 244, 0.75);
+  }
+
+  .remove-button {
+    width: 20px;
+    height: 20px;
+    margin-left: auto;
+    background-size: 20px;
+    background-image: url(../Icons/remove-white.svg);
+    background-repeat: no-repeat;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 100%;
+    margin-bottom: -1em;
+    z-index: 2;
+  }
+
+  figure {
+    width: 50px;
+    border-radius: 4px;
+
+    img {
+      width: 100%;
+    }
+
+    margin-right: 1em;
+  }
+
+  p {
+    margin-left: 0.5em;
+  }
+
+  div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0.5em 1em 0.5em 0.5em;
+  }
+}
+
+.notification:last-child {
+  margin-bottom: 0.25em;
+}

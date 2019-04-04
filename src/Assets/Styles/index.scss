@@ -14,6 +14,8 @@
 @import './Components/Playback/playback-interface.scss';
 @import './Components/Playback/progress-bar.scss';
 @import './Components/Auth/register-form.scss';
+@import './Components/Auth/login-form.scss';
+@import './Components//Auth/login-button.scss';
 @import './Components/Common/subscribe-button.scss';
 @import './Components/Common/modal.scss';
 @import './Components/Common/rating.scss';
@@ -24,7 +26,6 @@
 @import './Components/Common/error.scss';
 @import './Components/Common/multi-select.scss';
 @import './Components/Common/follow-button.scss';
-@import './Components/Auth/login-form.scss';
 @import './Components/Layout/menu.scss';
 @import './Components/Search/search-controlles.scss';
 @import './Components/Search/listable-user.scss';
@@ -44,6 +45,10 @@
 @import './Components/Admin/user-form.scss';
 @import './Components/Follows/follows.scss';
 @import './Components/Follows/request-confirmation.scss';
+@import './Components/Follows/remove-follower-button.scss';
+@import './Components/Notifications/notifications.scss';
+@import './Components/Notifications/notification.scss';
+@import './Components//Notifications//notifications-button.scss';
 @import './Views/home.scss';
 @import './Views/register.scss';
 @import './Views/search.scss';

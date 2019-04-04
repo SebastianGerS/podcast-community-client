@@ -1,7 +1,5 @@
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import Header from '../../Components/Layout/Header';
-import { toggleLoginModal, ToggleLoginModal } from '../../Actions/Modal';
 import { AuthState } from '../../Reducers/AuthReducer';
 
 interface State {
@@ -18,14 +16,4 @@ function mapStateToProps({ AuthReducer }: State): StateProps {
   };
 }
 
-interface DispatchProps {
-  toggleLogin: () => void;
-}
-
-function mapDispatchToProps(dispatch: Dispatch<ToggleLoginModal>): DispatchProps {
-  return {
-    toggleLogin: () => dispatch(toggleLoginModal()),
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps)(Header);

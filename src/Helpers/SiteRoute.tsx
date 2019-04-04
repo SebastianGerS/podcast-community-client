@@ -8,7 +8,8 @@ import MenuModal from '../Components/Layout/MenuModal';
 import LoginModal from '../Components/Auth/LoginModal';
 import MenuBar from '../Containers/Layout/MenuBar';
 import MessageInterface from '../Containers/Message/MessageInterface';
-
+import NotificationsModal from '../Components/Notifications/NotificationsModal';
+import { Notification } from '../Models/Notification';
 
 interface SiteRouteProps extends RouteProps{
   routeType: string;
@@ -16,6 +17,7 @@ interface SiteRouteProps extends RouteProps{
   path?: string;
   menuIsActive: boolean;
   loginModalIsActive: boolean;
+  notificationsModalIsActive: boolean;
   isLogedIn: boolean;
   isAdmin: boolean;
   computedMatch?: {
@@ -29,23 +31,45 @@ interface SiteRouteProps extends RouteProps{
   height: number;
   checkIfResized: () => void;
   unsetRedirect: () => void;
+  notifications: Notification[];
+  getNotifications: (offset: number) => void;
+  socket: any;
+  createSocket: (userId: string) => void;
+  userId: string;
 }
 
 export default function SiteRoute({
   routeType, component: Component, path, menuIsActive, loginModalIsActive, isLogedIn, isAdmin,
-  computedMatch, checkIfLogedIn, setHeight, height, checkIfResized, unsetRedirect, ...rest
+  computedMatch, checkIfLogedIn, setHeight, height, checkIfResized, unsetRedirect,
+  notificationsModalIsActive, notifications, getNotifications, socket, createSocket, userId, ...rest
 }: SiteRouteProps): JSX.Element {
   useEffect(() => {
     if (!height) {
       setHeight(window.innerHeight);
       checkIfResized();
     }
+    if (isLogedIn) {
+      getNotifications(0);
+    }
   }, []);
 
   useEffect(() => {
     checkIfLogedIn();
     unsetRedirect();
+    if (height === 0) {
+      setHeight(window.innerHeight);
+    }
   });
+
+  useEffect(() => {
+    if (isLogedIn && !socket) {
+      createSocket(userId);
+    }
+    if (notifications.length === 0 && isLogedIn) {
+      getNotifications(0);
+    }
+  }, [isLogedIn]);
+
   const params = computedMatch ? computedMatch.params : undefined;
   /* eslint-disable  no-nested-ternary */
   return (
@@ -77,6 +101,7 @@ export default function SiteRoute({
           </div>
           <Footer />
           { !isLogedIn && loginModalIsActive && <LoginModal /> }
+          { isLogedIn && notificationsModalIsActive && <NotificationsModal /> }
           <PlaybackInterface />
           { menuIsActive ? <MenuModal /> : <MenuBar /> }
         </div>

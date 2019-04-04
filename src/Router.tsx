@@ -54,7 +54,7 @@ const Router = (): JSX.Element => (
         component={Views.Settings}
       />
       <SiteRoute
-        path="/follows"
+        path="/follows/:tabIndex?"
         routeType="PROTECTED"
         component={Views.Follows}
       />

@@ -10,8 +10,10 @@ interface Props {
 
 function TopPodcasts({ getTopPodcasts, topPodcasts }: Props): JSX.Element | null {
   useEffect(() => {
-    getTopPodcasts();
-  }, []);
+    if (typeof topPodcasts[0].id !== 'string') {
+      getTopPodcasts();
+    }
+  }, [topPodcasts]);
 
   return typeof topPodcasts[0].id === 'string' ? (
     <div>
