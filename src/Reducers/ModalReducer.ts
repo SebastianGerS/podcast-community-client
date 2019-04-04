@@ -7,6 +7,7 @@ export interface ModalState {
   menuIsActive: boolean;
   userModalIsActive: boolean;
   notificationsModalIsActive: boolean;
+  moreOptionsModalIsActive: boolean;
   height: number;
 }
 
@@ -16,6 +17,7 @@ const DEFAULT_STATE: ModalState = {
   menuIsActive: false,
   userModalIsActive: false,
   notificationsModalIsActive: false,
+  moreOptionsModalIsActive: false,
   height: 0,
 };
 
@@ -29,24 +31,27 @@ export default function Modal(state: ModalState = DEFAULT_STATE, action: ModalAc
         menuIsActive: false,
         userModalIsActive: false,
         notificationsModalIsActive: false,
+        moreOptionsModalIsActive: false,
       };
     case ActionTypes.TOGGLE_PLAYBACK_MODAL:
       return {
         ...state,
         loginModalIsActive: false,
-        userModalIsActive: false,
         playbackModalIsActive: !state.playbackModalIsActive,
         menuIsActive: false,
+        userModalIsActive: false,
         notificationsModalIsActive: false,
+        moreOptionsModalIsActive: false,
       };
     case ActionTypes.TOGGLE_MENU:
       return {
         ...state,
         loginModalIsActive: false,
         playbackModalIsActive: false,
-        userModalIsActive: false,
         menuIsActive: !state.menuIsActive,
+        userModalIsActive: false,
         notificationsModalIsActive: false,
+        moreOptionsModalIsActive: false,
       };
     case ActionTypes.TOGGLE_USER_MODAL:
       return {
@@ -56,6 +61,7 @@ export default function Modal(state: ModalState = DEFAULT_STATE, action: ModalAc
         menuIsActive: false,
         userModalIsActive: !state.userModalIsActive,
         notificationsModalIsActive: false,
+        moreOptionsModalIsActive: false,
       };
     case ActionTypes.TOGGLE_NOTIFICATIONS_MODAL:
       return {
@@ -65,7 +71,17 @@ export default function Modal(state: ModalState = DEFAULT_STATE, action: ModalAc
         menuIsActive: false,
         userModalIsActive: false,
         notificationsModalIsActive: !state.notificationsModalIsActive,
-
+        moreOptionsModalIsActive: false,
+      };
+    case ActionTypes.TOGGLE_MORE_OPTIONS_MODAL:
+      return {
+        ...state,
+        loginModalIsActive: false,
+        playbackModalIsActive: false,
+        menuIsActive: false,
+        userModalIsActive: false,
+        notificationsModalIsActive: false,
+        moreOptionsModalIsActive: !state.moreOptionsModalIsActive,
       };
     case ActionTypes.SET_HEIGHT:
       return {

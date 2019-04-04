@@ -4,7 +4,7 @@ import Star from '../../Assets/Icons/star.svg';
 import { getDatefromMilisecond, getSecondsFromTimeString } from '../../Helpers/Time';
 import DownloadButton from '../../Containers/Common/DownloadButton';
 import { Episode } from '../../Models/Episode';
-import MoreOptionsButton from '../Common/MoreOptionsButton';
+import MoreOptionsButton from '../../Containers/Common/MoreOptions/MoreOptionsButton';
 import PlayButton from '../../Containers/Common/PlayButton';
 import InfoBox from '../Common/InfoBox';
 

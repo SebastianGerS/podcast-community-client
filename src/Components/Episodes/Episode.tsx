@@ -3,7 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { Episode } from '../../Models/Episode';
 import PlayButton from '../../Containers/Common/PlayButton';
 import Rating from '../Common/Rating';
-import MoreOptionsButton from '../Common/MoreOptionsButton';
+import MoreOptionsButton from '../../Containers/Common/MoreOptions/MoreOptionsButton';
 import InfoBox from '../Common/InfoBox';
 import Star from '../../Assets/Icons/star.svg';
 import { getDatefromMilisecond } from '../../Helpers/Time';

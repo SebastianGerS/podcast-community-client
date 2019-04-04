@@ -10,6 +10,7 @@ import MenuBar from '../Containers/Layout/MenuBar';
 import MessageInterface from '../Containers/Message/MessageInterface';
 import NotificationsModal from '../Components/Notifications/NotificationsModal';
 import { Notification } from '../Models/Notification';
+import MoreOptionsModal from '../Components/Common/MoreOptions/MoreOptionsModal';
 
 interface SiteRouteProps extends RouteProps{
   routeType: string;
@@ -18,6 +19,7 @@ interface SiteRouteProps extends RouteProps{
   menuIsActive: boolean;
   loginModalIsActive: boolean;
   notificationsModalIsActive: boolean;
+  moreOptionsModalIsActive: boolean;
   isLogedIn: boolean;
   isAdmin: boolean;
   computedMatch?: {
@@ -40,7 +42,7 @@ interface SiteRouteProps extends RouteProps{
 
 export default function SiteRoute({
   routeType, component: Component, path, menuIsActive, loginModalIsActive, isLogedIn, isAdmin,
-  computedMatch, checkIfLogedIn, setHeight, height, checkIfResized, unsetRedirect,
+  computedMatch, checkIfLogedIn, setHeight, height, checkIfResized, unsetRedirect, moreOptionsModalIsActive,
   notificationsModalIsActive, notifications, getNotifications, socket, createSocket, userId, ...rest
 }: SiteRouteProps): JSX.Element {
   useEffect(() => {
@@ -102,6 +104,7 @@ export default function SiteRoute({
           <Footer />
           { !isLogedIn && loginModalIsActive && <LoginModal /> }
           { isLogedIn && notificationsModalIsActive && <NotificationsModal /> }
+          { isLogedIn && moreOptionsModalIsActive && <MoreOptionsModal />}
           <PlaybackInterface />
           { menuIsActive ? <MenuModal /> : <MenuBar /> }
         </div>

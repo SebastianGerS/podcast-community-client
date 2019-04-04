@@ -41,6 +41,14 @@ export const toggleNotificationsModal = (): ToggleNotificationsModal => ({
   type: ActionTypes.TOGGLE_NOTIFICATIONS_MODAL,
 });
 
+export interface ToggleMoreOptionsModal {
+  type: ActionTypes.TOGGLE_MORE_OPTIONS_MODAL;
+}
+
+export const toggleMoreOptionsModal = (): ToggleMoreOptionsModal => ({
+  type: ActionTypes.TOGGLE_MORE_OPTIONS_MODAL,
+});
+
 export interface SetHeight {
   type: ActionTypes.SET_HEIGHT;
   height: number;
@@ -60,5 +68,6 @@ export const checkIfResized = (): CheckIfResizedAction => (dispatch: Dispatch<Se
 };
 
 export type ModalActions = (
-  ToggleLoginModal | ToggleMenu | TogglePlaybackModal | ToggleUserModal | ToggleNotificationsModal | SetHeight
+  ToggleLoginModal | ToggleMenu | TogglePlaybackModal | ToggleUserModal
+  | ToggleNotificationsModal | ToggleMoreOptionsModal | SetHeight
 );
