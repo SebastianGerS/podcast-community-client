@@ -96,3 +96,7 @@ export const attemptRejectFollowRequest = (
 export const attemptToggleFollows = (
   (targetUserId: string): AttemptCreateUserEvent => attemptCreateUserEvent('follows', targetUserId)
 );
+
+export const attemptRemoveFollower = (
+  (targetUserId: string): AttemptCreateUserEvent => attemptCreateUserEvent('remove', targetUserId)
+);
