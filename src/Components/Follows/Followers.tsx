@@ -1,7 +1,7 @@
 import React from 'react';
 import { User } from '../../Models/User';
-import ListableUser from '../Search/ListableUser';
 import List from '../Common/List';
+import Follower from './Follower';
 
 interface Props {
   followers: User[];
@@ -16,14 +16,14 @@ function Followers({ followers, requests }: Props): JSX.Element {
       { requests.length !== 0 && (
         <div className="requests">
           <h3>Requests: </h3>
-          <List component={ListableUser} data={requests} {...props} />
+          <List component={Follower} data={requests} {...props} />
         </div>
       )
       }
       <div className="followers">
         <h3>Followers: </h3>
         {followers.length !== 0
-          ? <List component={ListableUser} data={followers} />
+          ? <List component={Follower} data={followers} />
           : <p>{'You don\'t have any followers yeat'}</p>}
       </div>
     </div>
