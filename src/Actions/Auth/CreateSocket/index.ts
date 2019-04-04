@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux';
 import * as ActionTypes from './types';
 import { openSocket } from '../../../Helpers/Sockets';
-import { AddNewNotification } from '../../Notifications';
+import { AddNotificationActions } from '../../Notifications';
 
 export interface CreateSocket {
   type: ActionTypes.CREATE_SOCKET;
@@ -13,9 +13,10 @@ const createSocket = (socket: any): CreateSocket => ({
   socket,
 });
 
-type AttemptCreateSocketAction = (dispatch: Dispatch<CreateSocket | AddNewNotification>) => void;
+type AttemptCreateSocketAction = (dispatch: Dispatch<CreateSocket | AddNotificationActions>) => void;
+
 export const attemptCreateSocket = (userId: string): AttemptCreateSocketAction => (
-  dispatch: Dispatch<CreateSocket | AddNewNotification>,
+  dispatch: Dispatch<CreateSocket | AddNotificationActions>,
 ): void => {
   const socket = openSocket(userId, dispatch);
   dispatch(createSocket(socket));

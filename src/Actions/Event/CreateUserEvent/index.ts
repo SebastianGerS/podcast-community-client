@@ -47,7 +47,6 @@ export const attemptCreateUserEvent = (
   dispatch: Dispatch<CreateUserEventActions>,
 ): Promise<void> => {
   dispatch(startCreateUserEvent(targetUserId));
-
   const event = {
     target: {
       kind: 'User',

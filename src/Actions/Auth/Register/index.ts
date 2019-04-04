@@ -9,7 +9,7 @@ import { validUserData, UserData } from '../Validation';
 import { userLogedin, UserLoginSuccess } from '../Login';
 import { setRedirect, SetRedirect } from '../../Redirect';
 import { openSocket } from '../../../Helpers/Sockets';
-import { AddNewNotification } from '../../Notifications';
+import { AddNotificationActions } from '../../Notifications';
 
 interface UserRegistrationStart {
   type: ActionTypes.USER_REGISTRATION_START;
@@ -40,7 +40,7 @@ export type UserRegistrationAction = UserRegistrationStart | UserRegistrationSuc
 export const register = (token: string): Promise<Response> => Fetch('/users', 'POST', token);
 
 export type AttemptRegisterActions = (
-  UserRegistrationAction | SetMessage | UserLoginSuccess | SetRedirect | AddNewNotification
+  UserRegistrationAction | SetMessage | UserLoginSuccess | SetRedirect | AddNotificationActions
 );
 
 type AttemptRegisterAction =(

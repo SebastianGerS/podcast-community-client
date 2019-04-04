@@ -1,10 +1,10 @@
 import { GetNotificationsAction } from './GetNotifications';
 import { DeleteNotificationAction } from './DeleteNotification';
-import { AddNewNotification } from './AddNewNotification';
+import { AddNotificationActions } from './AddNewNotification';
 import { UpdateNotificationAction } from './UpdateNotification';
 
 export type NotificationActions = (
-  GetNotificationsAction | DeleteNotificationAction | AddNewNotification | UpdateNotificationAction
+  GetNotificationsAction | DeleteNotificationAction | AddNotificationActions | UpdateNotificationAction
 );
 
 export * from './GetNotifications';

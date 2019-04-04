@@ -17,7 +17,6 @@ interface StateProps {
   eventTargetUserId: string;
   currentUser: User;
   isLogedIn: boolean;
-  socket: any;
   createdEvent: Event;
 }
 
@@ -27,7 +26,6 @@ function mapStateToProps({ EventReducer, AuthReducer }: State): StateProps {
     eventTargetUserId: EventReducer.eventTargetUserId,
     currentUser: AuthReducer.user,
     isLogedIn: AuthReducer.isLogedIn,
-    socket: AuthReducer.socket,
     createdEvent: EventReducer.createdEvent,
   };
 }

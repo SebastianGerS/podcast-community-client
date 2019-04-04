@@ -8,7 +8,7 @@ import { checkIfResized, setHeight, SetHeight } from '../../Actions/Modal';
 import { AuthState } from '../../Reducers/AuthReducer';
 import { ModalState } from '../../Reducers/ModalReducer';
 import { UnsetRedirect, unsetRedirect } from '../../Actions/Redirect';
-import { GetNotificationsAction, attemptGetNotifications, AddNewNotification } from '../../Actions/Notifications';
+import { GetNotificationsAction, attemptGetNotifications, AddNotificationActions } from '../../Actions/Notifications';
 import { NotificationState } from '../../Reducers/NotificationReducer';
 import { Notification } from '../../Models/Notification';
 
@@ -45,7 +45,8 @@ function mapStateToProps({ AuthReducer, ModalReducer, NotificationReducer }: Sta
 }
 
 type SiteRouteActions = (
-  UserLogoutSuccess | IsLogedIn | SetHeight | UnsetRedirect | GetNotificationsAction | CreateSocket | AddNewNotification
+  UserLogoutSuccess | IsLogedIn | SetHeight | UnsetRedirect
+  | GetNotificationsAction | CreateSocket | AddNotificationActions
 );
 
 interface DispatchProps {

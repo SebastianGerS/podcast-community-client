@@ -9,7 +9,7 @@ import config from '../../../Config/config';
 import * as Auth from '../../../Helpers/Auth';
 import { User } from '../../../Models/User';
 import { openSocket } from '../../../Helpers/Sockets';
-import { AddNewNotification } from '../../Notifications';
+import { AddNotificationActions } from '../../Notifications';
 
 interface UserLoginStart {
   type: ActionTypes.USER_LOGIN_START;
@@ -51,11 +51,11 @@ interface LoginData {
 }
 
 type AttemptLoginAction = (
-  dispatch: Dispatch<UserLoginAction | SetMessage | ToggleLoginModal | AddNewNotification>
+  dispatch: Dispatch<UserLoginAction | SetMessage | ToggleLoginModal | AddNotificationActions>
 ) => Promise<void>
 
 export const attemptLogin = (data: LoginData): AttemptLoginAction => async (
-  dispatch: Dispatch<UserLoginAction | SetMessage | ToggleLoginModal | AddNewNotification>,
+  dispatch: Dispatch<UserLoginAction | SetMessage | ToggleLoginModal | AddNotificationActions>,
 ): Promise<void> => {
   if (validEmail(data.email)(dispatch) && validPassword(data.password)(dispatch)) {
     dispatch(startUserLogin());

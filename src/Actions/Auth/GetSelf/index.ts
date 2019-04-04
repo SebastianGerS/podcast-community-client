@@ -31,7 +31,7 @@ export const attemptGetSelf = (): AttemptGetSelfAction => async (
       },
     )(dispatch);
   }
-
+  console.log(response);
   if (response.error) {
     const text = response.message ? response.message : response.error.errmsg;
 

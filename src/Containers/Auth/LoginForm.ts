@@ -4,13 +4,13 @@ import LoginForm from '../../Components/Auth/LoginForm';
 import { attemptLogin, UserLoginAction, UserData } from '../../Actions/Auth';
 import { SetMessage } from '../../Actions/Message';
 import { ToggleLoginModal } from '../../Actions/Modal';
-import { AddNewNotification } from '../../Actions/Notifications';
+import { AddNotificationActions } from '../../Actions/Notifications';
 
 interface DispatchProps {
   attemptLogin: (data: UserData) => void;
 }
 
-type LoginFormActions = UserLoginAction | SetMessage | ToggleLoginModal | AddNewNotification
+type LoginFormActions = UserLoginAction | SetMessage | ToggleLoginModal | AddNotificationActions;
 
 function mapDispatchToProps(dispatch: Dispatch<LoginFormActions>): DispatchProps {
   return {
