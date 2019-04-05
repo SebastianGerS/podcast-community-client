@@ -1,4 +1,5 @@
 import { Record } from 'immutable';
+import { EventItem } from './EventItem';
 
 export interface Event {
   _id: string | StringConstructor;
@@ -12,14 +13,8 @@ export interface Event {
     };
     kind: string | StringConstructor;
   };
-  target: {
-    item: string | StringConstructor;
-    kind: string | StringConstructor;
-  };
-  object: {
-    item: string | StringConstructor;
-    kind: string | StringConstructor;
-  };
+  target: EventItem;
+  object: EventItem;
   type: string | StringConstructor;
   date: string | StringConstructor;
 }
@@ -32,14 +27,8 @@ export const Event = Record<Event>({
     },
     kind: String,
   },
-  target: {
-    item: String,
-    kind: String,
-  },
-  object: {
-    item: String,
-    kind: String,
-  },
+  target: new EventItem(),
+  object: new EventItem(),
   type: String,
   date: String,
 });
