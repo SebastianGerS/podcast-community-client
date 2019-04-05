@@ -11,6 +11,7 @@ import MessageInterface from '../Containers/Message/MessageInterface';
 import NotificationsModal from '../Components/Notifications/NotificationsModal';
 import { Notification } from '../Models/Notification';
 import MoreOptionsModal from '../Components/Common/MoreOptions/MoreOptionsModal';
+import RecommendToUserModal from '../Components/Common/MoreOptions/RecommendToUserModal';
 
 interface SiteRouteProps extends RouteProps{
   routeType: string;
@@ -20,6 +21,7 @@ interface SiteRouteProps extends RouteProps{
   loginModalIsActive: boolean;
   notificationsModalIsActive: boolean;
   moreOptionsModalIsActive: boolean;
+  recommendToUserModalIsActive: boolean;
   isLogedIn: boolean;
   isAdmin: boolean;
   computedMatch?: {
@@ -38,12 +40,14 @@ interface SiteRouteProps extends RouteProps{
   socket: any;
   createSocket: (userId: string) => void;
   userId: string;
+  getFollows: () => void;
 }
 
 export default function SiteRoute({
   routeType, component: Component, path, menuIsActive, loginModalIsActive, isLogedIn, isAdmin,
   computedMatch, checkIfLogedIn, setHeight, height, checkIfResized, unsetRedirect, moreOptionsModalIsActive,
-  notificationsModalIsActive, notifications, getNotifications, socket, createSocket, userId, ...rest
+  notificationsModalIsActive, notifications, getNotifications, socket, createSocket, userId, getFollows,
+  recommendToUserModalIsActive, ...rest
 }: SiteRouteProps): JSX.Element {
   useEffect(() => {
     if (!height) {
@@ -52,6 +56,7 @@ export default function SiteRoute({
     }
     if (isLogedIn) {
       getNotifications(0);
+      getFollows();
     }
   }, []);
 
@@ -69,6 +74,9 @@ export default function SiteRoute({
     }
     if (notifications.length === 0 && isLogedIn) {
       getNotifications(0);
+    }
+    if (isLogedIn) {
+      getFollows();
     }
   }, [isLogedIn]);
 
@@ -105,6 +113,7 @@ export default function SiteRoute({
           { !isLogedIn && loginModalIsActive && <LoginModal /> }
           { isLogedIn && notificationsModalIsActive && <NotificationsModal /> }
           { isLogedIn && moreOptionsModalIsActive && <MoreOptionsModal />}
+          { isLogedIn && recommendToUserModalIsActive && <RecommendToUserModal />}
           <PlaybackInterface />
           { menuIsActive ? <MenuModal /> : <MenuBar /> }
         </div>

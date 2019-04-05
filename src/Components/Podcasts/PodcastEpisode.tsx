@@ -41,7 +41,7 @@ function PodcastEpisode({ data }: Props): JSX.Element {
       <div className="listable-episode-controls">
         <DownloadButton episode={data} />
         <PlayButton episode={data} />
-        <MoreOptionsButton />
+        <MoreOptionsButton item={data} />
       </div>
     </div>
   );

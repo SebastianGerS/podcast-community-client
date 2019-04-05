@@ -1,14 +1,37 @@
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import MoreOptionsMenu from '../../../Components/Common/MoreOptions/MoreOptionsMenu';
-import { toggleMoreOptionsModal, ToggleMoreOptionsModal } from '../../../Actions/Modal/index';
+import {
+  setAndToggleMoreOptionsModal, SetAndToggleActions, toggleRecommendToUserModal, ToggleRecommendToUserModal,
+} from '../../../Actions/Modal/index';
+import { MoreOptionsState } from '../../../Reducers/MoreOptionsReducer';
+import { Episode } from '../../../Models/Episode';
+import { Podcast } from '../../../Models/Podcast';
 
-interface DispatchProps {
-  toggleMoreOptionsModal: () => void;
+interface State {
+  MoreOptionsReducer: MoreOptionsState;
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<ToggleMoreOptionsModal>): DispatchProps => ({
-  toggleMoreOptionsModal: () => dispatch(toggleMoreOptionsModal()),
+interface Props {
+  episode?: Episode;
+  podcast?: Podcast;
+}
+
+const mapStateToProps = ({ MoreOptionsReducer }: State): Props => ({
+  episode: MoreOptionsReducer.episode,
+  podcast: MoreOptionsReducer.podcast,
 });
 
-export default connect(null, mapDispatchToProps)(MoreOptionsMenu);
+interface DispatchProps {
+  setAndToggleMoreOptionsModal: () => void;
+  toggleRecommendToUserModal: () => void;
+}
+
+type MoreOptionsMenuActions = SetAndToggleActions | ToggleRecommendToUserModal;
+
+const mapDispatchToProps = (dispatch: Dispatch<MoreOptionsMenuActions>): DispatchProps => ({
+  setAndToggleMoreOptionsModal: () => setAndToggleMoreOptionsModal()(dispatch),
+  toggleRecommendToUserModal: () => dispatch(toggleRecommendToUserModal()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MoreOptionsMenu);

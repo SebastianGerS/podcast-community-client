@@ -68,7 +68,7 @@ function EpisodeComponent({
       <div className="episode-controls">
         <Rating />
         <PlayButton episode={episode} />
-        <MoreOptionsButton />
+        <MoreOptionsButton item={episode} />
       </div>
       <Link to={`/podcasts/${podcastId}`}>
         <button className="episode-go-to-podcast" type="button">Go to Podcast</button>

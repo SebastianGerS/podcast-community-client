@@ -67,7 +67,7 @@ function PodcastComponent({
       <div className="podcast-controls">
         <Rating />
         <SubscribeButton podcastId={podcastId} />
-        <MoreOptionsButton />
+        <MoreOptionsButton item={podcast} />
       </div>
       <Episodes podcastTitle={title} podcastId={podcastId} />
     </div>

@@ -31,6 +31,11 @@ function NotificationComponent({
       message = `${username} is now following you`;
       linkTo = `/profile/${data.event.agent.item._id}`;
       break;
+    case 'recommend':
+      message = `${username} recomended an podcast or episode to you`;
+      const type = data.event.object.kind === 'Episode' ? 'episodes' : 'podcasts';
+      linkTo = `/${type}/${data.event.object.item}`;
+      break;
     default:
       message = '';
       linkTo = '';
