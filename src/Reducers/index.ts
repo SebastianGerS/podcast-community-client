@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import * as ActionTypes from '../Actions/Auth/types';
+import { AuthActions } from '../Actions/Auth';
 import AuthReducer from './AuthReducer';
 import SearchReducer from './SearchReducer';
 import MessageReducer from './MessageReducer';
@@ -12,8 +13,7 @@ import AdminReducer from './AdminReducer';
 import EpisodeReducer from './EpisodeReducer';
 import RedirectReducer from './RedirectReducer';
 import NotificationReducer from './NotificationReducer';
-import { AuthActions } from '../Actions/Auth';
-
+import MoreOptionsReducer from './MoreOptionsReducer';
 
 const AppReducer = combineReducers({
   AuthReducer,
@@ -28,6 +28,7 @@ const AppReducer = combineReducers({
   EpisodeReducer,
   RedirectReducer,
   NotificationReducer,
+  MoreOptionsReducer,
 });
 
 export default function RootReducer(state: any, action: AuthActions): any {

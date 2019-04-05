@@ -23,13 +23,13 @@ export const stop = (): StopPlayback => ({
 });
 
 export interface SetEpisode {
-  type: ActionTypes.SET_EPISODE;
+  type: ActionTypes.SET_PLAYER_EPISODE;
   episode: Episode;
   src: string;
 }
 
 export const selectEpisode = (episode: Episode, src: string): SetEpisode => ({
-  type: ActionTypes.SET_EPISODE,
+  type: ActionTypes.SET_PLAYER_EPISODE,
   episode,
   src,
 });
