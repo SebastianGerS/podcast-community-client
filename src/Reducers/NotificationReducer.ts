@@ -41,7 +41,7 @@ export default function (state: NotificationState = DEFAULT_STATE, action: Notif
         nextOffset: action.data.next_offset,
         morePages: action.data.morePages,
         total: action.data.total,
-        numberOfUnobserved: state.numberOfUnobserved + action.data.numberOfUnobserved,
+        numberOfUnobserved: action.data.numberOfUnobserved,
       };
     case ActionTypes.GET_NOTIFICATIONS_FAILURE:
       return {

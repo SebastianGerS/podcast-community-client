@@ -28,12 +28,16 @@ function RecommendToUser({
       : item.podcast_title_original
     : undefined;
   const itemId = item ? typeof item.id === 'string' ? item.id : '' : '';
+  const image = item ? typeof item.image === 'string' ? item.image : '' : '';
 
   const recommend = (): void => {
     if (selectedUserId !== undefined) {
       const recommendation = {
         item: itemId,
         kind: item instanceof Episode ? 'Episode' : 'Podcast',
+        image,
+        title,
+        podcast_title: episodePodcastTitle,
       };
       recommendToUser(selectedUserId, recommendation);
     }

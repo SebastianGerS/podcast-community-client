@@ -12,33 +12,42 @@ interface Props {
 function NotificationComponent({
   data, deleteNotification, updateNotification, toggleNotificationsModal,
 }: Props): JSX.Element {
-  const username = data.event.agent.item.username ? data.event.agent.item.username : '';
-  const thumbnail = data.event.agent.item.profile_img ? data.event.agent.item.profile_img.thumb : '';
+  const { agent, object, type } = data.event;
+  const username = agent.item.username ? agent.item.username : '';
+  let thumbnail = agent.item.profile_img ? agent.item.profile_img.thumb : '';
 
   let message;
   let linkTo;
 
-  switch (data.event.type) {
+  switch (type) {
     case 'request':
       message = `${username} wants to follow you`;
       linkTo = '/follows/1';
       break;
     case 'confirm':
       message = `you are now following ${username}`;
-      linkTo = `/profile/${data.event.agent.item._id}`;
+      linkTo = `/profile/${agent.item._id}`;
       break;
     case 'follow':
       message = `${username} is now following you`;
-      linkTo = `/profile/${data.event.agent.item._id}`;
+      linkTo = `/profile/${agent.item._id}`;
       break;
     case 'recommend':
-      message = `${username} recomended an podcast or episode to you`;
-      const type = data.event.object.kind === 'Episode' ? 'episodes' : 'podcasts';
-      linkTo = `/${type}/${data.event.object.item}`;
+      const {
+        title, kind, item, image,
+      } = object;
+
+      message = kind === 'Episode'
+        ? `${username} recomended: ${title} from the podcast – ${object.podcast_title}`
+        : `${username} recomended: ${title}`;
+
+      linkTo = `/${kind === 'Episode' ? 'episodes' : 'podcasts'}/${item}`;
+      thumbnail = image || '';
       break;
     default:
       message = '';
       linkTo = '';
+      thumbnail = '';
       break;
   }
 
