@@ -4,7 +4,7 @@ import { getDatefromMilisecond } from '../../Helpers/Time';
 import { Podcast } from '../../Models/Podcast';
 import SubscribeButton from '../../Containers/Common/SubscribeButton';
 import Rating from '../Common/Rating';
-import MoreOptionsButton from '../Common/MoreOptionsButton';
+import MoreOptionsButton from '../../Containers/Common/MoreOptions/MoreOptionsButton';
 
 interface Props {
   data: Podcast;
@@ -65,7 +65,7 @@ function ListablePodcast({ data }: Props): JSX.Element {
       <div>
         <Rating />
         <SubscribeButton podcastId={podcastId} />
-        <MoreOptionsButton />
+        <MoreOptionsButton item={data} />
       </div>
     </div>
   );

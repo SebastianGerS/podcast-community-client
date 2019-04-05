@@ -4,7 +4,7 @@ import { Podcast } from '../../Models/Podcast';
 import Loader from '../Layout/Loader';
 import SubscribeButton from '../../Containers/Common/SubscribeButton';
 import Rating from '../Common/Rating';
-import MoreOptionsButton from '../Common/MoreOptionsButton';
+import MoreOptionsButton from '../../Containers/Common/MoreOptions/MoreOptionsButton';
 import Episodes from '../../Containers/Podcasts/Episodes';
 import usePrevious from '../../Helpers/CustomHooks';
 import { RedirectModel } from '../../Models/Redirect';
@@ -67,7 +67,7 @@ function PodcastComponent({
       <div className="podcast-controls">
         <Rating />
         <SubscribeButton podcastId={podcastId} />
-        <MoreOptionsButton />
+        <MoreOptionsButton item={podcast} />
       </div>
       <Episodes podcastTitle={title} podcastId={podcastId} />
     </div>

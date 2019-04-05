@@ -1,5 +1,11 @@
 import { Dispatch } from 'redux';
 import * as ActionTypes from './types';
+import { Episode } from '../../Models/Episode';
+import { Podcast } from '../../Models/Podcast';
+import {
+  setEpisode, SetEpisode, setPodcast, SetPodcast,
+} from '../MoreOptions';
+
 
 export interface ToggleLoginModal {
   type: ActionTypes.TOGGLE_LOGIN_MODAL;
@@ -41,6 +47,22 @@ export const toggleNotificationsModal = (): ToggleNotificationsModal => ({
   type: ActionTypes.TOGGLE_NOTIFICATIONS_MODAL,
 });
 
+export interface ToggleMoreOptionsModal {
+  type: ActionTypes.TOGGLE_MORE_OPTIONS_MODAL;
+}
+
+export const toggleMoreOptionsModal = (): ToggleMoreOptionsModal => ({
+  type: ActionTypes.TOGGLE_MORE_OPTIONS_MODAL,
+});
+
+export interface ToggleRecommendToUserModal {
+  type: ActionTypes.TOGGLE_RECOMMEND_TO_USER_MODAL;
+}
+
+export const toggleRecommendToUserModal = (): ToggleRecommendToUserModal => ({
+  type: ActionTypes.TOGGLE_RECOMMEND_TO_USER_MODAL,
+});
+
 export interface SetHeight {
   type: ActionTypes.SET_HEIGHT;
   height: number;
@@ -59,6 +81,22 @@ export const checkIfResized = (): CheckIfResizedAction => (dispatch: Dispatch<Se
   });
 };
 
+export type SetAndToggleActions = SetPodcast | SetEpisode | ToggleMoreOptionsModal;
+
+type SetAndToggleAction = (dispatch: Dispatch<SetAndToggleActions>) => void;
+
+export const setAndToggleMoreOptionsModal = (item?: Episode | Podcast): SetAndToggleAction => (
+  dispatch: Dispatch<SetAndToggleActions>,
+): void => {
+  if (item instanceof Episode) {
+    dispatch(setEpisode(item));
+  } else if (item instanceof Podcast) {
+    dispatch(setPodcast(item));
+  }
+  dispatch(toggleMoreOptionsModal());
+};
+
 export type ModalActions = (
-  ToggleLoginModal | ToggleMenu | TogglePlaybackModal | ToggleUserModal | ToggleNotificationsModal | SetHeight
+  ToggleLoginModal | ToggleMenu | TogglePlaybackModal | ToggleUserModal | ToggleNotificationsModal
+  | ToggleMoreOptionsModal | ToggleRecommendToUserModal | SetHeight
 );

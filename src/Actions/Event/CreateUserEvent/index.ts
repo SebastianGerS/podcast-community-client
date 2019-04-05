@@ -4,6 +4,7 @@ import { attemptSetMessage, SetMessage } from '../../Message';
 import { attemptGetSelf, GetSelfSuccess } from '../../Auth';
 import { createEvent } from '../CreateEvent';
 import { Event } from '../../../Models/Event';
+import { EventItem } from '../../../Models/EventItem';
 
 interface CreateUserEventStart {
   type: ActionTypes.CREATE_USER_EVENT_START;
@@ -98,4 +99,10 @@ export const attemptToggleFollows = (
 
 export const attemptRemoveFollower = (
   (targetUserId: string): AttemptCreateUserEvent => attemptCreateUserEvent('remove', targetUserId)
+);
+
+export const attemptRecommendToUser = (
+  (targetUserId: string, recommendation: EventItem): AttemptCreateUserEvent => (
+    attemptCreateUserEvent('recommend', targetUserId, recommendation)
+  )
 );
