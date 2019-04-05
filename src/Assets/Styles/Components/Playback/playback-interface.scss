@@ -7,7 +7,7 @@
   padding: 0;
   background-color: #f6c821;
   opacity: 0.9;
-  z-index: 2;
+  z-index: 12;
 
   &.modal {
     padding-top: 0.6em;
@@ -91,7 +91,7 @@
     background-repeat: no-repeat;
     background-size: 35px;
     margin: 0 0.25em;
-    z-index: 3;
+    z-index: 12;
   }
 }
 

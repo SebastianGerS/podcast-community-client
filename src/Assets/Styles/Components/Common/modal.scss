@@ -1,10 +1,11 @@
 .modal {
   height: 81vh;
-  z-index: 9998;
+  overflow: scroll;
+  z-index: 10;
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
 }
 
