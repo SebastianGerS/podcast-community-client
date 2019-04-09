@@ -1,0 +1,18 @@
+.rate {
+  margin-top: 1em;
+
+  .star {
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 50px;
+    width: 50px;
+  }
+
+  .filld {
+    background-image: url(../Icons/full-star.svg);
+  }
+
+  .empty {
+    background-image: url(../Icons/star.svg);
+  }
+}

@@ -9,6 +9,7 @@ export interface ModalState {
   notificationsModalIsActive: boolean;
   moreOptionsModalIsActive: boolean;
   recommendToUserModalIsActive: boolean;
+  rateEpisodeModalIsActive: boolean;
   height: number;
 }
 
@@ -20,6 +21,7 @@ const DEFAULT_STATE: ModalState = {
   notificationsModalIsActive: false,
   moreOptionsModalIsActive: false,
   recommendToUserModalIsActive: false,
+  rateEpisodeModalIsActive: false,
   height: 0,
 };
 
@@ -35,6 +37,7 @@ export default function Modal(state: ModalState = DEFAULT_STATE, action: ModalAc
         notificationsModalIsActive: false,
         moreOptionsModalIsActive: false,
         recommendToUserModalIsActive: false,
+        rateEpisodeModalIsActive: false,
       };
     case ActionTypes.TOGGLE_PLAYBACK_MODAL:
       return {
@@ -46,6 +49,7 @@ export default function Modal(state: ModalState = DEFAULT_STATE, action: ModalAc
         notificationsModalIsActive: false,
         moreOptionsModalIsActive: false,
         recommendToUserModalIsActive: false,
+        rateEpisodeModalIsActive: false,
       };
     case ActionTypes.TOGGLE_MENU:
       return {
@@ -57,6 +61,7 @@ export default function Modal(state: ModalState = DEFAULT_STATE, action: ModalAc
         notificationsModalIsActive: false,
         moreOptionsModalIsActive: false,
         recommendToUserModalIsActive: false,
+        rateEpisodeModalIsActive: false,
       };
     case ActionTypes.TOGGLE_USER_MODAL:
       return {
@@ -68,6 +73,7 @@ export default function Modal(state: ModalState = DEFAULT_STATE, action: ModalAc
         notificationsModalIsActive: false,
         moreOptionsModalIsActive: false,
         recommendToUserModalIsActive: false,
+        rateEpisodeModalIsActive: false,
       };
     case ActionTypes.TOGGLE_NOTIFICATIONS_MODAL:
       return {
@@ -79,6 +85,7 @@ export default function Modal(state: ModalState = DEFAULT_STATE, action: ModalAc
         notificationsModalIsActive: !state.notificationsModalIsActive,
         moreOptionsModalIsActive: false,
         recommendToUserModalIsActive: false,
+        rateEpisodeModalIsActive: false,
       };
     case ActionTypes.TOGGLE_MORE_OPTIONS_MODAL:
       return {
@@ -90,6 +97,7 @@ export default function Modal(state: ModalState = DEFAULT_STATE, action: ModalAc
         notificationsModalIsActive: false,
         moreOptionsModalIsActive: !state.moreOptionsModalIsActive,
         recommendToUserModalIsActive: false,
+        rateEpisodeModalIsActive: false,
       };
     case ActionTypes.TOGGLE_RECOMMEND_TO_USER_MODAL:
       return {
@@ -101,6 +109,19 @@ export default function Modal(state: ModalState = DEFAULT_STATE, action: ModalAc
         notificationsModalIsActive: false,
         moreOptionsModalIsActive: false,
         recommendToUserModalIsActive: !state.recommendToUserModalIsActive,
+        rateEpisodeModalIsActive: false,
+      };
+    case ActionTypes.TOGGLE_RATE_EPISODE_MODAL:
+      return {
+        ...state,
+        loginModalIsActive: false,
+        playbackModalIsActive: false,
+        menuIsActive: false,
+        userModalIsActive: false,
+        notificationsModalIsActive: false,
+        moreOptionsModalIsActive: false,
+        recommendToUserModalIsActive: false,
+        rateEpisodeModalIsActive: !state.rateEpisodeModalIsActive,
       };
     case ActionTypes.SET_HEIGHT:
       return {
