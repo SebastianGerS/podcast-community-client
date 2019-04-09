@@ -29,15 +29,16 @@ interface SiteRouteProps extends RouteProps{
   notifications: Notification[];
   getNotifications: (offset: number) => void;
   socket: any;
-  createSocket: (userId: string) => void;
+  createSocket: () => void;
   userId: string;
   getFollows: () => void;
+  addNotification: (notification: Notification) => void;
 }
 
 export default function SiteRoute({
   routeType, component: Component, path, isLogedIn, isAdmin, computedMatch,
   checkIfLogedIn, setHeight, height, checkIfResized, unsetRedirect, notifications,
-  getNotifications, socket, createSocket, userId, getFollows, ...rest
+  getNotifications, socket, createSocket, userId, getFollows, addNotification, ...rest
 }: SiteRouteProps): JSX.Element {
   useEffect(() => {
     if (!height) {
@@ -56,17 +57,22 @@ export default function SiteRoute({
     if (height === 0) {
       setHeight(window.innerHeight);
     }
+    console.log(socket);
   });
 
   useEffect(() => {
-    if (isLogedIn && !socket) {
-      createSocket(userId);
+    if (!socket) {
+      createSocket();
     }
     if (notifications.length === 0 && isLogedIn) {
       getNotifications(0);
     }
     if (isLogedIn) {
       getFollows();
+    }
+
+    if (socket && isLogedIn && !socket.hasListeners(`user/${userId}/notification`)) {
+      socket.on(`user/${userId}/notification`, addNotification);
     }
   }, [isLogedIn]);
 

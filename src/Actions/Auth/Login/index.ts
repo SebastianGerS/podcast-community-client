@@ -8,8 +8,6 @@ import { validEmail, validPassword } from '../Validation';
 import config from '../../../Config/config';
 import * as Auth from '../../../Helpers/Auth';
 import { User } from '../../../Models/User';
-import { openSocket } from '../../../Helpers/Sockets';
-import { AddNotificationActions } from '../../Notifications';
 
 interface UserLoginStart {
   type: ActionTypes.USER_LOGIN_START;
@@ -22,14 +20,12 @@ export const startUserLogin = (): UserLoginStart => (
 export interface UserLoginSuccess {
   type: ActionTypes.USER_LOGIN_SUCCESS;
   user: User;
-  socket: any;
 }
 
-export const userLogedin = (user: User, socket: any): UserLoginSuccess => (
+export const userLogedin = (user: User): UserLoginSuccess => (
   {
     type: ActionTypes.USER_LOGIN_SUCCESS,
     user,
-    socket,
   }
 );
 
@@ -51,11 +47,11 @@ interface LoginData {
 }
 
 type AttemptLoginAction = (
-  dispatch: Dispatch<UserLoginAction | SetMessage | ToggleLoginModal | AddNotificationActions>
+  dispatch: Dispatch<UserLoginAction | SetMessage | ToggleLoginModal>
 ) => Promise<void>
 
 export const attemptLogin = (data: LoginData): AttemptLoginAction => async (
-  dispatch: Dispatch<UserLoginAction | SetMessage | ToggleLoginModal | AddNotificationActions>,
+  dispatch: Dispatch<UserLoginAction | SetMessage | ToggleLoginModal>,
 ): Promise<void> => {
   if (validEmail(data.email)(dispatch) && validPassword(data.password)(dispatch)) {
     dispatch(startUserLogin());
@@ -83,9 +79,7 @@ export const attemptLogin = (data: LoginData): AttemptLoginAction => async (
 
       const decoded = await Auth.verifytoken(response.token).catch(error => error);
       if (Auth.getToken() && decoded.user) {
-        const socket = openSocket(decoded.user._id, dispatch);
-
-        dispatch(userLogedin(decoded.user, socket));
+        dispatch(userLogedin(decoded.user));
         dispatch(toggleLoginModal());
         attemptSetMessage({ text: 'You are now logedin', type: 'success' })(dispatch);
       }

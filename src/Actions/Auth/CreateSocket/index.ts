@@ -3,21 +3,22 @@ import * as ActionTypes from './types';
 import { openSocket } from '../../../Helpers/Sockets';
 import { AddNotificationActions } from '../../Notifications';
 
-export interface CreateSocket {
-  type: ActionTypes.CREATE_SOCKET;
+export interface SetSocket {
+  type: ActionTypes.SET_SOCKET;
   socket: any;
 }
 
-const createSocket = (socket: any): CreateSocket => ({
-  type: ActionTypes.CREATE_SOCKET,
+const setSocket = (socket: any): SetSocket => ({
+  type: ActionTypes.SET_SOCKET,
   socket,
 });
 
-type AttemptCreateSocketAction = (dispatch: Dispatch<CreateSocket | AddNotificationActions>) => void;
+type CreateSocketAction = (dispatch: Dispatch<SetSocket | AddNotificationActions>) => void;
 
-export const attemptCreateSocket = (userId: string): AttemptCreateSocketAction => (
-  dispatch: Dispatch<CreateSocket | AddNotificationActions>,
+export const createSocket = (): CreateSocketAction => (
+  dispatch: Dispatch<SetSocket | AddNotificationActions>,
 ): void => {
-  const socket = openSocket(userId, dispatch);
-  dispatch(createSocket(socket));
+  const socket = openSocket();
+
+  dispatch(setSocket(socket));
 };

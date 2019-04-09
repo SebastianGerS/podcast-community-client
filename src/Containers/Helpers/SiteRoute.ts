@@ -2,13 +2,15 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import SiteRoute from '../../Helpers/SiteRoute';
 import {
-  checkIfLogedIn, UserLogoutSuccess, IsLogedIn, attemptCreateSocket, CreateSocket,
+  checkIfLogedIn, UserLogoutSuccess, IsLogedIn, createSocket, SetSocket,
 } from '../../Actions/Auth';
 import { checkIfResized, setHeight, SetHeight } from '../../Actions/Modal';
 import { AuthState } from '../../Reducers/AuthReducer';
 import { ModalState } from '../../Reducers/ModalReducer';
 import { UnsetRedirect, unsetRedirect } from '../../Actions/Redirect';
-import { GetNotificationsAction, attemptGetNotifications, AddNotificationActions } from '../../Actions/Notifications';
+import {
+  GetNotificationsAction, attemptGetNotifications, AddNotificationActions, addNotification,
+} from '../../Actions/Notifications';
 import { NotificationState } from '../../Reducers/NotificationReducer';
 import { Notification } from '../../Models/Notification';
 import { attemptGetFollows, GetFollowsAction } from '../../Actions/User';
@@ -41,7 +43,7 @@ function mapStateToProps({ AuthReducer, ModalReducer, NotificationReducer }: Sta
 
 type SiteRouteActions = (
   UserLogoutSuccess | IsLogedIn | SetHeight | UnsetRedirect | GetFollowsAction
-  | GetNotificationsAction | CreateSocket | AddNotificationActions
+  | GetNotificationsAction | SetSocket | AddNotificationActions
 );
 
 interface DispatchProps {
@@ -50,8 +52,9 @@ interface DispatchProps {
   setHeight: (height: number) => void;
   unsetRedirect: () => void;
   getNotifications: (offset: number) => void;
-  createSocket: (userId: string) => void;
+  createSocket: () => void;
   getFollows: () => void;
+  addNotification: (notification: Notification) => void;
 }
 
 function mapDispatchToProps(dispatch: Dispatch<SiteRouteActions>): DispatchProps {
@@ -61,8 +64,9 @@ function mapDispatchToProps(dispatch: Dispatch<SiteRouteActions>): DispatchProps
     setHeight: (height: number) => dispatch(setHeight(height)),
     unsetRedirect: () => dispatch(unsetRedirect()),
     getNotifications: (offset: number) => attemptGetNotifications(offset)(dispatch),
-    createSocket: (userId: string) => attemptCreateSocket(userId)(dispatch),
+    createSocket: () => createSocket()(dispatch),
     getFollows: () => attemptGetFollows()(dispatch),
+    addNotification: (notification: Notification) => addNotification(notification)(dispatch),
   };
 }
 

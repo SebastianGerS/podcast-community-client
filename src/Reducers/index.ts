@@ -35,7 +35,9 @@ export default function RootReducer(state: any, action: AuthActions): any {
   let currentState = state;
 
   if (action.type === ActionTypes.USER_LOGOUT_SUCCESS) {
-    state.AuthReducer.socket.close();
+    if (state.AuthReducer.socket) {
+      state.AuthReducer.socket.close();
+    }
     currentState = undefined;
   }
 

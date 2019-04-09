@@ -31,18 +31,19 @@ function PodcastComponent({
   useEffect(() => {
     getPodcast(podcastId);
     getRatings(podcastId);
+  }, []);
 
+  useEffect(() => {
     let removeListener;
-    if (socket) {
+    if (socket && !socket.hasListeners(`podcasts/${podcastId}/rating`)) {
       socket.on(`podcasts/${podcastId}/rating`, setRating);
 
       removeListener = () => {
         socket.removeListener(`podcasts/${podcastId}/rating`, setRating);
       };
     }
-
     return removeListener;
-  }, []);
+  }, [socket]);
 
   useLayoutEffect(() => {
     setFetchedData(!isFetchingPodcast && prevIsFetchingPodcast && podcastId === podcast.id);
