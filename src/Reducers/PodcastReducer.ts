@@ -2,26 +2,35 @@ import * as ActionTypes from '../Actions/Podcast/types';
 import { Podcast } from '../Models/Podcast';
 import { PodcastActions } from '../Actions/Podcast';
 import { Episode } from '../Models/Episode';
+import { Rating } from '../Models/Rating';
 
 export interface PodcastState {
   isFetchingPodcast: boolean;
   isFetchingTopPodcasts: boolean;
   isFetchingEpisodes: boolean;
+  isFetchingRating: boolean;
+  isFetchingRatings: boolean;
   topPodcasts: Podcast[];
   podcast: Podcast;
   episodes: Episode[];
+  episodeRatings: Rating[];
   offset: number;
   morePages: boolean;
+  avrageRating: number;
 }
 const DEFAULT_STATE: PodcastState = {
   isFetchingPodcast: false,
   isFetchingTopPodcasts: false,
   isFetchingEpisodes: false,
+  isFetchingRating: false,
+  isFetchingRatings: false,
   topPodcasts: [new Podcast()],
   podcast: new Podcast(),
-  episodes: [new Episode()],
+  episodes: [],
+  episodeRatings: [],
   offset: 0,
   morePages: false,
+  avrageRating: 0,
 };
 
 export default function (state: PodcastState = DEFAULT_STATE, action: PodcastActions): PodcastState {
@@ -43,7 +52,8 @@ export default function (state: PodcastState = DEFAULT_STATE, action: PodcastAct
         ...state,
         isFetchingPodcast: true,
         podcast: new Podcast(),
-        episodes: [new Episode()],
+        episodes: [],
+        episodeRatings: [],
         offset: 0,
         morePages: false,
       };
@@ -71,6 +81,42 @@ export default function (state: PodcastState = DEFAULT_STATE, action: PodcastAct
     case ActionTypes.GET_PODCAST_EPISODES_FAILURE:
       return {
         ...state, isFetchingEpisodes: false,
+      };
+    case ActionTypes.SET_PODCAST_RATING:
+      return {
+        ...state,
+        avrageRating: action.avrageRating,
+        episodeRatings: [...state.episodeRatings.map((episodeRating: Rating) => {
+          if (episodeRating.episodeId === action.episodeRating.episodeId) {
+            return new Rating({ episodeId: action.episodeRating.episodeId, rating: +action.episodeRating.rating });
+          }
+          return episodeRating;
+        })],
+      };
+    case ActionTypes.GET_PODCAST_RATING_START:
+      return { ...state, isFetchingRating: true };
+    case ActionTypes.GET_PODCAST_RATING_SUCCESS:
+      return {
+        ...state,
+        isFetchingRating: false,
+        avrageRating: action.rating,
+      };
+    case ActionTypes.GET_PODCAST_RATING_FAILURE:
+      return {
+        ...state, isFetchingRating: false,
+      };
+    case ActionTypes.GET_PODCAST_RATINGS_START:
+      return { ...state, isFetchingRatings: true };
+    case ActionTypes.GET_PODCAST_RATINGS_SUCCESS:
+      return {
+        ...state,
+        isFetchingRatings: false,
+        episodeRatings: action.episodeRatings.map((rating: Rating) => new Rating(rating)),
+        avrageRating: action.avrageRating,
+      };
+    case ActionTypes.GET_PODCAST_RATINGS_FAILURE:
+      return {
+        ...state, isFetchingRatings: false,
       };
     default:
       return { ...state };
