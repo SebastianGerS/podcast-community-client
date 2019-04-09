@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getDatefromMilisecond } from '../../Helpers/Time';
 import { Podcast } from '../../Models/Podcast';
@@ -10,9 +10,13 @@ import { Rating } from '../../Models/Rating';
 interface Props {
   data: Podcast;
   ratings: Rating[];
+  socket: any;
+  updateRating: (rating: Rating) => void;
 }
 
-function ListablePodcast({ data, ratings }: Props): JSX.Element {
+function ListablePodcast({
+  data, ratings, socket, updateRating,
+}: Props): JSX.Element {
   const title = (
     typeof data.title === 'string'
       ? data.title
@@ -42,6 +46,18 @@ function ListablePodcast({ data, ratings }: Props): JSX.Element {
   const [podcastRating] = ratings.filter(rating => rating.podcastId === podcastId);
 
   const rating = podcastRating ? podcastRating.rating : null;
+
+  useEffect(() => {
+    let removeListener;
+    if (socket && !socket.hasListeners(`search/podcasts/${podcastId}/rating`)) {
+      socket.on(`search/podcasts/${podcastId}/rating`, updateRating);
+
+      removeListener = () => {
+        socket.removeListener(`search/podcasts/${podcastId}/rating`, updateRating);
+      };
+    }
+    return removeListener;
+  }, [socket]);
 
   return (
     <div className="listable-podcast-searchresult">

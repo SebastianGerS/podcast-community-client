@@ -57,7 +57,6 @@ export default function SiteRoute({
     if (height === 0) {
       setHeight(window.innerHeight);
     }
-    console.log(socket);
   });
 
   useEffect(() => {

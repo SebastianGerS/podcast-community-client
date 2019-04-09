@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Star from '../../Assets/Icons/star.svg';
 import { getDatefromMilisecond, getSecondsFromTimeString } from '../../Helpers/Time';
@@ -12,9 +12,13 @@ import { Rating } from '../../Models/Rating';
 interface Props {
   data: Episode;
   ratings: Rating[];
+  socket: any;
+  updateRating: (rating: Rating) => void;
 }
 
-function ListableEpisode({ data, ratings }: Props): JSX.Element {
+function ListableEpisode({
+  data, ratings, socket, updateRating,
+}: Props): JSX.Element {
   const episodeTitle = typeof data.title_original === 'string' ? data.title_original : '';
   const podcastTitle = typeof data.podcast_title_original === 'string' ? data.podcast_title_original : '';
   const publisher = typeof data.publisher_original === 'string' ? data.publisher_original : '';
@@ -26,6 +30,19 @@ function ListableEpisode({ data, ratings }: Props): JSX.Element {
   const [episodeRating] = ratings.filter(rating => rating.episodeId === episodeId);
 
   const rating = episodeRating ? episodeRating.rating : null;
+
+  useEffect(() => {
+    let removeListener;
+    if (socket && !socket.hasListeners(`search/episodes/${episodeId}/rating`)) {
+      socket.on(`search/episodes/${episodeId}/rating`, updateRating);
+
+      removeListener = () => {
+        socket.removeListener(`search/episodes/${episodeId}/rating`, updateRating);
+      };
+    }
+    return removeListener;
+  }, [socket]);
+
   return (
     <div className="listable-episode">
       <Link to={`/episodes/${episodeId}`}>

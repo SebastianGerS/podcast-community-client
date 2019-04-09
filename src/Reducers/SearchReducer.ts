@@ -140,6 +140,30 @@ export default function (state: SearchState = DEFAULT_STATE, action: SearchActio
       return {
         ...state, isUpdatingSearchSettings: false,
       };
+    case ActionTypes.UPDATE_RATING:
+      const newRating = new Rating({ episodeId: action.rating.episodeId, rating: +action.rating.rating });
+      const previuslyRated = state.ratings.filter(rating => (
+        rating.episodeId ? rating.episodeId === newRating.episodeId : rating.podcastId === newRating.podcastId
+      )).length > 0;
+
+      return {
+        ...state,
+        ratings: previuslyRated
+          ? state.ratings.map((rating: Rating) => {
+            if (rating.episodeId) {
+              if (rating.episodeId === action.rating.episodeId) {
+                return new Rating({ episodeId: action.rating.episodeId, rating: +action.rating.rating });
+              }
+            }
+            if (rating.podcastId) {
+              if (rating.podcastId === action.rating.podcastId) {
+                return new Rating({ podcastId: action.rating.podcastId, rating: +action.rating.rating });
+              }
+            }
+            return rating;
+          })
+          : [...state.ratings, newRating],
+      };
     default:
       return { ...state, redirectToSearch: false };
   }

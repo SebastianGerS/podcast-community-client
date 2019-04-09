@@ -83,15 +83,20 @@ export default function (state: PodcastState = DEFAULT_STATE, action: PodcastAct
         ...state, isFetchingEpisodes: false,
       };
     case ActionTypes.SET_PODCAST_RATING:
+      const newRating = new Rating({ episodeId: action.episodeRating.episodeId, rating: +action.episodeRating.rating });
+      const previuslyRated = state.episodeRatings.filter(rating => rating.episodeId === newRating.episodeId).length > 0;
+
       return {
         ...state,
         avrageRating: action.avrageRating,
-        episodeRatings: [...state.episodeRatings.map((episodeRating: Rating) => {
-          if (episodeRating.episodeId === action.episodeRating.episodeId) {
-            return new Rating({ episodeId: action.episodeRating.episodeId, rating: +action.episodeRating.rating });
-          }
-          return episodeRating;
-        })],
+        episodeRatings: previuslyRated
+          ? [...state.episodeRatings.map((episodeRating: Rating) => {
+            if (episodeRating.episodeId === action.episodeRating.episodeId) {
+              return new Rating(newRating);
+            }
+            return episodeRating;
+          })]
+          : [...state.episodeRatings, newRating],
       };
     case ActionTypes.GET_PODCAST_RATING_START:
       return { ...state, isFetchingRating: true };
