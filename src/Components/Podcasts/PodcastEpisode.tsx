@@ -7,12 +7,14 @@ import { Episode } from '../../Models/Episode';
 import MoreOptionsButton from '../../Containers/Common/MoreOptions/MoreOptionsButton';
 import PlayButton from '../../Containers/Common/PlayButton';
 import InfoBox from '../Common/InfoBox';
+import { Rating } from '../../Models/Rating';
 
 interface Props {
   data: Episode;
+  episodeRatings: Rating[];
 }
 
-function PodcastEpisode({ data }: Props): JSX.Element {
+function PodcastEpisode({ data, episodeRatings }: Props): JSX.Element {
   const title = typeof data.title_original === 'string' ? data.title_original : '';
   const description = typeof data.description_original === 'string' ? data.description_original : '';
   const episodeId = typeof data.id === 'string' ? data.id : '';
@@ -22,6 +24,9 @@ function PodcastEpisode({ data }: Props): JSX.Element {
   const episodeReleaseDate = typeof data.pub_date_ms === 'number'
     ? getDatefromMilisecond(data.pub_date_ms)
     : 'unknown relesedate';
+  const [episodeRating] = episodeRatings.filter(rating => rating.episodeId === episodeId);
+
+  const rating = episodeRating ? episodeRating.rating : null;
 
   return (
     <div className="listable-episode">
@@ -29,7 +34,7 @@ function PodcastEpisode({ data }: Props): JSX.Element {
         <h3 className="listable-episode-title">{title.length > 35 ? `${title.substring(0, 31)}...` : title}</h3>
         <div className="listable-episode-info-boxes">
           <InfoBox text={episodeReleaseDate} />
-          <InfoBox text="5.0" icon={Star} alt="star" />
+          <InfoBox text={typeof rating === 'number' ? rating : 'No rating'} icon={Star} alt="star" />
           <InfoBox text={epiosdeLength} />
         </div>
         <div className="listable-episode-description">
