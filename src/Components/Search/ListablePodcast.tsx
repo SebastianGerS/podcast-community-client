@@ -63,7 +63,7 @@ function ListablePodcast({ data }: Props): JSX.Element {
         </p>
       </div>
       <div>
-        <Rating />
+        <Rating rating={5} />
         <SubscribeButton podcastId={podcastId} />
         <MoreOptionsButton item={data} />
       </div>
