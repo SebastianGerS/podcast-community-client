@@ -8,6 +8,7 @@ import MoreOptionsButton from '../../Containers/Common/MoreOptions/MoreOptionsBu
 import Episodes from '../../Containers/Podcasts/Episodes';
 import usePrevious from '../../Helpers/CustomHooks';
 import { RedirectModel } from '../../Models/Redirect';
+import { PodcastRatings } from '../../Actions/Podcast';
 
 interface Props {
   podcast: Podcast;
@@ -15,16 +16,32 @@ interface Props {
   getPodcast: (podcastId: string) => void;
   podcastId: string;
   redirect: RedirectModel;
+  socket: any;
+  setRating: (rating: PodcastRatings) => void;
+  avrageRating: number;
+  getRatings: (podcastId: string) => void;
 }
 
 function PodcastComponent({
-  podcast, isFetchingPodcast, getPodcast, podcastId, redirect,
+  podcast, isFetchingPodcast, getPodcast, podcastId, redirect, socket, setRating, avrageRating, getRatings,
 }: Props): JSX.Element {
   const prevIsFetchingPodcast = usePrevious(isFetchingPodcast);
   const [FetchedData, setFetchedData] = useState(false);
 
   useEffect(() => {
     getPodcast(podcastId);
+    getRatings(podcastId);
+
+    let removeListener;
+    if (socket) {
+      socket.on(`podcasts/${podcastId}/rating`, setRating);
+
+      removeListener = () => {
+        socket.removeListener(`podcasts/${podcastId}/rating`, setRating);
+      };
+    }
+
+    return removeListener;
   }, []);
 
   useLayoutEffect(() => {
@@ -65,7 +82,7 @@ function PodcastComponent({
         </p>
       </div>
       <div className="podcast-controls">
-        <Rating />
+        <Rating rating={avrageRating} />
         <SubscribeButton podcastId={podcastId} />
         <MoreOptionsButton item={podcast} />
       </div>
