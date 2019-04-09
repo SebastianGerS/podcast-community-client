@@ -4,14 +4,15 @@ import { Episode } from '../../../Models/Episode';
 import Config from '../../../Config/config';
 
 interface Props {
-  setAndToggleMoreOptionsModal: () => void;
+  toggleMoreOptionsModal: () => void;
   toggleRecommendToUserModal: () => void;
+  toggleRateEpisodeModal: () => void;
   episode?: Episode;
   podcast?: Podcast;
 }
 
 function MoreOptionsMenu({
-  setAndToggleMoreOptionsModal, toggleRecommendToUserModal, episode, podcast,
+  toggleMoreOptionsModal, toggleRecommendToUserModal, toggleRateEpisodeModal, episode, podcast,
 }: Props): JSX.Element {
   const item = episode || podcast;
 
@@ -34,10 +35,24 @@ function MoreOptionsMenu({
         className="close-more-options-modal-button"
         type="button"
         aria-label="close-more-options-modal-button"
-        onClick={setAndToggleMoreOptionsModal}
+        onClick={toggleMoreOptionsModal}
       />
       <nav>
         <ul>
+          {item instanceof Episode
+            && (
+              <li>
+                <button
+                  className="open-recommend-modal-button"
+                  type="button"
+                  aria-label="open-recommend-modal-button"
+                  onClick={toggleRateEpisodeModal}
+                >
+                  Rate
+                </button>
+              </li>
+            )
+          }
           <li>
             <button
               className="open-recommend-modal-button"
