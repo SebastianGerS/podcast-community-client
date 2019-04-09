@@ -8,7 +8,7 @@ function Rating({ rating }: Props): JSX.Element {
   return (
     <figure className="rating">
       <img src={Star} alt="podcastLogo" />
-      <figcaption>{rating !== 0 ? rating : 'Not rated'}</figcaption>
+      <figcaption>{rating !== 0 ? rating : ' — '}</figcaption>
     </figure>
   );
 }

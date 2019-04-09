@@ -80,7 +80,7 @@ function EpisodeComponent({
       </div>
       <div className="episode-info-boxes">
         <InfoBox text={episodeReleaseDate} />
-        <InfoBox icon={Star} alt="star" text={avrageRating !== 0 ? avrageRating : 'No rating'} />
+        <InfoBox icon={Star} alt="star" text={avrageRating !== 0 ? avrageRating : ' - '} />
         <InfoBox text={epiosdeLength} />
       </div>
       <div className="episode-description">

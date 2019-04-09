@@ -34,7 +34,7 @@ function PodcastEpisode({ data, episodeRatings }: Props): JSX.Element {
         <h3 className="listable-episode-title">{title.length > 35 ? `${title.substring(0, 31)}...` : title}</h3>
         <div className="listable-episode-info-boxes">
           <InfoBox text={episodeReleaseDate} />
-          <InfoBox text={typeof rating === 'number' ? rating : 'No rating'} icon={Star} alt="star" />
+          <InfoBox text={typeof rating === 'number' ? rating : ' - '} icon={Star} alt="star" />
           <InfoBox text={epiosdeLength} />
         </div>
         <div className="listable-episode-description">
