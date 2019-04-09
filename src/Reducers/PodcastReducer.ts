@@ -54,14 +54,18 @@ export default function (state: PodcastState = DEFAULT_STATE, action: PodcastAct
         podcast: new Podcast(),
         episodes: [],
         episodeRatings: [],
+        avrageRating: 0,
         offset: 0,
         morePages: false,
       };
     case ActionTypes.GET_PODCAST_SUCCESS:
+      console.log(action);
       return {
         ...state,
         isFetchingPodcast: false,
         podcast: new Podcast(action.podcast),
+        avrageRating: action.ratings.avrageRating,
+        episodeRatings: action.ratings.episodeRatings,
       };
     case ActionTypes.GET_PODCAST_FAILURE:
       return {
@@ -97,31 +101,6 @@ export default function (state: PodcastState = DEFAULT_STATE, action: PodcastAct
             return episodeRating;
           })]
           : [...state.episodeRatings, newRating],
-      };
-    case ActionTypes.GET_PODCAST_RATING_START:
-      return { ...state, isFetchingRating: true };
-    case ActionTypes.GET_PODCAST_RATING_SUCCESS:
-      return {
-        ...state,
-        isFetchingRating: false,
-        avrageRating: action.rating,
-      };
-    case ActionTypes.GET_PODCAST_RATING_FAILURE:
-      return {
-        ...state, isFetchingRating: false,
-      };
-    case ActionTypes.GET_PODCAST_RATINGS_START:
-      return { ...state, isFetchingRatings: true };
-    case ActionTypes.GET_PODCAST_RATINGS_SUCCESS:
-      return {
-        ...state,
-        isFetchingRatings: false,
-        episodeRatings: action.episodeRatings.map((rating: Rating) => new Rating(rating)),
-        avrageRating: action.avrageRating,
-      };
-    case ActionTypes.GET_PODCAST_RATINGS_FAILURE:
-      return {
-        ...state, isFetchingRatings: false,
       };
     default:
       return { ...state };

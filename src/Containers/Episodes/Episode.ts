@@ -2,8 +2,7 @@ import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import EpisodeComponent from '../../Components/Episodes/Episode';
 import {
-  GetEpisodeAction, attemptGetEpisode, setEpisodeRating,
-  SetEpisodeRating, GetEpisodeRatingAction, attemptGetEpisodeRating,
+  GetEpisodeAction, attemptGetEpisode, setEpisodeRating, SetEpisodeRating,
 } from '../../Actions/Episode';
 import { EpisodeState } from '../../Reducers/EpisodeReducer';
 import { Episode } from '../../Models/Episode';
@@ -39,16 +38,14 @@ function mapStateToProps({ EpisodeReducer, RedirectReducer, AuthReducer }: State
 interface DispatchProps {
   getEpisode: (episodeId: string) => void;
   setRating: (rating: number) => void;
-  getRating: (podcastId: string, episodeId: string) => void;
 }
 
-type EpisodeComponentActions = GetEpisodeAction | SetMessage | SetEpisodeRating | GetEpisodeRatingAction;
+type EpisodeComponentActions = GetEpisodeAction | SetMessage | SetEpisodeRating;
 
 function mapDispatchToProps(dispatch: Dispatch<EpisodeComponentActions>): DispatchProps {
   return {
     getEpisode: (episodeId: string) => attemptGetEpisode(episodeId)(dispatch),
     setRating: (rating: number) => dispatch(setEpisodeRating(rating)),
-    getRating: (podcastId: string, episodeId: string) => attemptGetEpisodeRating(podcastId, episodeId)(dispatch),
   };
 }
 

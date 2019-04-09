@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PodcastComponent from '../../Components/Podcasts/Podcast';
 import {
   GetPodcastAction, attemptGetPodcast, SetPodcastRating,
-  setPodcastRating, attemptGetPodcastRatings, GetPodcastRatingsAction, PodcastRatings,
+  setPodcastRating, PodcastRatings,
 } from '../../Actions/Podcast';
 import { PodcastState } from '../../Reducers/PodcastReducer';
 import { Podcast } from '../../Models/Podcast';
@@ -39,16 +39,14 @@ function mapStateToProps({ PodcastReducer, RedirectReducer, AuthReducer }: State
 interface DispatchProps {
   getPodcast: (podcastId: string) => void;
   setRating: (rating: PodcastRatings) => void;
-  getRatings: (podcastId: string) => void;
 }
 
-type PodcastComponentActions = GetPodcastAction | SetMessage | SetPodcastRating | GetPodcastRatingsAction;
+type PodcastComponentActions = GetPodcastAction | SetMessage | SetPodcastRating;
 
 function mapDispatchToProps(dispatch: Dispatch<PodcastComponentActions>): DispatchProps {
   return {
     getPodcast: (podcastId: string) => attemptGetPodcast(podcastId)(dispatch),
     setRating: (rating: PodcastRatings) => dispatch(setPodcastRating(rating)),
-    getRatings: (podcastId: string) => attemptGetPodcastRatings(podcastId)(dispatch),
   };
 }
 

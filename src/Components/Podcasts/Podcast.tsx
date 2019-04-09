@@ -19,18 +19,16 @@ interface Props {
   socket: any;
   setRating: (rating: PodcastRatings) => void;
   avrageRating: number;
-  getRatings: (podcastId: string) => void;
 }
 
 function PodcastComponent({
-  podcast, isFetchingPodcast, getPodcast, podcastId, redirect, socket, setRating, avrageRating, getRatings,
+  podcast, isFetchingPodcast, getPodcast, podcastId, redirect, socket, setRating, avrageRating,
 }: Props): JSX.Element {
   const prevIsFetchingPodcast = usePrevious(isFetchingPodcast);
   const [FetchedData, setFetchedData] = useState(false);
 
   useEffect(() => {
     getPodcast(podcastId);
-    getRatings(podcastId);
   }, []);
 
   useEffect(() => {
