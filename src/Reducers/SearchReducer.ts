@@ -6,6 +6,7 @@ import { Podcast } from '../Models/Podcast';
 import { SearchAction } from '../Actions/Search/index';
 import { Filters } from '../Models/Filters';
 import { Genre } from '../Models/Genre';
+import { Rating } from '../Models/Rating';
 
 
 export interface SearchState {
@@ -15,6 +16,7 @@ export interface SearchState {
   filters: Filters;
   sorting: string;
   results: (Podcast|Episode|User)[];
+  ratings: Rating[];
   term: string;
   morePages: boolean;
   offset: number;
@@ -37,6 +39,7 @@ const DEFAULT_STATE: SearchState = {
   ),
   sorting: '0',
   results: [],
+  ratings: [],
   term: '',
   morePages: false,
   offset: 0,
@@ -82,6 +85,7 @@ export default function (state: SearchState = DEFAULT_STATE, action: SearchActio
         ...state,
         redirectToSearch: false,
         results,
+        ratings: action.data.ratings ? action.data.ratings : [],
         term: action.data.term,
         offset: action.data.next_offset,
         morePages: action.data.morePages,
