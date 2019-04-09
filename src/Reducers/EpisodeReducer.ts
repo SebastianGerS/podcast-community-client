@@ -24,6 +24,7 @@ export default function (state: EpisodeState = DEFAULT_STATE, action: EpisodeAct
         ...state,
         isFetching: true,
         episode: new Episode(),
+        avrageRating: 0,
       };
     case ActionTypes.GET_EPISODE_SUCCESS:
       return {
