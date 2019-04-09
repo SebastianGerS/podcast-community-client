@@ -22,11 +22,6 @@ interface State {
 interface StateProps {
   isLogedIn: boolean;
   isAdmin: boolean;
-  menuIsActive: boolean;
-  loginModalIsActive: boolean;
-  notificationsModalIsActive: boolean;
-  moreOptionsModalIsActive: boolean;
-  recommendToUserModalIsActive: boolean;
   height: number;
   notifications: Notification[];
   socket: any;
@@ -37,11 +32,6 @@ function mapStateToProps({ AuthReducer, ModalReducer, NotificationReducer }: Sta
   return {
     isLogedIn: AuthReducer.isLogedIn,
     isAdmin: AuthReducer.isAdmin,
-    menuIsActive: ModalReducer.menuIsActive,
-    loginModalIsActive: ModalReducer.loginModalIsActive,
-    notificationsModalIsActive: ModalReducer.notificationsModalIsActive,
-    moreOptionsModalIsActive: ModalReducer.moreOptionsModalIsActive,
-    recommendToUserModalIsActive: ModalReducer.recommendToUserModalIsActive,
     height: ModalReducer.height,
     notifications: NotificationReducer.notifications,
     socket: AuthReducer.socket,
