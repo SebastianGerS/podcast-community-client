@@ -1,0 +1,3 @@
+export const SET_EPISODE_RATING = 'SET_EPISODE_RATING';
+
+export type SET_EPISODE_RATING = typeof SET_EPISODE_RATING;
