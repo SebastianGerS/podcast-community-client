@@ -31,7 +31,7 @@ export default function (state: EpisodeState = DEFAULT_STATE, action: EpisodeAct
         ...state,
         isFetching: false,
         episode: new Episode(action.episode),
-        avrageRating: action.avrageRating,
+        avrageRating: +action.avrageRating,
       };
     case ActionTypes.GET_EPISODE_FAILURE:
       return {
@@ -53,7 +53,7 @@ export default function (state: EpisodeState = DEFAULT_STATE, action: EpisodeAct
       };
     case ActionTypes.SET_EPISODE_RATING:
       return {
-        ...state, avrageRating: action.rating,
+        ...state, avrageRating: +action.rating,
       };
     default:
       return { ...state };

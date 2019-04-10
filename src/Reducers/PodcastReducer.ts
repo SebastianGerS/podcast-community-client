@@ -93,7 +93,7 @@ export default function (state: PodcastState = DEFAULT_STATE, action: PodcastAct
 
       return {
         ...state,
-        avrageRating: action.avrageRating,
+        avrageRating: +action.avrageRating,
         episodeRatings: previuslyRated
           ? [...state.episodeRatings.map((episodeRating: Rating) => {
             if (episodeRating.episodeId === action.episodeRating.episodeId) {
