@@ -1,3 +1,3 @@
-export const CREATE_SOCKET = 'CREATE_SOCKET';
+export const SET_SOCKET = 'SET_SOCKET';
 
-export type CREATE_SOCKET = typeof CREATE_SOCKET;
+export type SET_SOCKET = typeof SET_SOCKET;

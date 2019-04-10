@@ -6,6 +6,7 @@ import { Podcast } from '../../../Models/Podcast';
 import { Episode } from '../../../Models/Episode';
 import { User } from '../../../Models/User';
 import { Filters } from '../../../Models/Filters';
+import { Rating } from '../../../Models/Rating';
 
 interface SearchStart {
   type: ActionTypes.SEARCH_START;
@@ -24,6 +25,7 @@ interface SearchResult {
   next_offset: number;
   count: number;
   results: (User| Podcast | Episode) [];
+  ratings?: Rating[];
   total: number;
   term: string;
 }

@@ -1,18 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Star from '../../Assets/Icons/star.svg';
 import { getDatefromMilisecond, getSecondsFromTimeString } from '../../Helpers/Time';
 import DownloadButton from '../../Containers/Common/DownloadButton';
 import { Episode } from '../../Models/Episode';
 import MoreOptionsButton from '../../Containers/Common/MoreOptions/MoreOptionsButton';
 import PlayButton from '../../Containers/Common/PlayButton';
 import InfoBox from '../Common/InfoBox';
+import { Rating } from '../../Models/Rating';
+import { getRatingIcon } from '../../Helpers/UserAgent';
 
 interface Props {
   data: Episode;
+  ratings: Rating[];
+  socket: any;
+  updateRating: (rating: Rating) => void;
 }
 
-function ListableEpisode({ data }: Props): JSX.Element {
+function ListableEpisode({
+  data, ratings, socket, updateRating,
+}: Props): JSX.Element {
   const episodeTitle = typeof data.title_original === 'string' ? data.title_original : '';
   const podcastTitle = typeof data.podcast_title_original === 'string' ? data.podcast_title_original : '';
   const publisher = typeof data.publisher_original === 'string' ? data.publisher_original : '';
@@ -21,6 +27,23 @@ function ListableEpisode({ data }: Props): JSX.Element {
   const epiosdeLength = typeof data.audio_length === 'string'
     ? `${Math.round(getSecondsFromTimeString(data.audio_length) / 60)} min`
     : 'unknown';
+  const [episodeRating] = ratings.filter(rating => rating.episodeId === episodeId);
+
+  const rating = episodeRating ? episodeRating.rating : null;
+
+  const ratingIcon = getRatingIcon(typeof rating === 'number' ? rating : 0);
+
+  useEffect(() => {
+    let removeListener;
+    if (socket && !socket.hasListeners(`search/episodes/${episodeId}/rating`)) {
+      socket.on(`search/episodes/${episodeId}/rating`, updateRating);
+
+      removeListener = () => {
+        socket.removeListener(`search/episodes/${episodeId}/rating`, updateRating);
+      };
+    }
+    return removeListener;
+  }, [socket]);
 
   return (
     <div className="listable-episode">
@@ -41,7 +64,7 @@ function ListableEpisode({ data }: Props): JSX.Element {
           </p>
         </div>
         <div className="listable-episode-info-boxes">
-          <InfoBox text="5.0" icon={Star} alt="star" />
+          <InfoBox text={typeof rating === 'number' ? rating.toFixed(1) : ' - '} iconClass={ratingIcon} icon />
           <InfoBox text={epiosdeLength} />
         </div>
         <div className="listable-episode-description">

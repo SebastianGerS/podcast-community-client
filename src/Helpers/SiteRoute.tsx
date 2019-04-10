@@ -4,24 +4,15 @@ import Header from '../Containers/Layout/Header';
 import SearchBar from '../Containers/Search/SearchBar';
 import PlaybackInterface from '../Containers/Playback/PlaybackInterface';
 import Footer from '../Components/Layout/Footer';
-import MenuModal from '../Components/Layout/MenuModal';
-import LoginModal from '../Components/Auth/LoginModal';
-import MenuBar from '../Containers/Layout/MenuBar';
+import MenuInterFace from '../Containers/Layout/MenuInterface';
 import MessageInterface from '../Containers/Message/MessageInterface';
-import NotificationsModal from '../Components/Notifications/NotificationsModal';
 import { Notification } from '../Models/Notification';
-import MoreOptionsModal from '../Components/Common/MoreOptions/MoreOptionsModal';
-import RecommendToUserModal from '../Components/Common/MoreOptions/RecommendToUserModal';
+import Modals from '../Containers/Layout/Modals';
 
 interface SiteRouteProps extends RouteProps{
   routeType: string;
   component: (props?: ComponentProps<any>) => JSX.Element;
   path?: string;
-  menuIsActive: boolean;
-  loginModalIsActive: boolean;
-  notificationsModalIsActive: boolean;
-  moreOptionsModalIsActive: boolean;
-  recommendToUserModalIsActive: boolean;
   isLogedIn: boolean;
   isAdmin: boolean;
   computedMatch?: {
@@ -38,16 +29,16 @@ interface SiteRouteProps extends RouteProps{
   notifications: Notification[];
   getNotifications: (offset: number) => void;
   socket: any;
-  createSocket: (userId: string) => void;
+  createSocket: () => void;
   userId: string;
   getFollows: () => void;
+  addNotification: (notification: Notification) => void;
 }
 
 export default function SiteRoute({
-  routeType, component: Component, path, menuIsActive, loginModalIsActive, isLogedIn, isAdmin,
-  computedMatch, checkIfLogedIn, setHeight, height, checkIfResized, unsetRedirect, moreOptionsModalIsActive,
-  notificationsModalIsActive, notifications, getNotifications, socket, createSocket, userId, getFollows,
-  recommendToUserModalIsActive, ...rest
+  routeType, component: Component, path, isLogedIn, isAdmin, computedMatch,
+  checkIfLogedIn, setHeight, height, checkIfResized, unsetRedirect, notifications,
+  getNotifications, socket, createSocket, userId, getFollows, addNotification, ...rest
 }: SiteRouteProps): JSX.Element {
   useEffect(() => {
     if (!height) {
@@ -69,14 +60,18 @@ export default function SiteRoute({
   });
 
   useEffect(() => {
-    if (isLogedIn && !socket) {
-      createSocket(userId);
+    if (!socket) {
+      createSocket();
     }
     if (notifications.length === 0 && isLogedIn) {
       getNotifications(0);
     }
     if (isLogedIn) {
       getFollows();
+    }
+
+    if (socket && isLogedIn && !socket.hasListeners(`user/${userId}/notification`)) {
+      socket.on(`user/${userId}/notification`, addNotification);
     }
   }, [isLogedIn]);
 
@@ -110,12 +105,9 @@ export default function SiteRoute({
             }
           </div>
           <Footer />
-          { !isLogedIn && loginModalIsActive && <LoginModal /> }
-          { isLogedIn && notificationsModalIsActive && <NotificationsModal /> }
-          { isLogedIn && moreOptionsModalIsActive && <MoreOptionsModal />}
-          { isLogedIn && recommendToUserModalIsActive && <RecommendToUserModal />}
+          <Modals />
           <PlaybackInterface />
-          { menuIsActive ? <MenuModal /> : <MenuBar /> }
+          <MenuInterFace />
         </div>
       )}
     />

@@ -4,6 +4,7 @@ import { Fetch, Response } from '../../../Helpers/Fetch';
 import { attemptSetMessage, SetMessage } from '../../Message';
 import { Podcast } from '../../../Models/Podcast';
 import { setRedirect, SetRedirect } from '../../Redirect';
+import { Rating } from '../../../Models/Rating';
 
 interface GetPodcastStart {
   type: ActionTypes.GET_PODCAST_START;
@@ -12,15 +13,21 @@ interface GetPodcastStart {
 const startGetPodcast = (): GetPodcastStart => ({
   type: ActionTypes.GET_PODCAST_START,
 });
-
-interface GetPodcastSuccess {
-  type: ActionTypes.GET_PODCAST_SUCCESS;
+interface PodcastData {
   podcast: Podcast;
+  ratings: {
+    episodeRatings: Rating[];
+    avrageRating: number;
+  };
+}
+interface GetPodcastSuccess extends PodcastData{
+  type: ActionTypes.GET_PODCAST_SUCCESS;
 }
 
-const gotPodcast = (podcast: Podcast): GetPodcastSuccess => ({
+const gotPodcast = ({ podcast, ratings }: PodcastData): GetPodcastSuccess => ({
   type: ActionTypes.GET_PODCAST_SUCCESS,
   podcast,
+  ratings,
 });
 
 interface GetPodcastFailure {

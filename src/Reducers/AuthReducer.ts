@@ -33,7 +33,6 @@ export default function (state: AuthState = DEFAULT_STATE, action: AuthActions):
         isLogingIn: false,
         user: new User(action.user),
         isAdmin: action.user.type === 'admin',
-        socket: action.socket,
       };
     case ActionTypes.USER_LOGIN_FAILURE:
       return { ...state, isLogingIn: false };
@@ -62,7 +61,7 @@ export default function (state: AuthState = DEFAULT_STATE, action: AuthActions):
       return {
         ...state, user: new User(action.user),
       };
-    case ActionTypes.CREATE_SOCKET:
+    case ActionTypes.SET_SOCKET:
       return {
         ...state, socket: action.socket,
       };

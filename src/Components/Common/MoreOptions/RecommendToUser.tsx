@@ -8,6 +8,7 @@ import { EventItem } from '../../../Models/EventItem';
 
 interface Props {
   toggleRecommendToUserModal: () => void;
+  toggleMoreOptionsModal: () => void;
   recommendToUser: (userId: string, recommendation: EventItem) => void;
   episode?: Episode;
   podcast?: Podcast;
@@ -15,7 +16,7 @@ interface Props {
 }
 
 function RecommendToUser({
-  toggleRecommendToUserModal, episode, podcast, recommendToUser, followers,
+  toggleRecommendToUserModal, episode, podcast, recommendToUser, followers, toggleMoreOptionsModal,
 }: Props): JSX.Element {
   const [selectedUserId, setSelectedUserId] = useState<string|undefined>(undefined);
 
@@ -66,7 +67,9 @@ function RecommendToUser({
           {options}
         </select>
         <button className="recommend-button" type="button" onClick={recommend}>Recommend</button>
-        <button className="back-to-options-button" type="button">Back To Options</button>
+        <button className="back-to-options-button" type="button" onClick={toggleMoreOptionsModal}>
+          Back To Options
+        </button>
       </div>
     </div>
   );

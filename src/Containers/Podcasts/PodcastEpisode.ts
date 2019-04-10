@@ -1,43 +1,19 @@
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import PodcastEpisode from '../../Components/Podcasts/PodcastEpisode';
-import {
-  setAudio, stop, download, DownloadActions, SetEpisode, StopPlayback,
-} from '../../Actions/Player';
-import { PlayerState } from '../../Reducers/PlayerReducer';
-import { Episode } from '../../Models/Episode';
-import { SetMessage } from '../../Actions/Message';
+import { PodcastState } from '../../Reducers/PodcastReducer';
+import { Rating } from '../../Models/Rating';
 
 interface State {
-  PlayerReducer: PlayerState;
+  PodcastReducer: PodcastState;
 }
 interface StateProps {
-  episode: Episode;
-  isPlaying: boolean;
-  isDownloading: string;
+  episodeRatings: Rating[];
 }
 
-function mapStateToProps({ PlayerReducer }: State): StateProps {
+function mapStateToProps({ PodcastReducer }: State): StateProps {
   return {
-    episode: PlayerReducer.episode,
-    isPlaying: PlayerReducer.isPlaying,
-    isDownloading: PlayerReducer.isDownloading,
-  };
-}
-type ListableEpisodeAction = DownloadActions | SetEpisode | StopPlayback | SetMessage;
-
-interface DispatchProps {
-  setAudio: (episode: Episode) => void;
-  stop: () => void;
-  download: (episode: Episode) => void;
-}
-
-function mapDispatchToProps(dispatch: Dispatch<ListableEpisodeAction>): DispatchProps {
-  return {
-    setAudio: (episode: Episode) => setAudio(episode)(dispatch),
-    stop: () => dispatch(stop()),
-    download: (episode: Episode) => download(episode)(dispatch),
+    episodeRatings: PodcastReducer.episodeRatings,
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PodcastEpisode);
+export default connect(mapStateToProps)(PodcastEpisode);
