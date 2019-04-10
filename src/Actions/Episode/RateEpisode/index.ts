@@ -58,5 +58,6 @@ export const attemptRateEpisode = (podcastId: string, episodeRating: object): At
 
   if (response.length !== 0 && !response.error && !response.message) {
     dispatch(rateEpisodeSuccess());
+    attemptSetMessage({ text: response.info, type: 'success' })(dispatch);
   }
 };
