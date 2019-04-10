@@ -50,7 +50,7 @@ function FollowButton({
     text = 'Following';
   } else if (
     (targetUserRequests.includes(currentUserId) && !hasBeenToggledOn)
-    || (createdEvent.type === 'request' && targetUserId === createdEvent.target.item)) {
+    || (createdEvent.type === 'request' && targetUserId === createdEvent.target._id)) {
     icon = 'icon-requested';
     text = 'Requested';
   } else {

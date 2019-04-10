@@ -3,16 +3,7 @@ import { EventItem } from './EventItem';
 
 export interface Event {
   _id: string | StringConstructor;
-  agent: {
-    item: {
-      _id: string | StringConstructor;
-      username?: string | StringConstructor;
-      profile_img?: {
-        thumb: string | StringConstructor;
-      };
-    };
-    kind: string | StringConstructor;
-  };
+  agent: EventItem;
   target: EventItem;
   object: EventItem;
   type: string | StringConstructor;
@@ -21,12 +12,7 @@ export interface Event {
 
 export const Event = Record<Event>({
   _id: String,
-  agent: {
-    item: {
-      _id: String,
-    },
-    kind: String,
-  },
+  agent: new EventItem(),
   target: new EventItem(),
   object: new EventItem(),
   type: String,

@@ -13,8 +13,8 @@ function NotificationComponent({
   data, deleteNotification, updateNotification, toggleNotificationsModal,
 }: Props): JSX.Element {
   const { agent, object, type } = data.event;
-  const username = agent.item.username ? agent.item.username : '';
-  let thumbnail = agent.item.profile_img ? agent.item.profile_img.thumb : '';
+  const username = agent.name ? agent.name : '';
+  let thumbnail = agent.image ? agent.image : '';
 
   let message;
   let linkTo;
@@ -26,22 +26,22 @@ function NotificationComponent({
       break;
     case 'confirm':
       message = `you are now following ${username}`;
-      linkTo = `/profile/${agent.item._id}`;
+      linkTo = `/profile/${agent._id}`;
       break;
     case 'follow':
       message = `${username} is now following you`;
-      linkTo = `/profile/${agent.item._id}`;
+      linkTo = `/profile/${agent._id}`;
       break;
     case 'recommend':
       const {
-        title, kind, item, image,
+        name, kind, _id, image,
       } = object;
 
       message = kind === 'Episode'
-        ? `${username} recomended: ${title} from the podcast – ${object.podcast_title}`
-        : `${username} recomended: ${title}`;
+        ? `${username} recomended: ${name} from the podcast – ${object.parent_name}`
+        : `${username} recomended: ${name}`;
 
-      linkTo = `/${kind === 'Episode' ? 'episodes' : 'podcasts'}/${item}`;
+      linkTo = `/${kind === 'Episode' ? 'episodes' : 'podcasts'}/${_id}`;
       thumbnail = image || '';
       break;
     default:

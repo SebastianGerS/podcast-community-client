@@ -3,13 +3,12 @@ import uuid from 'uuid';
 import { Episode } from '../../../Models/Episode';
 import { Podcast } from '../../../Models/Podcast';
 import { User } from '../../../Models/User';
-import { EventItem } from '../../../Models/EventItem';
 
 
 interface Props {
   toggleRecommendToUserModal: () => void;
   toggleMoreOptionsModal: () => void;
-  recommendToUser: (userId: string, recommendation: EventItem) => void;
+  recommendToUser: (userId: string, recommendation: object) => void;
   episode?: Episode;
   podcast?: Podcast;
   followers: User[];
