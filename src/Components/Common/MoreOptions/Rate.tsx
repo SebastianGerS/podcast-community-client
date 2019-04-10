@@ -10,31 +10,31 @@ const Rate = ({ rating, setRating }: Props): JSX.Element => (
     <button
       type="button"
       className={`star ${rating > 0 ? 'filld' : 'empty'}`}
-      value={1}
+      value={1.0}
       onClick={e => setRating(+e.currentTarget.value)}
     />
     <button
       type="button"
       className={`star ${rating > 1 ? 'filld' : 'empty'}`}
-      value={2}
+      value={2.0}
       onClick={e => setRating(+e.currentTarget.value)}
     />
     <button
       type="button"
       className={`star ${rating > 2 ? 'filld' : 'empty'}`}
-      value={3}
+      value={3.0}
       onClick={e => setRating(+e.currentTarget.value)}
     />
     <button
       type="button"
       className={`star ${rating > 3 ? 'filld' : 'empty'}`}
-      value={4}
+      value={4.0}
       onClick={e => setRating(+e.currentTarget.value)}
     />
     <button
       type="button"
       className={`star ${rating > 4 ? 'filld' : 'empty'}`}
-      value={5}
+      value={5.0}
       onClick={e => setRating(+e.currentTarget.value)}
     />
   </div>

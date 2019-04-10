@@ -2,17 +2,17 @@ import React from 'react';
 
 interface Props {
   text: string | number;
-  icon?: string;
-  alt?: string;
+  icon?: boolean;
+  iconClass?: string;
 }
 
-function InfoBox({ text, icon, alt }: Props): JSX.Element {
+function InfoBox({ text, icon, iconClass }: Props): JSX.Element {
   let html;
 
   if (icon) {
     html = (
       <figure className="info-box">
-        <img src={icon} alt={alt} />
+        <div className={iconClass} />
         <figcaption>{text}</figcaption>
       </figure>
     );

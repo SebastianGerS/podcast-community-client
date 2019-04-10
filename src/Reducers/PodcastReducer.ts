@@ -59,13 +59,14 @@ export default function (state: PodcastState = DEFAULT_STATE, action: PodcastAct
         morePages: false,
       };
     case ActionTypes.GET_PODCAST_SUCCESS:
-      console.log(action);
       return {
         ...state,
         isFetchingPodcast: false,
         podcast: new Podcast(action.podcast),
         avrageRating: action.ratings.avrageRating,
-        episodeRatings: action.ratings.episodeRatings,
+        episodeRatings: action.ratings.episodeRatings.map(
+          episodeRating => new Rating({ episodeId: episodeRating.episodeId, rating: +episodeRating.rating }),
+        ),
       };
     case ActionTypes.GET_PODCAST_FAILURE:
       return {

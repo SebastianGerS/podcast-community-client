@@ -11,14 +11,17 @@
   padding: 0 5px;
   text-align: center;
 
-  img {
+  div {
     width: 15px;
     height: 15px;
+    background-repeat: no-repeat;
+    background-size: contain;
   }
 
   figcaption {
     font-size: 0.75em;
     color: #fef6f6;
+    margin-left: 0.3em;
   }
 
   p {

@@ -4,12 +4,12 @@ import { Episode } from '../../Models/Episode';
 import PlayButton from '../../Containers/Common/PlayButton';
 import MoreOptionsButton from '../../Containers/Common/MoreOptions/MoreOptionsButton';
 import InfoBox from '../Common/InfoBox';
-import Star from '../../Assets/Icons/star.svg';
 import { getDatefromMilisecond } from '../../Helpers/Time';
 import Loader from '../Layout/Loader';
 import usePrevious from '../../Helpers/CustomHooks';
 import { RedirectModel } from '../../Models/Redirect';
 import DownloadButton from '../../Containers/Common/DownloadButton';
+import { getRatingIcon } from '../../Helpers/UserAgent';
 
 interface Props {
   episodeId: string;
@@ -37,6 +37,8 @@ function EpisodeComponent({
     ? getDatefromMilisecond(episode.pub_date_ms)
     : 'unknown relesedate';
   const podcastId = typeof episode.podcast_id === 'string' ? episode.podcast_id : '';
+
+  const ratingIcon = getRatingIcon(avrageRating);
 
   useEffect(() => {
     getEpisode(episodeId);
@@ -73,7 +75,7 @@ function EpisodeComponent({
       </div>
       <div className="episode-info-boxes">
         <InfoBox text={episodeReleaseDate} />
-        <InfoBox icon={Star} alt="star" text={avrageRating !== 0 ? avrageRating : ' - '} />
+        <InfoBox icon iconClass={ratingIcon} text={avrageRating !== 0 ? avrageRating.toFixed(1) : ' - '} />
         <InfoBox text={epiosdeLength} />
       </div>
       <div className="episode-description">

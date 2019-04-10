@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Star from '../../Assets/Icons/star.svg';
 import { getDatefromMilisecond, getSecondsFromTimeString } from '../../Helpers/Time';
 import DownloadButton from '../../Containers/Common/DownloadButton';
 import { Episode } from '../../Models/Episode';
@@ -8,6 +7,7 @@ import MoreOptionsButton from '../../Containers/Common/MoreOptions/MoreOptionsBu
 import PlayButton from '../../Containers/Common/PlayButton';
 import InfoBox from '../Common/InfoBox';
 import { Rating } from '../../Models/Rating';
+import { getRatingIcon } from '../../Helpers/UserAgent';
 
 interface Props {
   data: Episode;
@@ -30,6 +30,8 @@ function ListableEpisode({
   const [episodeRating] = ratings.filter(rating => rating.episodeId === episodeId);
 
   const rating = episodeRating ? episodeRating.rating : null;
+
+  const ratingIcon = getRatingIcon(typeof rating === 'number' ? rating : 0);
 
   useEffect(() => {
     let removeListener;
@@ -62,7 +64,7 @@ function ListableEpisode({
           </p>
         </div>
         <div className="listable-episode-info-boxes">
-          <InfoBox text={typeof rating === 'number' ? rating : ' - '} icon={Star} alt="star" />
+          <InfoBox text={typeof rating === 'number' ? rating.toFixed(1) : ' - '} iconClass={ratingIcon} icon />
           <InfoBox text={epiosdeLength} />
         </div>
         <div className="listable-episode-description">
