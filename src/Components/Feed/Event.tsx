@@ -59,7 +59,7 @@ const EventComponent = ({ data }: Props): JSX.Element | null => {
       } = object;
 
       message = kind === 'Episode'
-        ? `${agentName} recomended: ${objectName} from the podcast – ${object.parent_name}`
+        ? `${agentName} recomended: ${objectName} from the podcast – ${object.parent_name} to ${targetName}`
         : `${agentName} recomended: ${objectName} to ${targetName}`;
 
       eventImages = (

@@ -1,0 +1,17 @@
+.feed {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  min-width: 100%;
+  min-height: 50vh;
+  padding: 0 1em;
+
+  .no-events {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100%;
+    margin: auto;
+  }
+}

@@ -1,8 +1,8 @@
 import React from 'react';
-import FeedComponent from '../Components/Feed/Feed';
+import FeedComponent from '../Containers/Feed/Feed';
 
 const Flow = (): JSX.Element => (
-  <div className="Flow">
+  <div className="Feed">
     <FeedComponent />
   </div>
 );
