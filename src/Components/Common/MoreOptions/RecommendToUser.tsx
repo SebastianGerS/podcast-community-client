@@ -33,11 +33,11 @@ function RecommendToUser({
   const recommend = (): void => {
     if (selectedUserId !== undefined) {
       const recommendation = {
-        item: itemId,
+        _id: itemId,
         kind: item instanceof Episode ? 'Episode' : 'Podcast',
         image,
-        title,
-        podcast_title: episodePodcastTitle,
+        name: title,
+        parent_name: episodePodcastTitle,
       };
       recommendToUser(selectedUserId, recommendation);
     }
