@@ -6,16 +6,20 @@ export interface EventState {
   isToggelingSubscription: boolean;
   isCreatingEvent: boolean;
   isCreatingUserEvent: boolean;
+  isFetchingEvents: boolean;
   eventTargetUserId: string;
   createdEvent: Event;
+  events: Event[];
 }
 
 const DEFAULT_STATE: EventState = {
   isToggelingSubscription: false,
   isCreatingUserEvent: false,
   isCreatingEvent: false,
+  isFetchingEvents: false,
   eventTargetUserId: '',
   createdEvent: new Event(),
+  events: [],
 };
 
 export default function (state: EventState = DEFAULT_STATE, action: EventActions): EventState {
@@ -51,6 +55,23 @@ export default function (state: EventState = DEFAULT_STATE, action: EventActions
     case ActionTypes.CREATE_USER_EVENT_FAILURE:
       return {
         ...state, isCreatingUserEvent: false, isCreatingEvent: false, eventTargetUserId: '',
+      };
+    case ActionTypes.GET_FOLLOWING_EVENTS_START:
+      return {
+        ...state,
+        isFetchingEvents: true,
+      };
+    case ActionTypes.GET_FOLLOWING_EVENTS_SUCCESS:
+      return {
+        ...state,
+        events: action.events.map(event => new Event(event)),
+        isFetchingEvents: false,
+
+      };
+    case ActionTypes.GET_FOLLOWING_EVENTS_FAILURE:
+      return {
+        ...state,
+        isFetchingEvents: false,
       };
     default:
       return { ...state };
