@@ -45,6 +45,9 @@ export const attemptToggleSubscription = (userId: string, podcastId: string): At
       kind: 'Podcast',
       item: podcastId,
     },
+    object: {
+
+    },
   };
 
   const response = await createEvent(event).catch(error => error);
