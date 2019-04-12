@@ -86,7 +86,7 @@ function ListablePodcast({
       </div>
       <div>
         <RatingComponent rating={typeof rating === 'number' ? rating : 0} />
-        <SubscribeButton podcastId={podcastId} />
+        <SubscribeButton podcast={data} />
         <MoreOptionsButton item={data} />
       </div>
     </div>

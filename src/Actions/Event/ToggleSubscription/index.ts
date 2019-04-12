@@ -35,16 +35,13 @@ type AttemptToggleSubscription = (
   dispatch: Dispatch<ToggleSubscriptionAction | GetSelfSuccess | GetSubscriptionsAction | GetSelfSuccess | SetMessage>
 ) => Promise<void>;
 
-export const attemptToggleSubscription = (userId: string, podcastId: string): AttemptToggleSubscription => async (
+export const attemptToggleSubscription = (userId: string, target: object): AttemptToggleSubscription => async (
   dispatch: Dispatch<ToggleSubscriptionAction | GetSelfSuccess | GetSubscriptionsAction | GetSelfSuccess | SetMessage>,
 ): Promise<void> => {
   dispatch(startToggleSubscription());
 
   const event = {
-    target: {
-      kind: 'Podcast',
-      item: podcastId,
-    },
+    target,
     object: {
 
     },

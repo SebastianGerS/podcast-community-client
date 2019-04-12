@@ -50,7 +50,7 @@ export const attemptCreateUserEvent = (
   const event = {
     target: {
       kind: 'User',
-      item: targetUserId,
+      _id: targetUserId,
     },
     type: eventType,
     object,

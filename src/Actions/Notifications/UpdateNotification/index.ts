@@ -3,8 +3,6 @@ import { Dispatch } from 'redux';
 import * as ActionTypes from './types';
 import { Fetch, Response } from '../../../Helpers/Fetch';
 import { attemptSetMessage, SetMessage } from '../../Message';
-import { Notification } from '../../../Models/Notification';
-
 
 interface UpdateNotificationStart {
   type: ActionTypes.UPDATE_NOTIFICATION_START;
@@ -16,12 +14,12 @@ const updateNotificationtart = (): UpdateNotificationStart => ({
 
 interface UpdateNotificationSuccess {
   type: ActionTypes.UPDATE_NOTIFICATION_SUCCESS;
-  notification: Notification;
+  notificationId: string;
 }
 
-const updateNotificationSuccess = (notification: Notification): UpdateNotificationSuccess => ({
+const updateNotificationSuccess = (notificationId: string): UpdateNotificationSuccess => ({
   type: ActionTypes.UPDATE_NOTIFICATION_SUCCESS,
-  notification,
+  notificationId,
 });
 
 interface UpdateNotificationFailure {
@@ -52,5 +50,5 @@ export const attemptUpdateNotification = (notificationId: string): AttemptUpdate
     attemptSetMessage({ text: response.error.errmsg, type: 'info' })(dispatch);
   }
 
-  if (response.notification) dispatch(updateNotificationSuccess(response.notification));
+  if (response.notificationId) dispatch(updateNotificationSuccess(notificationId));
 };

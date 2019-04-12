@@ -29,7 +29,7 @@ function mapStateToProps({ EventReducer, AuthReducer }: State): StateProps {
 }
 
 interface DispatchProps {
-  attemptToggleSubsription: (userId: string, podcastId: string) => void;
+  attemptToggleSubsription: (userId: string, target: object) => void;
 }
 
 type SubscriptionButtonActions = (
@@ -39,8 +39,8 @@ type SubscriptionButtonActions = (
 function mapDispatchToProps(dispatch: Dispatch<SubscriptionButtonActions>): DispatchProps {
   return {
     attemptToggleSubsription: (
-      userId: string, podcastId: string,
-    ) => attemptToggleSubscription(userId, podcastId)(dispatch),
+      userId: string, target: object,
+    ) => attemptToggleSubscription(userId, target)(dispatch),
   };
 }
 
