@@ -2,29 +2,37 @@ import React from 'react';
 import { Event } from '../../Models/Event';
 import ArrowRight from '../../Assets/Icons/arrow-right-fat.svg';
 import ImageLink from '../Common/ImageLink';
+import { setMaxLength, MogoDbTimeStringToTime, MogoDbTimeStringToDate } from '../../Helpers/Utils';
+import InfoBox from '../Common/InfoBox';
 
 interface Props {
   data: Event;
 }
 const EventComponent = ({ data }: Props): JSX.Element | null => {
   const {
-    agent, object, type, target,
+    agent, object, type, target, date,
   } = data;
-  const agentName = (agent.name && typeof agent.name === 'string') ? agent.name : '';
-  const targetName = (target.name && typeof target.name === 'string') ? target.name : '';
-  const objectName = (object.name && typeof object.name === 'string') ? object.name : '';
+
+  const maxLengthFifty = (word: string): string => setMaxLength(word, 50);
+
+  const agentName = maxLengthFifty((agent.name && typeof agent.name === 'string') ? agent.name : '');
+  const targetName = maxLengthFifty((target.name && typeof target.name === 'string') ? target.name : '');
+  const objectName = maxLengthFifty((object.name && typeof object.name === 'string') ? object.name : '');
 
   const agentThumbnail = typeof agent.image === 'string'
     ? agent.image
     : '';
   const targetThumbnail = target.image && typeof target.image === 'string' ? target.image : '';
   const objectThumbnail = object.image && typeof object.image === 'string' ? object.image : '';
+
+  const formatedTime = MogoDbTimeStringToTime(typeof date === 'string' ? date : '');
+  const formatedDate = MogoDbTimeStringToDate(typeof date === 'string' ? date : '');
   let message;
   let eventImages = null;
 
   switch (type) {
     case 'subscribe':
-      message = `${agentName} subscribed to ${target.name}`;
+      message = `${agentName} subscribed to ${targetName}`;
       eventImages = (
         <div className="event-images">
           <ImageLink imageSrc={agentThumbnail} imageAlt={agentName} linkTo={`/profile/${agent._id}`} />
@@ -59,7 +67,7 @@ const EventComponent = ({ data }: Props): JSX.Element | null => {
       } = object;
 
       message = kind === 'Episode'
-        ? `${agentName} recomended: ${objectName} from the podcast – ${object.parent_name} to ${targetName}`
+        ? `${agentName} recomended: ${objectName} from ${object.parent_name} to ${targetName}`
         : `${agentName} recomended: ${objectName} to ${targetName}`;
 
       eventImages = (
@@ -88,6 +96,10 @@ const EventComponent = ({ data }: Props): JSX.Element | null => {
         <p>
           {message}
         </p>
+      </div>
+      <div className="date">
+        <InfoBox text={formatedDate} />
+        <InfoBox text={formatedTime} />
       </div>
     </div>
   );

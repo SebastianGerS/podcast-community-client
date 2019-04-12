@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Notification } from '../../Models/Notification';
+import { setMaxLength } from '../../Helpers/Utils';
 
 interface Props {
   data: Notification;
@@ -13,7 +14,8 @@ function NotificationComponent({
   data, deleteNotification, updateNotification, toggleNotificationsModal,
 }: Props): JSX.Element {
   const { agent, object, type } = data.event;
-  const username = agent.name ? agent.name : '';
+  const agentName = setMaxLength(typeof agent.name === 'string' ? agent.name : '', 50);
+  const objectName = setMaxLength(typeof object.name === 'string' ? object.name : '', 50);
   let thumbnail = agent.image ? agent.image : '';
 
   let message;
@@ -21,25 +23,27 @@ function NotificationComponent({
 
   switch (type) {
     case 'request':
-      message = `${username} wants to follow you`;
+      message = `${agentName} wants to follow you`;
       linkTo = '/follows/1';
       break;
     case 'confirm':
-      message = `you are now following ${username}`;
+      message = `you are now following ${agentName}`;
       linkTo = `/profile/${agent._id}`;
       break;
     case 'follow':
-      message = `${username} is now following you`;
+      message = `${agentName} is now following you`;
       linkTo = `/profile/${agent._id}`;
       break;
     case 'recommend':
       const {
-        name, kind, _id, image,
+        kind, _id, image,
       } = object;
 
+      const parentName = setMaxLength(typeof object.parent_name === 'string' ? object.parent_name : '', 50);
+
       message = kind === 'Episode'
-        ? `${username} recomended: ${name} from the podcast – ${object.parent_name}`
-        : `${username} recomended: ${name}`;
+        ? `${agentName} recomended: ${objectName} from ${parentName}`
+        : `${agentName} recomended: ${objectName}`;
 
       linkTo = `/${kind === 'Episode' ? 'episodes' : 'podcasts'}/${_id}`;
       thumbnail = image || '';
@@ -69,7 +73,10 @@ function NotificationComponent({
       <Link to={linkTo} onClick={update}>
         <div>
           <figure>
-            <img src={typeof thumbnail === 'string' ? thumbnail : ''} alt="profile_img" />
+            <img
+              src={typeof thumbnail === 'string' ? thumbnail : ''}
+              alt={objectName.length > 0 ? objectName : agentName}
+            />
           </figure>
           <p>
             {message}

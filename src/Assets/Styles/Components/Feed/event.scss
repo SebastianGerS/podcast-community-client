@@ -1,12 +1,13 @@
 .event {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   min-height: 120px;
   width: 295px;
   border-radius: 4px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-  padding: 0.25em;
-  margin-bottom: 1em;
+  padding: 0.5em 0.25em 0.25em 0.25em;
+  margin-bottom: 5em;
   background-color: rgba(159, 205, 244, 0.75);
 
   .event-images {
@@ -38,8 +39,86 @@
     justify-content: space-evenly;
     margin: 0.5em;
   }
+
+  .date {
+    .info-box:first-child {
+      margin-right: 0.5em;
+    }
+
+    p {
+      line-height: 0.1em;
+    }
+  }
 }
 
 .event:last-child {
-  margin-bottom: 0.25em;
+  margin-bottom: 0;
+}
+
+@media only screen and (min-width: 600px) {
+  .event {
+    min-height: 200px;
+    width: 495px;
+    padding: 1em 0.75em 0.5em 0.75em;
+    margin-bottom: 7.5em;
+
+    .event-images {
+      figure {
+        width: 75px;
+      }
+    }
+
+    .event-description {
+      p {
+        font-size: 1.2em;
+      }
+    }
+
+    .date {
+      .info-box:first-child {
+        margin-right: 0.75em;
+      }
+
+      p {
+        font-size: 1em;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .event {
+    min-height: 350px;
+    width: 795px;
+    padding: 2em 1em 0.75em 1em;
+    margin-bottom: 10em;
+
+    .event-images {
+      figure {
+        width: 150px;
+      }
+    }
+
+    .event-description {
+      p {
+        font-size: 1.5em;
+      }
+    }
+
+    .event-images,
+    .event-description {
+      margin: 0.5em;
+    }
+
+    .date {
+      .info-box:first-child {
+        margin-right: 1em;
+      }
+
+      p {
+        font-size: 1.2em;
+        line-height: 0.01em;
+      }
+    }
+  }
 }
