@@ -12,14 +12,20 @@ const startGetFollowingEvents = (): GetFollowingEventsStart => ({
   type: ActionTypes.GET_FOLLOWING_EVENTS_START,
 });
 
-interface GetFollowingEventsSuccess {
+interface FollowingEventsData {
+  events: Event[];
+  next_offset: number;
+  morePages: boolean;
+}
+interface GetFollowingEventsSuccess extends FollowingEventsData {
   type: ActionTypes.GET_FOLLOWING_EVENTS_SUCCESS;
-  events: Event [];
 }
 
-const GetFollowingEventsSuccess = (events: Event[]): GetFollowingEventsSuccess => ({
+const GetFollowingEventsSuccess = (data: FollowingEventsData): GetFollowingEventsSuccess => ({
   type: ActionTypes.GET_FOLLOWING_EVENTS_SUCCESS,
-  events,
+  events: data.events,
+  next_offset: data.next_offset,
+  morePages: data.morePages,
 });
 
 interface GetFollowingEventsFailure {
@@ -30,7 +36,7 @@ const GetFollowingEventsFailure = (): GetFollowingEventsFailure => ({
   type: ActionTypes.GET_FOLLOWING_EVENTS_FAILURE,
 });
 
-const getFollowingEvents = (offset: number): Promise<Response> => Fetch(`/events?offset${offset}`, 'GET', {});
+const getFollowingEvents = (offset: number): Promise<Response> => Fetch(`/events?offset=${offset}`, 'GET', {});
 
 export type GetFollowingEventsAction = (
   GetFollowingEventsStart | GetFollowingEventsSuccess | GetFollowingEventsFailure
@@ -61,6 +67,6 @@ export const attemptGetFollowingEvents = (offset: number): AttemptGetFollowingEv
   }
 
   if (response.events) {
-    dispatch(GetFollowingEventsSuccess(response.events));
+    dispatch(GetFollowingEventsSuccess(response));
   }
 };

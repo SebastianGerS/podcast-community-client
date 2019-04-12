@@ -10,6 +10,8 @@ export interface EventState {
   eventTargetUserId: string;
   createdEvent: Event;
   events: Event[];
+  morePages: boolean;
+  nextOffset: number;
 }
 
 const DEFAULT_STATE: EventState = {
@@ -20,6 +22,8 @@ const DEFAULT_STATE: EventState = {
   eventTargetUserId: '',
   createdEvent: new Event(),
   events: [],
+  morePages: false,
+  nextOffset: 0,
 };
 
 export default function (state: EventState = DEFAULT_STATE, action: EventActions): EventState {
@@ -64,7 +68,11 @@ export default function (state: EventState = DEFAULT_STATE, action: EventActions
     case ActionTypes.GET_FOLLOWING_EVENTS_SUCCESS:
       return {
         ...state,
-        events: action.events.map(event => new Event(event)),
+        events: state.events.length === 0
+          ? action.events.map(event => new Event(event))
+          : [...state.events, ...action.events.map(event => new Event(event))],
+        nextOffset: action.next_offset,
+        morePages: action.morePages,
         isFetchingEvents: false,
 
       };
@@ -72,6 +80,11 @@ export default function (state: EventState = DEFAULT_STATE, action: EventActions
       return {
         ...state,
         isFetchingEvents: false,
+      };
+    case ActionTypes.SET_EVENT:
+      return {
+        ...state,
+        events: [new Event(action.event), ...state.events],
       };
     default:
       return { ...state };
