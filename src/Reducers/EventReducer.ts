@@ -18,7 +18,7 @@ const DEFAULT_STATE: EventState = {
   isToggelingSubscription: false,
   isCreatingUserEvent: false,
   isCreatingEvent: false,
-  isFetchingEvents: false,
+  isFetchingEvents: true,
   eventTargetUserId: '',
   createdEvent: new Event(),
   events: [],

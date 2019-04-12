@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import List from '../Common/List';
 import EventComponent from './Event';
 import { Event } from '../../Models/Event';
+import Loader from '../Layout/Loader';
 
 interface Props {
   events: Event[];
@@ -11,9 +12,10 @@ interface Props {
   morePages: boolean;
   getFollowingEvents: (offset: number) => void;
   setEvent: (event: Event) => void;
+  isFetching: boolean;
 }
 const Feed = ({
-  events, getFollowingEvents, socket, userId, setEvent, nextOffset, morePages,
+  events, getFollowingEvents, socket, userId, setEvent, nextOffset, morePages, isFetching,
 }: Props): JSX.Element => {
   useEffect(() => {
     if (events.length === 0) {
@@ -56,12 +58,11 @@ const Feed = ({
 
   return (
     <div className="feed">
-      {
-        events.length > 0
-          ? <List data={events} component={EventComponent} />
-          : <div className="no-events"><p>{'There\'s no relavent events from the users you follow'}</p></div>
+      { events.length > 0 && <List data={events} component={EventComponent} /> }
+      { events.length === 0 && !isFetching
+          && <div className="no-events"><p>{'There\'s no relavent events from the users you follow'}</p></div>
       }
-
+      {isFetching && <Loader />}
     </div>
   );
 };
