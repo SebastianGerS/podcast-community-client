@@ -49,6 +49,13 @@
       line-height: 0.1em;
     }
   }
+
+  .rating {
+    div {
+      width: 38px;
+      height: 38px;
+    }
+  }
 }
 
 .event:last-child {
@@ -83,6 +90,13 @@
         font-size: 1em;
       }
     }
+
+    .rating {
+      div {
+        width: 75px;
+        height: 75px;
+      }
+    }
   }
 }
 
@@ -95,7 +109,7 @@
 
     .event-images {
       figure {
-        width: 150px;
+        width: 130px;
       }
     }
 
@@ -118,6 +132,13 @@
       p {
         font-size: 1.2em;
         line-height: 0.01em;
+      }
+    }
+
+    .rating {
+      div {
+        width: 130px;
+        height: 130px;
       }
     }
   }

@@ -5,7 +5,8 @@ export interface EventItem {
   kind: string | StringConstructor;
   image: string | StringConstructor;
   name: string | StringConstructor;
-  parent_name?: string | StringConstructor;
+  parent_name?: string;
+  rating?: number;
 }
 
 export const EventItem = Record<EventItem>({

@@ -4,6 +4,7 @@ import ArrowRight from '../../Assets/Icons/arrow-right-fat.svg';
 import ImageLink from '../Common/ImageLink';
 import { setMaxLength, MogoDbTimeStringToTime, MogoDbTimeStringToDate } from '../../Helpers/Utils';
 import InfoBox from '../Common/InfoBox';
+import Rating from '../Common/Rating';
 
 interface Props {
   data: Event;
@@ -81,6 +82,20 @@ const EventComponent = ({ data }: Props): JSX.Element | null => {
           />
           <ImageLink imageSrc={ArrowRight} imageAlt="arrow right" />
           <ImageLink imageSrc={targetThumbnail} imageAlt={targetName} linkTo={`/profile/${target._id}`} />
+        </div>
+      );
+      break;
+    case 'rating':
+      const { rating } = object;
+
+      message = `${agentName} gave the episode ${targetName} from ${target.parent_name} a rating of ${rating}`;
+      eventImages = (
+        <div className="event-images">
+          <ImageLink imageSrc={agentThumbnail} imageAlt={agentName} linkTo={`/profile/${agent._id}`} />
+          <ImageLink imageSrc={ArrowRight} imageAlt="arrow right" />
+          <Rating rating={rating || 0} />
+          <ImageLink imageSrc={ArrowRight} imageAlt="arrow right" />
+          <ImageLink imageSrc={targetThumbnail} imageAlt={targetName} linkTo={`/episodes/${target._id}`} />
         </div>
       );
       break;
