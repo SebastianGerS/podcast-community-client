@@ -9,7 +9,7 @@ import Loader from '../Layout/Loader';
 import usePrevious from '../../Helpers/CustomHooks';
 import { RedirectModel } from '../../Models/Redirect';
 import DownloadButton from '../../Containers/Common/DownloadButton';
-import { getRatingIcon } from '../../Helpers/UserAgent';
+import { getRatingIcon } from '../../Helpers/Utils';
 
 interface Props {
   episodeId: string;

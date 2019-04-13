@@ -52,18 +52,3 @@ export const getSmalModalHeight = (height: number): number => {
 
   return modalHeight;
 };
-
-export const getRatingIcon = (rating: number): string => {
-  let ratingIcon;
-
-  if (rating === 0) {
-    ratingIcon = 'no-rating';
-  } else if (rating < 1.3) {
-    ratingIcon = 'low-rating';
-  } else if (rating < 3.8) {
-    ratingIcon = 'moderate-rating';
-  } else {
-    ratingIcon = 'heigh-rating';
-  }
-  return ratingIcon;
-};

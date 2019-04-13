@@ -10,6 +10,7 @@ import Podcasts from './Podcasts';
 import Episodes from './Episodes';
 import Error from './Error';
 import Follows from './Follows';
+import Feed from './Feed';
 
 export default {
   Home,
@@ -24,4 +25,5 @@ export default {
   Episodes,
   Error,
   Follows,
+  Feed,
 };

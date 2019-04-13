@@ -10,7 +10,6 @@ import { MoreOptionsState } from '../../../Reducers/MoreOptionsReducer';
 import { UserState } from '../../../Reducers/UserReducer';
 import { User } from '../../../Models/User';
 import { attemptRecommendToUser, CreateUserEventActions } from '../../../Actions/Event';
-import { EventItem } from '../../../Models/EventItem';
 
 interface State {
   MoreOptionsReducer: MoreOptionsState;
@@ -40,7 +39,7 @@ type RecommendToUserActions = ToggleRecommendToUserModal | CreateUserEventAction
 const mapDispatchToProps = (dispatch: Dispatch<RecommendToUserActions>): DispatchProps => ({
   toggleMoreOptionsModal: () => dispatch(toggleMoreOptionsModal()),
   toggleRecommendToUserModal: () => dispatch(toggleRecommendToUserModal()),
-  recommendToUser: (targetUserId: string, recommenation: EventItem) => (
+  recommendToUser: (targetUserId: string, recommenation: object) => (
     attemptRecommendToUser(targetUserId, recommenation)(dispatch)
   ),
 });

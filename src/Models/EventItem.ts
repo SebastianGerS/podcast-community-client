@@ -1,15 +1,17 @@
 import { Record } from 'immutable';
 
 export interface EventItem {
-  item: string | StringConstructor;
+  _id: string | StringConstructor;
   kind: string | StringConstructor;
-  image?: string | StringConstructor;
-  title?: string | StringConstructor;
-  podcast_title?: string | StringConstructor;
-
+  image: string | StringConstructor;
+  name: string | StringConstructor;
+  parent_name?: string;
+  rating?: number;
 }
 
 export const EventItem = Record<EventItem>({
-  item: String,
+  _id: String,
   kind: String,
+  image: String,
+  name: String,
 });

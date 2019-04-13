@@ -23,11 +23,15 @@ function RateEpisode({
   const episodeId = typeof episode.id === 'string' ? episode.id : '';
   const podcastId = typeof episode.podcast_id === 'string' ? episode.podcast_id : '';
 
-
   const rate = (): void => {
     const episodeRating = {
-      episodeId,
       rating,
+      target: {
+        _id: episodeId,
+        kind: 'Episode',
+        name: title,
+        image: episode.image,
+      },
     };
 
     rateEpisode(podcastId, episodeRating);

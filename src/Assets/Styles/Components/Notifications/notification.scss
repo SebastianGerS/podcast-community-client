@@ -43,6 +43,7 @@
   p {
     flex: 1;
     margin-left: 0.5em;
+    line-height: 1.2em;
   }
 
   div {
@@ -55,4 +56,64 @@
 
 .notification:last-child {
   margin-bottom: 0.25em;
+}
+
+@media only screen and (min-width: 600px) {
+  .notification {
+    min-height: 120px;
+    width: 495px;
+    padding: 0.5em;
+    margin-bottom: 1.5em;
+
+    .remove-button {
+      width: 30px;
+      height: 30px;
+      margin-left: auto;
+      background-size: 30px;
+      margin-bottom: -1.75em;
+    }
+
+    figure {
+      width: 75px;
+      margin-right: 1em;
+    }
+
+    p {
+      margin-left: 0.55em;
+    }
+
+    div {
+      padding: 0.75em 1.25em 0.75em 0.75em;
+    }
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .notification {
+    min-height: 150px;
+    width: 695px;
+    padding: 0.5em;
+    margin-bottom: 1.5em;
+
+    .remove-button {
+      width: 50px;
+      height: 50px;
+      margin-left: auto;
+      background-size: 50px;
+      margin-bottom: -3em;
+    }
+
+    figure {
+      width: 125px;
+      margin-right: 1em;
+    }
+
+    p {
+      margin-left: 0.55em;
+    }
+
+    div {
+      padding: 0.75em 1.25em 0.75em 0.75em;
+    }
+  }
 }

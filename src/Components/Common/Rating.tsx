@@ -1,5 +1,5 @@
 import React from 'react';
-import { getRatingIcon } from '../../Helpers/UserAgent';
+import { getRatingIcon } from '../../Helpers/Utils';
 
 interface Props {
   rating: number;

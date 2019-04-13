@@ -59,6 +59,11 @@ const Router = (): JSX.Element => (
         component={Views.Follows}
       />
       <SiteRoute
+        path="/feed"
+        routeType="PROTECTED"
+        component={Views.Feed}
+      />
+      <SiteRoute
         path="/users"
         routeType="ADMIN"
         component={Views.Users}

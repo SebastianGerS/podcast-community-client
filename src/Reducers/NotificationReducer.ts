@@ -79,10 +79,11 @@ export default function (state: NotificationState = DEFAULT_STATE, action: Notif
         ...state,
         isUpdatingNotification: false,
         notifications: [...state.notifications.map((notification) => {
-          if (action.notification._id === notification._id) {
-            return new Notification(action.notification);
+          const notificationCopy = JSON.parse(JSON.stringify(notification));
+          if (action.notificationId === notification._id) {
+            notificationCopy.observed = true;
           }
-          return notification;
+          return new Notification(notificationCopy);
         })],
         numberOfUnobserved: state.numberOfUnobserved - 1,
       };

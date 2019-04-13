@@ -7,7 +7,7 @@ import MoreOptionsButton from '../../Containers/Common/MoreOptions/MoreOptionsBu
 import PlayButton from '../../Containers/Common/PlayButton';
 import InfoBox from '../Common/InfoBox';
 import { Rating } from '../../Models/Rating';
-import { getRatingIcon } from '../../Helpers/UserAgent';
+import { getRatingIcon } from '../../Helpers/Utils';
 
 interface Props {
   data: Episode;

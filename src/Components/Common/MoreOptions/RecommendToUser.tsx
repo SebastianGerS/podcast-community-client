@@ -3,13 +3,12 @@ import uuid from 'uuid';
 import { Episode } from '../../../Models/Episode';
 import { Podcast } from '../../../Models/Podcast';
 import { User } from '../../../Models/User';
-import { EventItem } from '../../../Models/EventItem';
 
 
 interface Props {
   toggleRecommendToUserModal: () => void;
   toggleMoreOptionsModal: () => void;
-  recommendToUser: (userId: string, recommendation: EventItem) => void;
+  recommendToUser: (userId: string, recommendation: object) => void;
   episode?: Episode;
   podcast?: Podcast;
   followers: User[];
@@ -34,11 +33,11 @@ function RecommendToUser({
   const recommend = (): void => {
     if (selectedUserId !== undefined) {
       const recommendation = {
-        item: itemId,
+        _id: itemId,
         kind: item instanceof Episode ? 'Episode' : 'Podcast',
         image,
-        title,
-        podcast_title: episodePodcastTitle,
+        name: title,
+        parent_name: episodePodcastTitle,
       };
       recommendToUser(selectedUserId, recommendation);
     }
