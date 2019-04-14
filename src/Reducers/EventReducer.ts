@@ -85,6 +85,7 @@ export default function (state: EventState = DEFAULT_STATE, action: EventActions
       return {
         ...state,
         events: [new Event(action.event), ...state.events],
+        nextOffset: state.nextOffset + 1,
       };
     default:
       return { ...state };
