@@ -14,7 +14,10 @@ import {
 import { NotificationState } from '../../Reducers/NotificationReducer';
 import { Notification } from '../../Models/Notification';
 import { attemptGetFollows, GetFollowsAction } from '../../Actions/User';
-import { attemptGetFollowingEvents, GetFollowingEventsAction } from '../../Actions/Event';
+import {
+  attemptGetFollowingEvents, GetFollowingEventsAction, setEvent, SetEvent,
+} from '../../Actions/Event';
+import { Event } from '../../Models/Event';
 
 interface State {
   AuthReducer: AuthState;
@@ -43,7 +46,7 @@ function mapStateToProps({ AuthReducer, ModalReducer, NotificationReducer }: Sta
 }
 
 type SiteRouteActions = (
-  UserLogoutSuccess | IsLogedIn | SetHeight | UnsetRedirect | GetFollowsAction
+  UserLogoutSuccess | IsLogedIn | SetHeight | UnsetRedirect | GetFollowsAction | SetEvent
   | GetNotificationsAction | SetSocket | AddNotificationActions | GetFollowingEventsAction
 );
 
@@ -57,6 +60,7 @@ interface DispatchProps {
   getFollows: () => void;
   addNotification: (notification: Notification) => void;
   getFollowingEvents: (offset: number) => void;
+  setEvent: (event: Event) => void;
 }
 
 function mapDispatchToProps(dispatch: Dispatch<SiteRouteActions>): DispatchProps {
@@ -70,6 +74,7 @@ function mapDispatchToProps(dispatch: Dispatch<SiteRouteActions>): DispatchProps
     getFollows: () => attemptGetFollows()(dispatch),
     addNotification: (notification: Notification) => addNotification(notification)(dispatch),
     getFollowingEvents: (offset: number) => attemptGetFollowingEvents(offset)(dispatch),
+    setEvent: (event: Event) => dispatch(setEvent(event)),
   };
 }
 

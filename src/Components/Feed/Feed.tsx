@@ -6,36 +6,14 @@ import Loader from '../Layout/Loader';
 
 interface Props {
   events: Event[];
-  socket: any;
-  userId: string;
   nextOffset: number;
   morePages: boolean;
   getFollowingEvents: (offset: number) => void;
-  setEvent: (event: Event) => void;
   isFetching: boolean;
 }
 const Feed = ({
-  events, getFollowingEvents, socket, userId, setEvent, nextOffset, morePages, isFetching,
+  events, getFollowingEvents, nextOffset, morePages, isFetching,
 }: Props): JSX.Element => {
-  useEffect(() => {
-    if (events.length === 0) {
-      getFollowingEvents(nextOffset);
-    }
-  }, []);
-
-  useEffect(() => {
-    let removeListener;
-
-    if (socket && !socket.hasListeners(`users/${userId}/event`)) {
-      socket.on(`users/${userId}/event`, setEvent);
-      removeListener = () => {
-        socket.removeListener(`users/${userId}/event`, setEvent);
-      };
-    }
-
-    return removeListener;
-  }, [socket]);
-
   const onScroll = (): void => {
     if (
       (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 1000)

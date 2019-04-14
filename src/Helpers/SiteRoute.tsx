@@ -8,6 +8,7 @@ import MenuInterFace from '../Containers/Layout/MenuInterface';
 import MessageInterface from '../Containers/Message/MessageInterface';
 import { Notification } from '../Models/Notification';
 import Modals from '../Containers/Layout/Modals';
+import { Event } from '../Models/Event';
 
 interface SiteRouteProps extends RouteProps{
   routeType: string;
@@ -33,11 +34,13 @@ interface SiteRouteProps extends RouteProps{
   userId: string;
   getFollows: () => void;
   addNotification: (notification: Notification) => void;
+  getFollowingEvents: (offset: number) => void;
+  setEvent: (event: Event) => void;
 }
 
 export default function SiteRoute({
-  routeType, component: Component, path, isLogedIn, isAdmin, computedMatch,
-  checkIfLogedIn, setHeight, height, checkIfResized, unsetRedirect, notifications,
+  routeType, component: Component, path, isLogedIn, isAdmin, computedMatch, getFollowingEvents,
+  checkIfLogedIn, setHeight, height, checkIfResized, unsetRedirect, setEvent,
   getNotifications, socket, createSocket, userId, getFollows, addNotification, ...rest
 }: SiteRouteProps): JSX.Element {
   useEffect(() => {
@@ -48,6 +51,7 @@ export default function SiteRoute({
     if (isLogedIn) {
       getNotifications(0);
       getFollows();
+      getFollowingEvents(0);
     }
   }, []);
 
@@ -63,15 +67,16 @@ export default function SiteRoute({
     if (!socket) {
       createSocket();
     }
-    if (notifications.length === 0 && isLogedIn) {
-      getNotifications(0);
-    }
     if (isLogedIn) {
+      getNotifications(0);
       getFollows();
+      getFollowingEvents(0);
     }
-
     if (socket && isLogedIn && !socket.hasListeners(`user/${userId}/notification`)) {
       socket.on(`user/${userId}/notification`, addNotification);
+    }
+    if (socket && isLogedIn && !socket.hasListeners(`users/${userId}/event`)) {
+      socket.on(`users/${userId}/event`, setEvent);
     }
   }, [isLogedIn]);
 
