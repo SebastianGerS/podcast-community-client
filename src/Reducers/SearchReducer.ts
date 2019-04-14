@@ -7,7 +7,6 @@ import { SearchAction } from '../Actions/Search/index';
 import { Filters } from '../Models/Filters';
 import { Genre } from '../Models/Genre';
 
-
 export interface SearchState {
   isSearching: boolean;
   isUpdatingSearchSettings: boolean;

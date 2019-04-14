@@ -60,6 +60,6 @@ export const attemptGetPodcast = (podcastId: string): AttemptGetPodcastAction =>
   }
 
   if (response.length !== 0 && !response.error && !response.message) {
-    dispatch(gotPodcast(response));
+    dispatch(gotPodcast(response.podcast));
   }
 };

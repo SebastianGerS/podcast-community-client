@@ -15,6 +15,7 @@ export interface Podcast {
   title_original: string | StringConstructor;
   id: string | StringConstructor;
   itunes_id: number | NumberConstructor;
+  avrageRating: number | NumberConstructor;
 }
 
 export const Podcast = Immutable.Record<Podcast>({
@@ -32,4 +33,5 @@ export const Podcast = Immutable.Record<Podcast>({
   title_original: String,
   id: String,
   itunes_id: Number,
+  avrageRating: Number,
 });

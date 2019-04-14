@@ -5,7 +5,8 @@ import { AttemptSearchActions } from './Search';
 import { FetchFiltersAction } from './FetchFilters';
 
 export type SearchAction = (
-  SetSearchFiltersAction | SetSearchSortingAction | SetSearchTypeAction | AttemptSearchActions | FetchFiltersAction
+  SetSearchFiltersAction | SetSearchSortingAction | SetSearchTypeAction
+  | AttemptSearchActions | FetchFiltersAction
 );
 
 export * from './SetSearchFilters';

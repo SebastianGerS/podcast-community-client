@@ -19,7 +19,7 @@ const DEFAULT_STATE: PodcastState = {
   isFetchingEpisodes: false,
   topPodcasts: [new Podcast()],
   podcast: new Podcast(),
-  episodes: [new Episode()],
+  episodes: [],
   offset: 0,
   morePages: false,
 };
@@ -42,10 +42,6 @@ export default function (state: PodcastState = DEFAULT_STATE, action: PodcastAct
       return {
         ...state,
         isFetchingPodcast: true,
-        podcast: new Podcast(),
-        episodes: [new Episode()],
-        offset: 0,
-        morePages: false,
       };
     case ActionTypes.GET_PODCAST_SUCCESS:
       return {
@@ -72,6 +68,15 @@ export default function (state: PodcastState = DEFAULT_STATE, action: PodcastAct
       return {
         ...state, isFetchingEpisodes: false,
       };
+    case ActionTypes.RESET_PODCAST: {
+      return {
+        ...state,
+        podcast: new Podcast(),
+        episodes: [],
+        offset: 0,
+        morePages: false,
+      };
+    }
     default:
       return { ...state };
   }

@@ -4,18 +4,16 @@ import Header from '../Containers/Layout/Header';
 import SearchBar from '../Containers/Search/SearchBar';
 import PlaybackInterface from '../Containers/Playback/PlaybackInterface';
 import Footer from '../Components/Layout/Footer';
-import MenuModal from '../Components/Layout/MenuModal';
-import LoginModal from '../Components/Auth/LoginModal';
-import MenuBar from '../Containers/Layout/MenuBar';
+import MenuInterFace from '../Containers/Layout/MenuInterface';
 import MessageInterface from '../Containers/Message/MessageInterface';
-
+import { Notification } from '../Models/Notification';
+import Modals from '../Containers/Layout/Modals';
+import { Event } from '../Models/Event';
 
 interface SiteRouteProps extends RouteProps{
   routeType: string;
   component: (props?: ComponentProps<any>) => JSX.Element;
   path?: string;
-  menuIsActive: boolean;
-  loginModalIsActive: boolean;
   isLogedIn: boolean;
   isAdmin: boolean;
   computedMatch?: {
@@ -29,23 +27,59 @@ interface SiteRouteProps extends RouteProps{
   height: number;
   checkIfResized: () => void;
   unsetRedirect: () => void;
+  notifications: Notification[];
+  getNotifications: (offset: number) => void;
+  socket: any;
+  createSocket: () => void;
+  userId: string;
+  getFollows: () => void;
+  addNotification: (notification: Notification) => void;
+  getFollowingEvents: (offset: number) => void;
+  setEvent: (event: Event) => void;
 }
 
 export default function SiteRoute({
-  routeType, component: Component, path, menuIsActive, loginModalIsActive, isLogedIn, isAdmin,
-  computedMatch, checkIfLogedIn, setHeight, height, checkIfResized, unsetRedirect, ...rest
+  routeType, component: Component, path, isLogedIn, isAdmin, computedMatch, getFollowingEvents,
+  checkIfLogedIn, setHeight, height, checkIfResized, unsetRedirect, setEvent,
+  getNotifications, socket, createSocket, userId, getFollows, addNotification, ...rest
 }: SiteRouteProps): JSX.Element {
   useEffect(() => {
     if (!height) {
       setHeight(window.innerHeight);
       checkIfResized();
     }
+    if (isLogedIn) {
+      getNotifications(0);
+      getFollows();
+      getFollowingEvents(0);
+    }
   }, []);
 
   useEffect(() => {
     checkIfLogedIn();
     unsetRedirect();
+    if (height === 0) {
+      setHeight(window.innerHeight);
+    }
   });
+
+  useEffect(() => {
+    if (!socket) {
+      createSocket();
+    }
+    if (isLogedIn) {
+      getNotifications(0);
+      getFollows();
+      getFollowingEvents(0);
+    }
+    if (socket && isLogedIn && !socket.hasListeners(`user/${userId}/notification`)) {
+      socket.on(`user/${userId}/notification`, addNotification);
+    }
+    if (socket && isLogedIn && !socket.hasListeners(`users/${userId}/event`)) {
+      socket.on(`users/${userId}/event`, setEvent);
+    }
+  }, [isLogedIn]);
+
   const params = computedMatch ? computedMatch.params : undefined;
   /* eslint-disable  no-nested-ternary */
   return (
@@ -76,9 +110,9 @@ export default function SiteRoute({
             }
           </div>
           <Footer />
-          { !isLogedIn && loginModalIsActive && <LoginModal /> }
+          <Modals />
           <PlaybackInterface />
-          { menuIsActive ? <MenuModal /> : <MenuBar /> }
+          <MenuInterFace />
         </div>
       )}
     />

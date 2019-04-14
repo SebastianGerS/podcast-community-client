@@ -5,6 +5,7 @@ import { attemptToggleFollows, CreateUserEventActions } from '../../Actions/Even
 import { User } from '../../Models/User';
 import { AuthState } from '../../Reducers/AuthReducer';
 import { EventState } from '../../Reducers/EventReducer';
+import { Event } from '../../Models/Event';
 
 interface State {
   AuthReducer: AuthState;
@@ -16,6 +17,7 @@ interface StateProps {
   eventTargetUserId: string;
   currentUser: User;
   isLogedIn: boolean;
+  createdEvent: Event;
 }
 
 function mapStateToProps({ EventReducer, AuthReducer }: State): StateProps {
@@ -24,6 +26,7 @@ function mapStateToProps({ EventReducer, AuthReducer }: State): StateProps {
     eventTargetUserId: EventReducer.eventTargetUserId,
     currentUser: AuthReducer.user,
     isLogedIn: AuthReducer.isLogedIn,
+    createdEvent: EventReducer.createdEvent,
   };
 }
 

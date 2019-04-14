@@ -29,19 +29,10 @@ header {
     align-items: center;
   }
 
-  button {
-    font-size: 1em;
-    color: #2e2929;
-  }
-
   p {
     color: #2e2929;
     font-size: 0.7em;
     text-align: center;
-  }
-
-  .login-button {
-    padding: 0.8em 1em;
   }
 
   .logo {
@@ -52,17 +43,6 @@ header {
   .site-title {
     font-size: 1.4em;
     padding-bottom: 0.25em;
-  }
-
-  .notifications-button {
-    padding: 0 0.5em 0 0;
-
-    button {
-      height: 50px;
-      width: 50px;
-      background-image: url(../Icons/notifications.svg);
-      background-size: 50px;
-    }
   }
 }
 
@@ -78,23 +58,6 @@ header {
 
     p {
       font-size: 1em;
-    }
-
-    button {
-      font-size: 1em;
-    }
-
-    .login-button {
-      padding: 0.75em 1em;
-      min-width: 5em;
-    }
-
-    .notifications-button {
-      button {
-        height: 3em;
-        width: 3em;
-        background-size: 3em;
-      }
     }
 
     .logo {
@@ -116,23 +79,6 @@ header {
       font-size: 1em;
     }
 
-    button {
-      font-size: 1.5em;
-    }
-
-    .login-button {
-      padding: 1.3em 1em;
-      min-width: 5em;
-    }
-
-    .notifications-button {
-      button {
-        height: 3.5em;
-        width: 3.5em;
-        background-size: 3.5em;
-      }
-    }
-
     .logo {
       height: 5em;
     }
@@ -150,24 +96,6 @@ header {
 
     figure {
       padding: 0 1.5em;
-    }
-
-    button {
-      font-size: 1.5em;
-    }
-
-    .login-button {
-      padding: 1.3em 1.5em;
-    }
-
-    .notifications-button {
-      margin-top: -0.25em;
-
-      button {
-        height: 4em;
-        width: 4em;
-        background-size: 4em;
-      }
     }
 
     .logo {
@@ -191,15 +119,6 @@ header {
 
     p {
       font-size: 1.5em;
-    }
-
-    button {
-      font-size: 2em;
-    }
-
-    .login-button {
-      padding: 1.3em 2em;
-      min-width: 7em;
     }
 
     .logo {

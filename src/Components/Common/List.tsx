@@ -4,8 +4,10 @@ import { Episode } from '../../Models/Episode';
 import { Podcast } from '../../Models/Podcast';
 import { User } from '../../Models/User';
 import { Category } from '../../Models/Category';
+import { Notification } from '../../Models/Notification';
+import { Event } from '../../Models/Event';
 
-type ListItem = Episode | Podcast | User | Category;
+type ListItem = Episode | Podcast | User | Category | Notification | Event;
 interface ListItemProps {
   data: ListItem;
 }

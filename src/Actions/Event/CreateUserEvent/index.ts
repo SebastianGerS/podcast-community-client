@@ -3,6 +3,7 @@ import * as ActionTypes from './types';
 import { attemptSetMessage, SetMessage } from '../../Message';
 import { attemptGetSelf, GetSelfSuccess } from '../../Auth';
 import { createEvent } from '../CreateEvent';
+import { Event } from '../../../Models/Event';
 
 interface CreateUserEventStart {
   type: ActionTypes.CREATE_USER_EVENT_START;
@@ -16,10 +17,12 @@ const startCreateUserEvent = (eventTargetUserId: string): CreateUserEventStart =
 
 interface CreateUserEventSuccess {
   type: ActionTypes.CREATE_USER_EVENT_SUCCESS;
+  event: Event;
 }
 
-const createUserEventSuccess = (): CreateUserEventSuccess => ({
+const createUserEventSuccess = (event: Event): CreateUserEventSuccess => ({
   type: ActionTypes.CREATE_USER_EVENT_SUCCESS,
+  event,
 });
 
 interface CreateUserEventFailure {
@@ -44,11 +47,10 @@ export const attemptCreateUserEvent = (
   dispatch: Dispatch<CreateUserEventActions>,
 ): Promise<void> => {
   dispatch(startCreateUserEvent(targetUserId));
-
   const event = {
     target: {
       kind: 'User',
-      item: targetUserId,
+      _id: targetUserId,
     },
     type: eventType,
     object,
@@ -78,7 +80,7 @@ export const attemptCreateUserEvent = (
       : `Sucessfully ${response.event.type}ed`;
 
     attemptSetMessage({ text, type: 'success' })(dispatch);
-    dispatch(createUserEventSuccess());
+    dispatch(createUserEventSuccess(response.event));
   }
 };
 
@@ -92,4 +94,14 @@ export const attemptRejectFollowRequest = (
 
 export const attemptToggleFollows = (
   (targetUserId: string): AttemptCreateUserEvent => attemptCreateUserEvent('follows', targetUserId)
+);
+
+export const attemptRemoveFollower = (
+  (targetUserId: string): AttemptCreateUserEvent => attemptCreateUserEvent('remove', targetUserId)
+);
+
+export const attemptRecommendToUser = (
+  (targetUserId: string, recommendation: object): AttemptCreateUserEvent => (
+    attemptCreateUserEvent('recommend', targetUserId, recommendation)
+  )
 );

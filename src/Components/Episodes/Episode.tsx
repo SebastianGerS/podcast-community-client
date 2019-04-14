@@ -1,42 +1,32 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { Episode } from '../../Models/Episode';
 import PlayButton from '../../Containers/Common/PlayButton';
-import Rating from '../Common/Rating';
-import MoreOptionsButton from '../Common/MoreOptionsButton';
+import MoreOptionsButton from '../../Containers/Common/MoreOptions/MoreOptionsButton';
 import InfoBox from '../Common/InfoBox';
-import Star from '../../Assets/Icons/star.svg';
 import { getDatefromMilisecond } from '../../Helpers/Time';
 import Loader from '../Layout/Loader';
-import usePrevious from '../../Helpers/CustomHooks';
 import { RedirectModel } from '../../Models/Redirect';
+import DownloadButton from '../../Containers/Common/DownloadButton';
+import { getRatingIcon } from '../../Helpers/Utils';
+import { Rating } from '../../Models/Rating';
 
 interface Props {
   episodeId: string;
   episode: Episode;
   isFetching: boolean;
-  getEpisode: (episodeId: string) => void;
   redirect: RedirectModel;
+  socket: any;
+  ratings: Rating[];
+  getEpisode: (episodeId: string) => void;
+  resetEpisode: () => void;
+  setRating: (rating: Rating) => void;
+  resetRatings: () => void;
 }
 
 function EpisodeComponent({
-  episodeId, episode, isFetching, getEpisode, redirect,
+  episodeId, episode, isFetching, getEpisode, redirect, socket, setRating, ratings, resetEpisode, resetRatings,
 }: Props): JSX.Element {
-  const prevIsFetching = usePrevious(isFetching);
-  const [fetchedData, setFetchedData] = useState(false);
-
-  useEffect(() => {
-    getEpisode(episodeId);
-  }, []);
-
-  useLayoutEffect(() => {
-    setFetchedData(!isFetching && prevIsFetching && episodeId === episode.id);
-  }, [episodeId, episode]);
-
-  const renderRedirect = (): JSX.Element | null => (
-    typeof redirect.to === 'string' ? <Redirect to={redirect.to} /> : null
-  );
-
   const title = typeof episode.title === 'string' ? episode.title : '';
   const description = typeof episode.description === 'string' ? episode.description : '';
   const epiosdeLength = typeof episode.audio_length === 'number'
@@ -47,7 +37,39 @@ function EpisodeComponent({
     : 'unknown relesedate';
   const podcastId = typeof episode.podcast_id === 'string' ? episode.podcast_id : '';
 
-  return fetchedData ? (
+  const [newEpisodeRating] = ratings.filter(rating => rating.itemId === episodeId);
+
+  const rating = newEpisodeRating ? newEpisodeRating.rating : episode.avrageRating;
+
+  const ratingIcon = getRatingIcon(typeof rating === 'number' ? rating : 0);
+
+  useEffect(() => {
+    getEpisode(episodeId);
+
+    return () => {
+      resetEpisode();
+      resetRatings();
+    };
+  }, []);
+
+  useEffect(() => {
+    let removeListener;
+    if (socket && !socket.hasListeners(`episodes/${episodeId}/rating`)) {
+      socket.on(`episodes/${episodeId}/rating`, setRating);
+
+      removeListener = () => {
+        socket.removeListener(`episodes/${episodeId}/rating`, setRating);
+      };
+    }
+
+    return removeListener;
+  }, [socket]);
+
+  const renderRedirect = (): JSX.Element | null => (
+    typeof redirect.to === 'string' ? <Redirect to={redirect.to} /> : null
+  );
+
+  return !isFetching && typeof episode.id === 'string' ? (
     <div className="episode">
       <h3 className="episode-title">{ title }</h3>
       <div className="episode-img">
@@ -57,7 +79,11 @@ function EpisodeComponent({
       </div>
       <div className="episode-info-boxes">
         <InfoBox text={episodeReleaseDate} />
-        <InfoBox icon={Star} alt="star" text="5.0" />
+        <InfoBox
+          icon
+          iconClass={ratingIcon}
+          text={rating !== 0 && typeof rating === 'number' ? rating.toFixed(1) : ' - '}
+        />
         <InfoBox text={epiosdeLength} />
       </div>
       <div className="episode-description">
@@ -66,9 +92,9 @@ function EpisodeComponent({
         </p>
       </div>
       <div className="episode-controls">
-        <Rating />
+        <DownloadButton episode={episode} />
         <PlayButton episode={episode} />
-        <MoreOptionsButton />
+        <MoreOptionsButton item={episode} />
       </div>
       <Link to={`/podcasts/${podcastId}`}>
         <button className="episode-go-to-podcast" type="button">Go to Podcast</button>

@@ -1,18 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Star from '../../Assets/Icons/star.svg';
 import { getDatefromMilisecond, getSecondsFromTimeString } from '../../Helpers/Time';
 import DownloadButton from '../../Containers/Common/DownloadButton';
 import { Episode } from '../../Models/Episode';
-import MoreOptionsButton from '../Common/MoreOptionsButton';
+import MoreOptionsButton from '../../Containers/Common/MoreOptions/MoreOptionsButton';
 import PlayButton from '../../Containers/Common/PlayButton';
 import InfoBox from '../Common/InfoBox';
+import { Rating } from '../../Models/Rating';
+import { getRatingIcon } from '../../Helpers/Utils';
 
 interface Props {
   data: Episode;
+  ratings: Rating[];
+  setRating: (rating: Rating) => void;
+  socket: any;
 }
 
-function PodcastEpisode({ data }: Props): JSX.Element {
+function PodcastEpisode({
+  data, ratings, setRating, socket,
+}: Props): JSX.Element {
   const title = typeof data.title_original === 'string' ? data.title_original : '';
   const description = typeof data.description_original === 'string' ? data.description_original : '';
   const episodeId = typeof data.id === 'string' ? data.id : '';
@@ -23,13 +29,36 @@ function PodcastEpisode({ data }: Props): JSX.Element {
     ? getDatefromMilisecond(data.pub_date_ms)
     : 'unknown relesedate';
 
+  const [newEpisodeRating] = ratings.filter(rating => rating.itemId === episodeId);
+
+  const rating = newEpisodeRating ? newEpisodeRating.rating : data.avrageRating;
+
+  const ratingIcon = getRatingIcon(typeof rating === 'number' ? rating : 0);
+
+  useEffect(() => {
+    let removeListener;
+
+    if (socket && !socket.hasListeners(`episodes/${episodeId}/rating`)) {
+      socket.on(`episodes/${episodeId}/rating`, setRating);
+
+      removeListener = () => {
+        socket.removeListener(`episodes/${episodeId}/rating`, setRating);
+      };
+    }
+    return removeListener;
+  }, [socket]);
+
   return (
     <div className="listable-episode">
       <Link to={`/episodes/${episodeId}`}>
         <h3 className="listable-episode-title">{title.length > 35 ? `${title.substring(0, 31)}...` : title}</h3>
         <div className="listable-episode-info-boxes">
           <InfoBox text={episodeReleaseDate} />
-          <InfoBox text="5.0" icon={Star} alt="star" />
+          <InfoBox
+            text={typeof rating === 'number' && rating > 0 ? rating.toFixed(1) : ' - '}
+            iconClass={ratingIcon}
+            icon
+          />
           <InfoBox text={epiosdeLength} />
         </div>
         <div className="listable-episode-description">
@@ -41,7 +70,7 @@ function PodcastEpisode({ data }: Props): JSX.Element {
       <div className="listable-episode-controls">
         <DownloadButton episode={data} />
         <PlayButton episode={data} />
-        <MoreOptionsButton />
+        <MoreOptionsButton item={data} />
       </div>
     </div>
   );

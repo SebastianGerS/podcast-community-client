@@ -1,11 +1,16 @@
 import React from 'react';
-import Star from '../../Assets/Icons/star.svg';
+import { getRatingIcon } from '../../Helpers/Utils';
 
-function Rating(): JSX.Element {
+interface Props {
+  rating: number;
+}
+
+function Rating({ rating }: Props): JSX.Element {
+  const ratingIcon = getRatingIcon(rating);
   return (
     <figure className="rating">
-      <img src={Star} alt="podcastLogo" />
-      <figcaption>5.0</figcaption>
+      <div className={ratingIcon} />
+      <figcaption>{rating !== 0 ? rating.toFixed(1) : ' — '}</figcaption>
     </figure>
   );
 }

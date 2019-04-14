@@ -5,6 +5,7 @@ export interface Episode {
   description: string | StringConstructor;
   podcast_listennotes_url: string | StringConstructor;
   podcast_title_original: string | StringConstructor;
+  podcast_title: string | StringConstructor;
   rss: string | StringConstructor;
   audio_length: string | number | StringConstructor | NumberConstructor;
   pub_date_ms: number | NumberConstructor;
@@ -19,6 +20,7 @@ export interface Episode {
   title_original: string | StringConstructor;
   title: string | StringConstructor;
   itunes_id: number | NumberConstructor;
+  avrageRating: number | NumberConstructor;
 }
 
 export const Episode = Immutable.Record<Episode>({
@@ -26,6 +28,7 @@ export const Episode = Immutable.Record<Episode>({
   description: String,
   podcast_listennotes_url: String,
   podcast_title_original: String,
+  podcast_title: String,
   rss: String,
   audio_length: String || Number,
   pub_date_ms: Number,
@@ -40,4 +43,5 @@ export const Episode = Immutable.Record<Episode>({
   title_original: String,
   title: String,
   itunes_id: Number,
+  avrageRating: Number,
 });

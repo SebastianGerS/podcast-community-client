@@ -15,7 +15,7 @@ const Menu = ({ closeMenu, userId }: Props): JSX.Element => (
         <AdminSiteLink to="/users" title="Handle Users" />
         <AuthSiteLink to={`/profile/${userId}`} title="Profile" />
         <AuthSiteLink to="/my-subscriptions" title="Subscriptions" />
-        <AuthSiteLink to="/" title="Feed" />
+        <AuthSiteLink to="/feed" title="Feed" />
       </div>
       <div>
         <AuthSiteLink to="/" title="ListenList" />

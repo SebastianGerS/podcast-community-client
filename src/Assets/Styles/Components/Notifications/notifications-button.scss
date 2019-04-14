@@ -1,0 +1,50 @@
+.notifications-button {
+  padding: 0 0.5em 0 0;
+
+  button {
+    height: 50px;
+    width: 50px;
+    background-size: 50px;
+    font-size: 1em;
+  }
+
+  .has-new-notifications {
+    background-image: url(../Icons/notifications.svg);
+  }
+
+  .no-new-notifications {
+    background-image: url(../Icons/notifications-empty.svg);
+  }
+}
+
+@media only screen and (min-width: 667px) and (orientation: portrait) {
+  .notifications-button {
+    button {
+      height: 3.5em;
+      width: 3.5em;
+      background-size: 3.5em;
+      font-size: 1.5em;
+    }
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .notifications-button {
+    margin-top: -0.25em;
+
+    button {
+      height: 4em;
+      width: 4em;
+      background-size: 4em;
+      font-size: 1.5em;
+    }
+  }
+}
+
+@media only screen and (min-width: 1850px) {
+  .notifications-button {
+    button {
+      font-size: 2em;
+    }
+  }
+}

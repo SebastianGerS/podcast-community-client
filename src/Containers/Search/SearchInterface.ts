@@ -6,6 +6,7 @@ import { SearchState } from '../../Reducers/SearchReducer';
 import { AuthState } from '../../Reducers/AuthReducer';
 import { Filters } from '../../Models/Filters';
 import { SetMessage } from '../../Actions/Message';
+import { ResetRatings } from '../../Actions/Rating';
 
 
 interface State {
@@ -42,7 +43,7 @@ interface DispatchProps {
   search: (query: SearchData) => void;
 }
 
-function mapDispatchToProps(dispatch: Dispatch<AttemptSearchActions|SetMessage>): DispatchProps {
+function mapDispatchToProps(dispatch: Dispatch<AttemptSearchActions|SetMessage|ResetRatings>): DispatchProps {
   return {
     search: (query: SearchData) => attemptSearch(query)(dispatch),
   };

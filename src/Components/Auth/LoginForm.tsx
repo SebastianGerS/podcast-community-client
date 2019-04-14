@@ -5,6 +5,7 @@ import { invalidEmail, invalidPassword } from '../../Helpers/Validation';
 interface Props {
   attemptLogin: (data: object) => void;
 }
+
 function LoginForm({ attemptLogin }: Props): JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

@@ -4,15 +4,17 @@ import Catalog from './Catalog';
 import { User } from '../../Models/User';
 import { Podcast } from '../../Models/Podcast';
 import { Category } from '../../Models/Category';
+import Loader from '../Layout/Loader';
 
 interface Props {
   getSubscriptions: (userId: string) => void;
   subscriptions: Podcast[];
   user: User;
   categories: Category[];
+  isFetchingSubscriptions: boolean;
 }
 function MySubscriptions({
-  getSubscriptions, subscriptions, user, categories,
+  getSubscriptions, subscriptions, user, categories, isFetchingSubscriptions,
 }: Props): JSX.Element {
   const [activeTab, setActiveTab] = useState(0);
 
@@ -55,18 +57,21 @@ function MySubscriptions({
           </ul>
         </div>
       </div>
-      { activeTab === 0 && user.subscriptions.length !== 0
+      { activeTab === 0 && subscriptions.length !== 0
         && <Catalog subscriptions={subscriptions} />
       }
-      { activeTab === 1 && user.subscriptions.length !== 0
+      { activeTab === 1 && subscriptions.length !== 0
         && <Categories categories={categories} />
       }
-      {user.subscriptions.length === 0
+      {subscriptions.length === 0 && !isFetchingSubscriptions
        && (
          <h2>
            {'You don\'t have any subscriptions'}
          </h2>
        )
+      }
+      {isFetchingSubscriptions
+        && <Loader />
       }
       <div />
     </div>

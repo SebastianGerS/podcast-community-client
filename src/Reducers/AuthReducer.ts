@@ -9,6 +9,7 @@ export interface AuthState {
   isRegistering: boolean;
   user: User;
   isAdmin: boolean;
+  socket: any;
 }
 
 const DEFAULT_STATE: AuthState = {
@@ -18,6 +19,7 @@ const DEFAULT_STATE: AuthState = {
   isRegistering: false,
   user: new User(),
   isAdmin: false,
+  socket: undefined,
 };
 
 export default function (state: AuthState = DEFAULT_STATE, action: AuthActions): AuthState {
@@ -45,7 +47,7 @@ export default function (state: AuthState = DEFAULT_STATE, action: AuthActions):
       return { ...state, isLogingOut: true };
     case ActionTypes.USER_LOGOUT_SUCCESS:
       return {
-        ...state, isLogedIn: false, isLogingOut: false, user: new User(), isAdmin: false,
+        ...state, isLogedIn: false, isLogingOut: false, user: new User(), isAdmin: false, socket: undefined,
       };
     case ActionTypes.USER_LOGOUT_FAILURE:
       return { ...state, isLogingOut: false };
@@ -58,6 +60,10 @@ export default function (state: AuthState = DEFAULT_STATE, action: AuthActions):
     case ActionTypes.GET_SELF_SUCCESS:
       return {
         ...state, user: new User(action.user),
+      };
+    case ActionTypes.SET_SOCKET:
+      return {
+        ...state, socket: action.socket,
       };
     default:
       return { ...state };

@@ -4,10 +4,14 @@ import { Episode } from '../Models/Episode';
 
 export interface EpisodeState {
   isFetching: boolean;
+  isRating: boolean;
+  isFetchingRating: boolean;
   episode: Episode;
 }
 const DEFAULT_STATE: EpisodeState = {
   isFetching: false,
+  isRating: false,
+  isFetchingRating: false,
   episode: new Episode(),
 };
 
@@ -28,6 +32,11 @@ export default function (state: EpisodeState = DEFAULT_STATE, action: EpisodeAct
     case ActionTypes.GET_EPISODE_FAILURE:
       return {
         ...state, isFetching: false,
+      };
+    case ActionTypes.RESET_EPISODE:
+      return {
+        ...state,
+        episode: new Episode(),
       };
     default:
       return { ...state };

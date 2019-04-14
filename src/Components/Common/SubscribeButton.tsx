@@ -1,24 +1,33 @@
 import React, { useState } from 'react';
 import { User } from '../../Models/User';
+import { Podcast } from '../../Models/Podcast';
 
 interface Props {
-  podcastId: string;
+  podcast: Podcast;
   user: User;
-  attemptToggleSubsription: (userId: string, podcastId: string) => void;
+  attemptToggleSubsription: (userId: string, target: object) => void;
   isLogedIn: boolean;
   isToggelingSubscription: boolean;
 }
 
 function SubscribeButton({
-  podcastId, user, attemptToggleSubsription, isLogedIn, isToggelingSubscription,
+  podcast, user, attemptToggleSubsription, isLogedIn, isToggelingSubscription,
 }: Props): JSX.Element {
   const [subscribing, setSubscribing] = useState(false);
   const userId = typeof user._id === 'string' ? user._id : '';
+  const podcastId = typeof podcast.id === 'string' ? podcast.id : '';
 
   const toggleSubscription = (): void => {
     if (isLogedIn) {
+      const target = {
+        _id: podcastId,
+        kind: 'Podcast',
+        name: typeof podcast.title === 'string' ? podcast.title : podcast.title_original,
+        image: podcast.image,
+      };
+
       setSubscribing(true);
-      attemptToggleSubsription(userId, podcastId);
+      attemptToggleSubsription(userId, target);
     }
   };
 

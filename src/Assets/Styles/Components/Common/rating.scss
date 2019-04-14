@@ -5,8 +5,27 @@
   align-items: center;
   margin: 0;
 
-  img {
+  div {
     width: 40px;
     height: 40px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position-x: 50%;
   }
+}
+
+.no-rating {
+  background-image: url(../Icons/no-rating-star.svg);
+}
+
+.low-rating {
+  background-image: url(../Icons/star.svg);
+}
+
+.moderate-rating {
+  background-image: url(../Icons/half-star.svg);
+}
+
+.heigh-rating {
+  background-image: url(../Icons/full-star.svg);
 }

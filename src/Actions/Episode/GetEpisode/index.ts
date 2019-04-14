@@ -33,7 +33,7 @@ const getEpisodeFailure = (): GetEpisodeFailure => ({
 
 const getEpisode = (episodeId: string): Promise<Response> => Fetch(`/episodes/${episodeId}`, 'GET', {});
 
-export type GetEpisodeAction = GetEpisodeStart | GetEpisodeSuccess |GetEpisodeFailure | SetRedirect;
+export type GetEpisodeAction = GetEpisodeStart | GetEpisodeSuccess | GetEpisodeFailure | SetRedirect;
 
 type AttemptGetEpisodeAction = (dispatch: Dispatch<GetEpisodeAction | SetMessage>) => Promise<void>;
 
@@ -60,6 +60,6 @@ export const attemptGetEpisode = (episodeId: string): AttemptGetEpisodeAction =>
   }
 
   if (response.length !== 0 && !response.error && !response.message) {
-    dispatch(gotEpisode(response));
+    dispatch(gotEpisode(response.episode));
   }
 };

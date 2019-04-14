@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Episode } from '../../Models/Episode';
 import List from '../Common/List';
-import PodcastEpisode from './PodcastEpisode';
+import PodcastEpisode from '../../Containers/Podcasts/PodcastEpisode';
 import { EpisodesSearchData } from '../../Actions/Podcast';
 import Loader from '../Layout/Loader';
 
