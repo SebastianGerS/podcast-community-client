@@ -20,8 +20,8 @@ const DEFAULT_STATE: UserState = {
   isUpdating: false,
   user: new User(),
   isFetchingSubscriptions: false,
-  subscriptions: [new Podcast()],
-  categories: [new Category()],
+  subscriptions: [],
+  categories: [],
   followers: [],
   following: [],
   requests: [],
@@ -52,12 +52,8 @@ export default function (state: UserState = DEFAULT_STATE, action: UserActions):
       return {
         ...state,
         isFetchingSubscriptions: false,
-        subscriptions: action.subscriptions.length !== 0
-          ? action.subscriptions.map((subscription: Podcast) => new Podcast(subscription))
-          : [new Podcast()],
-        categories: action.categories.length !== 0
-          ? action.categories.map((category: Category) => new Category(category))
-          : [new Category()],
+        subscriptions: [...action.subscriptions.map((subscription: Podcast) => new Podcast(subscription))],
+        categories: [...action.categories.map((category: Category) => new Category(category))],
       };
     case ActionTypes.GET_SUBSCRIPTIONS_FAILURE:
       return { ...state, isFetchingSubscriptions: false };

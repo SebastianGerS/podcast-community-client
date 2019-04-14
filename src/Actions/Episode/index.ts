@@ -1,9 +1,7 @@
 import { GetEpisodeAction } from './GetEpisode';
-import { RateEpisodeAction } from './RateEpisode';
-import { SetEpisodeRating } from './SetEpisodeRating';
+import { ResetEpisode } from './ResetEpisode';
 
-export type EpisodeActions = GetEpisodeAction | RateEpisodeAction | SetEpisodeRating;
+export type EpisodeActions = GetEpisodeAction | ResetEpisode;
 
 export * from './GetEpisode';
-export * from './RateEpisode';
-export * from './SetEpisodeRating';
+export * from './ResetEpisode';

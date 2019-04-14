@@ -6,8 +6,6 @@ import { Podcast } from '../Models/Podcast';
 import { SearchAction } from '../Actions/Search/index';
 import { Filters } from '../Models/Filters';
 import { Genre } from '../Models/Genre';
-import { Rating } from '../Models/Rating';
-
 
 export interface SearchState {
   isSearching: boolean;
@@ -16,7 +14,6 @@ export interface SearchState {
   filters: Filters;
   sorting: string;
   results: (Podcast|Episode|User)[];
-  ratings: Rating[];
   term: string;
   morePages: boolean;
   offset: number;
@@ -39,7 +36,6 @@ const DEFAULT_STATE: SearchState = {
   ),
   sorting: '0',
   results: [],
-  ratings: [],
   term: '',
   morePages: false,
   offset: 0,
@@ -85,7 +81,6 @@ export default function (state: SearchState = DEFAULT_STATE, action: SearchActio
         ...state,
         redirectToSearch: false,
         results,
-        ratings: action.data.ratings ? action.data.ratings : [],
         term: action.data.term,
         offset: action.data.next_offset,
         morePages: action.data.morePages,
@@ -139,30 +134,6 @@ export default function (state: SearchState = DEFAULT_STATE, action: SearchActio
     case ActionTypes.SET_SEARCHSORTING_FAILURE:
       return {
         ...state, isUpdatingSearchSettings: false,
-      };
-    case ActionTypes.UPDATE_RATING:
-      const newRating = new Rating({ episodeId: action.rating.episodeId, rating: +action.rating.rating });
-      const previuslyRated = state.ratings.filter(rating => (
-        rating.episodeId ? rating.episodeId === newRating.episodeId : rating.podcastId === newRating.podcastId
-      )).length > 0;
-
-      return {
-        ...state,
-        ratings: previuslyRated
-          ? state.ratings.map((rating: Rating) => {
-            if (rating.episodeId) {
-              if (rating.episodeId === action.rating.episodeId) {
-                return new Rating({ episodeId: action.rating.episodeId, rating: +action.rating.rating });
-              }
-            }
-            if (rating.podcastId) {
-              if (rating.podcastId === action.rating.podcastId) {
-                return new Rating({ podcastId: action.rating.podcastId, rating: +action.rating.rating });
-              }
-            }
-            return rating;
-          })
-          : [...state.ratings, newRating],
       };
     default:
       return { ...state, redirectToSearch: false };

@@ -7,14 +7,12 @@ export interface EpisodeState {
   isRating: boolean;
   isFetchingRating: boolean;
   episode: Episode;
-  avrageRating: number;
 }
 const DEFAULT_STATE: EpisodeState = {
   isFetching: false,
   isRating: false,
   isFetchingRating: false,
   episode: new Episode(),
-  avrageRating: 0,
 };
 
 export default function (state: EpisodeState = DEFAULT_STATE, action: EpisodeActions): EpisodeState {
@@ -24,36 +22,21 @@ export default function (state: EpisodeState = DEFAULT_STATE, action: EpisodeAct
         ...state,
         isFetching: true,
         episode: new Episode(),
-        avrageRating: 0,
       };
     case ActionTypes.GET_EPISODE_SUCCESS:
       return {
         ...state,
         isFetching: false,
         episode: new Episode(action.episode),
-        avrageRating: +action.avrageRating,
       };
     case ActionTypes.GET_EPISODE_FAILURE:
       return {
         ...state, isFetching: false,
       };
-    case ActionTypes.RATE_EPISODE_START:
+    case ActionTypes.RESET_EPISODE:
       return {
         ...state,
-        isRating: true,
-      };
-    case ActionTypes.RATE_EPISODE_SUCCESS:
-      return {
-        ...state,
-        isRating: false,
-      };
-    case ActionTypes.RATE_EPISODE_FAILURE:
-      return {
-        ...state, isRating: false,
-      };
-    case ActionTypes.SET_EPISODE_RATING:
-      return {
-        ...state, avrageRating: +action.rating,
+        episode: new Episode(),
       };
     default:
       return { ...state };

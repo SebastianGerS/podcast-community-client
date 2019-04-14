@@ -6,7 +6,7 @@ import { Podcast } from '../../../Models/Podcast';
 import { Episode } from '../../../Models/Episode';
 import { User } from '../../../Models/User';
 import { Filters } from '../../../Models/Filters';
-import { Rating } from '../../../Models/Rating';
+import { resetRatings, ResetRatings } from '../../Rating';
 
 interface SearchStart {
   type: ActionTypes.SEARCH_START;
@@ -25,7 +25,6 @@ interface SearchResult {
   next_offset: number;
   count: number;
   results: (User| Podcast | Episode) [];
-  ratings?: Rating[];
   total: number;
   term: string;
 }
@@ -63,10 +62,10 @@ export interface SearchData {
   sorting: string | number;
 }
 
-type AttemptSearchAction = (dispatch: Dispatch<AttemptSearchActions|SetMessage>) => Promise<void>;
+type AttemptSearchAction = (dispatch: Dispatch<AttemptSearchActions|SetMessage|ResetRatings>) => Promise<void>;
 
 export const attemptSearch = (data: SearchData): AttemptSearchAction => async (
-  dispatch: Dispatch<AttemptSearchActions|SetMessage>,
+  dispatch: Dispatch<AttemptSearchActions|SetMessage|ResetRatings>,
 ): Promise<void> => {
   const {
     term, type, offset, path, filters, sorting,
@@ -74,6 +73,7 @@ export const attemptSearch = (data: SearchData): AttemptSearchAction => async (
 
   const redirecToSearch = path !== '/search';
 
+  dispatch(resetRatings());
   dispatch(startSearch(redirecToSearch));
 
   const encodedFilters = encodeURIComponent(JSON.stringify(filters));

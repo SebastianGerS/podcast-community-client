@@ -1,7 +1,7 @@
 
 import { Dispatch } from 'redux';
 import * as ActionTypes from './types';
-import { Fetch, formatError, Response } from '../../../Helpers/Fetch';
+import { Fetch, Response } from '../../../Helpers/Fetch';
 import { attemptSetMessage, SetMessage } from '../../Message';
 import { attemptGetSelf, GetSelfSuccess } from '../../Auth';
 import { Podcast } from '../../../Models/Podcast';
@@ -50,7 +50,7 @@ export const attemptGetSubscriptions = (userId: string): AttemptGetSubscriptions
 ): Promise<void> => {
   dispatch(startGetSubscriptions());
 
-  const response = await getSubscriptions(userId);
+  const response = await getSubscriptions(userId).catch(error => error);
 
   if (response.message === 'Failed to fetch') {
     attemptSetMessage(
@@ -61,11 +61,10 @@ export const attemptGetSubscriptions = (userId: string): AttemptGetSubscriptions
     )(dispatch);
   }
 
-  if (response.error) {
+  if (!response.subscriptions) {
     dispatch(getSubscriptionsFailure());
-
-    attemptSetMessage({ text: formatError(response.error.errmsg), type: 'info' })(dispatch);
   }
+
   if (response.subscriptions) {
     dispatch(gotSubscriptions(response));
     attemptGetSelf()(dispatch);

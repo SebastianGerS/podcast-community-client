@@ -17,7 +17,7 @@ function Categories({ categories }: Props): JSX.Element {
       }
       {isCreating
         && <Folder isCreating={isCreating} setIsCreating={setIsCreating} />}
-      { typeof categories[0].name === 'string'
+      { categories.length > 0
         ? <List component={Folder} data={categories} {...props} />
         : null}
     </div>

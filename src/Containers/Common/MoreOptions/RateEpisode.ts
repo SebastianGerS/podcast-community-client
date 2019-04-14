@@ -7,7 +7,7 @@ import {
 import { Episode } from '../../../Models/Episode';
 import { MoreOptionsState } from '../../../Reducers/MoreOptionsReducer';
 import { UserState } from '../../../Reducers/UserReducer';
-import { attemptRateEpisode, RateEpisodeAction } from '../../../Actions/Episode';
+import { attemptRateEpisode, RateEpisodeAction } from '../../../Actions/Rating';
 import { SetMessage } from '../../../Actions/Message';
 
 interface State {

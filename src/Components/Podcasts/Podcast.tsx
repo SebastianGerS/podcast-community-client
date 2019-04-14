@@ -1,34 +1,41 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Podcast } from '../../Models/Podcast';
 import Loader from '../Layout/Loader';
 import SubscribeButton from '../../Containers/Common/SubscribeButton';
-import Rating from '../Common/Rating';
+import RatingComponent from '../Common/Rating';
 import MoreOptionsButton from '../../Containers/Common/MoreOptions/MoreOptionsButton';
 import Episodes from '../../Containers/Podcasts/Episodes';
-import usePrevious from '../../Helpers/CustomHooks';
 import { RedirectModel } from '../../Models/Redirect';
-import { PodcastRatings } from '../../Actions/Podcast';
+import { Rating } from '../../Models/Rating';
 
 interface Props {
   podcast: Podcast;
   isFetchingPodcast: boolean;
-  getPodcast: (podcastId: string) => void;
   podcastId: string;
   redirect: RedirectModel;
   socket: any;
-  setRating: (rating: PodcastRatings) => void;
-  avrageRating: number;
+  ratings: Rating[];
+  getPodcast: (podcastId: string) => void;
+  resetPodcast: () => void;
+  setRating: (rating: Rating) => void;
+  resetRatings: () => void;
 }
 
 function PodcastComponent({
-  podcast, isFetchingPodcast, getPodcast, podcastId, redirect, socket, setRating, avrageRating,
+  podcast, isFetchingPodcast, getPodcast, podcastId, redirect, socket, setRating, ratings, resetPodcast, resetRatings,
 }: Props): JSX.Element {
-  const prevIsFetchingPodcast = usePrevious(isFetchingPodcast);
-  const [FetchedData, setFetchedData] = useState(false);
+  const [newPodcastRating] = ratings.filter((rating: Rating) => rating.itemId === podcastId);
+
+  const rating = newPodcastRating ? newPodcastRating.rating : podcast.avrageRating;
 
   useEffect(() => {
     getPodcast(podcastId);
+
+    return () => {
+      resetPodcast();
+      resetRatings();
+    };
   }, []);
 
   useEffect(() => {
@@ -42,10 +49,6 @@ function PodcastComponent({
     }
     return removeListener;
   }, [socket]);
-
-  useLayoutEffect(() => {
-    setFetchedData(!isFetchingPodcast && prevIsFetchingPodcast && podcastId === podcast.id);
-  }, [podcastId, podcast]);
 
   const title = (
     typeof podcast.title === 'string'
@@ -67,7 +70,7 @@ function PodcastComponent({
     typeof redirect.to === 'string' ? <Redirect to={redirect.to} /> : null
   );
 
-  return FetchedData ? (
+  return !isFetchingPodcast && typeof podcast.id === 'string' ? (
     <div className="podcast">
       <h3 className="podcast-title">{ title }</h3>
       <div className="podcast-img">
@@ -81,7 +84,7 @@ function PodcastComponent({
         </p>
       </div>
       <div className="podcast-controls">
-        <Rating rating={avrageRating} />
+        <RatingComponent rating={typeof rating === 'number' ? rating : 0} />
         <SubscribeButton podcast={podcast} />
         <MoreOptionsButton item={podcast} />
       </div>

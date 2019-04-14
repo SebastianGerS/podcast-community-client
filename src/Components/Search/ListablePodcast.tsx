@@ -11,11 +11,11 @@ interface Props {
   data: Podcast;
   ratings: Rating[];
   socket: any;
-  updateRating: (rating: Rating) => void;
+  setRating: (rating: Rating) => void;
 }
 
 function ListablePodcast({
-  data, ratings, socket, updateRating,
+  data, ratings, socket, setRating,
 }: Props): JSX.Element {
   const title = (
     typeof data.title === 'string'
@@ -43,17 +43,17 @@ function ListablePodcast({
 
   const podcastId = typeof data.id === 'string' ? data.id : '';
 
-  const [podcastRating] = ratings.filter(rating => rating.podcastId === podcastId);
+  const [newPodcastRating] = ratings.filter((rating: Rating) => rating.itemId === podcastId);
 
-  const rating = podcastRating ? podcastRating.rating : null;
+  const rating = newPodcastRating ? newPodcastRating.rating : data.avrageRating;
 
   useEffect(() => {
     let removeListener;
-    if (socket && !socket.hasListeners(`search/podcasts/${podcastId}/rating`)) {
-      socket.on(`search/podcasts/${podcastId}/rating`, updateRating);
+    if (socket && !socket.hasListeners(`podcasts/${podcastId}/rating`)) {
+      socket.on(`podcasts/${podcastId}/rating`, setRating);
 
       removeListener = () => {
-        socket.removeListener(`search/podcasts/${podcastId}/rating`, updateRating);
+        socket.removeListener(`podcasts/${podcastId}/rating`, setRating);
       };
     }
     return removeListener;

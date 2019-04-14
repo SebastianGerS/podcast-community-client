@@ -13,11 +13,11 @@ interface Props {
   data: Episode;
   ratings: Rating[];
   socket: any;
-  updateRating: (rating: Rating) => void;
+  setRating: (rating: Rating) => void;
 }
 
 function ListableEpisode({
-  data, ratings, socket, updateRating,
+  data, ratings, socket, setRating,
 }: Props): JSX.Element {
   const episodeTitle = typeof data.title_original === 'string' ? data.title_original : '';
   const podcastTitle = typeof data.podcast_title_original === 'string' ? data.podcast_title_original : '';
@@ -27,19 +27,19 @@ function ListableEpisode({
   const epiosdeLength = typeof data.audio_length === 'string'
     ? `${Math.round(getSecondsFromTimeString(data.audio_length) / 60)} min`
     : 'unknown';
-  const [episodeRating] = ratings.filter(rating => rating.episodeId === episodeId);
+  const [newEpisodeRating] = ratings.filter(rating => rating.itemId === episodeId);
 
-  const rating = episodeRating ? episodeRating.rating : null;
+  const rating = newEpisodeRating ? newEpisodeRating.rating : data.avrageRating;
 
   const ratingIcon = getRatingIcon(typeof rating === 'number' ? rating : 0);
 
   useEffect(() => {
     let removeListener;
-    if (socket && !socket.hasListeners(`search/episodes/${episodeId}/rating`)) {
-      socket.on(`search/episodes/${episodeId}/rating`, updateRating);
+    if (socket && !socket.hasListeners(`episodes/${episodeId}/rating`)) {
+      socket.on(`episodes/${episodeId}/rating`, setRating);
 
       removeListener = () => {
-        socket.removeListener(`search/episodes/${episodeId}/rating`, updateRating);
+        socket.removeListener(`episodes/${episodeId}/rating`, setRating);
       };
     }
     return removeListener;

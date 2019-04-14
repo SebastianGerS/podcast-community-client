@@ -14,6 +14,7 @@ import EpisodeReducer from './EpisodeReducer';
 import RedirectReducer from './RedirectReducer';
 import NotificationReducer from './NotificationReducer';
 import MoreOptionsReducer from './MoreOptionsReducer';
+import RatingReducer from './RatingReducer';
 
 const AppReducer = combineReducers({
   AuthReducer,
@@ -29,6 +30,7 @@ const AppReducer = combineReducers({
   RedirectReducer,
   NotificationReducer,
   MoreOptionsReducer,
+  RatingReducer,
 });
 
 export default function RootReducer(state: any, action: AuthActions): any {

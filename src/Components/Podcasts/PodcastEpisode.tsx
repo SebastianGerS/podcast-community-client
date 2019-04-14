@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getDatefromMilisecond, getSecondsFromTimeString } from '../../Helpers/Time';
 import DownloadButton from '../../Containers/Common/DownloadButton';
@@ -11,10 +11,14 @@ import { getRatingIcon } from '../../Helpers/Utils';
 
 interface Props {
   data: Episode;
-  episodeRatings: Rating[];
+  ratings: Rating[];
+  setRating: (rating: Rating) => void;
+  socket: any;
 }
 
-function PodcastEpisode({ data, episodeRatings }: Props): JSX.Element {
+function PodcastEpisode({
+  data, ratings, setRating, socket,
+}: Props): JSX.Element {
   const title = typeof data.title_original === 'string' ? data.title_original : '';
   const description = typeof data.description_original === 'string' ? data.description_original : '';
   const episodeId = typeof data.id === 'string' ? data.id : '';
@@ -24,11 +28,25 @@ function PodcastEpisode({ data, episodeRatings }: Props): JSX.Element {
   const episodeReleaseDate = typeof data.pub_date_ms === 'number'
     ? getDatefromMilisecond(data.pub_date_ms)
     : 'unknown relesedate';
-  const [episodeRating] = episodeRatings.filter(rating => rating.episodeId === episodeId);
 
-  const rating = episodeRating ? episodeRating.rating : 0;
+  const [newEpisodeRating] = ratings.filter(rating => rating.itemId === episodeId);
+
+  const rating = newEpisodeRating ? newEpisodeRating.rating : data.avrageRating;
 
   const ratingIcon = getRatingIcon(typeof rating === 'number' ? rating : 0);
+
+  useEffect(() => {
+    let removeListener;
+
+    if (socket && !socket.hasListeners(`episodes/${episodeId}/rating`)) {
+      socket.on(`episodes/${episodeId}/rating`, setRating);
+
+      removeListener = () => {
+        socket.removeListener(`episodes/${episodeId}/rating`, setRating);
+      };
+    }
+    return removeListener;
+  }, [socket]);
 
   return (
     <div className="listable-episode">

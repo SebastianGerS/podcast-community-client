@@ -13,18 +13,14 @@ const startGetEpisode = (): GetEpisodeStart => ({
   type: ActionTypes.GET_EPISODE_START,
 });
 
-interface EpisodeData {
-  avrageRating: number;
+interface GetEpisodeSuccess {
+  type: ActionTypes.GET_EPISODE_SUCCESS;
   episode: Episode;
 }
-interface GetEpisodeSuccess extends EpisodeData{
-  type: ActionTypes.GET_EPISODE_SUCCESS;
-}
 
-const gotEpisode = ({ episode, avrageRating }: EpisodeData): GetEpisodeSuccess => ({
+const gotEpisode = (episode: Episode): GetEpisodeSuccess => ({
   type: ActionTypes.GET_EPISODE_SUCCESS,
   episode,
-  avrageRating,
 });
 
 interface GetEpisodeFailure {
@@ -64,6 +60,6 @@ export const attemptGetEpisode = (episodeId: string): AttemptGetEpisodeAction =>
   }
 
   if (response.length !== 0 && !response.error && !response.message) {
-    dispatch(gotEpisode(response));
+    dispatch(gotEpisode(response.episode));
   }
 };

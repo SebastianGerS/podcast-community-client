@@ -1,3 +1,0 @@
-export const SET_PODCAST_RATING = 'SET_PODCAST_RATING';
-
-export type SET_PODCAST_RATING = typeof SET_PODCAST_RATING;

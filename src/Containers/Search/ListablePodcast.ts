@@ -1,14 +1,14 @@
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import ListablePodcast from '../../Components/Search/ListablePodcast';
-import { SearchState } from '../../Reducers/SearchReducer';
 import { Rating } from '../../Models/Rating';
 import { AuthState } from '../../Reducers/AuthReducer';
-import { updateRating, UpdateRating } from '../../Actions/Search';
+import { RatingState } from '../../Reducers/RatingReducer';
+import { setRating, SetRating } from '../../Actions/Rating';
 
 interface State {
-  SearchReducer: SearchState;
   AuthReducer: AuthState;
+  RatingReducer: RatingState;
 }
 
 interface StateProps {
@@ -16,19 +16,19 @@ interface StateProps {
   socket: any;
 }
 
-function mapStateToProps({ SearchReducer, AuthReducer }: State): StateProps {
+function mapStateToProps({ AuthReducer, RatingReducer }: State): StateProps {
   return {
-    ratings: SearchReducer.ratings,
+    ratings: RatingReducer.ratings,
     socket: AuthReducer.socket,
   };
 }
 
 interface DispatchProps {
-  updateRating: (rating: Rating) => void;
+  setRating: (rating: Rating) => void;
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<UpdateRating>): DispatchProps => ({
-  updateRating: (rating: Rating) => dispatch(updateRating(rating)),
+const mapDispatchToProps = (dispatch: Dispatch<SetRating>): DispatchProps => ({
+  setRating: (rating: Rating) => dispatch(setRating(rating)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListablePodcast);

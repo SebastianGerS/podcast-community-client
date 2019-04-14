@@ -1,19 +1,37 @@
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import PodcastEpisode from '../../Components/Podcasts/PodcastEpisode';
-import { PodcastState } from '../../Reducers/PodcastReducer';
 import { Rating } from '../../Models/Rating';
+import { RatingState } from '../../Reducers/RatingReducer';
+import { AuthState } from '../../Reducers/AuthReducer';
+import { setRating, SetRating } from '../../Actions/Rating';
 
 interface State {
-  PodcastReducer: PodcastState;
+  RatingReducer: RatingState;
+  AuthReducer: AuthState;
 }
 interface StateProps {
-  episodeRatings: Rating[];
+  ratings: Rating[];
+  socket: any;
 }
 
-function mapStateToProps({ PodcastReducer }: State): StateProps {
+function mapStateToProps({ RatingReducer, AuthReducer }: State): StateProps {
   return {
-    episodeRatings: PodcastReducer.episodeRatings,
+    ratings: RatingReducer.ratings,
+    socket: AuthReducer.socket,
   };
 }
 
-export default connect(mapStateToProps)(PodcastEpisode);
+interface DispatchProps {
+  setRating: (rating: Rating) => void;
+}
+
+type PodcastEpisodeActions = SetRating;
+
+function mapDispatchToProps(dispatch: Dispatch<PodcastEpisodeActions>): DispatchProps {
+  return {
+    setRating: (rating: Rating) => dispatch(setRating(rating)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PodcastEpisode);

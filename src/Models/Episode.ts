@@ -20,6 +20,7 @@ export interface Episode {
   title_original: string | StringConstructor;
   title: string | StringConstructor;
   itunes_id: number | NumberConstructor;
+  avrageRating: number | NumberConstructor;
 }
 
 export const Episode = Immutable.Record<Episode>({
@@ -42,4 +43,5 @@ export const Episode = Immutable.Record<Episode>({
   title_original: String,
   title: String,
   itunes_id: Number,
+  avrageRating: Number,
 });
