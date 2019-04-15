@@ -15,7 +15,7 @@ function NotificationComponent({
 }: Props): JSX.Element {
   const { agent, object, type } = data.event;
   const agentName = setMaxLength(typeof agent.name === 'string' ? agent.name : '', 50);
-  const objectName = setMaxLength(typeof object.name === 'string' ? object.name : '', 50);
+  const objectName = setMaxLength(typeof object.name === 'string' ? object.name : '', 100);
   let thumbnail = agent.image ? agent.image : '';
 
   let message;
@@ -48,6 +48,11 @@ function NotificationComponent({
       linkTo = `/${kind === 'Episode' ? 'episodes' : 'podcasts'}/${_id}`;
       thumbnail = image || '';
       break;
+    case 'newEpisode': {
+      message = `${agentName} has a new episode — ${objectName}`;
+      linkTo = `/episodes/${object._id}`;
+      break;
+    }
     default:
       message = '';
       linkTo = '';
