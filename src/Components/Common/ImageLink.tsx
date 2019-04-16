@@ -5,19 +5,24 @@ interface Props {
   imageSrc: string;
   imageAlt: string;
   linkTo?: string;
+  caption?: string;
 }
 
-const ImageLink = ({ imageSrc, linkTo, imageAlt }: Props): JSX.Element => (
+const ImageLink = ({
+  imageSrc, linkTo, imageAlt, caption,
+}: Props): JSX.Element => (
   linkTo ? (
     <Link to={linkTo}>
       <figure>
         <img src={imageSrc} alt={imageAlt} />
+        <figcaption>{caption}</figcaption>
       </figure>
     </Link>
   )
     : (
       <figure>
         <img src={imageSrc} alt={imageAlt} />
+        <figcaption>{caption}</figcaption>
       </figure>
     )
 );
