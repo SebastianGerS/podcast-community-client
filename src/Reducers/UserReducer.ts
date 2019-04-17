@@ -1,3 +1,4 @@
+import { List } from 'immutable';
 import * as ActionTypes from '../Actions/User/types';
 import { User } from '../Models/User';
 import { Category } from '../Models/Category';
@@ -14,6 +15,7 @@ export interface UserState {
   following: User[];
   requests: User[];
   isFetchingFollows: boolean;
+  onlineUsers: List<string>;
 }
 
 const DEFAULT_STATE: UserState = {
@@ -26,6 +28,7 @@ const DEFAULT_STATE: UserState = {
   following: [],
   requests: [],
   isFetchingFollows: false,
+  onlineUsers: List<string>(),
 };
 
 export default function (state: UserState = DEFAULT_STATE, action: UserActions): UserState {
@@ -99,6 +102,19 @@ export default function (state: UserState = DEFAULT_STATE, action: UserActions):
       return { ...state, isUpdating: false };
     case ActionTypes.DELETE_CATEGORY_FAILURE:
       return { ...state, isUpdating: false };
+    case ActionTypes.SET_ONLINE_STATUSES:
+      return {
+        ...state,
+        onlineUsers: List(action.userIds),
+      };
+    case ActionTypes.UPDATE_ONLINE_STATUSES:
+      const indexOfUserId = state.onlineUsers.indexOf(action.status.userId);
+      return {
+        ...state,
+        onlineUsers: action.status.online
+          ? state.onlineUsers.push(action.status.userId)
+          : state.onlineUsers.remove(indexOfUserId),
+      };
     default:
       return { ...state };
   }

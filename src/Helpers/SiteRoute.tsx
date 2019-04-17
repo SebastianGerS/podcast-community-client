@@ -9,6 +9,7 @@ import MessageInterface from '../Containers/Message/MessageInterface';
 import { Notification } from '../Models/Notification';
 import Modals from '../Containers/Layout/Modals';
 import { Event } from '../Models/Event';
+import { OnlineStatus } from '../Models/OnlineStatus';
 
 interface SiteRouteProps extends RouteProps{
   routeType: string;
@@ -36,11 +37,13 @@ interface SiteRouteProps extends RouteProps{
   addNotification: (notification: Notification) => void;
   getFollowingEvents: (offset: number) => void;
   setEvent: (event: Event) => void;
+  updateOnlineStatuses: (userId: OnlineStatus) => void;
+  setOnlineStatuses: (userIds: string[]) => void;
 }
 
 export default function SiteRoute({
   routeType, component: Component, path, isLogedIn, isAdmin, computedMatch, getFollowingEvents,
-  checkIfLogedIn, setHeight, height, checkIfResized, unsetRedirect, setEvent,
+  checkIfLogedIn, setHeight, height, checkIfResized, unsetRedirect, setEvent, setOnlineStatuses, updateOnlineStatuses,
   getNotifications, socket, createSocket, userId, getFollows, addNotification, ...rest
 }: SiteRouteProps): JSX.Element {
   useEffect(() => {
@@ -73,7 +76,10 @@ export default function SiteRoute({
       getFollowingEvents(0);
     }
     if (socket && isLogedIn && !socket.hasListeners(`user/${userId}/notification`)) {
-      socket.on(`user/${userId}/notification`, addNotification);
+      socket.on(`users/${userId}/notification`, addNotification);
+      socket.emit('user/online', userId);
+      socket.on(`users/${userId}/follows/online`, setOnlineStatuses);
+      socket.on(`users/${userId}/follow/online`, updateOnlineStatuses);
     }
     if (socket && isLogedIn && !socket.hasListeners(`users/${userId}/event`)) {
       socket.on(`users/${userId}/event`, setEvent);
