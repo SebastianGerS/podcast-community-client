@@ -16,6 +16,7 @@ interface StateProps {
   moreOptionsModalIsActive: boolean;
   recommendToUserModalIsActive: boolean;
   rateEpisodeModalIsActive: boolean;
+  followsModalIsActive: boolean;
 }
 
 function mapStateToProps({ AuthReducer, ModalReducer }: State): StateProps {
@@ -26,6 +27,7 @@ function mapStateToProps({ AuthReducer, ModalReducer }: State): StateProps {
     moreOptionsModalIsActive: ModalReducer.moreOptionsModalIsActive,
     recommendToUserModalIsActive: ModalReducer.recommendToUserModalIsActive,
     rateEpisodeModalIsActive: ModalReducer.rateEpisodeModalIsActive,
+    followsModalIsActive: ModalReducer.followsModalIsActive,
   };
 }
 
