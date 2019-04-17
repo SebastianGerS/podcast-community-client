@@ -34,11 +34,18 @@
     border-left: 1px solid #fef6f6;
   }
 
-  .follows {
+  .toggle-follows-modal {
     height: 44px;
     width: 44px;
     background-size: contain;
-    background-image: url(../Icons/follows.svg);
+
+    &.online {
+      background-image: url(../Icons/follows-online.svg);
+    }
+
+    &.offline {
+      background-image: url(../Icons/follows-offline.svg);
+    }
   }
 }
 
@@ -58,7 +65,7 @@
       padding: 0 1em 0 1em;
     }
 
-    .follows {
+    .toggle-follows-modal {
       height: 5.5em;
       width: 5.5em;
       background-size: 5.5em;
@@ -82,7 +89,7 @@
       padding: 0 1.5em 0 1.5em;
     }
 
-    .follows {
+    .toggle-follows-modal {
       height: 5.5em;
       width: 5.5em;
       background-size: 5.5em;
@@ -110,7 +117,7 @@
       padding: 0 1.5em 0 1.5em;
     }
 
-    .follows {
+    .toggle-follows-modal {
       height: 8em;
       width: 8em;
       background-size: 8em;
