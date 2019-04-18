@@ -135,6 +135,17 @@ export default function (state: SearchState = DEFAULT_STATE, action: SearchActio
       return {
         ...state, isUpdatingSearchSettings: false,
       };
+    case ActionTypes.UPDATE_USER_SEARCH_RESULTS:
+      return {
+        ...state,
+        results: state.results.map((item: User) => {
+          if (item._id === action.user._id) {
+            return new User(action.user);
+          }
+
+          return item;
+        }),
+      };
     default:
       return { ...state, redirectToSearch: false };
   }

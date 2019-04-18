@@ -9,6 +9,9 @@ import MessageInterface from '../Containers/Message/MessageInterface';
 import { Notification } from '../Models/Notification';
 import Modals from '../Containers/Layout/Modals';
 import { Event } from '../Models/Event';
+import { OnlineStatus } from '../Models/OnlineStatus';
+import { Follows } from '../Actions/User';
+import { useSocket } from './CustomHooks';
 
 interface SiteRouteProps extends RouteProps{
   routeType: string;
@@ -36,11 +39,14 @@ interface SiteRouteProps extends RouteProps{
   addNotification: (notification: Notification) => void;
   getFollowingEvents: (offset: number) => void;
   setEvent: (event: Event) => void;
+  updateOnlineStatuses: (userId: OnlineStatus) => void;
+  setOnlineStatuses: (userIds: string[]) => void;
+  updateFollows: (follows: Follows) => void;
 }
 
 export default function SiteRoute({
-  routeType, component: Component, path, isLogedIn, isAdmin, computedMatch, getFollowingEvents,
-  checkIfLogedIn, setHeight, height, checkIfResized, unsetRedirect, setEvent,
+  routeType, component: Component, path, isLogedIn, isAdmin, computedMatch, getFollowingEvents, updateFollows,
+  checkIfLogedIn, setHeight, height, checkIfResized, unsetRedirect, setEvent, setOnlineStatuses, updateOnlineStatuses,
   getNotifications, socket, createSocket, userId, getFollows, addNotification, ...rest
 }: SiteRouteProps): JSX.Element {
   useEffect(() => {
@@ -63,6 +69,12 @@ export default function SiteRoute({
     }
   });
 
+  useSocket(socket, `users/${userId}/notification`, addNotification, isLogedIn);
+  useSocket(socket, `users/${userId}/follows/online`, setOnlineStatuses, isLogedIn);
+  useSocket(socket, `users/${userId}/follow/online`, updateOnlineStatuses, isLogedIn);
+  useSocket(socket, `users/${userId}/follows`, updateFollows, isLogedIn);
+  useSocket(socket, `users/${userId}/event`, setEvent, isLogedIn);
+
   useEffect(() => {
     if (!socket) {
       createSocket();
@@ -71,12 +83,7 @@ export default function SiteRoute({
       getNotifications(0);
       getFollows();
       getFollowingEvents(0);
-    }
-    if (socket && isLogedIn && !socket.hasListeners(`user/${userId}/notification`)) {
-      socket.on(`user/${userId}/notification`, addNotification);
-    }
-    if (socket && isLogedIn && !socket.hasListeners(`users/${userId}/event`)) {
-      socket.on(`users/${userId}/event`, setEvent);
+      socket.emit('user/online', userId);
     }
   }, [isLogedIn]);
 

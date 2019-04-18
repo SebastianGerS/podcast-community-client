@@ -2,15 +2,16 @@ import React, { useState, useEffect, FormEvent } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { SearchData } from '../../Actions/Search';
 import { Filters } from '../../Models/Filters';
+import ToggleFollowsModal from '../../Containers/Follows/ToggleFollowsModal';
 
 interface Props {
-  type: string;
   search: (data: SearchData) => void;
   isLogedIn: boolean;
   redirectToSearch: boolean;
   path: string;
   filters: Filters;
   sorting: string;
+  type: string;
 }
 
 function SearchBar({
@@ -39,7 +40,7 @@ function SearchBar({
       </form>
       <div>
         { isLogedIn
-          ? <button type="button" aria-label="toggle-follows-modal" className="follows" />
+          ? <ToggleFollowsModal />
           : <Link to="/register">Register</Link>
         }
       </div>

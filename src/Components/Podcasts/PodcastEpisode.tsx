@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { getDatefromMilisecond, getSecondsFromTimeString } from '../../Helpers/Time';
 import DownloadButton from '../../Containers/Common/DownloadButton';
@@ -8,6 +8,7 @@ import PlayButton from '../../Containers/Common/PlayButton';
 import InfoBox from '../Common/InfoBox';
 import { Rating } from '../../Models/Rating';
 import { getRatingIcon } from '../../Helpers/Utils';
+import { useSocket } from '../../Helpers/CustomHooks';
 
 interface Props {
   data: Episode;
@@ -35,18 +36,7 @@ function PodcastEpisode({
 
   const ratingIcon = getRatingIcon(typeof rating === 'number' ? rating : 0);
 
-  useEffect(() => {
-    let removeListener;
-
-    if (socket && !socket.hasListeners(`episodes/${episodeId}/rating`)) {
-      socket.on(`episodes/${episodeId}/rating`, setRating);
-
-      removeListener = () => {
-        socket.removeListener(`episodes/${episodeId}/rating`, setRating);
-      };
-    }
-    return removeListener;
-  }, [socket]);
+  useSocket(socket, `episodes/${episodeId}/rating`, setRating);
 
   return (
     <div className="listable-episode">

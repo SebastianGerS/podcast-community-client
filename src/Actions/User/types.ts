@@ -6,3 +6,5 @@ export * from './GetUser/types';
 export * from './UpdateCategory/types';
 export * from './UpdateUser/types';
 export * from './GetFollowers/types';
+export * from './UpdateOnlineStatuses/types';
+export * from './SetOnlineStatuses/types';

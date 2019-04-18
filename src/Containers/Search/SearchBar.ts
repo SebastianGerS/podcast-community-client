@@ -35,7 +35,9 @@ interface DispatchProps {
   search: (query: object) => void;
 }
 
-function mapDispatchToProps(dispatch: Dispatch<AttemptSearchActions|SetMessage|ResetRatings>): DispatchProps {
+type SearchBarActions = AttemptSearchActions | SetMessage | ResetRatings;
+
+function mapDispatchToProps(dispatch: Dispatch<SearchBarActions>): DispatchProps {
   return {
     search: (query: SearchData) => attemptSearch(query)(dispatch),
   };

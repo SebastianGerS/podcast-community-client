@@ -71,6 +71,14 @@ export const toggleRateEpisodeModal = (): ToggleRateEpisodeModal => ({
   type: ActionTypes.TOGGLE_RATE_EPISODE_MODAL,
 });
 
+export interface ToggleFollowsModal {
+  type: ActionTypes.TOGGLE_FOLLOWS_MODAL;
+}
+
+export const toggleFollowsModal = (): ToggleFollowsModal => ({
+  type: ActionTypes.TOGGLE_FOLLOWS_MODAL,
+});
+
 export interface SetHeight {
   type: ActionTypes.SET_HEIGHT;
   height: number;
@@ -106,5 +114,5 @@ export const setAndToggleMoreOptionsModal = (item?: Episode | Podcast): SetAndTo
 
 export type ModalActions = (
   ToggleLoginModal | ToggleMenu | TogglePlaybackModal | ToggleUserModal | ToggleNotificationsModal
-  | ToggleMoreOptionsModal | ToggleRecommendToUserModal | ToggleRateEpisodeModal | SetHeight
+  | ToggleMoreOptionsModal | ToggleRecommendToUserModal | ToggleRateEpisodeModal | SetHeight | ToggleFollowsModal
 );
