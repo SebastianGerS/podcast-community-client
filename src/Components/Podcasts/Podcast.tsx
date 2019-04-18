@@ -8,6 +8,7 @@ import MoreOptionsButton from '../../Containers/Common/MoreOptions/MoreOptionsBu
 import Episodes from '../../Containers/Podcasts/Episodes';
 import { RedirectModel } from '../../Models/Redirect';
 import { Rating } from '../../Models/Rating';
+import { useSocket } from '../../Helpers/CustomHooks';
 
 interface Props {
   podcast: Podcast;
@@ -38,17 +39,7 @@ function PodcastComponent({
     };
   }, []);
 
-  useEffect(() => {
-    let removeListener;
-    if (socket && !socket.hasListeners(`podcasts/${podcastId}/rating`)) {
-      socket.on(`podcasts/${podcastId}/rating`, setRating);
-
-      removeListener = () => {
-        socket.removeListener(`podcasts/${podcastId}/rating`, setRating);
-      };
-    }
-    return removeListener;
-  }, [socket]);
+  useSocket(socket, `podcasts/${podcastId}/rating`, setRating);
 
   const title = (
     typeof podcast.title === 'string'

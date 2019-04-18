@@ -5,7 +5,7 @@ import PlaybackBar from './PlaybackBar';
 import ErrorBoundray from '../../Containers/Helpers/ErrorBoundray';
 import { savePosInLocalStorage, checkifInPosList, getEpisodePosFromList } from '../../Helpers/Downloads';
 import { getMediumModalHeight } from '../../Helpers/UserAgent';
-import usePrevious from '../../Helpers/CustomHooks';
+import { usePrevious } from '../../Helpers/CustomHooks';
 import { Episode } from '../../Models/Episode';
 
 interface Props {
