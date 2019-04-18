@@ -63,14 +63,21 @@ function FollowsList({
         type="button"
         onClick={() => toggleFollowsModal()}
       />
-      <div>
-        <h3>Online</h3>
-        <List component={FollowsModalUser} data={online} {...onlineProps} />
-      </div>
-      <div>
-        <h3>Offline</h3>
-        <List component={FollowsModalUser} data={offline} {...offlineProps} />
-      </div>
+      {online.length + offline.length > 0
+        ? (
+          <div>
+            <div>
+              <h3>Online</h3>
+              <List component={FollowsModalUser} data={online} {...onlineProps} />
+            </div>
+            <div>
+              <h3>Offline</h3>
+              <List component={FollowsModalUser} data={offline} {...offlineProps} />
+            </div>
+          </div>
+        )
+        : <p className="no-follows">{'You don\'t have any followers yeat'}</p>
+      }
     </div>
   );
 }
