@@ -3,7 +3,7 @@ import UserInfo from './UserInfo';
 import Loader from '../Layout/Loader';
 import { User } from '../../Models/User';
 import FollowButton from '../../Containers/Common/FollowButton';
-import usePrevious from '../../Helpers/CustomHooks';
+import { useSocket } from '../../Helpers/CustomHooks';
 
 interface Props {
   getUser: (userId: string) => void;
@@ -12,10 +12,12 @@ interface Props {
   currentUserId: string;
   updateUser: () => void;
   isAdmin: boolean;
-  isCreatingUserEvent: boolean;
+  socket: any;
+  setUpdatedUser: (user: User) => void;
 }
+
 function Profile({
-  getUser, userId, user, currentUserId, updateUser, isAdmin, isCreatingUserEvent,
+  getUser, userId, user, currentUserId, updateUser, isAdmin, socket, setUpdatedUser,
 }: Props): JSX.Element {
   const username = typeof user.username === 'string' ? user.username : '';
   const age = typeof user.age === 'number' ? user.age : undefined;
@@ -23,17 +25,11 @@ function Profile({
   const bio = typeof user.bio === 'string' ? user.bio : '';
   const followers = Array.isArray(user.followers) ? user.followers : [];
 
-  const prevToggelingFollows = usePrevious(isCreatingUserEvent);
+  useSocket(socket, `users/${userId}`, setUpdatedUser);
 
   useEffect(() => {
     getUser(userId);
   }, [userId]);
-
-  useEffect(() => {
-    if (!isCreatingUserEvent && prevToggelingFollows) {
-      getUser(userId);
-    }
-  }, [isCreatingUserEvent]);
 
   const isAutharized = (): boolean => {
     let auth = false;

@@ -1,11 +1,9 @@
-import React, { useState, MouseEvent, useEffect } from 'react';
+import React, { useState, MouseEvent } from 'react';
 import { User } from '../../Models/User';
 import Following from './Following';
 import Followers from './Followers';
 
 interface Props {
-  user: User;
-  getFollows: () => void;
   followers: User[];
   requests: User[];
   following: User[];
@@ -13,13 +11,9 @@ interface Props {
 }
 
 function Follows({
-  user, followers, getFollows, requests, following, tabIndex,
+  followers, requests, following, tabIndex,
 }: Props): JSX.Element {
   const [activeTab, setActiveTab] = useState(tabIndex ? +tabIndex : 0);
-
-  useEffect(() => {
-    getFollows();
-  }, [user]);
 
   const changeTab = (e: MouseEvent<HTMLButtonElement>): void => {
     setActiveTab(+e.currentTarget.value);

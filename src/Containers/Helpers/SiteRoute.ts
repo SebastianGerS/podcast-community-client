@@ -14,7 +14,8 @@ import {
 import { NotificationState } from '../../Reducers/NotificationReducer';
 import { Notification } from '../../Models/Notification';
 import {
-  attemptGetFollows, GetFollowsAction, updateOnlineStatuses, UpdateOnlineStatuses, SetOnlineStatuses, setOnlineStatuses,
+  attemptGetFollows, GetFollowsAction, updateOnlineStatuses, UpdateOnlineStatuses,
+  SetOnlineStatuses, setOnlineStatuses, getFollowsSuccess, GetFollowsSuccess, Follows,
 } from '../../Actions/User';
 import {
   attemptGetFollowingEvents, GetFollowingEventsAction, setEvent, SetEvent,
@@ -50,7 +51,8 @@ function mapStateToProps({ AuthReducer, ModalReducer, NotificationReducer }: Sta
 
 type SiteRouteActions = (
   UserLogoutSuccess | IsLogedIn | SetHeight | UnsetRedirect | GetFollowsAction | SetEvent | UpdateOnlineStatuses
-  | GetNotificationsAction | SetSocket | AddNotificationActions | GetFollowingEventsAction | SetOnlineStatuses
+  | GetNotificationsAction | SetSocket | AddNotificationActions | GetFollowingEventsAction
+  | SetOnlineStatuses | GetFollowsSuccess
 );
 
 interface DispatchProps {
@@ -65,7 +67,8 @@ interface DispatchProps {
   getFollowingEvents: (offset: number) => void;
   setEvent: (event: Event) => void;
   updateOnlineStatuses: (status: OnlineStatus) => void;
-  setOnlineStatuses: (statuss: string[]) => void;
+  setOnlineStatuses: (status: string[]) => void;
+  updateFollows: (follows: Follows) => void;
 }
 
 function mapDispatchToProps(dispatch: Dispatch<SiteRouteActions>): DispatchProps {
@@ -82,6 +85,7 @@ function mapDispatchToProps(dispatch: Dispatch<SiteRouteActions>): DispatchProps
     setEvent: (event: Event) => dispatch(setEvent(event)),
     updateOnlineStatuses: (status: OnlineStatus) => dispatch(updateOnlineStatuses(status)),
     setOnlineStatuses: (userIds: string[]) => dispatch(setOnlineStatuses(userIds)),
+    updateFollows: (follows: Follows) => dispatch(getFollowsSuccess(follows)),
   };
 }
 
