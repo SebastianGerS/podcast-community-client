@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { getDatefromMilisecond } from '../../Helpers/Time';
 import { Podcast } from '../../Models/Podcast';
@@ -6,6 +6,7 @@ import SubscribeButton from '../../Containers/Common/SubscribeButton';
 import RatingComponent from '../Common/Rating';
 import MoreOptionsButton from '../../Containers/Common/MoreOptions/MoreOptionsButton';
 import { Rating } from '../../Models/Rating';
+import { useSocket } from '../../Helpers/CustomHooks';
 
 interface Props {
   data: Podcast;
@@ -47,17 +48,7 @@ function ListablePodcast({
 
   const rating = newPodcastRating ? newPodcastRating.rating : data.avrageRating;
 
-  useEffect(() => {
-    let removeListener;
-    if (socket && !socket.hasListeners(`podcasts/${podcastId}/rating`)) {
-      socket.on(`podcasts/${podcastId}/rating`, setRating);
-
-      removeListener = () => {
-        socket.removeListener(`podcasts/${podcastId}/rating`, setRating);
-      };
-    }
-    return removeListener;
-  }, [socket]);
+  useSocket(socket, `podcasts/${podcastId}/rating`, setRating);
 
   return (
     <div className="listable-podcast-searchresult">

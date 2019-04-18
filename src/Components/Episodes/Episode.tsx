@@ -10,6 +10,7 @@ import { RedirectModel } from '../../Models/Redirect';
 import DownloadButton from '../../Containers/Common/DownloadButton';
 import { getRatingIcon } from '../../Helpers/Utils';
 import { Rating } from '../../Models/Rating';
+import { useSocket } from '../../Helpers/CustomHooks';
 
 interface Props {
   episodeId: string;
@@ -52,18 +53,7 @@ function EpisodeComponent({
     };
   }, []);
 
-  useEffect(() => {
-    let removeListener;
-    if (socket && !socket.hasListeners(`episodes/${episodeId}/rating`)) {
-      socket.on(`episodes/${episodeId}/rating`, setRating);
-
-      removeListener = () => {
-        socket.removeListener(`episodes/${episodeId}/rating`, setRating);
-      };
-    }
-
-    return removeListener;
-  }, [socket]);
+  useSocket(socket, `episodes/${episodeId}/rating`, setRating);
 
   const renderRedirect = (): JSX.Element | null => (
     typeof redirect.to === 'string' ? <Redirect to={redirect.to} /> : null

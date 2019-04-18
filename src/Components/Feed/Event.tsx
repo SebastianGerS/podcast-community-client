@@ -17,8 +17,8 @@ const EventComponent = ({ data }: Props): JSX.Element | null => {
   const maxLengthFifty = (word: string): string => setMaxLength(word, 50);
 
   const agentName = maxLengthFifty((agent.name && typeof agent.name === 'string') ? agent.name : '');
-  const targetName = maxLengthFifty((target.name && typeof target.name === 'string') ? target.name : '');
-  const objectName = maxLengthFifty((object.name && typeof object.name === 'string') ? object.name : '');
+  const targetName = setMaxLength(target.name && typeof target.name === 'string' ? target.name : '', 100);
+  const objectName = setMaxLength(object.name && typeof object.name === 'string' ? object.name : '', 100);
 
   const agentThumbnail = typeof agent.image === 'string'
     ? agent.image
@@ -36,9 +36,19 @@ const EventComponent = ({ data }: Props): JSX.Element | null => {
       message = `${agentName} subscribed to ${targetName}`;
       eventImages = (
         <div className="event-images">
-          <ImageLink imageSrc={agentThumbnail} imageAlt={agentName} linkTo={`/profile/${agent._id}`} />
+          <ImageLink
+            imageSrc={agentThumbnail}
+            imageAlt={agentName}
+            linkTo={`/profile/${agent._id}`}
+            caption={setMaxLength(agentName, 30)}
+          />
           <ImageLink imageSrc={ArrowRight} imageAlt="arrow right" />
-          <ImageLink imageSrc={targetThumbnail} imageAlt={targetName} linkTo={`/podcasts/${target._id}`} />
+          <ImageLink
+            imageSrc={targetThumbnail}
+            imageAlt={targetName}
+            linkTo={`/podcasts/${target._id}`}
+            caption={setMaxLength(targetName, 30)}
+          />
         </div>
       );
       break;
@@ -46,9 +56,19 @@ const EventComponent = ({ data }: Props): JSX.Element | null => {
       message = `${targetName} is now following ${agentName}`;
       eventImages = (
         <div className="event-images">
-          <ImageLink imageSrc={targetThumbnail} imageAlt={targetName} linkTo={`/profile/${target._id}`} />
+          <ImageLink
+            imageSrc={targetThumbnail}
+            imageAlt={targetName}
+            linkTo={`/profile/${target._id}`}
+            caption={setMaxLength(targetName, 30)}
+          />
           <ImageLink imageSrc={ArrowRight} imageAlt="arrow right" />
-          <ImageLink imageSrc={agentThumbnail} imageAlt={agentName} linkTo={`/profile/${agent._id}`} />
+          <ImageLink
+            imageSrc={agentThumbnail}
+            imageAlt={agentName}
+            linkTo={`/profile/${agent._id}`}
+            caption={setMaxLength(agentName, 30)}
+          />
         </div>
       );
       break;
@@ -56,9 +76,19 @@ const EventComponent = ({ data }: Props): JSX.Element | null => {
       message = `${agentName} is now following ${targetName}`;
       eventImages = (
         <div className="event-images">
-          <ImageLink imageSrc={agentThumbnail} imageAlt={agentName} linkTo={`/profile/${agent._id}`} />
+          <ImageLink
+            imageSrc={agentThumbnail}
+            imageAlt={agentName}
+            linkTo={`/profile/${agent._id}`}
+            caption={setMaxLength(agentName, 30)}
+          />
           <ImageLink imageSrc={ArrowRight} imageAlt="arrow right" />
-          <ImageLink imageSrc={targetThumbnail} imageAlt={targetName} linkTo={`/profile/${target._id}`} />
+          <ImageLink
+            imageSrc={targetThumbnail}
+            imageAlt={targetName}
+            linkTo={`/profile/${target._id}`}
+            caption={setMaxLength(targetName, 30)}
+          />
         </div>
       );
       break;
@@ -73,7 +103,12 @@ const EventComponent = ({ data }: Props): JSX.Element | null => {
 
       eventImages = (
         <div className="event-images">
-          <ImageLink imageSrc={agentThumbnail} imageAlt={agentName} linkTo={`/profile/${agent._id}`} />
+          <ImageLink
+            imageSrc={agentThumbnail}
+            imageAlt={agentName}
+            linkTo={`/profile/${agent._id}`}
+            caption={setMaxLength(agentName, 30)}
+          />
           <ImageLink imageSrc={ArrowRight} imageAlt="arrow right" />
           <ImageLink
             imageSrc={objectThumbnail}
@@ -81,7 +116,12 @@ const EventComponent = ({ data }: Props): JSX.Element | null => {
             linkTo={`/${kind === 'Episode' ? 'episodes' : 'podcasts'}/${_id}`}
           />
           <ImageLink imageSrc={ArrowRight} imageAlt="arrow right" />
-          <ImageLink imageSrc={targetThumbnail} imageAlt={targetName} linkTo={`/profile/${target._id}`} />
+          <ImageLink
+            imageSrc={targetThumbnail}
+            imageAlt={targetName}
+            linkTo={`/profile/${target._id}`}
+            caption={setMaxLength(targetName, 30)}
+          />
         </div>
       );
       break;
@@ -91,11 +131,41 @@ const EventComponent = ({ data }: Props): JSX.Element | null => {
       message = `${agentName} gave the episode ${targetName} from ${target.parent_name} a rating of ${rating}`;
       eventImages = (
         <div className="event-images">
-          <ImageLink imageSrc={agentThumbnail} imageAlt={agentName} linkTo={`/profile/${agent._id}`} />
+          <ImageLink
+            imageSrc={agentThumbnail}
+            imageAlt={agentName}
+            linkTo={`/profile/${agent._id}`}
+            caption={setMaxLength(agentName, 30)}
+          />
           <ImageLink imageSrc={ArrowRight} imageAlt="arrow right" />
           <Rating rating={rating || 0} />
           <ImageLink imageSrc={ArrowRight} imageAlt="arrow right" />
-          <ImageLink imageSrc={targetThumbnail} imageAlt={targetName} linkTo={`/episodes/${target._id}`} />
+          <ImageLink
+            imageSrc={targetThumbnail}
+            imageAlt={targetName}
+            linkTo={`/episodes/${target._id}`}
+            caption={setMaxLength(targetName, 30)}
+          />
+        </div>
+      );
+      break;
+    case 'newEpisode':
+      message = `${agentName} relesed a new episode — ${objectName}`;
+      eventImages = (
+        <div className="event-images">
+          <ImageLink
+            imageSrc={agentThumbnail}
+            imageAlt={agentName}
+            linkTo={`/podcasts/${agent._id}`}
+            caption={setMaxLength(agentName, 30)}
+          />
+          <ImageLink imageSrc={ArrowRight} imageAlt="arrow right" />
+          <ImageLink
+            imageSrc={objectThumbnail}
+            imageAlt={objectName}
+            linkTo={`/episodes/${object._id}`}
+            caption={setMaxLength(objectName, 30)}
+          />
         </div>
       );
       break;

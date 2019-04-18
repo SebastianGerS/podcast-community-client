@@ -13,11 +13,15 @@ import {
 } from '../../Actions/Notifications';
 import { NotificationState } from '../../Reducers/NotificationReducer';
 import { Notification } from '../../Models/Notification';
-import { attemptGetFollows, GetFollowsAction } from '../../Actions/User';
+import {
+  attemptGetFollows, GetFollowsAction, updateOnlineStatuses, UpdateOnlineStatuses,
+  SetOnlineStatuses, setOnlineStatuses, getFollowsSuccess, GetFollowsSuccess, Follows,
+} from '../../Actions/User';
 import {
   attemptGetFollowingEvents, GetFollowingEventsAction, setEvent, SetEvent,
 } from '../../Actions/Event';
 import { Event } from '../../Models/Event';
+import { OnlineStatus } from '../../Models/OnlineStatus';
 
 interface State {
   AuthReducer: AuthState;
@@ -46,8 +50,9 @@ function mapStateToProps({ AuthReducer, ModalReducer, NotificationReducer }: Sta
 }
 
 type SiteRouteActions = (
-  UserLogoutSuccess | IsLogedIn | SetHeight | UnsetRedirect | GetFollowsAction | SetEvent
+  UserLogoutSuccess | IsLogedIn | SetHeight | UnsetRedirect | GetFollowsAction | SetEvent | UpdateOnlineStatuses
   | GetNotificationsAction | SetSocket | AddNotificationActions | GetFollowingEventsAction
+  | SetOnlineStatuses | GetFollowsSuccess
 );
 
 interface DispatchProps {
@@ -61,6 +66,9 @@ interface DispatchProps {
   addNotification: (notification: Notification) => void;
   getFollowingEvents: (offset: number) => void;
   setEvent: (event: Event) => void;
+  updateOnlineStatuses: (status: OnlineStatus) => void;
+  setOnlineStatuses: (status: string[]) => void;
+  updateFollows: (follows: Follows) => void;
 }
 
 function mapDispatchToProps(dispatch: Dispatch<SiteRouteActions>): DispatchProps {
@@ -75,6 +83,9 @@ function mapDispatchToProps(dispatch: Dispatch<SiteRouteActions>): DispatchProps
     addNotification: (notification: Notification) => addNotification(notification)(dispatch),
     getFollowingEvents: (offset: number) => attemptGetFollowingEvents(offset)(dispatch),
     setEvent: (event: Event) => dispatch(setEvent(event)),
+    updateOnlineStatuses: (status: OnlineStatus) => dispatch(updateOnlineStatuses(status)),
+    setOnlineStatuses: (userIds: string[]) => dispatch(setOnlineStatuses(userIds)),
+    updateFollows: (follows: Follows) => dispatch(getFollowsSuccess(follows)),
   };
 }
 

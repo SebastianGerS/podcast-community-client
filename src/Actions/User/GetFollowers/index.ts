@@ -12,12 +12,12 @@ interface GetFollowsStart {
 export const startGetFollows = (): GetFollowsStart => ({
   type: ActionTypes.GET_FOLLOWS_START,
 });
-interface Follows {
+export interface Follows {
   followers: User[];
   following: User[];
   requests: User[];
 }
-interface GetFollowsSuccess extends Follows{
+export interface GetFollowsSuccess extends Follows{
   type: ActionTypes.GET_FOLLOWS_SUCCESS;
 }
 

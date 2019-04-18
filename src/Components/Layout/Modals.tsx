@@ -4,6 +4,7 @@ import RateEpisodeModal from '../Common/MoreOptions/RateEpisodeModal';
 import RecommendToUserModal from '../Common/MoreOptions/RecommendToUserModal';
 import MoreOptionsModal from '../Common/MoreOptions/MoreOptionsModal';
 import NotificationsModal from '../Notifications/NotificationsModal';
+import FollowsModal from '../Follows/FollowsModal';
 
 interface Props {
   loginModalIsActive: boolean;
@@ -11,12 +12,13 @@ interface Props {
   moreOptionsModalIsActive: boolean;
   recommendToUserModalIsActive: boolean;
   rateEpisodeModalIsActive: boolean;
+  followsModalIsActive: boolean;
   isLogedIn: boolean;
 }
 
 const Modals = ({
   loginModalIsActive, notificationsModalIsActive, moreOptionsModalIsActive,
-  recommendToUserModalIsActive, rateEpisodeModalIsActive, isLogedIn,
+  recommendToUserModalIsActive, rateEpisodeModalIsActive, isLogedIn, followsModalIsActive,
 }: Props): JSX.Element | null => {
   let modal = null;
   if (isLogedIn) {
@@ -28,6 +30,8 @@ const Modals = ({
       modal = <RecommendToUserModal />;
     } else if (rateEpisodeModalIsActive) {
       modal = <RateEpisodeModal />;
+    } else if (followsModalIsActive) {
+      modal = <FollowsModal />;
     }
   } else if (loginModalIsActive) {
     modal = <LoginModal />;

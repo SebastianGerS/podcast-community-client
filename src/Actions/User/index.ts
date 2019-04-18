@@ -6,10 +6,12 @@ import { CreateCategoryAction } from './CreateCategory';
 import { UpdateCategoryAction } from './UpdateCategory';
 import { DeleteCategoryAction } from './DeleteCategory';
 import { GetFollowsAction } from './GetFollowers';
+import { UpdateOnlineStatuses } from './UpdateOnlineStatuses';
+import { SetOnlineStatuses } from './SetOnlineStatuses';
 
 export type UserActions = (
-  GetUserAction | UpdateUserAction | DeleteSelfAction | GetSubscriptionsAction
-  | CreateCategoryAction | UpdateCategoryAction | DeleteCategoryAction | GetFollowsAction
+  GetUserAction | UpdateUserAction | DeleteSelfAction | GetSubscriptionsAction | UpdateOnlineStatuses
+  | CreateCategoryAction | UpdateCategoryAction | DeleteCategoryAction | GetFollowsAction | SetOnlineStatuses
 );
 
 export * from './GetUser';
@@ -20,3 +22,5 @@ export * from './CreateCategory';
 export * from './UpdateCategory';
 export * from './DeleteCategory';
 export * from './GetFollowers';
+export * from './UpdateOnlineStatuses';
+export * from './SetOnlineStatuses';

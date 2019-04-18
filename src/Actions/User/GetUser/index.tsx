@@ -13,7 +13,7 @@ export const startGettingUser = (): GetUserStart => (
   { type: ActionTypes.GET_USER_START }
 );
 
-interface GetUserSuccess {
+export interface GetUserSuccess {
   type: ActionTypes.GET_USER_SUCCESS;
   user: User;
 }
