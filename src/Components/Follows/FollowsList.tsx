@@ -53,8 +53,8 @@ function FollowsList({
     return user;
   });
 
-  const onlineProps = { online: true };
-  const offlineProps = { online: false };
+  const onlineProps = { online: true, toggleFollowsModal };
+  const offlineProps = { online: false, toggleFollowsModal };
 
   return (
     <div className="follows-modal">
