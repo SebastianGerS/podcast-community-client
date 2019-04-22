@@ -65,7 +65,7 @@ function PlaybackInterface({
   };
 
   const startTimer = (cb: () => void): void => {
-    const newTimer = setInterval(cb, 1000);
+    const newTimer = setInterval(cb, 500);
     setTimer(newTimer);
   };
 
