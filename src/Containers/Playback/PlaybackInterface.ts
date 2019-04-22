@@ -11,10 +11,12 @@ import {
 import { ModalState } from '../../Reducers/ModalReducer';
 import { PlayerState } from '../../Reducers/PlayerReducer';
 import { Episode } from '../../Models/Episode';
+import { AuthState } from '../../Reducers/AuthReducer';
 
 interface State {
   ModalReducer: ModalState;
   PlayerReducer: PlayerState;
+  AuthReducer: AuthState;
 }
 
 interface StateProps {
@@ -25,9 +27,11 @@ interface StateProps {
   startEpisode: boolean;
   src: string;
   height: number;
+  userId: string | StringConstructor;
+  socket: any;
 }
 
-function mapStateToProps({ ModalReducer, PlayerReducer }: State): StateProps {
+function mapStateToProps({ ModalReducer, PlayerReducer, AuthReducer }: State): StateProps {
   return {
     menuIsActive: ModalReducer.menuIsActive,
     modalIsActive: ModalReducer.playbackModalIsActive,
@@ -36,6 +40,8 @@ function mapStateToProps({ ModalReducer, PlayerReducer }: State): StateProps {
     startEpisode: PlayerReducer.startEpisode,
     src: PlayerReducer.src,
     height: ModalReducer.height,
+    userId: AuthReducer.user._id,
+    socket: AuthReducer.socket,
   };
 }
 

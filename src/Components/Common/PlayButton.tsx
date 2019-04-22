@@ -9,7 +9,7 @@ interface Props {
   isPlaying: boolean;
 }
 
-function PodcastEpisode({
+function PlayButton({
   episode, stop, setAudio, episodePlaying, isPlaying,
 }: Props): JSX.Element {
   const toggleEpisode = (): void => {
@@ -30,4 +30,4 @@ function PodcastEpisode({
   );
 }
 
-export default PodcastEpisode;
+export default PlayButton;

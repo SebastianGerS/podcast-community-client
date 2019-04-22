@@ -20,7 +20,7 @@ interface StateProps {
 function mapStateToProps({ AuthReducer, UserReducer }: State): StateProps {
   return {
     userId: AuthReducer.user._id,
-    followsOnline: UserReducer.onlineUsers.size > 0,
+    followsOnline: UserReducer.followSessions.size > 0,
     follows: UserReducer.followers.length + UserReducer.following.length,
     socket: AuthReducer.socket,
   };
