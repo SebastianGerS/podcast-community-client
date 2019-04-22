@@ -5,6 +5,7 @@ import FollowsList from '../../Components/Follows/FollowsList';
 import { toggleFollowsModal } from '../../Actions/Modal';
 import { UserState } from '../../Reducers/UserReducer';
 import { User } from '../../Models/User';
+import { Session } from '../../Models/Session';
 
 interface State {
   UserReducer: UserState;
@@ -13,13 +14,13 @@ interface State {
 interface Props {
   followers: User[];
   following: User[];
-  onlineUsers: List<string>;
+  followSessions: List<Session>;
 }
 
 const mapStateToProps = ({ UserReducer }: State): Props => ({
   followers: UserReducer.followers,
   following: UserReducer.following,
-  onlineUsers: UserReducer.onlineUsers,
+  followSessions: UserReducer.followSessions,
 });
 
 interface DispatchProps {

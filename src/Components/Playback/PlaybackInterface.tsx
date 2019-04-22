@@ -19,6 +19,8 @@ interface Props {
   startEpisode: boolean;
   src: string;
   height: number;
+  userId: string;
+  socket: any;
 }
 
 interface Style {
@@ -31,7 +33,7 @@ interface ReactHowlerExtended extends ReactHowler {
 
 function PlaybackInterface({
   startEpisode, play, stop, toggleModal, modalIsActive,
-  menuIsActive, episode, isPlaying, src, height,
+  menuIsActive, episode, isPlaying, src, height, userId, socket,
 }: Props): JSX.Element {
   const [pos, setPos] = useState(0);
   const [timer, setTimer] = useState<NodeJS.Timeout | undefined | number>(undefined);
@@ -166,7 +168,31 @@ function PlaybackInterface({
         savePosInLocalStorage({ id: typeof prevEpisode.id === 'string' ? prevEpisode.id : '', pos: newPos });
       }
     }
+    if (prevEpisode.id === episode.id) {
+      if (typeof userId === 'string') {
+        const episodeEmition = isPlaying
+          ? {
+            id: episode.id,
+            audio: episode.audio,
+            title: episode.title_original,
+            podcast_title: episode.podcast_title_original,
+          }
+          : null;
+
+        socket.emit('user/listening', episodeEmition, userId);
+      }
+    }
   }, [isPlaying]);
+
+  useEffect(() => {
+    if (pos >= getDuration() - 0.5) {
+      stop();
+      stopTimer();
+      if (typeof userId === 'string') {
+        socket.emit('user/listening', null, userId);
+      }
+    }
+  }, [pos]);
 
   const type = modalIsActive ? 'modal' : 'bar';
 
@@ -181,6 +207,7 @@ function PlaybackInterface({
   } else {
     layoutPos = 'bottom-2';
   }
+
   return (
     <div className={`playbackinterface ${type} ${layoutPos}`} style={style}>
       <div className="toggle">

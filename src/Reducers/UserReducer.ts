@@ -4,6 +4,7 @@ import { User } from '../Models/User';
 import { Category } from '../Models/Category';
 import { Podcast } from '../Models/Podcast';
 import { UserActions } from '../Actions/User';
+import { Session } from '../Models/Session';
 
 export interface UserState {
   isUpdating: boolean;
@@ -15,7 +16,7 @@ export interface UserState {
   following: User[];
   requests: User[];
   isFetchingFollows: boolean;
-  onlineUsers: List<string>;
+  followSessions: List<Session>;
 }
 
 const DEFAULT_STATE: UserState = {
@@ -28,7 +29,7 @@ const DEFAULT_STATE: UserState = {
   following: [],
   requests: [],
   isFetchingFollows: false,
-  onlineUsers: List<string>(),
+  followSessions: List<Session>(),
 };
 
 export default function (state: UserState = DEFAULT_STATE, action: UserActions): UserState {
@@ -102,18 +103,27 @@ export default function (state: UserState = DEFAULT_STATE, action: UserActions):
       return { ...state, isUpdating: false };
     case ActionTypes.DELETE_CATEGORY_FAILURE:
       return { ...state, isUpdating: false };
-    case ActionTypes.SET_ONLINE_STATUSES:
+    case ActionTypes.SET_FOLLOW_SESSIONS:
       return {
         ...state,
-        onlineUsers: List(action.userIds),
+        followSessions: List(action.sessions.map(session => new Session(session))),
       };
-    case ActionTypes.UPDATE_ONLINE_STATUSES:
-      const indexOfUserId = state.onlineUsers.indexOf(action.status.userId);
+    case ActionTypes.UPDATE_FOLLOW_SESSIONS:
+      const indexOfUserId = state.followSessions.findIndex(session => action.session.user === session.user);
       return {
         ...state,
-        onlineUsers: action.status.online
-          ? state.onlineUsers.push(action.status.userId)
-          : state.onlineUsers.remove(indexOfUserId),
+        followSessions: action.session.online
+          ? indexOfUserId === -1
+            ? state.followSessions.push(action.session)
+            : state.followSessions.map((session) => {
+              let sessionCopy = session;
+              if (session.user === action.session.user) {
+                sessionCopy = new Session(action.session);
+              }
+
+              return sessionCopy;
+            })
+          : state.followSessions.remove(indexOfUserId),
       };
     default:
       return { ...state };

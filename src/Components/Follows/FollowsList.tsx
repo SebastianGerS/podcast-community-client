@@ -2,31 +2,36 @@ import React from 'react';
 import Immutable from 'immutable';
 import { User } from '../../Models/User';
 import List from '../Common/List';
-import FollowsModalUser from './FollowsModalUser';
+import FollowsModalUser from '../../Containers/Follows/FollowsModalUser';
+import { Session } from '../../Models/Session';
 
 
 interface Props {
   toggleFollowsModal: () => void;
   followers: User[];
   following: User[];
-  onlineUsers: Immutable.List<string>;
+  followSessions: Immutable.List<Session>;
 }
 
 function FollowsList({
-  toggleFollowsModal, followers, following, onlineUsers,
+  toggleFollowsModal, followers, following, followSessions,
 }: Props): JSX.Element {
   const online = [
-    ...following.filter(user => typeof user._id === 'string' && onlineUsers.contains(user._id)),
+    ...following.filter(
+      user => typeof user._id === 'string' && followSessions.findIndex(value => value.user === user._id) !== -1,
+    ),
   ];
 
   const offline = [
-    ...following.filter(user => typeof user._id === 'string' && !onlineUsers.contains(user._id)),
+    ...following.filter(
+      user => typeof user._id === 'string' && followSessions.findIndex(value => value.user === user._id) === -1,
+    ),
   ];
 
   followers.map((user) => {
     if (typeof user._id === 'string') {
       let toBeAdded = true;
-      if (onlineUsers.contains(user._id)) {
+      if (followSessions.findIndex(value => value.user === user._id) !== -1) {
         online.map((onlineUser) => {
           if (onlineUser._id === user._id) {
             toBeAdded = false;
