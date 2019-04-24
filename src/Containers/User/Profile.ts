@@ -20,6 +20,8 @@ interface StateProps {
   user: User;
   isAdmin: boolean;
   socket: any;
+  isUpdating: boolean;
+  isFetching: boolean;
 }
 
 function mapStateToProps({ AuthReducer, UserReducer }: State): StateProps {
@@ -28,6 +30,8 @@ function mapStateToProps({ AuthReducer, UserReducer }: State): StateProps {
     user: UserReducer.user,
     isAdmin: AuthReducer.isAdmin,
     socket: AuthReducer.socket,
+    isUpdating: UserReducer.isUpdating,
+    isFetching: UserReducer.isFetching,
   };
 }
 
