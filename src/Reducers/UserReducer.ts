@@ -8,6 +8,7 @@ import { Session } from '../Models/Session';
 
 export interface UserState {
   isUpdating: boolean;
+  isFetching: boolean;
   user: User;
   isFetchingSubscriptions: boolean;
   subscriptions: Podcast[];
@@ -21,6 +22,7 @@ export interface UserState {
 
 const DEFAULT_STATE: UserState = {
   isUpdating: false,
+  isFetching: false,
   user: new User(),
   isFetchingSubscriptions: false,
   subscriptions: [],
@@ -35,13 +37,13 @@ const DEFAULT_STATE: UserState = {
 export default function (state: UserState = DEFAULT_STATE, action: UserActions): UserState {
   switch (action.type) {
     case ActionTypes.GET_USER_START:
-      return { ...state, isUpdating: true };
+      return { ...state, isFetching: true };
     case ActionTypes.GET_USER_SUCCESS:
       return {
-        ...state, isUpdating: false, user: new User(action.user),
+        ...state, isFetching: false, user: new User(action.user),
       };
     case ActionTypes.GET_USER_FAILURE:
-      return { ...state, isUpdating: false };
+      return { ...state, isFetching: false };
     case ActionTypes.UPDATE_USER_START:
       return { ...state, isUpdating: true };
     case ActionTypes.UPDATE_USER_SUCCESS:

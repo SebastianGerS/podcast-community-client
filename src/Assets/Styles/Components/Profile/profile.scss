@@ -20,8 +20,23 @@
     .profile-img {
       height: 125px;
       width: 125px;
-      border-radius: 4px;
       margin-right: 1em;
+      cursor: pointer;
+
+      img {
+        width: 100%;
+        max-height: 100%;
+        border-radius: 4px;
+
+        &.is-draging {
+          opacity: 0.5;
+          border: 1px dashed #fef6f6;
+        }
+
+        &.is-saving {
+          opacity: 0.25;
+        }
+      }
     }
   }
 
@@ -59,12 +74,20 @@
       }
     }
 
-    .edit {
-      background-image: url(../Icons/edit.svg);
+    .edit,
+    .editing {
       width: 20px;
       min-width: 20px;
       height: 20px;
       background-size: 100%;
+    }
+
+    .edit {
+      background-image: url(../Icons/edit.svg);
+    }
+
+    .editing {
+      background-image: url(../Icons/loader-white.svg);
     }
   }
 }
