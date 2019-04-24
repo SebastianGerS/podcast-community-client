@@ -9,14 +9,17 @@ interface Props {
     name: 'username'| 'age' |'email' |'bio';
     value: string | number | undefined;
   };
+  isUpdateing: boolean;
+  isFetching: boolean;
 }
 
 function UserInfo({
-  user, currentUserId, updateUser, info,
+  user, currentUserId, updateUser, info, isUpdateing, isFetching,
 }: Props): JSX.Element {
   const [value, setValue] = useState(info.value);
   const [name] = useState(info.name);
   const [showInput, setShowInput] = useState();
+  const [isUpdateingValue, setIsUpdateingValue] = useState(false);
 
   const toggleInput = (): void => {
     if (user._id === currentUserId) {
@@ -26,13 +29,17 @@ function UserInfo({
 
   const updateValue = (): void => {
     if (value !== user[name]) {
+      setIsUpdateingValue(true);
       updateUser(currentUserId, { [name]: value });
     }
     toggleInput();
   };
 
   useEffect(() => {
-    setValue(info.value);
+    if (!isUpdateing && !isFetching) {
+      setValue(info.value);
+      setIsUpdateingValue(false);
+    }
   }, [info]);
 
   /* eslint-disable jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/no-autofocus,
@@ -49,7 +56,14 @@ function UserInfo({
                 <span>{value}</span>
               </div>
               { user._id === currentUserId
-                && <button className="edit" type="button" aria-label="edit" onClick={toggleInput} />
+                && (
+                  <button
+                    className={isUpdateingValue ? 'editing' : 'edit'}
+                    type="button"
+                    aria-label="edit"
+                    onClick={!isUpdateingValue ? toggleInput : undefined}
+                  />
+                )
               }
 
             </div>
@@ -77,7 +91,14 @@ function UserInfo({
             <div className="info">
               <p>{`${name.charAt(0).toUpperCase()}${name.substr(1, name.length - 1)}:`}</p>
               { user._id === currentUserId
-                && <button className="edit" type="button" aria-label="edit" onClick={toggleInput} />
+                && (
+                  <button
+                    className={isUpdateingValue ? 'editing' : 'edit'}
+                    type="button"
+                    aria-label="edit"
+                    onClick={!isUpdateingValue ? toggleInput : undefined}
+                  />
+                )
               }
             </div>
             <div className="info" onClick={toggleInput}>
