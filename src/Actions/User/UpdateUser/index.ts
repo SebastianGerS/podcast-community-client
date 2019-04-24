@@ -5,7 +5,7 @@ import * as ActionTypes from './types';
 import { Fetch, formatError, Response } from '../../../Helpers/Fetch';
 import { attemptSetMessage, SetMessage } from '../../Message';
 import {
-  attemptGetSelf, validPassword, validPasswordConfirmation, GetSelfSuccess,
+  attemptGetSelf, validPassword, validPasswordConfirmation, GetSelfSuccess, validImage,
 } from '../../Auth';
 
 import config from '../../../Config/config';
@@ -63,6 +63,13 @@ export const attemptUpdateUser = (_id: string, data: UpdateUserData): AttemptUpd
     body = { password: JWT.sign(data.password, config.JWT_SECRET) };
   }
 
+  if (data instanceof FormData) {
+    const file = typeof data.get('profileImg') === 'object' ? data.get('profileImg') : undefined;
+    if (file instanceof File) {
+      dataIsValid = validImage(file)(dispatch);
+    }
+  }
+
   if (dataIsValid) {
     dispatch(startUpdateUser());
 
@@ -84,10 +91,10 @@ export const attemptUpdateUser = (_id: string, data: UpdateUserData): AttemptUpd
     }
 
     if (response.info) {
-      dispatch(UserUpdated());
       attemptGetUser(_id)(dispatch);
       attemptGetSelf()(dispatch);
       attemptSetMessage({ text: response.info, type: 'success' })(dispatch);
+      dispatch(UserUpdated());
     }
   }
 };
