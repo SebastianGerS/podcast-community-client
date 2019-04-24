@@ -28,3 +28,11 @@ export function MogoDbTimeStringToDate(timeString: string): string {
 export function MogoDbTimeStringToTime(timeString: string): string {
   return timeString.substr(timeString.indexOf('T') + 1, 5);
 }
+
+export function isImage(file: File): boolean {
+  const filetypes = /jpeg|jpg|svg|png|gif/;
+  const mimetype = filetypes.test(file.type);
+  const name = filetypes.test(file.name);
+
+  return mimetype && name;
+}
