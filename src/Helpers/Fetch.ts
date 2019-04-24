@@ -26,15 +26,17 @@ export interface Response {
 export async function Fetch(path: string, method: string, data: object | string): Promise<Response> {
   const token = getToken();
 
-  const headers = new Headers({
-    'Content-type': 'application/json',
-  });
+  const headers = data instanceof FormData
+    ? new Headers()
+    : new Headers({
+      'Content-type': 'application/json',
+    });
 
   if (token) {
     headers.set('Authorization', `${token}`);
   }
 
-  const body = Object.keys(data).length !== 0 ? data : undefined;
+  const body = Object.keys(data).length !== 0 || data instanceof FormData ? data : undefined;
 
   const options: RequestInit = {
     method,
@@ -42,8 +44,13 @@ export async function Fetch(path: string, method: string, data: object | string)
   };
 
   if (body) {
-    options.body = typeof body === 'string' ? body : JSON.stringify(body);
+    options.body = body instanceof FormData
+      ? body
+      : typeof body === 'string'
+        ? body
+        : JSON.stringify(body);
   }
+
   const response: Response = await new Promise((resolve, reject) => {
     fetch(`${config.API_BASE_URL}${path}`, options)
       .then(res => res.json())
