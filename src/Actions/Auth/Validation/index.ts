@@ -3,8 +3,9 @@ import { attemptSetMessage, SetMessage } from '../../Message';
 import {
   invalidEmail, invalidPassword, invalidUsername, invalidPasswordConfirmation,
 } from '../../../Helpers/Validation';
+import { isImage } from '../../../Helpers/Utils';
 
-type ValidateAction = (dispatch: Dispatch<SetMessage>) => boolean;
+export type ValidateAction = (dispatch: Dispatch<SetMessage>) => boolean;
 
 export const validUsername = (username: string): ValidateAction => (dispatch: Dispatch<SetMessage>): boolean => {
   if (invalidUsername(username)) {
@@ -55,3 +56,15 @@ export const validUserData = ({
   && validPassword(password)(dispatch)
   && validPasswordConfirmation(password, passwordConfirmation)(dispatch)
 );
+
+export const validImage = (file: File): ValidateAction => (dispatch: Dispatch<SetMessage>): boolean => {
+  if (!isImage(file)) {
+    attemptSetMessage({
+      text: `The file you tried to upload is of an invalid type, only the
+      following filetypes are permited - jpeg, jpg, svg, png, gif`,
+      type: 'warning',
+    })(dispatch);
+    return false;
+  }
+  return true;
+};
