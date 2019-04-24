@@ -9,17 +9,17 @@ interface Props {
     name: 'username'| 'age' |'email' |'bio';
     value: string | number | undefined;
   };
-  isUpdateing: boolean;
+  isUpdating: boolean;
   isFetching: boolean;
 }
 
 function UserInfo({
-  user, currentUserId, updateUser, info, isUpdateing, isFetching,
+  user, currentUserId, updateUser, info, isUpdating, isFetching,
 }: Props): JSX.Element {
   const [value, setValue] = useState(info.value);
   const [name] = useState(info.name);
   const [showInput, setShowInput] = useState();
-  const [isUpdateingValue, setIsUpdateingValue] = useState(false);
+  const [isUpdatingValue, setIsUpdatingValue] = useState(false);
 
   const toggleInput = (): void => {
     if (user._id === currentUserId) {
@@ -29,16 +29,16 @@ function UserInfo({
 
   const updateValue = (): void => {
     if (value !== user[name]) {
-      setIsUpdateingValue(true);
+      setIsUpdatingValue(true);
       updateUser(currentUserId, { [name]: value });
     }
     toggleInput();
   };
 
   useEffect(() => {
-    if (!isUpdateing && !isFetching) {
+    if (!isUpdating && !isFetching) {
       setValue(info.value);
-      setIsUpdateingValue(false);
+      setIsUpdatingValue(false);
     }
   }, [info]);
 
@@ -58,10 +58,10 @@ function UserInfo({
               { user._id === currentUserId
                 && (
                   <button
-                    className={isUpdateingValue ? 'editing' : 'edit'}
+                    className={isUpdatingValue ? 'editing' : 'edit'}
                     type="button"
                     aria-label="edit"
-                    onClick={!isUpdateingValue ? toggleInput : undefined}
+                    onClick={!isUpdatingValue ? toggleInput : undefined}
                   />
                 )
               }
@@ -93,10 +93,10 @@ function UserInfo({
               { user._id === currentUserId
                 && (
                   <button
-                    className={isUpdateingValue ? 'editing' : 'edit'}
+                    className={isUpdatingValue ? 'editing' : 'edit'}
                     type="button"
                     aria-label="edit"
-                    onClick={!isUpdateingValue ? toggleInput : undefined}
+                    onClick={!isUpdatingValue ? toggleInput : undefined}
                   />
                 )
               }

@@ -103,7 +103,7 @@ function Profile({
           user={user}
           currentUserId={currentUserId}
           updateUser={updateUser}
-          isUpdateing={isUpdating}
+          isUpdating={isUpdating}
           isFetching={isFetching}
         />
         { isAutharized() && (
@@ -113,7 +113,7 @@ function Profile({
               user={user}
               currentUserId={currentUserId}
               updateUser={updateUser}
-              isUpdateing={isUpdating}
+              isUpdating={isUpdating}
               isFetching={isFetching}
             />
             <UserInfo
@@ -121,7 +121,7 @@ function Profile({
               user={user}
               currentUserId={currentUserId}
               updateUser={updateUser}
-              isUpdateing={isUpdating}
+              isUpdating={isUpdating}
               isFetching={isFetching}
             />
             <UserInfo
@@ -129,7 +129,7 @@ function Profile({
               user={user}
               currentUserId={currentUserId}
               updateUser={updateUser}
-              isUpdateing={isUpdating}
+              isUpdating={isUpdating}
               isFetching={isFetching}
             />
           </div>
