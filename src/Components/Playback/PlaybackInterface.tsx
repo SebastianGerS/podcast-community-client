@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactHowler from 'react-howler';
+import { Flipper, Flipped } from 'react-flip-toolkit';
 import PlaybackModal from './PlaybackModal';
 import PlaybackBar from './PlaybackBar';
 import ErrorBoundray from '../../Containers/Helpers/ErrorBoundray';
@@ -209,57 +210,63 @@ function PlaybackInterface({
   }
 
   return (
-    <div className={`playbackinterface ${type} ${layoutPos}`} style={style}>
-      <div className="toggle">
-        <button
-          type="button"
-          aria-label="toggle-playback-modal-button"
-          className={modalIsActive ? 'fold' : 'expand'}
-          onClick={() => toggleModal()}
-        />
-      </div>
-      { !modalIsActive
-      && (
-        <PlaybackBar
-          isPlaying={isPlaying}
-          togglePlay={togglePlay}
-          episode={episode}
-          forward={forward}
-        />
-      )
-      }
-      { modalIsActive
-        && (
-          <PlaybackModal
-            isPlaying={isPlaying}
-            togglePlay={togglePlay}
-            episode={episode}
-            seek={seek}
-            backward={backward}
-            forward={forward}
-            getDuration={getDuration}
-            pos={pos}
-          />
-        )
-      }
-      {
-        /* eslint-disable no-return-assign */
-        typeof episode.id === 'string'
-        && (
-          <ErrorBoundray>
-            <ReactHowler
-              src={src}
-              playing={isPlaying}
-              volume={1}
-              preload
-              format={['mp3', 'webm']}
-              ref={playerRef => (setPlayer(playerRef))}
-              html5
+    <Flipper flipKey={modalIsActive} className={`playbackinterface ${layoutPos}`}>
+      <Flipped flipId="player">
+        <div className={`playbackinterface ${type} ${layoutPos}`} style={style}>
+          <Flipped inverseFlipId="player" scale>
+            <div className="toggle">
+              <button
+                type="button"
+                aria-label="toggle-playback-modal-button"
+                className={modalIsActive ? 'fold' : 'expand'}
+                onClick={() => toggleModal()}
+              />
+            </div>
+          </Flipped>
+          { !modalIsActive
+          && (
+            <PlaybackBar
+              isPlaying={isPlaying}
+              togglePlay={togglePlay}
+              episode={episode}
+              forward={forward}
             />
-          </ErrorBoundray>
-        )
-      }
-    </div>
+          )
+          }
+          { modalIsActive
+            && (
+              <PlaybackModal
+                isPlaying={isPlaying}
+                togglePlay={togglePlay}
+                episode={episode}
+                seek={seek}
+                backward={backward}
+                forward={forward}
+                getDuration={getDuration}
+                pos={pos}
+              />
+            )
+          }
+          {
+            /* eslint-disable no-return-assign */
+            typeof episode.id === 'string'
+            && (
+              <ErrorBoundray>
+                <ReactHowler
+                  src={src}
+                  playing={isPlaying}
+                  volume={1}
+                  preload
+                  format={['mp3', 'webm']}
+                  ref={playerRef => (setPlayer(playerRef))}
+                  html5
+                />
+              </ErrorBoundray>
+            )
+          }
+        </div>
+      </Flipped>
+    </Flipper>
   );
 }
 
