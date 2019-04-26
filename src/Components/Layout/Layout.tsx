@@ -1,5 +1,6 @@
 import React, { ComponentProps } from 'react';
 import { Redirect } from 'react-router-dom';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import Header from '../../Containers/Layout/Header';
 import SearchBar from '../../Containers/Search/SearchBar';
 import PlaybackInterface from '../../Containers/Playback/PlaybackInterface';
@@ -24,25 +25,29 @@ function Layout({
     <div className="App">
       <Header />
       <SearchBar path={path || '/'} />
-      <div className="content">
-        <MessageInterface />
-        { routeType === 'ADMIN'
-          ? isLogedIn && isAdmin
-            ? <Component {...props} params={params} />
-            : <Redirect to="/" />
-          : null
-        }
-        { routeType === 'PROTECTED'
-          ? isLogedIn
-            ? <Component {...props} params={params} />
-            : <Redirect to="/" />
-          : null
-        }
-        { routeType === 'PUBLIC'
-          ? <Component {...props} params={params} />
-          : null
-        }
-      </div>
+      <TransitionGroup component={null}>
+        <CSSTransition
+          key={`${path || 'home'}-view`}
+          in={false}
+          appear
+          timeout={300}
+          classNames="view"
+        >
+          <div className="content">
+            <MessageInterface />
+            { routeType === 'ADMIN'
+              ? isLogedIn && isAdmin
+                ? <Component {...props} params={params} />
+                : <Redirect to="/" />
+              : routeType === 'PROTECTED'
+                ? isLogedIn
+                  ? <Component {...props} params={params} />
+                  : <Redirect to="/" />
+                : <Component {...props} params={params} />
+            }
+          </div>
+        </CSSTransition>
+      </TransitionGroup>
       <Footer />
       <Modals />
       <PlaybackInterface />
