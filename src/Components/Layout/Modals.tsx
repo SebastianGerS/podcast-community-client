@@ -1,5 +1,5 @@
-import React, { CSSProperties, ComponentClass } from 'react';
-import { Flipper, Flipped } from 'react-flip-toolkit';
+import React, { ComponentClass } from 'react';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import LoginForm from '../../Containers/Auth/LoginForm';
 import RateEpisode from '../../Containers/Common/MoreOptions/RateEpisode';
 import RecommendToUser from '../../Containers/Common/MoreOptions/RecommendToUser';
@@ -23,56 +23,39 @@ const Modals = ({
   recommendToUserModalIsActive, rateEpisodeModalIsActive, isLogedIn, followsModalIsActive,
 }: Props): JSX.Element | null => {
   let component: ComponentClass | null = null;
-  let flipKey = null;
+
   if (isLogedIn) {
     if (notificationsModalIsActive) {
       component = Notifications;
-      flipKey = Notifications.displayName;
     } else if (moreOptionsModalIsActive) {
       component = MoreOptionsMenu;
-      flipKey = MoreOptionsMenu.displayName;
     } else if (recommendToUserModalIsActive) {
       component = RecommendToUser;
-      flipKey = RecommendToUser.displayName;
     } else if (rateEpisodeModalIsActive) {
       component = RateEpisode;
-      flipKey = RateEpisode.displayName;
     } else if (followsModalIsActive) {
       component = FollowsList;
-      flipKey = FollowsList.displayName;
     }
   } else if (loginModalIsActive) {
     component = LoginForm;
-    flipKey = LoginForm.displayName;
   }
 
-  const styles: CSSProperties = {
-    position: 'fixed',
-    top: 0,
-    right: 0,
-    width: 0,
-    height: 0,
-  };
-
   return (
-    <Flipper flipKey={flipKey}>
-      {component
+    <TransitionGroup component={null}>
+      { component
         ? (
-          <Flipped flipId="modal">
-            { flippedProps => (
-              <Modal
-                component={component}
-                size="smal"
-                backgroundColor="black"
-                flippedProps={flippedProps}
-              />
-            )
-            }
-          </Flipped>
+          <CSSTransition
+            in={false}
+            appear
+            timeout={600}
+            classNames="modal"
+          >
+            <Modal component={component} size="smal" backgroundColor="black" />
+          </CSSTransition>
         )
-        : <Flipped flipId="modal"><div style={styles} /></Flipped>
+        : null
       }
-    </Flipper>
+    </TransitionGroup>
   );
 };
 
