@@ -1,10 +1,12 @@
-import React from 'react';
-import LoginModal from '../Auth/LoginModal';
-import RateEpisodeModal from '../Common/MoreOptions/RateEpisodeModal';
-import RecommendToUserModal from '../Common/MoreOptions/RecommendToUserModal';
-import MoreOptionsModal from '../Common/MoreOptions/MoreOptionsModal';
-import NotificationsModal from '../Notifications/NotificationsModal';
-import FollowsModal from '../Follows/FollowsModal';
+import React, { ComponentClass } from 'react';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import LoginForm from '../../Containers/Auth/LoginForm';
+import RateEpisode from '../../Containers/Common/MoreOptions/RateEpisode';
+import RecommendToUser from '../../Containers/Common/MoreOptions/RecommendToUser';
+import MoreOptionsMenu from '../../Containers/Common/MoreOptions/MoreOptionsMenu';
+import Notifications from '../../Containers/Notifications/Notifications';
+import FollowsList from '../../Containers/Follows/FollowsList';
+import Modal from '../../Containers/Common/Modal';
 
 interface Props {
   loginModalIsActive: boolean;
@@ -20,24 +22,41 @@ const Modals = ({
   loginModalIsActive, notificationsModalIsActive, moreOptionsModalIsActive,
   recommendToUserModalIsActive, rateEpisodeModalIsActive, isLogedIn, followsModalIsActive,
 }: Props): JSX.Element | null => {
-  let modal = null;
+  let component: ComponentClass | null = null;
+
   if (isLogedIn) {
     if (notificationsModalIsActive) {
-      modal = <NotificationsModal />;
+      component = Notifications;
     } else if (moreOptionsModalIsActive) {
-      modal = <MoreOptionsModal />;
+      component = MoreOptionsMenu;
     } else if (recommendToUserModalIsActive) {
-      modal = <RecommendToUserModal />;
+      component = RecommendToUser;
     } else if (rateEpisodeModalIsActive) {
-      modal = <RateEpisodeModal />;
+      component = RateEpisode;
     } else if (followsModalIsActive) {
-      modal = <FollowsModal />;
+      component = FollowsList;
     }
   } else if (loginModalIsActive) {
-    modal = <LoginModal />;
+    component = LoginForm;
   }
 
-  return modal;
+  return (
+    <TransitionGroup component={null}>
+      { component
+        ? (
+          <CSSTransition
+            in={false}
+            appear
+            timeout={600}
+            classNames="modal"
+          >
+            <Modal component={component} size="smal" backgroundColor="black" />
+          </CSSTransition>
+        )
+        : null
+      }
+    </TransitionGroup>
+  );
 };
 
 export default Modals;

@@ -34,7 +34,7 @@
       "camelcase": "off",
       "@typescript-eslint/camelcase": ["warn", {"properties": "never"}],
       "import/named": "off",
-      "import/no-unresolved": ["error", {"ignore": ["uuid"]}],
+      "import/no-unresolved": "off",
       "import/no-cycle": "off",
       "no-case-declarations": "off",
       "import/prefer-default-export": "off"

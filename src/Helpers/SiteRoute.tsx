@@ -1,13 +1,6 @@
 import React, { useEffect, ComponentProps } from 'react';
-import { Route, Redirect, RouteProps } from 'react-router-dom';
-import Header from '../Containers/Layout/Header';
-import SearchBar from '../Containers/Search/SearchBar';
-import PlaybackInterface from '../Containers/Playback/PlaybackInterface';
-import Footer from '../Components/Layout/Footer';
-import MenuInterFace from '../Containers/Layout/MenuInterface';
-import MessageInterface from '../Containers/Message/MessageInterface';
+import { Route, RouteProps, Redirect } from 'react-router-dom';
 import { Notification } from '../Models/Notification';
-import Modals from '../Containers/Layout/Modals';
 import { Event } from '../Models/Event';
 import { Follows } from '../Actions/User';
 import { useSocket } from './CustomHooks';
@@ -94,33 +87,15 @@ export default function SiteRoute({
       path={path}
       {...rest}
       render={props => (
-        <div className="App">
-          <Header />
-          <SearchBar path={path || '/'} />
-          <div className="content">
-            <MessageInterface />
-            { routeType === 'ADMIN'
-              ? isLogedIn && isAdmin
-                ? <Component {...props} params={params} />
-                : <Redirect to="/" />
-              : null
-            }
-            { routeType === 'PROTECTED'
-              ? isLogedIn
-                ? <Component {...props} params={params} />
-                : <Redirect to="/" />
-              : null
-            }
-            { routeType === 'PUBLIC'
+        routeType === 'ADMIN'
+          ? isLogedIn && isAdmin
+            ? <Component {...props} params={params} />
+            : <Redirect to="/" />
+          : routeType === 'PROTECTED'
+            ? isLogedIn
               ? <Component {...props} params={params} />
-              : null
-            }
-          </div>
-          <Footer />
-          <Modals />
-          <PlaybackInterface />
-          <MenuInterFace />
-        </div>
+              : <Redirect to="/" />
+            : <Component {...props} params={params} />
       )}
     />
   );
