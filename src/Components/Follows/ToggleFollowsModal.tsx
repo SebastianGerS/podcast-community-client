@@ -12,7 +12,9 @@ function ToggleFollowsModal({
   toggleFollowsModal, followsOnline, socket, userId, follows,
 }: Props): JSX.Element {
   useEffect(() => {
-    socket.emit('user/follows/status', userId);
+    if (socket) {
+      socket.emit('user/follows/status', userId);
+    }
   }, [follows]);
 
   return (

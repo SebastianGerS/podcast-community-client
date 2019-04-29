@@ -141,7 +141,7 @@ form {
 
 .App {
   .content {
-    padding-top: 120px;
+    padding: 10em 0;
     margin-bottom: 60px;
     min-height: 95vh;
     display: flex;
@@ -157,10 +157,10 @@ form {
   }
 }
 
-@media only screen and (min-width: 667px) {
+@media only screen and (min-width: 768px) and (orientation: portrait) {
   .App {
     .content {
-      padding-top: 140px;
+      padding: 14em 0;
 
       input,
       select {
@@ -173,7 +173,7 @@ form {
 @media only screen and (min-width: 1024px) {
   .App {
     .content {
-      padding-top: 250px;
+      padding: 16em 0;
 
       input,
       select {
@@ -186,7 +186,7 @@ form {
 @media only screen and (min-width: 1850px) {
   .App {
     .content {
-      padding-top: 300px;
+      padding: 18em 0;
     }
   }
 }

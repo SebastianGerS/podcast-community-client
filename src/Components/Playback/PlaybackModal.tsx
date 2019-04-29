@@ -1,4 +1,5 @@
 import React from 'react';
+import { Flipped } from 'react-flip-toolkit';
 import ProgressBar from './ProgressBar';
 import { Episode } from '../../Models/Episode';
 
@@ -26,16 +27,18 @@ const PlaybackModal = ({
       </figure>
       <ProgressBar episode={episode} seek={seek} pos={pos} getDuration={getDuration} />
       <p>{title}</p>
-      <div className="playback-controles">
-        <button type="button" aria-label="backward-button" className="backward" onClick={backward} />
-        <button
-          type="button"
-          aria-label={isPlaying ? 'pause-button' : 'play-button'}
-          className={isPlaying ? 'pause' : 'play'}
-          onClick={togglePlay}
-        />
-        <button type="button" aria-label="forward-button" className="forward" onClick={forward} />
-      </div>
+      <Flipped inverseFlipId="player" scale>
+        <div className="playback-controles">
+          <button type="button" aria-label="backward-button" className="backward" onClick={backward} />
+          <button
+            type="button"
+            aria-label={isPlaying ? 'pause-button' : 'play-button'}
+            className={isPlaying ? 'pause' : 'play'}
+            onClick={togglePlay}
+          />
+          <button type="button" aria-label="forward-button" className="forward" onClick={forward} />
+        </div>
+      </Flipped>
     </div>
   );
 };
