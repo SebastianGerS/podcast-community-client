@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
 import Header from '../../Components/Layout/Header';
 import { AuthState } from '../../Reducers/AuthReducer';
+import { closeAllModals, CloseAllModals } from '../../Actions/Modal';
 
 interface State {
   AuthReducer: AuthState;
@@ -10,10 +12,16 @@ interface StateProps {
   isLogedIn: boolean;
 }
 
-function mapStateToProps({ AuthReducer }: State): StateProps {
-  return {
-    isLogedIn: AuthReducer.isLogedIn,
-  };
+const mapStateToProps = ({ AuthReducer }: State): StateProps => ({
+  isLogedIn: AuthReducer.isLogedIn,
+});
+
+interface DispatchProps {
+  closeModal: () => void;
 }
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = (dispatch: Dispatch<CloseAllModals>): DispatchProps => ({
+  closeModal: () => dispatch(closeAllModals()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
