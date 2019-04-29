@@ -1,11 +1,10 @@
 import React, { useEffect, ComponentProps } from 'react';
-import { Route, RouteProps } from 'react-router-dom';
+import { Route, RouteProps, Redirect } from 'react-router-dom';
 import { Notification } from '../Models/Notification';
 import { Event } from '../Models/Event';
 import { Follows } from '../Actions/User';
 import { useSocket } from './CustomHooks';
 import { Session } from '../Models/Session';
-import Layout from '../Components/Layout/Layout';
 
 interface SiteRouteProps extends RouteProps{
   routeType: string;
@@ -88,15 +87,15 @@ export default function SiteRoute({
       path={path}
       {...rest}
       render={props => (
-        <Layout
-          path={path}
-          routeType={routeType}
-          params={params}
-          component={Component}
-          isLogedIn={isLogedIn}
-          isAdmin={isAdmin}
-          {...props}
-        />
+        routeType === 'ADMIN'
+          ? isLogedIn && isAdmin
+            ? <Component {...props} params={params} />
+            : <Redirect to="/" />
+          : routeType === 'PROTECTED'
+            ? isLogedIn
+              ? <Component {...props} params={params} />
+              : <Redirect to="/" />
+            : <Component {...props} params={params} />
       )}
     />
   );
