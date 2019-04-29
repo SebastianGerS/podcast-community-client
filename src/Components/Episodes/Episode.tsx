@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Episode } from '../../Models/Episode';
 import PlayButton from '../../Containers/Common/PlayButton';
 import MoreOptionsButton from '../../Containers/Common/MoreOptions/MoreOptionsButton';
 import InfoBox from '../Common/InfoBox';
 import { getDatefromMilisecond } from '../../Helpers/Time';
 import Loader from '../Layout/Loader';
-import { RedirectModel } from '../../Models/Redirect';
 import DownloadButton from '../../Containers/Common/DownloadButton';
 import { getRatingIcon } from '../../Helpers/Utils';
 import { Rating } from '../../Models/Rating';
@@ -16,7 +15,6 @@ interface Props {
   episodeId: string;
   episode: Episode;
   isFetching: boolean;
-  redirect: RedirectModel;
   socket: any;
   ratings: Rating[];
   getEpisode: (episodeId: string) => void;
@@ -26,7 +24,7 @@ interface Props {
 }
 
 function EpisodeComponent({
-  episodeId, episode, isFetching, getEpisode, redirect, socket, setRating, ratings, resetEpisode, resetRatings,
+  episodeId, episode, isFetching, getEpisode, socket, setRating, ratings, resetEpisode, resetRatings,
 }: Props): JSX.Element {
   const title = typeof episode.title === 'string' ? episode.title : '';
   const description = typeof episode.description === 'string' ? episode.description : '';
@@ -54,10 +52,6 @@ function EpisodeComponent({
   }, []);
 
   useSocket(socket, `episodes/${episodeId}/rating`, setRating);
-
-  const renderRedirect = (): JSX.Element | null => (
-    typeof redirect.to === 'string' ? <Redirect to={redirect.to} /> : null
-  );
 
   return !isFetching && typeof episode.id === 'string' ? (
     <div className="episode">
@@ -90,12 +84,7 @@ function EpisodeComponent({
         <button className="episode-go-to-podcast" type="button">Go to Podcast</button>
       </Link>
     </div>
-  ) : (
-    <div>
-      {renderRedirect()}
-      <Loader />
-    </div>
-  );
+  ) : <Loader />;
 }
 
 export default EpisodeComponent;

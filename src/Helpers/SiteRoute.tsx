@@ -5,6 +5,7 @@ import { Event } from '../Models/Event';
 import { Follows } from '../Actions/User';
 import { useSocket } from './CustomHooks';
 import { Session } from '../Models/Session';
+import { RedirectModel } from '../Models/Redirect';
 
 interface SiteRouteProps extends RouteProps{
   routeType: string;
@@ -35,10 +36,11 @@ interface SiteRouteProps extends RouteProps{
   updateFollowSessions: (session: Session) => void;
   setFollowSessions: (sessions: Session[]) => void;
   updateFollows: (follows: Follows) => void;
+  redirect: RedirectModel;
 }
 
 export default function SiteRoute({
-  routeType, component: Component, path, isLogedIn, isAdmin, computedMatch, getFollowingEvents, updateFollows,
+  routeType, component: Component, path, isLogedIn, isAdmin, computedMatch, getFollowingEvents, updateFollows, redirect,
   checkIfLogedIn, setHeight, height, checkIfResized, unsetRedirect, setEvent, setFollowSessions, updateFollowSessions,
   getNotifications, socket, createSocket, userId, getFollows, addNotification, ...rest
 }: SiteRouteProps): JSX.Element {
@@ -56,11 +58,19 @@ export default function SiteRoute({
 
   useEffect(() => {
     checkIfLogedIn();
-    unsetRedirect();
+  }, [path]);
+
+  useEffect(() => {
+    if (typeof redirect.to === 'string') {
+      unsetRedirect();
+    }
+  }, [redirect]);
+
+  useEffect(() => {
     if (height === 0) {
       setHeight(window.innerHeight);
     }
-  });
+  }, [height]);
 
   useSocket(socket, `users/${userId}/notification`, addNotification, isLogedIn);
   useSocket(socket, `users/${userId}/follows/online`, setFollowSessions, isLogedIn);
@@ -82,7 +92,7 @@ export default function SiteRoute({
 
   const params = computedMatch ? computedMatch.params : undefined;
   /* eslint-disable  no-nested-ternary */
-  return (
+  return typeof redirect.to !== 'string' ? (
     <Route
       path={path}
       {...rest}
@@ -98,5 +108,5 @@ export default function SiteRoute({
             : <Component {...props} params={params} />
       )}
     />
-  );
+  ) : <Redirect to={redirect.to} />;
 }

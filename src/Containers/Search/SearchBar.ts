@@ -7,6 +7,8 @@ import { SearchState } from '../../Reducers/SearchReducer';
 import { Filters } from '../../Models/Filters';
 import { SetMessage } from '../../Actions/Message';
 import { ResetRatings } from '../../Actions/Rating';
+import { closeAllModals, CloseAllModals } from '../../Actions/Modal';
+import { SetRedirect } from '../../Actions/Redirect';
 
 interface State {
   AuthReducer: AuthState;
@@ -16,7 +18,6 @@ interface State {
 interface StateProps {
   isLogedIn: boolean;
   type: string;
-  redirectToSearch: boolean;
   filters: Filters;
   sorting: string;
 }
@@ -25,7 +26,6 @@ function mapStateToProps({ AuthReducer, SearchReducer }: State): StateProps {
   return {
     isLogedIn: AuthReducer.isLogedIn,
     type: SearchReducer.type,
-    redirectToSearch: SearchReducer.redirectToSearch,
     filters: SearchReducer.filters,
     sorting: SearchReducer.sorting,
   };
@@ -33,13 +33,15 @@ function mapStateToProps({ AuthReducer, SearchReducer }: State): StateProps {
 
 interface DispatchProps {
   search: (query: object) => void;
+  closeModal: () => void;
 }
 
-type SearchBarActions = AttemptSearchActions | SetMessage | ResetRatings;
+type SearchBarActions = AttemptSearchActions | SetMessage | ResetRatings | CloseAllModals | SetRedirect;
 
 function mapDispatchToProps(dispatch: Dispatch<SearchBarActions>): DispatchProps {
   return {
     search: (query: SearchData) => attemptSearch(query)(dispatch),
+    closeModal: () => dispatch(closeAllModals()),
   };
 }
 

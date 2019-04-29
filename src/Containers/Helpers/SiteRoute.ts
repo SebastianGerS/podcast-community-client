@@ -22,11 +22,14 @@ import {
 } from '../../Actions/Event';
 import { Event } from '../../Models/Event';
 import { Session } from '../../Models/Session';
+import { RedirectState } from '../../Reducers/RedirectReducer';
+import { RedirectModel } from '../../Models/Redirect';
 
 interface State {
   AuthReducer: AuthState;
   ModalReducer: ModalState;
   NotificationReducer: NotificationState;
+  RedirectReducer: RedirectState;
 }
 
 interface StateProps {
@@ -36,9 +39,12 @@ interface StateProps {
   notifications: Notification[];
   socket: any;
   userId: string | StringConstructor;
+  redirect: RedirectModel;
 }
 
-function mapStateToProps({ AuthReducer, ModalReducer, NotificationReducer }: State): StateProps {
+function mapStateToProps({
+  AuthReducer, ModalReducer, NotificationReducer, RedirectReducer,
+}: State): StateProps {
   return {
     isLogedIn: AuthReducer.isLogedIn,
     isAdmin: AuthReducer.isAdmin,
@@ -46,6 +52,7 @@ function mapStateToProps({ AuthReducer, ModalReducer, NotificationReducer }: Sta
     notifications: NotificationReducer.notifications,
     socket: AuthReducer.socket,
     userId: AuthReducer.user._id,
+    redirect: RedirectReducer.redirect,
   };
 }
 
