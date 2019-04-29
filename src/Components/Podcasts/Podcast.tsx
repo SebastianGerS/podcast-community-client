@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
 import { Podcast } from '../../Models/Podcast';
 import Loader from '../Layout/Loader';
 import SubscribeButton from '../../Containers/Common/SubscribeButton';
 import RatingComponent from '../Common/Rating';
 import MoreOptionsButton from '../../Containers/Common/MoreOptions/MoreOptionsButton';
 import Episodes from '../../Containers/Podcasts/Episodes';
-import { RedirectModel } from '../../Models/Redirect';
 import { Rating } from '../../Models/Rating';
 import { useSocket } from '../../Helpers/CustomHooks';
 
@@ -14,7 +12,6 @@ interface Props {
   podcast: Podcast;
   isFetchingPodcast: boolean;
   podcastId: string;
-  redirect: RedirectModel;
   socket: any;
   ratings: Rating[];
   getPodcast: (podcastId: string) => void;
@@ -24,7 +21,7 @@ interface Props {
 }
 
 function PodcastComponent({
-  podcast, isFetchingPodcast, getPodcast, podcastId, redirect, socket, setRating, ratings, resetPodcast, resetRatings,
+  podcast, isFetchingPodcast, getPodcast, podcastId, socket, setRating, ratings, resetPodcast, resetRatings,
 }: Props): JSX.Element {
   const [newPodcastRating] = ratings.filter((rating: Rating) => rating.itemId === podcastId);
 
@@ -57,10 +54,6 @@ function PodcastComponent({
         : ''
   );
 
-  const renderRedirect = (): JSX.Element | null => (
-    typeof redirect.to === 'string' ? <Redirect to={redirect.to} /> : null
-  );
-
   return !isFetchingPodcast && typeof podcast.id === 'string' ? (
     <div className="podcast">
       <h3 className="podcast-title">{ title }</h3>
@@ -81,12 +74,7 @@ function PodcastComponent({
       </div>
       <Episodes podcastTitle={title} podcastId={podcastId} />
     </div>
-  ) : (
-    <div>
-      {renderRedirect()}
-      <Loader />
-    </div>
-  );
+  ) : <Loader />;
 }
 
 export default PodcastComponent;

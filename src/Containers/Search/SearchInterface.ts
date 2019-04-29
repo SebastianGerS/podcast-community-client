@@ -7,6 +7,7 @@ import { AuthState } from '../../Reducers/AuthReducer';
 import { Filters } from '../../Models/Filters';
 import { SetMessage } from '../../Actions/Message';
 import { ResetRatings } from '../../Actions/Rating';
+import { SetRedirect } from '../../Actions/Redirect';
 
 
 interface State {
@@ -21,7 +22,6 @@ interface StateProps {
   type: string;
   offset: number;
   isSearching: boolean;
-  redirectToSearch: boolean;
   filters: Filters;
   sorting: string;
 }
@@ -34,7 +34,6 @@ function mapStateToProps({ SearchReducer, AuthReducer }: State): StateProps {
     type: SearchReducer.type,
     offset: SearchReducer.offset,
     isSearching: SearchReducer.isSearching,
-    redirectToSearch: SearchReducer.redirectToSearch,
     filters: SearchReducer.filters,
     sorting: SearchReducer.sorting,
   };
@@ -43,7 +42,9 @@ interface DispatchProps {
   search: (query: SearchData) => void;
 }
 
-function mapDispatchToProps(dispatch: Dispatch<AttemptSearchActions|SetMessage|ResetRatings>): DispatchProps {
+type SearchInterfaceActions = AttemptSearchActions | SetMessage | ResetRatings | SetRedirect;
+
+function mapDispatchToProps(dispatch: Dispatch<SearchInterfaceActions>): DispatchProps {
   return {
     search: (query: SearchData) => attemptSearch(query)(dispatch),
   };

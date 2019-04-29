@@ -146,6 +146,19 @@ export default function Modal(state: ModalState = DEFAULT_STATE, action: ModalAc
         rateEpisodeModalIsActive: false,
         followsModalIsActive: !state.followsModalIsActive,
       };
+    case ActionTypes.CLOSE_ALL_MODALS:
+      return {
+        ...state,
+        loginModalIsActive: false,
+        playbackModalIsActive: false,
+        menuIsActive: false,
+        userModalIsActive: false,
+        notificationsModalIsActive: false,
+        moreOptionsModalIsActive: false,
+        recommendToUserModalIsActive: false,
+        rateEpisodeModalIsActive: false,
+        followsModalIsActive: false,
+      };
     case ActionTypes.SET_HEIGHT:
       return {
         ...state,
