@@ -40,6 +40,7 @@ function RateEpisode({
   return (
     <div className="rate-episode">
       <button
+        title="close"
         className="close-rate-episode-modal-button"
         type="button"
         aria-label="close-rate-episode-modal-button"

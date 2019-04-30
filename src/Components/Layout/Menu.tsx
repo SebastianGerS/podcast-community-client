@@ -9,6 +9,7 @@ interface Props {
 const Menu = ({ closeMenu, userId }: Props): JSX.Element => (
   <div className="menu-modal">
     <button
+      title="close"
       className="close-menu-modal-button"
       type="button"
       aria-label="close-menu-modal-button"

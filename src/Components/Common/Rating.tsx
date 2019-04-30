@@ -8,7 +8,7 @@ interface Props {
 function Rating({ rating }: Props): JSX.Element {
   const ratingIcon = getRatingIcon(rating);
   return (
-    <figure className="rating">
+    <figure title="rating" className="rating">
       <div className={ratingIcon} />
       <figcaption>{rating !== 0 ? rating.toFixed(1) : ' — '}</figcaption>
     </figure>

@@ -25,12 +25,13 @@ const PlaybackBar = ({
         </figure>
         <div className="playback-controles">
           <button
+            title={isPlaying ? 'pause' : 'play'}
             type="button"
             aria-label={isPlaying ? 'pause-button' : 'play-button'}
             className={isPlaying ? 'pause' : 'play'}
             onClick={togglePlay}
           />
-          <button type="button" aria-label="forward-button" className="forward" onClick={forward} />
+          <button title="forward" type="button" aria-label="forward-button" className="forward" onClick={forward} />
         </div>
       </div>
     </Flipped>

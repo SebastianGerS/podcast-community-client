@@ -20,6 +20,7 @@ function LoginForm({ attemptLogin, closeLoginModal }: Props): JSX.Element {
   return (
     <div className="login-modal">
       <button
+        title="close"
         className="close-login-modal-button"
         type="button"
         aria-label="close-login-modal-button"
@@ -50,7 +51,7 @@ function LoginForm({ attemptLogin, closeLoginModal }: Props): JSX.Element {
           />
         </label>
 
-        <button type="submit">Login</button>
+        <button title="login" type="submit">Login</button>
       </form>
     </div>
   );

@@ -23,6 +23,7 @@ function PlayButton({
 
   return (
     <button
+      title={`${episodePlaying.id === episode.id && isPlaying ? 'pause' : 'play'}`}
       type="button"
       className={`${episodePlaying.id === episode.id && isPlaying ? 'pause-button' : 'play-button'}`}
       onClick={toggleEpisode}

@@ -58,6 +58,7 @@ function UserInfo({
               { user._id === currentUserId
                 && (
                   <button
+                    title={isUpdatingValue ? 'editing' : 'edit'}
                     className={isUpdatingValue ? 'editing' : 'edit'}
                     type="button"
                     aria-label="edit"
@@ -93,6 +94,7 @@ function UserInfo({
               { user._id === currentUserId
                 && (
                   <button
+                    title={isUpdatingValue ? 'editing' : 'edit'}
                     className={isUpdatingValue ? 'editing' : 'edit'}
                     type="button"
                     aria-label="edit"

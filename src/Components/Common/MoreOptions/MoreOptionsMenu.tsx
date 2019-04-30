@@ -32,6 +32,7 @@ function MoreOptionsMenu({
   return (
     <div className="more-options-menu">
       <button
+        title="close"
         className="close-more-options-modal-button"
         type="button"
         aria-label="close-more-options-modal-button"

@@ -8,6 +8,7 @@ interface Props {
 const NotificationsButton = ({ numberOfUnobserved, toggleNotificationsModal }: Props): JSX.Element => (
   <div className="notifications-button">
     <button
+      title="notifications"
       className={numberOfUnobserved > 0 ? 'has-new-notifications' : 'no-new-notifications'}
       type="button"
       aria-label="toggle-notifications"

@@ -34,6 +34,7 @@ function Notifications({
   return (
     <div className="notifications" onScroll={onScroll}>
       <button
+        title="close"
         className="close-notifications-modal-button"
         type="button"
         aria-label="close-notifications-modal-button"

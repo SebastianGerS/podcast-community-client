@@ -216,6 +216,7 @@ function PlaybackInterface({
           <Flipped inverseFlipId="player" scale>
             <div className="toggle">
               <button
+                title={modalIsActive ? 'fold' : 'expand'}
                 type="button"
                 aria-label="toggle-playback-modal-button"
                 className={modalIsActive ? 'fold' : 'expand'}

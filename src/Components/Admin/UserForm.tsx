@@ -82,6 +82,7 @@ function UserForm({
   return (
     <div className="user-form">
       <button
+        title="close"
         type="button"
         className="close"
         onClick={() => {

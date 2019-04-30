@@ -41,7 +41,7 @@ function SearchBar({
       <div>
         { isLogedIn
           ? <ToggleFollowsModal />
-          : <Link to="/register" onClick={closeModal}>Register</Link>
+          : <Link title="register" to="/register" onClick={closeModal}>Register</Link>
         }
       </div>
     </div>

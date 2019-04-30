@@ -64,6 +64,7 @@ function FollowsList({
   return (
     <div className="follows-modal">
       <button
+        title="close"
         className="close-follows-modal"
         type="button"
         onClick={() => toggleFollowsModal()}
