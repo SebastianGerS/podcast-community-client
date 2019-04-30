@@ -19,6 +19,7 @@ function ToggleFollowsModal({
 
   return (
     <button
+      title="follows"
       type="button"
       aria-label="toggle-follows-modal"
       className={`toggle-follows-modal ${followsOnline ? 'online' : 'offline'}`}

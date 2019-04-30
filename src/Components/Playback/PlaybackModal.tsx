@@ -29,14 +29,15 @@ const PlaybackModal = ({
       <p>{title}</p>
       <Flipped inverseFlipId="player" scale>
         <div className="playback-controles">
-          <button type="button" aria-label="backward-button" className="backward" onClick={backward} />
+          <button title="back" type="button" aria-label="backward-button" className="backward" onClick={backward} />
           <button
+            title={isPlaying ? 'pause' : 'play'}
             type="button"
             aria-label={isPlaying ? 'pause-button' : 'play-button'}
             className={isPlaying ? 'pause' : 'play'}
             onClick={togglePlay}
           />
-          <button type="button" aria-label="forward-button" className="forward" onClick={forward} />
+          <button title="forward" type="button" aria-label="forward-button" className="forward" onClick={forward} />
         </div>
       </Flipped>
     </div>

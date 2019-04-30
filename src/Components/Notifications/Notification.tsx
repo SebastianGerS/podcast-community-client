@@ -70,6 +70,7 @@ function NotificationComponent({
   return (
     <div className={`notification ${data.observed ? 'observed' : 'unobserved'}`}>
       <button
+        title="remove"
         className="remove-button"
         aria-label="remove-button"
         type="button"

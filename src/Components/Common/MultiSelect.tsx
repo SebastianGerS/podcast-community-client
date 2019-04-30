@@ -52,6 +52,7 @@ function MultiSelect<T extends Option>({
     <span className="selected" key={uuid.v4()}>
       {option.name}
       <i
+        title="remove"
         role="button"
         className="remove"
         onClick={e => removeOption(e, option)}

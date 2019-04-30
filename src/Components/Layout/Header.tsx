@@ -12,10 +12,10 @@ interface Props {
 const Header = ({ isLogedIn, closeModal }: Props): JSX.Element => (
   <header>
     <figure>
-      <Link to="/" onClick={closeModal}><img src={logo} className="logo" alt="logo" /></Link>
+      <Link title="Thru the Ether" to="/" onClick={closeModal}><img src={logo} className="logo" alt="logo" /></Link>
     </figure>
     <div>
-      <Link to="/" onClick={closeModal}>
+      <Link to="/" onClick={closeModal} title="Thru the Ether">
         <h1 className="site-title">Thru the Ether</h1>
         <p> – a podcast community</p>
       </Link>

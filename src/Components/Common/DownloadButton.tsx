@@ -28,7 +28,7 @@ function DownloadButton({ episode, download, isDownloading }: Props): JSX.Elemen
   } else if (isDowloaded(typeof episode.id === 'string' ? episode.id : '')) {
     html = <img src={Checkmark} className="downloaded-icon" alt="isdowloading" />;
   } else {
-    html = <button type="button" className="dowload-button" onClick={downloadEpisode} />;
+    html = <button title="download" type="button" className="dowload-button" onClick={downloadEpisode} />;
   }
 
   return (html);

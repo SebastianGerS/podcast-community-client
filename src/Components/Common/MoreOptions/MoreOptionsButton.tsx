@@ -10,6 +10,7 @@ interface Props {
 function MoreOptionsButton({ setAndToggleMoreOptionsModal, item }: Props): JSX.Element {
   return (
     <button
+      title="more options"
       type="button"
       aria-label="more-options-button"
       className="more-options-button"
