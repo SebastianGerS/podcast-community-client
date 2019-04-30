@@ -37,6 +37,8 @@ export const getSmalModalHeight = (height: number): number => {
       modalHeight = height - 170 - 40 - 73 - 40;
     } else if (window.innerHeight < 568) {
       modalHeight = height - 40 - 40 - 30 - 90;
+    } else if (window.innerHeight < 711 && window.innerWidth < 1024) {
+      modalHeight = height - 40 - 40 - 30 - 90;
     } else {
       modalHeight = height - 40 - 40 - 73 - 130;
     }
