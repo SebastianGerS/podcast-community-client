@@ -1,5 +1,6 @@
 .listable-podcast {
   padding: 1em;
+  width: min-content;
 
   img {
     min-width: 250px;
@@ -10,6 +11,7 @@
     flex-direction: column;
     font-size: 0.9em;
     padding-top: 0.5em;
+    word-break: break-word;
 
     span {
       padding-top: 0.5em;
