@@ -210,7 +210,7 @@ function PlaybackInterface({
   }
 
   return (
-    <Flipper flipKey={modalIsActive} className={`playbackinterface ${type} ${layoutPos}`}>
+    <Flipper flipKey={modalIsActive} className={`playbackinterface ${layoutPos}`}>
       <Flipped flipId="player">
         <div className={`playbackinterface ${type} ${layoutPos}`} style={style}>
           <Flipped inverseFlipId="player" scale>

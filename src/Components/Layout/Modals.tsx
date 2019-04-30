@@ -47,7 +47,7 @@ const Modals = ({
           <CSSTransition
             in={false}
             appear
-            timeout={600}
+            timeout={725}
             classNames="modal"
           >
             <Modal component={component} size="smal" backgroundColor="black" />

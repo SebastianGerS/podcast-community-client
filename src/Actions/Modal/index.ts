@@ -97,6 +97,14 @@ export const setHeight = (height: number): SetHeight => ({
   height,
 });
 
+export interface HeightUpdated {
+  type: ActionTypes.HEIGHT_UPDATED;
+}
+
+export const heightUpdated = (): HeightUpdated => ({
+  type: ActionTypes.HEIGHT_UPDATED,
+});
+
 type CheckIfResizedAction = (dispatch: Dispatch<SetHeight>) => void;
 
 export const checkIfResized = (): CheckIfResizedAction => (dispatch: Dispatch<SetHeight>): void => {
@@ -121,6 +129,8 @@ export const setAndToggleMoreOptionsModal = (item?: Episode | Podcast): SetAndTo
 };
 
 export type ModalActions = (
-  ToggleLoginModal | ToggleMenu | TogglePlaybackModal | ToggleUserModal | ToggleNotificationsModal | CloseAllModals
-  | ToggleMoreOptionsModal | ToggleRecommendToUserModal | ToggleRateEpisodeModal | SetHeight | ToggleFollowsModal
+  ToggleLoginModal | ToggleMenu | TogglePlaybackModal
+  | ToggleUserModal | ToggleNotificationsModal | CloseAllModals
+  | ToggleMoreOptionsModal | ToggleRecommendToUserModal | ToggleRateEpisodeModal
+  | SetHeight | ToggleFollowsModal | HeightUpdated
 );
