@@ -2,31 +2,21 @@ import React, { useEffect } from 'react';
 import { Episode } from '../../Models/Episode';
 import List from '../Common/List';
 import PodcastEpisode from '../../Containers/Podcasts/PodcastEpisode';
-import { EpisodesSearchData } from '../../Actions/Podcast';
 import Loader from '../Layout/Loader';
 
 interface Props {
   episodes: Episode[];
-  getEpisodes: (data: EpisodesSearchData) => void;
-  podcastTitle: string;
+  getEpisodes: (podcastId: string, nextOffset?: number) => void;
   podcastId: string;
   isFetchingEpisodes: boolean;
   isFetchingPodcast: boolean;
-  offset: number;
+  nextOffset?: number;
   morePages: boolean;
 }
 
 function Episodes({
-  episodes, getEpisodes, podcastTitle, podcastId, isFetchingEpisodes, offset, morePages, isFetchingPodcast,
+  episodes, getEpisodes, podcastId, isFetchingEpisodes, nextOffset, morePages, isFetchingPodcast,
 }: Props): JSX.Element {
-  useEffect(() => {
-    if (podcastTitle.length > 0 && podcastId.length > 0 && !isFetchingPodcast) {
-      getEpisodes({
-        term: podcastTitle, offset, ocid: podcastId,
-      });
-    }
-  }, [podcastTitle, podcastId]);
-
   const onScroll = (): void => {
     if (
       (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 1000)
@@ -34,9 +24,7 @@ function Episodes({
     ) {
       window.removeEventListener('scroll', onScroll, false);
 
-      getEpisodes({
-        term: podcastTitle, offset, ocid: podcastId,
-      });
+      getEpisodes(podcastId, nextOffset);
     }
   };
 
