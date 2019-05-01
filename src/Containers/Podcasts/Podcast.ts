@@ -39,7 +39,7 @@ function mapStateToProps({
 }
 
 interface DispatchProps {
-  getPodcast: (podcastId: string) => void;
+  getPodcast: (podcastId: string, nextOffset?: number) => void;
   resetPodcast: () => void;
   setRating: (rating: Rating) => void;
   resetRatings: () => void;
@@ -49,7 +49,7 @@ type PodcastComponentActions = GetPodcastAction | SetMessage | SetRating | Reset
 
 function mapDispatchToProps(dispatch: Dispatch<PodcastComponentActions>): DispatchProps {
   return {
-    getPodcast: (podcastId: string) => attemptGetPodcast(podcastId)(dispatch),
+    getPodcast: (podcastId: string, nextOffset?: number) => attemptGetPodcast(podcastId, nextOffset)(dispatch),
     resetPodcast: () => dispatch(resetPodcast()),
     setRating: (rating: Rating) => dispatch(setRating(rating)),
     resetRatings: () => dispatch(resetRatings()),

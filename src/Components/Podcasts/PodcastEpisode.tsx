@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { getDatefromMilisecond, getSecondsFromTimeString } from '../../Helpers/Time';
+import { getDatefromMilisecond } from '../../Helpers/Time';
 import DownloadButton from '../../Containers/Common/DownloadButton';
 import { Episode } from '../../Models/Episode';
 import MoreOptionsButton from '../../Containers/Common/MoreOptions/MoreOptionsButton';
@@ -20,11 +20,11 @@ interface Props {
 function PodcastEpisode({
   data, ratings, setRating, socket,
 }: Props): JSX.Element {
-  const title = typeof data.title_original === 'string' ? data.title_original : '';
-  const description = typeof data.description_original === 'string' ? data.description_original : '';
+  const title = typeof data.title === 'string' ? data.title : '';
+  const description = typeof data.description === 'string' ? data.description : '';
   const episodeId = typeof data.id === 'string' ? data.id : '';
-  const epiosdeLength = typeof data.audio_length === 'string'
-    ? `${Math.round(getSecondsFromTimeString(data.audio_length) / 60)} min`
+  const epiosdeLength = typeof data.audio_length === 'number'
+    ? `${Math.round(data.audio_length / 60)} min`
     : 'unknown';
   const episodeReleaseDate = typeof data.pub_date_ms === 'number'
     ? getDatefromMilisecond(data.pub_date_ms)

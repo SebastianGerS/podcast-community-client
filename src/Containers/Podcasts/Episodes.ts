@@ -1,10 +1,7 @@
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import Episodes from '../../Components/Podcasts/Episodes';
-import { attemptGetPodcastEpisodes, GetPodcastEpisodesAction, EpisodesSearchData } from '../../Actions/Podcast';
 import { PodcastState } from '../../Reducers/PodcastReducer';
 import { Episode } from '../../Models/Episode';
-import { SetMessage } from '../../Actions/Message';
 
 interface State {
   PodcastReducer: PodcastState;
@@ -14,7 +11,7 @@ interface StateProps {
   episodes: Episode[];
   isFetchingEpisodes: boolean;
   isFetchingPodcast: boolean;
-  offset: number;
+  nextOffset?: number;
   morePages: boolean;
 }
 
@@ -23,21 +20,9 @@ function mapStateToProps({ PodcastReducer }: State): StateProps {
     episodes: PodcastReducer.episodes,
     isFetchingEpisodes: PodcastReducer.isFetchingEpisodes,
     isFetchingPodcast: PodcastReducer.isFetchingPodcast,
-    offset: PodcastReducer.offset,
+    nextOffset: PodcastReducer.nextOffset,
     morePages: PodcastReducer.morePages,
   };
 }
 
-interface DispatchProps {
-  getEpisodes: (data: EpisodesSearchData) => void;
-}
-
-type EpisodesActions = GetPodcastEpisodesAction | SetMessage;
-
-function mapDispatchToProps(dispatch: Dispatch<EpisodesActions>): DispatchProps {
-  return {
-    getEpisodes: (data: EpisodesSearchData) => attemptGetPodcastEpisodes(data)(dispatch),
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Episodes);
+export default connect(mapStateToProps)(Episodes);

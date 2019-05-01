@@ -14,7 +14,7 @@ interface Props {
   podcastId: string;
   socket: any;
   ratings: Rating[];
-  getPodcast: (podcastId: string) => void;
+  getPodcast: (podcastId: string, nextOffset?: number) => void;
   resetPodcast: () => void;
   setRating: (rating: Rating) => void;
   resetRatings: () => void;
@@ -72,7 +72,7 @@ function PodcastComponent({
         <SubscribeButton podcast={podcast} />
         <MoreOptionsButton item={podcast} />
       </div>
-      <Episodes podcastTitle={title} podcastId={podcastId} />
+      <Episodes podcastId={podcastId} getEpisodes={getPodcast} />
     </div>
   ) : <Loader />;
 }
