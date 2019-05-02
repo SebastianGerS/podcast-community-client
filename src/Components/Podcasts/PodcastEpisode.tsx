@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Markup } from 'interweave';
 import { getDatefromMilisecond } from '../../Helpers/Time';
 import DownloadButton from '../../Containers/Common/DownloadButton';
 import { Episode } from '../../Models/Episode';
@@ -7,7 +8,7 @@ import MoreOptionsButton from '../../Containers/Common/MoreOptions/MoreOptionsBu
 import PlayButton from '../../Containers/Common/PlayButton';
 import InfoBox from '../Common/InfoBox';
 import { Rating } from '../../Models/Rating';
-import { getRatingIcon } from '../../Helpers/Utils';
+import { getRatingIcon, setMaxLength } from '../../Helpers/Utils';
 import { useSocket } from '../../Helpers/CustomHooks';
 
 interface Props {
@@ -41,22 +42,20 @@ function PodcastEpisode({
   return (
     <div className="listable-episode">
       <Link to={`/episodes/${episodeId}`}>
-        <h3 className="listable-episode-title">{title.length > 35 ? `${title.substring(0, 31)}...` : title}</h3>
-        <div className="listable-episode-info-boxes">
-          <InfoBox text={episodeReleaseDate} />
-          <InfoBox
-            text={typeof rating === 'number' && rating > 0 ? rating.toFixed(1) : ' - '}
-            iconClass={ratingIcon}
-            icon
-          />
-          <InfoBox text={epiosdeLength} />
-        </div>
-        <div className="listable-episode-description">
-          <p>
-            {description.length > 150 ? `${description.substring(0, 147)}...` : description}
-          </p>
-        </div>
+        <h3 className="listable-episode-title"><Markup content={setMaxLength(title, 35)} /></h3>
       </Link>
+      <div className="listable-episode-info-boxes">
+        <InfoBox text={episodeReleaseDate} />
+        <InfoBox
+          text={typeof rating === 'number' && rating > 0 ? rating.toFixed(1) : ' - '}
+          iconClass={ratingIcon}
+          icon
+        />
+        <InfoBox text={epiosdeLength} />
+      </div>
+      <div className="listable-episode-description">
+        <Markup content={setMaxLength(description, 100)} />
+      </div>
       <div className="listable-episode-controls">
         <DownloadButton episode={data} />
         <PlayButton episode={data} />
