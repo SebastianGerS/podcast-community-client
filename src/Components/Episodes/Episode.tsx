@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Markup } from 'interweave';
 import { Episode } from '../../Models/Episode';
 import PlayButton from '../../Containers/Common/PlayButton';
 import MoreOptionsButton from '../../Containers/Common/MoreOptions/MoreOptionsButton';
@@ -55,7 +56,7 @@ function EpisodeComponent({
 
   return !isFetching && typeof episode.id === 'string' ? (
     <div className="episode">
-      <h3 className="episode-title">{ title }</h3>
+      <Markup content={title} tagName="h3" />
       <div className="episode-img">
         <figure>
           <img src={typeof episode.image === 'string' ? episode.image : ''} alt="podcastlogo" />
@@ -71,9 +72,7 @@ function EpisodeComponent({
         <InfoBox text={epiosdeLength} />
       </div>
       <div className="episode-description">
-        <p>
-          {description}
-        </p>
+        <Markup content={description} />
       </div>
       <div className="episode-controls">
         <DownloadButton episode={episode} />

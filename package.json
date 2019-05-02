@@ -18,6 +18,7 @@
     "babel-loader": "8.0.4",
     "downloadjs": "^1.4.7",
     "immutable": "^4.0.0-rc.12",
+    "interweave": "^11.0.0",
     "jsonwebtoken": "^8.4.0",
     "prop-types": "^15.6.2",
     "react": "^16.8.1",

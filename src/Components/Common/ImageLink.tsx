@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Markup } from 'interweave';
 
 interface Props {
   imageSrc: string;
@@ -15,14 +16,14 @@ const ImageLink = ({
     <Link to={linkTo}>
       <figure>
         <img src={imageSrc} alt={imageAlt} />
-        <figcaption>{caption}</figcaption>
+        <Markup content={caption} tagName="figcaption" />
       </figure>
     </Link>
   )
     : (
       <figure>
         <img src={imageSrc} alt={imageAlt} />
-        <figcaption>{caption}</figcaption>
+        <Markup content={caption} tagName="figcaption" />
       </figure>
     )
 );

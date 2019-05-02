@@ -1,4 +1,5 @@
 import React from 'react';
+import { Markup } from 'interweave';
 import { Event } from '../../Models/Event';
 import ArrowRight from '../../Assets/Icons/arrow-right-fat.svg';
 import ImageLink from '../Common/ImageLink';
@@ -151,7 +152,7 @@ const EventComponent = ({ data }: Props): JSX.Element | null => {
       );
       break;
     case 'newEpisode':
-      message = `${agentName} relesed a new episode — ${objectName}`;
+      message = `${agentName} relesed a new episode: ${objectName}`;
       eventImages = (
         <div className="event-images">
           <ImageLink
@@ -179,9 +180,7 @@ const EventComponent = ({ data }: Props): JSX.Element | null => {
     <div className="event">
       {eventImages}
       <div className="event-description">
-        <p>
-          {message}
-        </p>
+        <Markup content={message} tagName="p" />
       </div>
       <div className="date">
         <InfoBox text={formatedDate} />

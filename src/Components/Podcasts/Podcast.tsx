@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Markup } from 'interweave';
 import { Podcast } from '../../Models/Podcast';
 import Loader from '../Layout/Loader';
 import SubscribeButton from '../../Containers/Common/SubscribeButton';
@@ -63,9 +64,7 @@ function PodcastComponent({
         </figure>
       </div>
       <div className="podcast-description">
-        <p>
-          {description}
-        </p>
+        <Markup content={description} />
       </div>
       <div className="podcast-controls">
         <RatingComponent rating={typeof rating === 'number' ? rating : 0} />
