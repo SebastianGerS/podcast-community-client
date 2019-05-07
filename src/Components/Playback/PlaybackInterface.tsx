@@ -43,6 +43,7 @@ function PlaybackInterface({
 
   const prevPos = usePrevious<number>(pos);
   const prevEpisode = usePrevious<Episode>(episode);
+  const mainSrc = typeof episode.audio === 'string' ? episode.audio : '';
 
   const getSeek = (): number => {
     if (player) {
@@ -204,14 +205,14 @@ function PlaybackInterface({
 
   useEffect(() => {
     if (player) {
-      if (pos < prevPos + 0.001 || pos > prevPos + 0.11 || pos < 0.25 || player.howlerState() !== 'loaded') {
+      if ((pos < prevPos + 0.001 || pos > prevPos + 1 || pos < 0.5 || player.howlerState() !== 'loaded') && isPlaying) {
         setIsLoading(true);
       } else {
         setIsLoading(false);
       }
     }
   }, [pos]);
-  console.log(isPlaying);
+
   const type = modalIsActive ? 'modal' : 'bar';
   let layoutPos;
   const style: Style = {};
@@ -272,7 +273,7 @@ function PlaybackInterface({
             && (
               <ErrorBoundray>
                 <ReactHowler
-                  src={src}
+                  src={[mainSrc, src]}
                   playing={isPlaying}
                   volume={1}
                   preload
