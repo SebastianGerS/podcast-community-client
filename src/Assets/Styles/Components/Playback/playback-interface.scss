@@ -49,10 +49,18 @@
 
   .play {
     background-image: url(../Icons/play-arrow.svg);
+
+    &.loading {
+      background-image: url(../Icons/loader-white.svg);
+    }
   }
 
   .pause {
     background-image: url(../Icons/pause.svg);
+
+    &.loading {
+      background-image: url(../Icons/loader-white.svg);
+    }
   }
 
   .forward {
