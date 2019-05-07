@@ -152,8 +152,8 @@ function PlaybackInterface({
 
   useEffect(() => {
     if (player) {
-      togglePlay();
       if (typeof episode.id === 'string' && startEpisode) {
+        togglePlay();
         if (checkifInPosList(episode.id)) {
           setSeek(getEpisodePosFromList(episode.id));
         }
