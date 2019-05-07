@@ -39,6 +39,7 @@ function PlaybackInterface({
   const [pos, setPos] = useState(0);
   const [timer, setTimer] = useState<NodeJS.Timeout | undefined | number>(undefined);
   const [player, setPlayer] = useState<ReactHowlerExtended| null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const prevPos = usePrevious<number>(pos);
   const prevEpisode = usePrevious<Episode>(episode);
@@ -53,6 +54,10 @@ function PlaybackInterface({
 
   const setSeek = (value: number): void => {
     if (player) {
+      if (isPlaying) {
+        setIsLoading(true);
+      }
+
       player.seek(value);
     }
   };
@@ -66,7 +71,7 @@ function PlaybackInterface({
   };
 
   const startTimer = (cb: () => void): void => {
-    const newTimer = setInterval(cb, 500);
+    const newTimer = setInterval(cb, 100);
     setTimer(newTimer);
   };
 
@@ -94,9 +99,11 @@ function PlaybackInterface({
       if (isPlaying) {
         stop();
         stopTimer();
+        setIsLoading(false);
       } else {
         play();
         handleTimer();
+        setIsLoading(true);
       }
     }
   };
@@ -145,10 +152,7 @@ function PlaybackInterface({
 
   useEffect(() => {
     if (player) {
-      if (startEpisode && typeof episode.id === 'string') {
-        togglePlay();
-      }
-
+      togglePlay();
       if (typeof episode.id === 'string' && startEpisode) {
         if (checkifInPosList(episode.id)) {
           setSeek(getEpisodePosFromList(episode.id));
@@ -159,6 +163,9 @@ function PlaybackInterface({
           }
         }
       }
+    }
+    if (startEpisode && typeof episode.id === 'string') {
+      setIsLoading(true);
     }
   }, [player, src, startEpisode]);
 
@@ -195,8 +202,20 @@ function PlaybackInterface({
     }
   }, [pos]);
 
-  const type = modalIsActive ? 'modal' : 'bar';
+  useEffect(() => {
+    if (player) {
+      if (
+        (pos < prevPos || pos > prevPos + 0.11 || pos < 0.25 || player.howlerState() !== 'loaded')
+        && typeof episode.id === 'string' && isPlaying
+      ) {
+        setIsLoading(true);
+      } else if (isLoading) {
+        setIsLoading(false);
+      }
+    }
+  }, [pos]);
 
+  const type = modalIsActive ? 'modal' : 'bar';
   let layoutPos;
   const style: Style = {};
 
@@ -228,6 +247,7 @@ function PlaybackInterface({
           && (
             <PlaybackBar
               isPlaying={isPlaying}
+              isLoading={isLoading}
               togglePlay={togglePlay}
               episode={episode}
               forward={forward}
@@ -238,6 +258,7 @@ function PlaybackInterface({
             && (
               <PlaybackModal
                 isPlaying={isPlaying}
+                isLoading={isLoading}
                 togglePlay={togglePlay}
                 episode={episode}
                 seek={seek}
