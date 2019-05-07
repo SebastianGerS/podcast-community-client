@@ -6,6 +6,7 @@ import { Episode } from '../../Models/Episode';
 interface Props {
   episode: Episode;
   isPlaying: boolean;
+  isLoading: boolean;
   togglePlay: () => void;
   seek: (time?: number) => void;
   forward: () => void;
@@ -15,7 +16,7 @@ interface Props {
 }
 
 const PlaybackModal = ({
-  episode, isPlaying, togglePlay, seek, backward, forward, pos, getDuration,
+  episode, isPlaying, togglePlay, seek, backward, forward, pos, getDuration, isLoading,
 }: Props): JSX.Element => {
   const title = typeof episode.title_original === 'string' ? episode.title_original : '';
   const image = typeof episode.image === 'string' ? episode.image : 'https://via.placeholder.com/375x375';
@@ -34,7 +35,7 @@ const PlaybackModal = ({
             title={isPlaying ? 'pause' : 'play'}
             type="button"
             aria-label={isPlaying ? 'pause-button' : 'play-button'}
-            className={isPlaying ? 'pause' : 'play'}
+            className={`${isPlaying ? 'pause' : 'play'}${isLoading ? ' loading' : ''}`}
             onClick={togglePlay}
           />
           <button title="forward" type="button" aria-label="forward-button" className="forward" onClick={forward} />
