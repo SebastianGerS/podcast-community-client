@@ -20,7 +20,7 @@ interface Props {
   startEpisode: boolean;
   src: string;
   height: number;
-  userId: string;
+  userId: string | StringConstructor;
   socket: any;
 }
 
@@ -95,7 +95,7 @@ function PlaybackInterface({
   };
 
   const togglePlay = (): void => {
-    if (typeof episode.id === 'string') {
+    if (typeof episode.id === 'string' && !isLoading) {
       if (isPlaying) {
         stop();
         stopTimer();
@@ -152,8 +152,8 @@ function PlaybackInterface({
 
   useEffect(() => {
     if (player) {
-      togglePlay();
       if (typeof episode.id === 'string' && startEpisode) {
+        togglePlay();
         if (checkifInPosList(episode.id)) {
           setSeek(getEpisodePosFromList(episode.id));
         }
@@ -205,7 +205,7 @@ function PlaybackInterface({
   useEffect(() => {
     if (player) {
       if (
-        (pos < prevPos || pos > prevPos + 0.11 || pos < 0.25 || player.howlerState() !== 'loaded')
+        (pos < prevPos + 0.001 || pos > prevPos + 0.11 || pos < 0.25 || player.howlerState() !== 'loaded')
         && typeof episode.id === 'string' && isPlaying
       ) {
         setIsLoading(true);
