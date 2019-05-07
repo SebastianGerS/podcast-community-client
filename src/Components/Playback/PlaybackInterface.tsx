@@ -164,6 +164,9 @@ function PlaybackInterface({
         }
       }
     }
+    if (startEpisode && typeof episode.id === 'string') {
+      setIsLoading(true);
+    }
   }, [player, src, startEpisode]);
 
   useEffect(() => {
