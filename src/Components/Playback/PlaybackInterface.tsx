@@ -95,12 +95,12 @@ function PlaybackInterface({
   };
 
   const togglePlay = (): void => {
-    if (typeof episode.id === 'string' && !isLoading) {
+    if (typeof episode.id === 'string') {
       if (isPlaying) {
         stop();
         stopTimer();
         setIsLoading(false);
-      } else {
+      } else if (!isLoading || startEpisode) {
         play();
         handleTimer();
         setIsLoading(true);
