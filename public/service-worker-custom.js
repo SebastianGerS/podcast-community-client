@@ -1,7 +1,7 @@
 /* eslint-disable no-console, no-restricted-globals */
 
 const CACHE_NAME = 'thru-the-ether';
-const DO_NOT_CACHE = ['service-worker-custom', '/sock'];
+const DO_NOT_CACHE = ['service-worker-custom', '/sock', '.js'];
 self.addEventListener('activate', (event) => {
   console.log('activating service-worker');
 
@@ -11,21 +11,9 @@ self.addEventListener('activate', (event) => {
     caches.keys()
       .then(keyList => Promise.all(keyList.map((name) => {
         let res;
-        if (cacheWhiteList.includes(name)) {
-          fetch('asset-manifest.json')
-            .then(response => response.json())
-            .then((assets) => {
-              const keys = Object.keys(assets);
-              const cachesToRemove = keys.map((key) => {
-                let asset;
-                if (key !== 'service-worker-custom') {
-                  asset = assets[key];
-                }
-                return asset;
-              });
-              console.log(`Deleting static assets from cache: ${name}`);
-              res = caches.delete(cachesToRemove);
-            });
+        if (!cacheWhiteList.includes(name)) {
+          console.log(`Deleting cache: ${name}`);
+          res = caches.delete(name);
         }
         return res;
       }))),
@@ -34,6 +22,9 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('install', (event) => {
   console.log('installing service-worker');
+
+  self.skipWaiting();
+
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
