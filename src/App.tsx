@@ -58,10 +58,12 @@ function App({
     if (!socket) {
       createSocket();
     }
-    if (isLogedIn) {
+    if (isLogedIn && socket) {
       getNotifications(0);
       getFollows();
       getFollowingEvents(0);
+    }
+    if (socket && isLogedIn) {
       socket.emit('user/online', userId);
     }
   }, [isLogedIn]);
