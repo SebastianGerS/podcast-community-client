@@ -20,7 +20,6 @@ const Menu = ({ closeMenu, userId }: Props): JSX.Element => (
       <ul className="menu-links">
         <div>
           <SiteLink to="/search" title="Search" />
-          <AdminSiteLink to="/users" title="Handle Users" />
           <AuthSiteLink to={`/profile/${userId}`} title="Profile" />
           <AuthSiteLink to="/my-subscriptions" title="Subscriptions" />
           <AuthSiteLink to="/feed" title="Feed" />
@@ -29,6 +28,7 @@ const Menu = ({ closeMenu, userId }: Props): JSX.Element => (
           {/* <AuthSiteLink to="/" title="ListenList" /> */}
           <AuthSiteLink to="/follows" title="Follows" />
           <AuthSiteLink to="/settings" title="Settings" />
+          <AdminSiteLink to="/users" title="Handle Users" />
           {/* <AdminSiteLink to="/" title="Send Email" /> */}
           <LogoutButton />
         </div>
