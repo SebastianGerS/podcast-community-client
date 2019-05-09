@@ -18,6 +18,8 @@
 
   .list {
     flex-direction: column;
+    flex-wrap: nowrap;
+    padding-top: 1em;
   }
 
   .no-notifications {
