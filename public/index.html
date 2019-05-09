@@ -96,18 +96,18 @@
       if('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
 
-          navigator.serviceWorker.register('./service-worker-custom.js')
+          navigator.serviceWorker.register('%PUBLIC_URL%/service-worker-custom.js')
           .then(registration => {
-            console.log('registration successfull')
+            console.log('registration successfull');
           }, err => {
-            console.log('registration of service-worker failed')
+            console.log('registration of service-worker failed');
           })
           .catch(err => {
             console.log(err);
           })
         })
       } else {
-        console.log('Service Worker api not avalible')
+        console.log('Service Worker api not avalible');
       }
     </script>
   </body>

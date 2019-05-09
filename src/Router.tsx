@@ -3,12 +3,12 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import Views from './Views';
 import SiteRoute from './Containers/Helpers/SiteRoute';
-import Layout from './Components/Layout/Layout';
+import App from './Containers/App';
 
 const Router = (): JSX.Element => (
   <BrowserRouter>
     <Route render={({ location }) => (
-      <Layout path={location.pathname}>
+      <App path={location.pathname}>
         <TransitionGroup component={null}>
           <CSSTransition
             key={`${location.pathname || '/'}-view`}
@@ -85,7 +85,7 @@ const Router = (): JSX.Element => (
             </Switch>
           </CSSTransition>
         </TransitionGroup>
-      </Layout>
+      </App>
     )}
     />
   </BrowserRouter>
