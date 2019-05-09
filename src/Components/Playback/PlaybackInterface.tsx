@@ -44,6 +44,10 @@ function PlaybackInterface({
   const prevPos = usePrevious<number>(pos);
   const prevEpisode = usePrevious<Episode>(episode);
   const mainSrc = typeof episode.audio === 'string' ? episode.audio : '';
+  const title = typeof episode.title === 'string' ? episode.title : episode.title_original;
+  const podcastTitle = typeof episode.podcast_title === 'string'
+    ? episode.podcast_title
+    : episode.podcast_title_original;
 
   const getSeek = (): number => {
     if (player) {
@@ -183,8 +187,8 @@ function PlaybackInterface({
           ? {
             id: episode.id,
             audio: episode.audio,
-            title: episode.title_original,
-            podcast_title: episode.podcast_title_original,
+            title,
+            podcast_title: podcastTitle,
           }
           : null;
 
