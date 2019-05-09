@@ -25,6 +25,8 @@
       figcaption {
         text-align: center;
         margin-top: 0.25em;
+        font-size: 0.45em;
+        word-break: break-word;
       }
 
       .object-img {
@@ -80,6 +82,10 @@
     .event-images {
       figure {
         width: 75px;
+
+        figcaption {
+          font-size: 0.75em;
+        }
       }
     }
 
@@ -118,6 +124,10 @@
     .event-images {
       figure {
         width: 130px;
+
+        figcaption {
+          font-size: 1em;
+        }
       }
     }
 

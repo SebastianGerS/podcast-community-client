@@ -17,7 +17,7 @@ const EventComponent = ({ data }: Props): JSX.Element | null => {
   } = data;
 
   const maxLengthFifty = (word: string): string => setMaxLength(word, 50);
-  const maxLengthFifteen = (word: string): string => setMaxLength(word, 15);
+  const maxLengthThirty = (word: string): string => setMaxLength(word, 30);
 
   const agentName = maxLengthFifty((agent.name && typeof agent.name === 'string') ? agent.name : '');
   const targetName = setMaxLength(target.name && typeof target.name === 'string' ? target.name : '', 100);
@@ -44,14 +44,14 @@ const EventComponent = ({ data }: Props): JSX.Element | null => {
             imageSrc={agentThumbnail}
             imageAlt={agentName}
             linkTo={`/profile/${agent._id}`}
-            caption={maxLengthFifteen(agentName)}
+            caption={maxLengthThirty(agentName)}
           />
           <ImageLink imageSrc={ArrowRight} imageAlt="arrow right" />
           <ImageLink
             imageSrc={targetThumbnail}
             imageAlt={targetName}
             linkTo={`/podcasts/${target._id}`}
-            caption={maxLengthFifteen(targetName)}
+            caption={maxLengthThirty(targetName)}
           />
         </div>
       );
@@ -64,14 +64,14 @@ const EventComponent = ({ data }: Props): JSX.Element | null => {
             imageSrc={targetThumbnail}
             imageAlt={targetName}
             linkTo={`/profile/${target._id}`}
-            caption={maxLengthFifteen(targetName)}
+            caption={maxLengthThirty(targetName)}
           />
           <ImageLink imageSrc={ArrowRight} imageAlt="arrow right" />
           <ImageLink
             imageSrc={agentThumbnail}
             imageAlt={agentName}
             linkTo={`/profile/${agent._id}`}
-            caption={maxLengthFifteen(agentName)}
+            caption={maxLengthThirty(agentName)}
           />
         </div>
       );
@@ -84,14 +84,14 @@ const EventComponent = ({ data }: Props): JSX.Element | null => {
             imageSrc={agentThumbnail}
             imageAlt={agentName}
             linkTo={`/profile/${agent._id}`}
-            caption={maxLengthFifteen(agentName)}
+            caption={maxLengthThirty(agentName)}
           />
           <ImageLink imageSrc={ArrowRight} imageAlt="arrow right" />
           <ImageLink
             imageSrc={targetThumbnail}
             imageAlt={targetName}
             linkTo={`/profile/${target._id}`}
-            caption={maxLengthFifteen(targetName)}
+            caption={maxLengthThirty(targetName)}
           />
         </div>
       );
@@ -111,7 +111,7 @@ const EventComponent = ({ data }: Props): JSX.Element | null => {
             imageSrc={agentThumbnail}
             imageAlt={agentName}
             linkTo={`/profile/${agent._id}`}
-            caption={maxLengthFifteen(agentName)}
+            caption={maxLengthThirty(agentName)}
           />
           <ImageLink imageSrc={ArrowRight} imageAlt="arrow right" />
           <ImageLink
@@ -124,7 +124,7 @@ const EventComponent = ({ data }: Props): JSX.Element | null => {
             imageSrc={targetThumbnail}
             imageAlt={targetName}
             linkTo={`/profile/${target._id}`}
-            caption={maxLengthFifteen(targetName)}
+            caption={maxLengthThirty(targetName)}
           />
         </div>
       );
@@ -139,7 +139,7 @@ const EventComponent = ({ data }: Props): JSX.Element | null => {
             imageSrc={agentThumbnail}
             imageAlt={agentName}
             linkTo={`/profile/${agent._id}`}
-            caption={maxLengthFifteen(agentName)}
+            caption={maxLengthThirty(agentName)}
           />
           <ImageLink imageSrc={ArrowRight} imageAlt="arrow right" />
           <Rating rating={rating || 0} />
@@ -148,7 +148,7 @@ const EventComponent = ({ data }: Props): JSX.Element | null => {
             imageSrc={targetThumbnail}
             imageAlt={targetName}
             linkTo={`/episodes/${target._id}`}
-            caption={maxLengthFifteen(targetName)}
+            caption={maxLengthThirty(targetName)}
           />
         </div>
       );
@@ -161,14 +161,14 @@ const EventComponent = ({ data }: Props): JSX.Element | null => {
             imageSrc={agentThumbnail}
             imageAlt={agentName}
             linkTo={`/podcasts/${agent._id}`}
-            caption={maxLengthFifteen(agentName)}
+            caption={maxLengthThirty(agentName)}
           />
           <ImageLink imageSrc={ArrowRight} imageAlt="arrow right" />
           <ImageLink
             imageSrc={objectThumbnail}
             imageAlt={objectName}
             linkTo={`/episodes/${object._id}`}
-            caption={maxLengthFifteen(objectName)}
+            caption={maxLengthThirty(objectName)}
           />
         </div>
       );
