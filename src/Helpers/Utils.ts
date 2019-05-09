@@ -47,11 +47,13 @@ export const getRatingIcon = (rating: number): string => {
 };
 
 export function MogoDbTimeStringToDate(timeString: string): string {
-  return timeString.substring(0, timeString.indexOf('T'));
+  const localdate = new Date(timeString).toLocaleDateString();
+  return `${localdate.substring(6)}-${localdate.substr(3, 2)}-${localdate.substr(0, 2)}`;
 }
 
 export function MogoDbTimeStringToTime(timeString: string): string {
-  return timeString.substr(timeString.indexOf('T') + 1, 5);
+  const localtime = new Date(timeString).toLocaleTimeString();
+  return localtime.substr(0, 5);
 }
 
 export function isImage(file: File): boolean {
