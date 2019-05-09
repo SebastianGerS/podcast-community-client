@@ -46,16 +46,6 @@ export const getRatingIcon = (rating: number): string => {
   return ratingIcon;
 };
 
-export function MogoDbTimeStringToDate(timeString: string): string {
-  const localdate = new Date(timeString).toLocaleDateString();
-  return `${localdate.substring(6)}-${localdate.substr(3, 2)}-${localdate.substr(0, 2)}`;
-}
-
-export function MogoDbTimeStringToTime(timeString: string): string {
-  const localtime = new Date(timeString).toLocaleTimeString();
-  return localtime.substr(0, 5);
-}
-
 export function isImage(file: File): boolean {
   const filetypes = /jpeg|jpg|svg|png|gif/;
   const mimetype = filetypes.test(file.type);

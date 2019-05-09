@@ -1,8 +1,8 @@
 import React from 'react';
+import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { Markup } from 'interweave';
 import { Podcast } from '../../Models/Podcast';
-import { getDatefromMilisecond } from '../../Helpers/Time';
 import { setMaxLength } from '../../Helpers/Utils';
 
 interface Props {
@@ -17,7 +17,7 @@ const ListablePodcast = ({ data }: Props): JSX.Element => (
         <figcaption>
           <Markup content={setMaxLength(typeof data.title === 'string' ? data.title : '', 65)} tagName="span" />
           <span>
-            {getDatefromMilisecond(typeof data.lastest_pub_date_ms === 'number' ? data.lastest_pub_date_ms : 0)}
+            {moment(typeof data.lastest_pub_date_ms === 'number' ? data.lastest_pub_date_ms : 0).format('DD/MM YYYY')}
           </span>
         </figcaption>
       </figure>

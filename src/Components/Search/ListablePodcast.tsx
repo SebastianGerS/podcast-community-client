@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Markup } from 'interweave';
-import { getDatefromMilisecond } from '../../Helpers/Time';
+import moment from 'moment';
 import { Podcast } from '../../Models/Podcast';
 import SubscribeButton from '../../Containers/Common/SubscribeButton';
 import RatingComponent from '../Common/Rating';
@@ -68,9 +68,9 @@ function ListablePodcast({
           <span>{`By ${setMaxLength(publisher, 27)}`}</span>
           <span>
             {`Last updated ${
-              getDatefromMilisecond(
+              moment(
                 typeof data.lastest_pub_date_ms === 'number' ? data.lastest_pub_date_ms : 0,
-              )}
+              ).format('DD/MM YYYY')}
               `}
           </span>
         </p>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Markup } from 'interweave';
-import { getDatefromMilisecond } from '../../Helpers/Time';
+import moment from 'moment';
 import DownloadButton from '../../Containers/Common/DownloadButton';
 import { Episode } from '../../Models/Episode';
 import MoreOptionsButton from '../../Containers/Common/MoreOptions/MoreOptionsButton';
@@ -28,7 +28,7 @@ function PodcastEpisode({
     ? `${Math.round(data.audio_length / 60)} min`
     : 'unknown';
   const episodeReleaseDate = typeof data.pub_date_ms === 'number'
-    ? getDatefromMilisecond(data.pub_date_ms)
+    ? moment(data.pub_date_ms).format('DD/MM YYYY')
     : 'unknown relesedate';
 
   const [newEpisodeRating] = ratings.filter(rating => rating.itemId === episodeId);

@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Markup } from 'interweave';
+import moment from 'moment';
 import { Episode } from '../../Models/Episode';
 import PlayButton from '../../Containers/Common/PlayButton';
 import MoreOptionsButton from '../../Containers/Common/MoreOptions/MoreOptionsButton';
 import InfoBox from '../Common/InfoBox';
-import { getDatefromMilisecond } from '../../Helpers/Time';
 import Loader from '../Layout/Loader';
 import DownloadButton from '../../Containers/Common/DownloadButton';
 import { getRatingIcon } from '../../Helpers/Utils';
@@ -33,7 +33,7 @@ function EpisodeComponent({
     ? `${Math.round(episode.audio_length / 60)} min`
     : 'unknown';
   const episodeReleaseDate = typeof episode.pub_date_ms === 'number'
-    ? getDatefromMilisecond(episode.pub_date_ms)
+    ? moment(episode.pub_date_ms).format('DD/MM YYYY')
     : 'unknown relesedate';
   const podcastId = typeof episode.podcast_id === 'string' ? episode.podcast_id : '';
 

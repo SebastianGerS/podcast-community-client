@@ -1,9 +1,10 @@
 import React from 'react';
 import { Markup } from 'interweave';
+import moment from 'moment';
 import { Event } from '../../Models/Event';
 import ArrowRight from '../../Assets/Icons/arrow-right-fat.svg';
 import ImageLink from '../Common/ImageLink';
-import { setMaxLength, MogoDbTimeStringToTime, MogoDbTimeStringToDate } from '../../Helpers/Utils';
+import { setMaxLength } from '../../Helpers/Utils';
 import InfoBox from '../Common/InfoBox';
 import Rating from '../Common/Rating';
 
@@ -28,8 +29,9 @@ const EventComponent = ({ data }: Props): JSX.Element | null => {
   const targetThumbnail = target.image && typeof target.image === 'string' ? target.image : '';
   const objectThumbnail = object.image && typeof object.image === 'string' ? object.image : '';
 
-  const formatedTime = MogoDbTimeStringToTime(typeof date === 'string' ? date : '');
-  const formatedDate = MogoDbTimeStringToDate(typeof date === 'string' ? date : '');
+  const formatedTime = moment(typeof date === 'string' ? date : '').format('HH:mm');
+  const formatedDate = moment(typeof date === 'string' ? date : '').format('YYYY-MM-DD');
+
   let message;
   let eventImages = null;
 

@@ -29,11 +29,6 @@ export const formatTime = (seconds: number): string => {
   return formatedTime;
 };
 
-export const getDatefromMilisecond = (ms: number): string => {
-  const date = new Date(ms).toLocaleDateString();
-  return `${date.substring(0, 5)} ${date.substring(6, date.length)}`;
-};
-
 export const getSecondsFromTimeString = (string: string): number => {
   const [h, m, s] = string.split(':');
 

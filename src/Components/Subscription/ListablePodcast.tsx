@@ -1,5 +1,5 @@
 import React from 'react';
-import { getDatefromMilisecond } from '../../Helpers/Time';
+import moment from 'moment';
 import { Podcast } from '../../Models/Podcast';
 
 interface Props {
@@ -12,7 +12,7 @@ const ListablePodcast = ({ data }: Props): JSX.Element => (
       <img src={typeof data.image === 'string' ? data.image : undefined} alt="podcastlogo" className="podcast-logo" />
       <figcaption>
         <span>
-          {getDatefromMilisecond(typeof data.lastest_pub_date_ms === 'number' ? data.lastest_pub_date_ms : 0)}
+          {moment(typeof data.lastest_pub_date_ms === 'number' ? data.lastest_pub_date_ms : 0).format('DD/MM YYYY')}
         </span>
       </figcaption>
     </figure>
