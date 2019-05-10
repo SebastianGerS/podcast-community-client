@@ -41,7 +41,7 @@ function Notifications({
         onClick={closeNotificationsModal}
       />
       { notifications.length > 0
-        ? <List component={NotificationComponent} data={notifications} />
+        ? <div><List component={NotificationComponent} data={notifications} /></div>
         : <div className="no-notifications"><p>You have no notifications</p></div>
       }
     </div>
