@@ -8,6 +8,7 @@ import { savePosInLocalStorage, checkifInPosList, getEpisodePosFromList } from '
 import { getMediumModalHeight } from '../../Helpers/UserAgent';
 import { usePrevious } from '../../Helpers/CustomHooks';
 import { Episode } from '../../Models/Episode';
+import { getValidDuration } from '../../Helpers/Time';
 
 interface Props {
   toggleModal: () => void;
@@ -62,7 +63,6 @@ function PlaybackInterface({
       if (isPlaying) {
         setIsLoading(true);
       }
-
       player.seek(value);
     }
   };
@@ -74,6 +74,8 @@ function PlaybackInterface({
 
     return 0;
   };
+
+  const duration = getValidDuration(getDuration(), episode.audio_length);
 
   const startTimer = (cb: () => void): void => {
     const newTimer = setInterval(cb, 100);
@@ -115,7 +117,6 @@ function PlaybackInterface({
 
   const seek = (newPos: number): void => {
     let currentPosition = getSeek();
-    const duration = getDuration();
 
     if (newPos < 0) {
       currentPosition = 0;
@@ -124,6 +125,7 @@ function PlaybackInterface({
     } else {
       currentPosition = newPos;
     }
+
     setSeek(currentPosition);
 
     if (!timer) {
@@ -133,7 +135,7 @@ function PlaybackInterface({
 
   const forward = (): void => {
     let currentPosition = getSeek();
-    const duration = getDuration();
+
     if ((currentPosition + 15) > duration) {
       currentPosition = duration;
     } else {
@@ -198,7 +200,7 @@ function PlaybackInterface({
   }, [isPlaying]);
 
   useEffect(() => {
-    if (pos >= getDuration() - 0.5) {
+    if (pos >= duration - 0.5) {
       stop();
       stopTimer();
       if (typeof userId === 'string') {

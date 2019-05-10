@@ -26,7 +26,7 @@
     "react-dom": "^16.8.0",
     "react-dropzone": "^10.1.4",
     "react-flip-toolkit": "^6.5.9",
-    "react-howler": "3.7.3",
+    "react-howler": "3.7.4",
     "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.3",

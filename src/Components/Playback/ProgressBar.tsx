@@ -1,8 +1,6 @@
-import React, {
-  useState, useEffect, DragEvent, TouchEvent,
-} from 'react';
+import React, { useState, DragEvent, TouchEvent } from 'react';
 import { getStartingPoint, getSecondsPerPixel } from '../../Helpers/UserAgent';
-import { formatTime, getSecondsFromTimeString } from '../../Helpers/Time';
+import { formatTime, getValidDuration } from '../../Helpers/Time';
 import { Episode } from '../../Models/Episode';
 
 interface Props {
@@ -18,15 +16,8 @@ function ProgressBar({
   const [isDraging, setIsDraging] = useState(false);
   const [dragPosition, setDragPosition] = useState(0);
 
-  useEffect(() => {
-    if (isDraging) {
-      setIsDraging(false);
-    }
-  }, [pos]);
+  const duration = getValidDuration(getDuration(), episode.audio_length);
 
-  const duration = typeof getDuration() === 'number' ? getDuration() : getSecondsFromTimeString(
-    typeof episode.audio_length === 'string' ? episode.audio_length : '0:0:0',
-  );
   let precent;
 
   if (isDraging) {
@@ -43,6 +34,7 @@ function ProgressBar({
     const newPosition = ((e.clientX - getStartingPoint()) * getSecondsPerPixel(duration));
 
     seek(newPosition);
+    setIsDraging(false);
   };
 
   const handleDrag = (e: DragEvent<HTMLDivElement>): void => {
@@ -60,6 +52,7 @@ function ProgressBar({
     const newPosition = ((clientX - getStartingPoint()) * getSecondsPerPixel(duration));
 
     seek(newPosition);
+    setIsDraging(false);
   };
 
   const handleTouch = (e: TouchEvent<HTMLDivElement>): void => {
@@ -81,7 +74,7 @@ function ProgressBar({
       <div className="bar">
         <div className="start" />
         <div className="line">
-          <div className="progress" style={style} onDragEnd={e => handleDragEnd(e)}>
+          <div className="progress" style={style}>
             <div
               draggable
               className="marker"

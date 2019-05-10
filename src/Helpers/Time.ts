@@ -34,3 +34,16 @@ export const getSecondsFromTimeString = (string: string): number => {
 
   return +((+h * 60 * 60) + (+m * 60) + (+s));
 };
+
+export function getValidDuration(duration: number | object, backupDuration: number | string | object): number {
+  let validDuration;
+  if (typeof duration === 'number' && duration !== Infinity) {
+    validDuration = duration;
+  } else if (typeof backupDuration === 'number') {
+    validDuration = backupDuration;
+  } else {
+    validDuration = getSecondsFromTimeString(typeof backupDuration === 'string' ? backupDuration : '0:0:0');
+  }
+
+  return validDuration;
+}
