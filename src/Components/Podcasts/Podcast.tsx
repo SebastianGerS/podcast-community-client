@@ -29,13 +29,15 @@ function PodcastComponent({
   const rating = newPodcastRating ? newPodcastRating.rating : podcast.avrageRating;
 
   useEffect(() => {
-    getPodcast(podcastId);
+    if (typeof podcast.id !== 'string') {
+      getPodcast(podcastId);
+    }
 
     return () => {
       resetPodcast();
       resetRatings();
     };
-  }, []);
+  }, [socket]);
 
   useSocket(socket, `podcasts/${podcastId}/rating`, setRating);
 

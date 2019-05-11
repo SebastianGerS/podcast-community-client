@@ -44,13 +44,15 @@ function EpisodeComponent({
   const ratingIcon = getRatingIcon(typeof rating === 'number' ? rating : 0);
 
   useEffect(() => {
-    getEpisode(episodeId);
+    if (typeof episode.id !== 'string') {
+      getEpisode(episodeId);
+    }
 
     return () => {
       resetEpisode();
       resetRatings();
     };
-  }, []);
+  }, [socket]);
 
   useSocket(socket, `episodes/${episodeId}/rating`, setRating);
 
