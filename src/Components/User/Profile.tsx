@@ -36,7 +36,7 @@ function Profile({
   const onDrop = useCallback((acceptedFiles) => {
     if (isLogedIn && userId === currentUserId) {
       const newFile = acceptedFiles[0];
-      console.log('test');
+
       if (isImage(newFile)) {
         if (newProfileImage) {
           URL.revokeObjectURL(newProfileImage);
