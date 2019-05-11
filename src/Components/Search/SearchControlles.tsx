@@ -21,6 +21,7 @@ interface Props {
   genres: List<Genre>;
   setSorting: (sorting: number | string) => void;
   sorting: string;
+  isSearching: boolean;
 }
 
 export interface NamedButton extends HTMLButtonElement {
@@ -28,7 +29,7 @@ export interface NamedButton extends HTMLButtonElement {
 }
 
 function SearchControlles<T extends Option>({
-  attemptSetType, type, filters, attemptSetFilters, getFilters, languages, genres, setSorting, sorting,
+  attemptSetType, type, filters, attemptSetFilters, getFilters, languages, genres, setSorting, sorting, isSearching,
 }: Props): JSX.Element {
   const [showFilters, setShowFilters] = useState(false);
 
@@ -37,7 +38,7 @@ function SearchControlles<T extends Option>({
   }, []);
 
   const setType = (e: MouseEvent<NamedButton>): void => {
-    if (e.currentTarget) {
+    if (e.currentTarget && !isSearching) {
       attemptSetType(e.currentTarget.name);
     }
   };
@@ -102,7 +103,7 @@ function SearchControlles<T extends Option>({
           Filters
         </button>
         <select
-          className="sortby"
+          className={`sortby${sorting === '1' ? ' sortby-date' : ''}`}
           name="sortby"
           id="sortby"
           value={sorting}
