@@ -65,6 +65,9 @@ function App({
     }
     if (socket && isLogedIn) {
       socket.emit('user/online', userId);
+      socket.on('reconnect', () => {
+        socket.emit('user/online', userId);
+      });
     }
   }, [isLogedIn]);
 
