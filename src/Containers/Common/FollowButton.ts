@@ -5,6 +5,7 @@ import { attemptToggleFollows, CreateUserEventActions } from '../../Actions/Even
 import { User } from '../../Models/User';
 import { AuthState } from '../../Reducers/AuthReducer';
 import { EventState } from '../../Reducers/EventReducer';
+import { toggleLoginModal, ToggleLoginModal } from '../../Actions/Modal';
 
 interface State {
   AuthReducer: AuthState;
@@ -29,13 +30,15 @@ function mapStateToProps({ EventReducer, AuthReducer }: State): StateProps {
 
 interface DispatchProps {
   toggleFollows: (targetUserId: string) => void;
+  toggleLoginModal: () => void;
 }
 
-function mapDispatchToProps(dispatch: Dispatch<CreateUserEventActions>): DispatchProps {
+function mapDispatchToProps(dispatch: Dispatch<CreateUserEventActions|ToggleLoginModal>): DispatchProps {
   return {
     toggleFollows: (
       targetUserId: string,
     ) => attemptToggleFollows(targetUserId)(dispatch),
+    toggleLoginModal: () => dispatch(toggleLoginModal()),
   };
 }
 

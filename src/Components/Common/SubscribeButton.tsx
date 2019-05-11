@@ -6,12 +6,13 @@ interface Props {
   podcast: Podcast;
   user: User;
   attemptToggleSubsription: (userId: string, target: object) => void;
+  toggleLoginModal: () => void;
   isLogedIn: boolean;
   isToggelingSubscription: boolean;
 }
 
 function SubscribeButton({
-  podcast, user, attemptToggleSubsription, isLogedIn, isToggelingSubscription,
+  podcast, user, attemptToggleSubsription, isLogedIn, isToggelingSubscription, toggleLoginModal,
 }: Props): JSX.Element {
   const [subscribing, setSubscribing] = useState(false);
   const userId = typeof user._id === 'string' ? user._id : '';
@@ -28,6 +29,8 @@ function SubscribeButton({
 
       setSubscribing(true);
       attemptToggleSubsription(userId, target);
+    } else {
+      toggleLoginModal();
     }
   };
 

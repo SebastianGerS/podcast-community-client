@@ -5,6 +5,7 @@ interface Props{
   targetUser: User;
   currentUser: User;
   toggleFollows: (targetUserId: string) => void;
+  toggleLoginModal: () => void;
   isLogedIn: boolean;
   isCreatingUserEvent: boolean;
   eventTargetUserId: string;
@@ -12,7 +13,7 @@ interface Props{
 }
 
 function FollowButton({
-  targetUser, currentUser, toggleFollows, isLogedIn, isCreatingUserEvent, type, eventTargetUserId,
+  targetUser, currentUser, toggleFollows, isLogedIn, isCreatingUserEvent, type, eventTargetUserId, toggleLoginModal,
 }: Props): JSX.Element {
   const currentUserId = typeof currentUser._id === 'string' ? currentUser._id : '';
   const targetUserId = typeof targetUser._id === 'string' ? targetUser._id : '';
@@ -24,6 +25,8 @@ function FollowButton({
 
     if (isLogedIn) {
       toggleFollows(targetUserId);
+    } else {
+      toggleLoginModal();
     }
   };
 

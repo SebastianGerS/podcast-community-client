@@ -8,6 +8,7 @@ import { AuthState } from '../../Reducers/AuthReducer';
 import { EventState } from '../../Reducers/EventReducer';
 import { GetSubscriptionsAction } from '../../Actions/User';
 import { GetSelfSuccess } from '../../Actions/Auth';
+import { toggleLoginModal, ToggleLoginModal } from '../../Actions/Modal';
 
 interface State {
   AuthReducer: AuthState;
@@ -30,10 +31,11 @@ function mapStateToProps({ EventReducer, AuthReducer }: State): StateProps {
 
 interface DispatchProps {
   attemptToggleSubsription: (userId: string, target: object) => void;
+  toggleLoginModal: () => void;
 }
 
 type SubscriptionButtonActions = (
-  ToggleSubscriptionAction | GetSubscriptionsAction | SetMessage | GetSelfSuccess
+  ToggleSubscriptionAction | GetSubscriptionsAction | SetMessage | GetSelfSuccess | ToggleLoginModal
 );
 
 function mapDispatchToProps(dispatch: Dispatch<SubscriptionButtonActions>): DispatchProps {
@@ -41,6 +43,7 @@ function mapDispatchToProps(dispatch: Dispatch<SubscriptionButtonActions>): Disp
     attemptToggleSubsription: (
       userId: string, target: object,
     ) => attemptToggleSubscription(userId, target)(dispatch),
+    toggleLoginModal: () => dispatch(toggleLoginModal()),
   };
 }
 
