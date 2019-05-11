@@ -44,7 +44,7 @@ function EpisodeComponent({
   const ratingIcon = getRatingIcon(typeof rating === 'number' ? rating : 0);
 
   useEffect(() => {
-    if (typeof episode.id !== 'string') {
+    if (!isFetching && typeof episode.id !== 'string') {
       getEpisode(episodeId);
     }
 

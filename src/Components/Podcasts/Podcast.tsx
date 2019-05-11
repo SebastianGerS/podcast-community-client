@@ -29,7 +29,7 @@ function PodcastComponent({
   const rating = newPodcastRating ? newPodcastRating.rating : podcast.avrageRating;
 
   useEffect(() => {
-    if (typeof podcast.id !== 'string') {
+    if (!isFetchingPodcast && typeof podcast.id !== 'string') {
       getPodcast(podcastId);
     }
 
