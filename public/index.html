@@ -93,7 +93,10 @@
            setTimeout(() => {loader.remove()}, 500)
        });
 
-      if('serviceWorker' in navigator) {
+       const userAgent = navigator.userAgent.toLowerCase();
+       const browserIsSafari = userAgent.indexOf('safari') !== -1 && userAgent.indexOf('chrome') === -1;
+
+      if('serviceWorker' in navigator && !browserIsSafari) {
         window.addEventListener('load', () => {
 
           navigator.serviceWorker.register('%PUBLIC_URL%/service-worker-custom.js')
@@ -106,6 +109,8 @@
             console.log(err);
           })
         })
+      } else if (browserIsSafari){
+        console.log('Our service worker is curently not availiable in safari');
       } else {
         console.log('Service Worker api not avalible');
       }
