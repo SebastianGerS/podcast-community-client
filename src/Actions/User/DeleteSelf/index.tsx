@@ -1,7 +1,7 @@
 
 import { Dispatch } from 'redux';
 import * as ActionTypes from './types';
-import { Fetch, formatError, Response } from '../../../Helpers/Fetch';
+import { Fetch, Response } from '../../../Helpers/Fetch';
 import { attemptSetMessage, SetMessage } from '../../Message';
 import { userLogedout, UserLogoutSuccess } from '../../Auth';
 import { removeToken } from '../../../Helpers/Auth';
@@ -52,7 +52,7 @@ export const attemptDeleteSelf = (): AttemptDeleteSelfAction => async (
   }
   if (response.error) {
     dispatch(deleteSelfFailure());
-    attemptSetMessage({ text: formatError(response.error.errmsg), type: 'info' })(dispatch);
+    attemptSetMessage({ text: response.error.errmsg, type: 'info' })(dispatch);
   }
 
   if (response.info) {
