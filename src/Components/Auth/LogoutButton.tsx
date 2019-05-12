@@ -3,13 +3,15 @@ import { scrollToTop } from '../../Helpers/UserAgent';
 
 interface Props {
   attemptLogout: () => void;
+  toggleMenu: () => void;
   isLogedIn: boolean;
 }
 
-function LogoutButton({ attemptLogout, isLogedIn }: Props): JSX.Element | null {
+function LogoutButton({ attemptLogout, isLogedIn, toggleMenu }: Props): JSX.Element | null {
   function logout(): void {
     attemptLogout();
     scrollToTop();
+    toggleMenu();
   }
 
   return isLogedIn ? (

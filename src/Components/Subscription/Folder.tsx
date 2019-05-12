@@ -37,7 +37,7 @@ function Folder({
 
   return (
     <div className="folder">
-      <button type="button" className="remove" onClick={removeCategory} aria-label="remove" />
+      <button title="delete" type="button" className="remove" onClick={removeCategory} aria-label="remove" />
       {isCreating
         ? (
           <form onSubmit={addCategory}>

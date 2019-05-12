@@ -13,6 +13,6 @@ export const Session = Record<Session>({
   _id: String,
   user: String,
   online: true,
-  listening_to: new Episode(),
+  listening_to: null,
   updated_at: String,
 });

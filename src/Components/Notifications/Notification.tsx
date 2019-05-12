@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Markup } from 'interweave';
 import { Notification } from '../../Models/Notification';
 import { setMaxLength } from '../../Helpers/Utils';
 
@@ -49,7 +50,7 @@ function NotificationComponent({
       thumbnail = image || '';
       break;
     case 'newEpisode': {
-      message = `${agentName} has a new episode — ${objectName}`;
+      message = `${agentName} has a new episode: ${objectName}`;
       linkTo = `/episodes/${object._id}`;
       break;
     }
@@ -70,6 +71,7 @@ function NotificationComponent({
   return (
     <div className={`notification ${data.observed ? 'observed' : 'unobserved'}`}>
       <button
+        title="remove"
         className="remove-button"
         aria-label="remove-button"
         type="button"
@@ -83,9 +85,7 @@ function NotificationComponent({
               alt={objectName.length > 0 ? objectName : agentName}
             />
           </figure>
-          <p>
-            {message}
-          </p>
+          <Markup content={message} tagName="p" />
         </div>
       </Link>
     </div>

@@ -7,15 +7,19 @@ import { Episode } from '../../Models/Episode';
 interface Props {
   episode: Episode;
   download: (episode: Episode) => void;
+  stop: () => void;
   isDownloading: string;
 }
-function DownloadButton({ episode, download, isDownloading }: Props): JSX.Element {
+function DownloadButton({
+  episode, download, isDownloading, stop,
+}: Props): JSX.Element {
   const downloadEpisode = (): void => {
     if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
       const win = window.open(typeof episode.audio === 'string' ? episode.audio : '', '_blank');
       if (win) {
         win.focus();
       }
+      stop();
     } else {
       download(episode);
     }
@@ -28,7 +32,7 @@ function DownloadButton({ episode, download, isDownloading }: Props): JSX.Elemen
   } else if (isDowloaded(typeof episode.id === 'string' ? episode.id : '')) {
     html = <img src={Checkmark} className="downloaded-icon" alt="isdowloading" />;
   } else {
-    html = <button type="button" className="dowload-button" onClick={downloadEpisode} />;
+    html = <button title="download" type="button" className="dowload-button" onClick={downloadEpisode} />;
   }
 
   return (html);

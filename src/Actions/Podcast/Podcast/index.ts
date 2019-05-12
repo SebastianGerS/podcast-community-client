@@ -4,23 +4,36 @@ import { Fetch, Response } from '../../../Helpers/Fetch';
 import { attemptSetMessage, SetMessage } from '../../Message';
 import { Podcast } from '../../../Models/Podcast';
 import { setRedirect, SetRedirect } from '../../Redirect';
+import { Episode } from '../../../Models/Episode';
 
 interface GetPodcastStart {
   type: ActionTypes.GET_PODCAST_START;
+  isFetchingPodcast: boolean;
 }
 
-const startGetPodcast = (): GetPodcastStart => ({
+const startGetPodcast = (isFetchingPodcast: boolean): GetPodcastStart => ({
   type: ActionTypes.GET_PODCAST_START,
+  isFetchingPodcast,
 });
 
-interface GetPodcastSuccess {
+interface GetPodcastRespose {
+  podcast?: Podcast;
+  episodes: Episode[];
+  morePages: boolean;
+  nextOffset: number;
+}
+interface GetPodcastSuccess extends GetPodcastRespose {
   type: ActionTypes.GET_PODCAST_SUCCESS;
-  podcast: Podcast;
 }
 
-const gotPodcast = (podcast: Podcast): GetPodcastSuccess => ({
+const gotPodcast = ({
+  podcast, episodes, morePages, nextOffset,
+}: GetPodcastRespose): GetPodcastSuccess => ({
   type: ActionTypes.GET_PODCAST_SUCCESS,
   podcast,
+  episodes,
+  morePages,
+  nextOffset,
 });
 
 interface GetPodcastFailure {
@@ -31,18 +44,20 @@ const getPodcastFailure = (): GetPodcastFailure => ({
   type: ActionTypes.GET_PODCAST_FAILURE,
 });
 
-const getPodcast = (podcastId: string): Promise<Response> => Fetch(`/podcasts/${podcastId}`, 'GET', {});
+const getPodcast = (podcastId: string, nextOffset?: number): Promise<Response> => (
+  Fetch(`/podcasts/${podcastId}${nextOffset ? `?offset=${nextOffset}` : ''}`, 'GET', {})
+);
 
 export type GetPodcastAction = GetPodcastStart | GetPodcastSuccess |GetPodcastFailure | SetRedirect;
 
 type AttemptGetPodcastAction = (dispatch: Dispatch<GetPodcastAction | SetMessage>) => Promise<void>;
 
-export const attemptGetPodcast = (podcastId: string): AttemptGetPodcastAction => async (
+export const attemptGetPodcast = (podcastId: string, nextOffset?: number): AttemptGetPodcastAction => async (
   dispatch: Dispatch<GetPodcastAction | SetMessage>,
 ): Promise<void> => {
-  dispatch(startGetPodcast());
+  dispatch(startGetPodcast(!nextOffset));
 
-  const response = await getPodcast(podcastId).catch(error => error);
+  const response = await getPodcast(podcastId, nextOffset).catch(error => error);
 
   if (response.message === 'Failed to fetch') {
     attemptSetMessage(
@@ -56,10 +71,9 @@ export const attemptGetPodcast = (podcastId: string): AttemptGetPodcastAction =>
   if (response.error) {
     dispatch(getPodcastFailure());
     dispatch(setRedirect({ to: '/podcasts' }));
-    attemptSetMessage({ text: response.error.errmsg, type: 'info' })(dispatch);
   }
 
   if (response.length !== 0 && !response.error && !response.message) {
-    dispatch(gotPodcast(response.podcast));
+    dispatch(gotPodcast(response));
   }
 };

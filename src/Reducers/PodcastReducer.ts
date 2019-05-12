@@ -11,6 +11,7 @@ export interface PodcastState {
   podcast: Podcast;
   episodes: Episode[];
   offset: number;
+  nextOffset: number | undefined;
   morePages: boolean;
 }
 const DEFAULT_STATE: PodcastState = {
@@ -21,6 +22,7 @@ const DEFAULT_STATE: PodcastState = {
   podcast: new Podcast(),
   episodes: [],
   offset: 0,
+  nextOffset: undefined,
   morePages: false,
 };
 
@@ -41,39 +43,30 @@ export default function (state: PodcastState = DEFAULT_STATE, action: PodcastAct
     case ActionTypes.GET_PODCAST_START:
       return {
         ...state,
-        isFetchingPodcast: true,
+        isFetchingPodcast: action.isFetchingPodcast,
+        isFetchingEpisodes: true,
       };
     case ActionTypes.GET_PODCAST_SUCCESS:
       return {
         ...state,
         isFetchingPodcast: false,
-        podcast: new Podcast(action.podcast),
+        isFetchingEpisodes: false,
+        podcast: action.podcast ? new Podcast(action.podcast) : state.podcast,
+        episodes: !state.nextOffset ? action.episodes.map((episode: Episode) => new Episode(episode))
+          : [...state.episodes, ...action.episodes.map((episode: Episode) => new Episode(episode))],
+        nextOffset: action.nextOffset,
+        morePages: action.morePages,
       };
     case ActionTypes.GET_PODCAST_FAILURE:
       return {
-        ...state, isFetchingPodcast: false,
-      };
-    case ActionTypes.GET_PODCAST_EPISODES_START:
-      return { ...state, isFetchingEpisodes: true };
-    case ActionTypes.GET_PODCAST_EPISODES_SUCCESS:
-      return {
-        ...state,
-        isFetchingEpisodes: false,
-        episodes: state.offset === 0 ? action.data.results.map((episode: Episode) => new Episode(episode))
-          : [...state.episodes, ...action.data.results.map((episode: Episode) => new Episode(episode))],
-        offset: action.data.next_offset,
-        morePages: action.data.morePages,
-      };
-    case ActionTypes.GET_PODCAST_EPISODES_FAILURE:
-      return {
-        ...state, isFetchingEpisodes: false,
+        ...state, isFetchingPodcast: false, isFetchingEpisodes: false,
       };
     case ActionTypes.RESET_PODCAST: {
       return {
         ...state,
         podcast: new Podcast(),
         episodes: [],
-        offset: 0,
+        nextOffset: undefined,
         morePages: false,
       };
     }

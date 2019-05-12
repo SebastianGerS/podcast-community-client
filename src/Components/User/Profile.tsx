@@ -6,6 +6,7 @@ import { User } from '../../Models/User';
 import FollowButton from '../../Containers/Common/FollowButton';
 import { useSocket } from '../../Helpers/CustomHooks';
 import { isImage } from '../../Helpers/Utils';
+import { isLogedIn } from '../../Actions/Auth';
 
 interface Props {
   getUser: (userId: string) => void;
@@ -33,20 +34,22 @@ function Profile({
   const [newProfileImage, setNewProfileImage] = useState<string|undefined>();
 
   const onDrop = useCallback((acceptedFiles) => {
-    const newFile = acceptedFiles[0];
+    if (isLogedIn && userId === currentUserId) {
+      const newFile = acceptedFiles[0];
 
-    if (isImage(newFile)) {
-      if (newProfileImage) {
-        URL.revokeObjectURL(newProfileImage);
+      if (isImage(newFile)) {
+        if (newProfileImage) {
+          URL.revokeObjectURL(newProfileImage);
+        }
+
+        setNewProfileImage(URL.createObjectURL(newFile));
       }
 
-      setNewProfileImage(URL.createObjectURL(newFile));
+      const imageForm = new FormData();
+      imageForm.append('profileImg', newFile);
+
+      updateUser(userId, imageForm);
     }
-
-    const imageForm = new FormData();
-    imageForm.append('profileImg', newFile);
-
-    updateUser(userId, imageForm);
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
@@ -83,7 +86,7 @@ function Profile({
     <div className="profile">
       <div className="profile-top">
         <figure {...getRootProps({ className: 'profile-img' })}>
-          <input {...getInputProps({ multiple: false })} />
+          {isLogedIn && userId === currentUserId && <input {...getInputProps({ multiple: false })} />}
           <img
             className={`${isDragActive ? 'is-draging ' : ''}${isUpdating && newProfileImage ? 'is-saving' : ''}`}
             src={newProfileImage || profileImage}

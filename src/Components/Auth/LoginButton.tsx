@@ -6,7 +6,7 @@ interface Props {
 
 const LoginButton = ({ toggleLoginModal }: Props): JSX.Element => (
   <div className="login-button">
-    <button type="button" name="toggle-login-modal-button" onClick={toggleLoginModal}>Login</button>
+    <button title="login" type="button" name="toggle-login-modal-button" onClick={toggleLoginModal}>Login</button>
   </div>
 );
 

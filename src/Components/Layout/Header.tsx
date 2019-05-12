@@ -6,15 +6,16 @@ import LoginButton from '../../Containers/Auth/LoginButton';
 
 interface Props {
   isLogedIn: boolean;
+  closeModal: () => void;
 }
 
-const Header = ({ isLogedIn }: Props): JSX.Element => (
+const Header = ({ isLogedIn, closeModal }: Props): JSX.Element => (
   <header>
     <figure>
-      <Link to="/"><img src={logo} className="logo" alt="logo" /></Link>
+      <Link title="Thru the Ether" to="/" onClick={closeModal}><img src={logo} className="logo" alt="logo" /></Link>
     </figure>
     <div>
-      <Link to="/">
+      <Link to="/" onClick={closeModal} title="Thru the Ether">
         <h1 className="site-title">Thru the Ether</h1>
         <p> – a podcast community</p>
       </Link>

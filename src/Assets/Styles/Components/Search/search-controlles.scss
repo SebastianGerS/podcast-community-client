@@ -36,6 +36,11 @@
       background-size: 12px;
       background-position-y: 62%;
       background-position-x: 80%;
+      margin-top: 0;
+
+      &.sortby-date {
+        width: 4.3em;
+      }
     }
   }
 

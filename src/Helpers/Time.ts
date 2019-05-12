@@ -29,13 +29,21 @@ export const formatTime = (seconds: number): string => {
   return formatedTime;
 };
 
-export const getDatefromMilisecond = (ms: number): string => {
-  const date = new Date(ms).toLocaleDateString();
-  return `${date.substring(0, 5)} ${date.substring(6, date.length)}`;
-};
-
 export const getSecondsFromTimeString = (string: string): number => {
   const [h, m, s] = string.split(':');
 
   return +((+h * 60 * 60) + (+m * 60) + (+s));
 };
+
+export function getValidDuration(duration: number | object, backupDuration: number | string | object): number {
+  let validDuration;
+  if (typeof duration === 'number' && duration !== Infinity) {
+    validDuration = duration;
+  } else if (typeof backupDuration === 'number') {
+    validDuration = backupDuration;
+  } else {
+    validDuration = getSecondsFromTimeString(typeof backupDuration === 'string' ? backupDuration : '0:0:0');
+  }
+
+  return validDuration;
+}

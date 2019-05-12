@@ -12,6 +12,7 @@ export interface ModalState {
   rateEpisodeModalIsActive: boolean;
   followsModalIsActive: boolean;
   height: number;
+  hasResized: boolean;
 }
 
 const DEFAULT_STATE: ModalState = {
@@ -25,6 +26,7 @@ const DEFAULT_STATE: ModalState = {
   rateEpisodeModalIsActive: false,
   followsModalIsActive: false,
   height: 0,
+  hasResized: false,
 };
 
 export default function Modal(state: ModalState = DEFAULT_STATE, action: ModalActions): ModalState {
@@ -146,10 +148,29 @@ export default function Modal(state: ModalState = DEFAULT_STATE, action: ModalAc
         rateEpisodeModalIsActive: false,
         followsModalIsActive: !state.followsModalIsActive,
       };
+    case ActionTypes.CLOSE_ALL_MODALS:
+      return {
+        ...state,
+        loginModalIsActive: false,
+        playbackModalIsActive: false,
+        menuIsActive: false,
+        userModalIsActive: false,
+        notificationsModalIsActive: false,
+        moreOptionsModalIsActive: false,
+        recommendToUserModalIsActive: false,
+        rateEpisodeModalIsActive: false,
+        followsModalIsActive: false,
+      };
     case ActionTypes.SET_HEIGHT:
       return {
         ...state,
         height: action.height,
+        hasResized: true,
+      };
+    case ActionTypes.HEIGHT_UPDATED:
+      return {
+        ...state,
+        hasResized: false,
       };
     default:
       return { ...state };

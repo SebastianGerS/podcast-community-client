@@ -80,13 +80,17 @@ export const download = (episode: Episode): DownloadAction => (
     dispatch(startDownloading(episode.id));
     caches.open('thru-the-ether').then(async (cache) => {
       const path = `${Config.API_BASE_URL}/audio/${episode.id}`;
+      const cachePath = typeof episode.audio === 'string' ? episode.audio : path;
 
       await fetch(path)
         .then(async (res) => {
-          cache.put(path, res.clone());
+          cache.put(cachePath, res.clone());
+
           const blob = await res.blob();
           downloadjs(blob, `${episode.title_original}.mp3`, 'application/octet-stream');
+
           if (typeof episode.id === 'string') saveToListOfDownloads(episode.id);
+
           dispatch(downloaded());
         }).catch(() => {
           dispatch(failedDownload());

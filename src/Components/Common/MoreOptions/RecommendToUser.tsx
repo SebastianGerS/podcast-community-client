@@ -51,6 +51,7 @@ function RecommendToUser({
   return (
     <div className="recommend-to-user">
       <button
+        title="close"
         className="close-recommend-to-user-modal-button"
         type="button"
         aria-label="close-recommend-to-user-modal-button"

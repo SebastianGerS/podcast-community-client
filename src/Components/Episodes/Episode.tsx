@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { Markup } from 'interweave';
+import moment from 'moment';
 import { Episode } from '../../Models/Episode';
 import PlayButton from '../../Containers/Common/PlayButton';
 import MoreOptionsButton from '../../Containers/Common/MoreOptions/MoreOptionsButton';
 import InfoBox from '../Common/InfoBox';
-import { getDatefromMilisecond } from '../../Helpers/Time';
 import Loader from '../Layout/Loader';
-import { RedirectModel } from '../../Models/Redirect';
 import DownloadButton from '../../Containers/Common/DownloadButton';
 import { getRatingIcon } from '../../Helpers/Utils';
 import { Rating } from '../../Models/Rating';
@@ -16,7 +16,6 @@ interface Props {
   episodeId: string;
   episode: Episode;
   isFetching: boolean;
-  redirect: RedirectModel;
   socket: any;
   ratings: Rating[];
   getEpisode: (episodeId: string) => void;
@@ -26,7 +25,7 @@ interface Props {
 }
 
 function EpisodeComponent({
-  episodeId, episode, isFetching, getEpisode, redirect, socket, setRating, ratings, resetEpisode, resetRatings,
+  episodeId, episode, isFetching, getEpisode, socket, setRating, ratings, resetEpisode, resetRatings,
 }: Props): JSX.Element {
   const title = typeof episode.title === 'string' ? episode.title : '';
   const description = typeof episode.description === 'string' ? episode.description : '';
@@ -34,7 +33,7 @@ function EpisodeComponent({
     ? `${Math.round(episode.audio_length / 60)} min`
     : 'unknown';
   const episodeReleaseDate = typeof episode.pub_date_ms === 'number'
-    ? getDatefromMilisecond(episode.pub_date_ms)
+    ? moment(episode.pub_date_ms).format('DD/MM YYYY')
     : 'unknown relesedate';
   const podcastId = typeof episode.podcast_id === 'string' ? episode.podcast_id : '';
 
@@ -45,23 +44,21 @@ function EpisodeComponent({
   const ratingIcon = getRatingIcon(typeof rating === 'number' ? rating : 0);
 
   useEffect(() => {
-    getEpisode(episodeId);
+    if (!isFetching && typeof episode.id !== 'string') {
+      getEpisode(episodeId);
+    }
 
     return () => {
       resetEpisode();
       resetRatings();
     };
-  }, []);
+  }, [socket]);
 
   useSocket(socket, `episodes/${episodeId}/rating`, setRating);
 
-  const renderRedirect = (): JSX.Element | null => (
-    typeof redirect.to === 'string' ? <Redirect to={redirect.to} /> : null
-  );
-
   return !isFetching && typeof episode.id === 'string' ? (
     <div className="episode">
-      <h3 className="episode-title">{ title }</h3>
+      <Markup content={title} tagName="h3" />
       <div className="episode-img">
         <figure>
           <img src={typeof episode.image === 'string' ? episode.image : ''} alt="podcastlogo" />
@@ -77,9 +74,7 @@ function EpisodeComponent({
         <InfoBox text={epiosdeLength} />
       </div>
       <div className="episode-description">
-        <p>
-          {description}
-        </p>
+        <Markup content={description} />
       </div>
       <div className="episode-controls">
         <DownloadButton episode={episode} />
@@ -90,12 +85,7 @@ function EpisodeComponent({
         <button className="episode-go-to-podcast" type="button">Go to Podcast</button>
       </Link>
     </div>
-  ) : (
-    <div>
-      {renderRedirect()}
-      <Loader />
-    </div>
-  );
+  ) : <Loader />;
 }
 
 export default EpisodeComponent;

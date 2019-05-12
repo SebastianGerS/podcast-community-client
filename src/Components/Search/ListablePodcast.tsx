@@ -1,12 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { getDatefromMilisecond } from '../../Helpers/Time';
+import { Markup } from 'interweave';
+import moment from 'moment';
 import { Podcast } from '../../Models/Podcast';
 import SubscribeButton from '../../Containers/Common/SubscribeButton';
 import RatingComponent from '../Common/Rating';
 import MoreOptionsButton from '../../Containers/Common/MoreOptions/MoreOptionsButton';
 import { Rating } from '../../Models/Rating';
 import { useSocket } from '../../Helpers/CustomHooks';
+import { setMaxLength } from '../../Helpers/Utils';
+import ImageLink from '../Common/ImageLink';
 
 interface Props {
   data: Podcast;
@@ -52,30 +55,30 @@ function ListablePodcast({
 
   return (
     <div className="listable-podcast-searchresult">
-      <Link to={`/podcasts/${typeof data.id === 'string' ? data.id : ''}`}>
-        <h3>{title.length > 35 ? `${title.substring(0, 31)}...` : title}</h3>
-        <div>
-          <figure>
-            <img src={typeof data.thumbnail === 'string' ? data.thumbnail : ''} alt="podcastlogo" />
-          </figure>
-          <p>
-            <span>{`By ${publisher.length > 27 ? `${publisher.substring(0, 23)}...` : publisher}`}</span>
-            <span>
-              {`Last updated ${
-                getDatefromMilisecond(
-                  typeof data.lastest_pub_date_ms === 'number' ? data.lastest_pub_date_ms : 0,
-                )}
-              `}
-            </span>
-          </p>
-        </div>
+      <Link to={`/podcasts/${podcastId}`}>
+        <Markup content={setMaxLength(title, 35)} tagName="h3" />
       </Link>
-      <div>
+      <div className="listable-podcast-img">
+        <ImageLink
+          imageSrc={typeof data.thumbnail === 'string' ? data.thumbnail : ''}
+          imageAlt="podcastlogo"
+          linkTo={`/podcasts/${podcastId}`}
+        />
         <p>
-          {description.length > 150 ? `${description.substring(0, 147)}...` : description}
+          <span>{`By ${setMaxLength(publisher, 27)}`}</span>
+          <span>
+            {`Last updated ${
+              moment(
+                typeof data.lastest_pub_date_ms === 'number' ? data.lastest_pub_date_ms : 0,
+              ).format('DD/MM YYYY')}
+              `}
+          </span>
         </p>
       </div>
-      <div>
+      <div className="listable-podcast-description">
+        <Markup content={setMaxLength(description, 100)} disableLineBreaks />
+      </div>
+      <div className="listable-podcast-controls">
         <RatingComponent rating={typeof rating === 'number' ? rating : 0} />
         <SubscribeButton podcast={data} />
         <MoreOptionsButton item={data} />

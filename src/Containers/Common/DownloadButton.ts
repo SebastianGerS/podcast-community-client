@@ -1,7 +1,9 @@
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import DownloadButton from '../../Components/Common/DownloadButton';
-import { download, DownloadActions } from '../../Actions/Player';
+import {
+  download, DownloadActions, stop, StopPlayback,
+} from '../../Actions/Player';
 import { PlayerState } from '../../Reducers/PlayerReducer';
 import { Episode } from '../../Models/Episode';
 import { SetMessage } from '../../Actions/Message';
@@ -20,15 +22,17 @@ function mapStateToProps({ PlayerReducer }: State): StateProps {
   };
 }
 
-type ListableEpisodeAction = DownloadActions | SetMessage;
+type ListableEpisodeAction = DownloadActions | SetMessage | StopPlayback;
 
 interface DispatchProps {
   download: (episode: Episode) => void;
+  stop: () => void;
 }
 
 function mapDispatchToProps(dispatch: Dispatch<ListableEpisodeAction>): DispatchProps {
   return {
     download: (episode: Episode) => download(episode)(dispatch),
+    stop: () => dispatch(stop()),
   };
 }
 

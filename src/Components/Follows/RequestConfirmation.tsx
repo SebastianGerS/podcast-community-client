@@ -9,8 +9,8 @@ interface Props {
 function RequestConfirmation({ confirm, reject, targetUserId }: Props): JSX.Element {
   return (
     <div className="request-confirmation">
-      <button type="button" className="request-reject" onClick={() => reject(targetUserId)} />
-      <button type="button" className="request-confirm" onClick={() => confirm(targetUserId)} />
+      <button title="reject" type="button" className="request-reject" onClick={() => reject(targetUserId)} />
+      <button title="confirme" type="button" className="request-confirm" onClick={() => confirm(targetUserId)} />
     </div>
   );
 }

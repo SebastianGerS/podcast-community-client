@@ -1,10 +1,6 @@
 import React, { useEffect, ComponentProps } from 'react';
 import { Route, RouteProps, Redirect } from 'react-router-dom';
-import { Notification } from '../Models/Notification';
-import { Event } from '../Models/Event';
-import { Follows } from '../Actions/User';
-import { useSocket } from './CustomHooks';
-import { Session } from '../Models/Session';
+import { RedirectModel } from '../Models/Redirect';
 
 interface SiteRouteProps extends RouteProps{
   routeType: string;
@@ -19,70 +15,27 @@ interface SiteRouteProps extends RouteProps{
     url: string;
   };
   checkIfLogedIn: () => void;
-  setHeight: (height: number) => void;
-  height: number;
-  checkIfResized: () => void;
   unsetRedirect: () => void;
-  notifications: Notification[];
-  getNotifications: (offset: number) => void;
-  socket: any;
-  createSocket: () => void;
-  userId: string;
-  getFollows: () => void;
-  addNotification: (notification: Notification) => void;
-  getFollowingEvents: (offset: number) => void;
-  setEvent: (event: Event) => void;
-  updateFollowSessions: (session: Session) => void;
-  setFollowSessions: (sessions: Session[]) => void;
-  updateFollows: (follows: Follows) => void;
+  redirect: RedirectModel;
 }
 
 export default function SiteRoute({
-  routeType, component: Component, path, isLogedIn, isAdmin, computedMatch, getFollowingEvents, updateFollows,
-  checkIfLogedIn, setHeight, height, checkIfResized, unsetRedirect, setEvent, setFollowSessions, updateFollowSessions,
-  getNotifications, socket, createSocket, userId, getFollows, addNotification, ...rest
+  routeType, component: Component, path, isLogedIn, isAdmin, computedMatch,
+  redirect, checkIfLogedIn, unsetRedirect, ...rest
 }: SiteRouteProps): JSX.Element {
   useEffect(() => {
-    if (!height) {
-      setHeight(window.innerHeight);
-      checkIfResized();
-    }
-    if (isLogedIn) {
-      getNotifications(0);
-      getFollows();
-      getFollowingEvents(0);
-    }
-  }, []);
-
-  useEffect(() => {
     checkIfLogedIn();
-    unsetRedirect();
-    if (height === 0) {
-      setHeight(window.innerHeight);
-    }
-  });
-
-  useSocket(socket, `users/${userId}/notification`, addNotification, isLogedIn);
-  useSocket(socket, `users/${userId}/follows/online`, setFollowSessions, isLogedIn);
-  useSocket(socket, `users/${userId}/follow/online`, updateFollowSessions, isLogedIn);
-  useSocket(socket, `users/${userId}/follows`, updateFollows, isLogedIn);
-  useSocket(socket, `users/${userId}/event`, setEvent, isLogedIn);
+  }, [path]);
 
   useEffect(() => {
-    if (!socket) {
-      createSocket();
+    if (typeof redirect.to === 'string') {
+      unsetRedirect();
     }
-    if (isLogedIn) {
-      getNotifications(0);
-      getFollows();
-      getFollowingEvents(0);
-      socket.emit('user/online', userId);
-    }
-  }, [isLogedIn]);
+  }, [redirect]);
 
   const params = computedMatch ? computedMatch.params : undefined;
   /* eslint-disable  no-nested-ternary */
-  return (
+  return typeof redirect.to !== 'string' ? (
     <Route
       path={path}
       {...rest}
@@ -98,5 +51,5 @@ export default function SiteRoute({
             : <Component {...props} params={params} />
       )}
     />
-  );
+  ) : <Redirect to={redirect.to} />;
 }

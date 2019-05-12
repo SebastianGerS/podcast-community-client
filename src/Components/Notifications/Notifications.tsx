@@ -9,10 +9,11 @@ export interface NotificationsProps {
   nextOffset: number;
   morePages: boolean;
   total: number;
+  closeNotificationsModal: () => void;
 }
 
 function Notifications({
-  notifications, getNotifications, nextOffset, morePages, total,
+  notifications, getNotifications, nextOffset, morePages, total, closeNotificationsModal,
 }: NotificationsProps): JSX.Element {
   const [isFetching, setIsFetching] = useState(false);
 
@@ -32,8 +33,15 @@ function Notifications({
 
   return (
     <div className="notifications" onScroll={onScroll}>
+      <button
+        title="close"
+        className="close-notifications-modal-button"
+        type="button"
+        aria-label="close-notifications-modal-button"
+        onClick={closeNotificationsModal}
+      />
       { notifications.length > 0
-        ? <List component={NotificationComponent} data={notifications} />
+        ? <div><List component={NotificationComponent} data={notifications} /></div>
         : <div className="no-notifications"><p>You have no notifications</p></div>
       }
     </div>

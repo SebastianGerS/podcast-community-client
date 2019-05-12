@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import UserRow from '../../Containers/Admin/UserRow';
 import TableBody from '../Common/TableBody';
 import { User } from '../../Models/User';
-import UserModal from './UserModal';
 import Pagination from '../Layout/Pagination';
 
 interface UserSearch {
@@ -15,14 +14,13 @@ interface Props {
   users: User[];
   isFetching: boolean;
   toggleUserModal: () => void;
-  modalIsActive: boolean;
   getUsers: (data: UserSearch) => Promise<void>;
   offset: number;
   morePages: boolean;
 }
 
 function UserTable({
-  users, isFetching, toggleUserModal, modalIsActive, getUsers, offset, morePages,
+  users, isFetching, toggleUserModal, getUsers, offset, morePages,
 }: Props): JSX.Element {
   useEffect(() => {
     getUsers({ term: '', type: 'user', offset });
@@ -32,9 +30,6 @@ function UserTable({
     <div className="handle-users">
       <button type="button" onClick={toggleUserModal} className="create-user-button">Create User</button>
       <h3>Users</h3>
-      { modalIsActive
-        && <UserModal />
-      }
       {!isFetching && (
         <table className="user-table">
           <thead>

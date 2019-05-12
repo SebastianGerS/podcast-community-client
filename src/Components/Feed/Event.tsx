@@ -1,8 +1,10 @@
 import React from 'react';
+import { Markup } from 'interweave';
+import moment from 'moment';
 import { Event } from '../../Models/Event';
 import ArrowRight from '../../Assets/Icons/arrow-right-fat.svg';
 import ImageLink from '../Common/ImageLink';
-import { setMaxLength, MogoDbTimeStringToTime, MogoDbTimeStringToDate } from '../../Helpers/Utils';
+import { setMaxLength } from '../../Helpers/Utils';
 import InfoBox from '../Common/InfoBox';
 import Rating from '../Common/Rating';
 
@@ -15,6 +17,7 @@ const EventComponent = ({ data }: Props): JSX.Element | null => {
   } = data;
 
   const maxLengthFifty = (word: string): string => setMaxLength(word, 50);
+  const maxLengthThirty = (word: string): string => setMaxLength(word, 30);
 
   const agentName = maxLengthFifty((agent.name && typeof agent.name === 'string') ? agent.name : '');
   const targetName = setMaxLength(target.name && typeof target.name === 'string' ? target.name : '', 100);
@@ -26,8 +29,9 @@ const EventComponent = ({ data }: Props): JSX.Element | null => {
   const targetThumbnail = target.image && typeof target.image === 'string' ? target.image : '';
   const objectThumbnail = object.image && typeof object.image === 'string' ? object.image : '';
 
-  const formatedTime = MogoDbTimeStringToTime(typeof date === 'string' ? date : '');
-  const formatedDate = MogoDbTimeStringToDate(typeof date === 'string' ? date : '');
+  const formatedTime = moment(typeof date === 'string' ? date : '').format('HH:mm');
+  const formatedDate = moment(typeof date === 'string' ? date : '').format('YYYY-MM-DD');
+
   let message;
   let eventImages = null;
 
@@ -40,14 +44,14 @@ const EventComponent = ({ data }: Props): JSX.Element | null => {
             imageSrc={agentThumbnail}
             imageAlt={agentName}
             linkTo={`/profile/${agent._id}`}
-            caption={setMaxLength(agentName, 30)}
+            caption={maxLengthThirty(agentName)}
           />
           <ImageLink imageSrc={ArrowRight} imageAlt="arrow right" />
           <ImageLink
             imageSrc={targetThumbnail}
             imageAlt={targetName}
             linkTo={`/podcasts/${target._id}`}
-            caption={setMaxLength(targetName, 30)}
+            caption={maxLengthThirty(targetName)}
           />
         </div>
       );
@@ -60,14 +64,14 @@ const EventComponent = ({ data }: Props): JSX.Element | null => {
             imageSrc={targetThumbnail}
             imageAlt={targetName}
             linkTo={`/profile/${target._id}`}
-            caption={setMaxLength(targetName, 30)}
+            caption={maxLengthThirty(targetName)}
           />
           <ImageLink imageSrc={ArrowRight} imageAlt="arrow right" />
           <ImageLink
             imageSrc={agentThumbnail}
             imageAlt={agentName}
             linkTo={`/profile/${agent._id}`}
-            caption={setMaxLength(agentName, 30)}
+            caption={maxLengthThirty(agentName)}
           />
         </div>
       );
@@ -80,14 +84,14 @@ const EventComponent = ({ data }: Props): JSX.Element | null => {
             imageSrc={agentThumbnail}
             imageAlt={agentName}
             linkTo={`/profile/${agent._id}`}
-            caption={setMaxLength(agentName, 30)}
+            caption={maxLengthThirty(agentName)}
           />
           <ImageLink imageSrc={ArrowRight} imageAlt="arrow right" />
           <ImageLink
             imageSrc={targetThumbnail}
             imageAlt={targetName}
             linkTo={`/profile/${target._id}`}
-            caption={setMaxLength(targetName, 30)}
+            caption={maxLengthThirty(targetName)}
           />
         </div>
       );
@@ -107,7 +111,7 @@ const EventComponent = ({ data }: Props): JSX.Element | null => {
             imageSrc={agentThumbnail}
             imageAlt={agentName}
             linkTo={`/profile/${agent._id}`}
-            caption={setMaxLength(agentName, 30)}
+            caption={maxLengthThirty(agentName)}
           />
           <ImageLink imageSrc={ArrowRight} imageAlt="arrow right" />
           <ImageLink
@@ -120,7 +124,7 @@ const EventComponent = ({ data }: Props): JSX.Element | null => {
             imageSrc={targetThumbnail}
             imageAlt={targetName}
             linkTo={`/profile/${target._id}`}
-            caption={setMaxLength(targetName, 30)}
+            caption={maxLengthThirty(targetName)}
           />
         </div>
       );
@@ -135,7 +139,7 @@ const EventComponent = ({ data }: Props): JSX.Element | null => {
             imageSrc={agentThumbnail}
             imageAlt={agentName}
             linkTo={`/profile/${agent._id}`}
-            caption={setMaxLength(agentName, 30)}
+            caption={maxLengthThirty(agentName)}
           />
           <ImageLink imageSrc={ArrowRight} imageAlt="arrow right" />
           <Rating rating={rating || 0} />
@@ -144,27 +148,27 @@ const EventComponent = ({ data }: Props): JSX.Element | null => {
             imageSrc={targetThumbnail}
             imageAlt={targetName}
             linkTo={`/episodes/${target._id}`}
-            caption={setMaxLength(targetName, 30)}
+            caption={maxLengthThirty(targetName)}
           />
         </div>
       );
       break;
     case 'newEpisode':
-      message = `${agentName} relesed a new episode — ${objectName}`;
+      message = `${agentName} relesed a new episode: ${objectName}`;
       eventImages = (
         <div className="event-images">
           <ImageLink
             imageSrc={agentThumbnail}
             imageAlt={agentName}
             linkTo={`/podcasts/${agent._id}`}
-            caption={setMaxLength(agentName, 30)}
+            caption={maxLengthThirty(agentName)}
           />
           <ImageLink imageSrc={ArrowRight} imageAlt="arrow right" />
           <ImageLink
             imageSrc={objectThumbnail}
             imageAlt={objectName}
             linkTo={`/episodes/${object._id}`}
-            caption={setMaxLength(objectName, 30)}
+            caption={maxLengthThirty(objectName)}
           />
         </div>
       );
@@ -178,9 +182,7 @@ const EventComponent = ({ data }: Props): JSX.Element | null => {
     <div className="event">
       {eventImages}
       <div className="event-description">
-        <p>
-          {message}
-        </p>
+        <Markup content={message} tagName="p" />
       </div>
       <div className="date">
         <InfoBox text={formatedDate} />

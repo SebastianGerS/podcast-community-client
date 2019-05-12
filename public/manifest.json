@@ -3,12 +3,52 @@
   "name": "Thru The Ether",
   "icons": [
     {
-      "src": "logos/favico.ico",
-      "sizes": "512x512 384x384 192x192 152x152 144x144 128x128 96x96 72x72 64x64 32x32 24x24 16x16",
+      "src": "logos/favicon.ico",
+      "sizes": "16x16",
       "type": "image/x-icon"
+    },
+    {
+      "src": "logos/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "logos/tile70x70.png",
+      "sizes": "70x70",
+      "type": "image/png"
+    },
+    {
+      "src": "logos/tile150x150.png",
+      "sizes": "150x150",
+      "type": "image/png"
+    },
+    {
+      "src": "logos/apple-touch-icon-180x180.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "logos/pwa-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "logos/tile310x150.png",
+      "sizes": "310x150",
+      "type": "image/png"
+    },
+    {
+      "src": "logos/tile310x310.png",
+      "sizes": "310x310",
+      "type": "image/png"
+    },
+    {
+      "src": "logos/pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ],
-  "start_url": "./index.html",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "#2E2929",
   "background_color": "#FEF6F6"

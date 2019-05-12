@@ -8,6 +8,7 @@ import { savePosInLocalStorage, checkifInPosList, getEpisodePosFromList } from '
 import { getMediumModalHeight } from '../../Helpers/UserAgent';
 import { usePrevious } from '../../Helpers/CustomHooks';
 import { Episode } from '../../Models/Episode';
+import { getValidDuration } from '../../Helpers/Time';
 
 interface Props {
   toggleModal: () => void;
@@ -20,7 +21,7 @@ interface Props {
   startEpisode: boolean;
   src: string;
   height: number;
-  userId: string;
+  userId: string | StringConstructor;
   socket: any;
 }
 
@@ -39,9 +40,15 @@ function PlaybackInterface({
   const [pos, setPos] = useState(0);
   const [timer, setTimer] = useState<NodeJS.Timeout | undefined | number>(undefined);
   const [player, setPlayer] = useState<ReactHowlerExtended| null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const prevPos = usePrevious<number>(pos);
   const prevEpisode = usePrevious<Episode>(episode);
+  const mainSrc = typeof episode.audio === 'string' ? episode.audio : '';
+  const title = typeof episode.title === 'string' ? episode.title : episode.title_original;
+  const podcastTitle = typeof episode.podcast_title === 'string'
+    ? episode.podcast_title
+    : episode.podcast_title_original;
 
   const getSeek = (): number => {
     if (player) {
@@ -53,6 +60,9 @@ function PlaybackInterface({
 
   const setSeek = (value: number): void => {
     if (player) {
+      if (isPlaying) {
+        setIsLoading(true);
+      }
       player.seek(value);
     }
   };
@@ -65,8 +75,10 @@ function PlaybackInterface({
     return 0;
   };
 
+  const duration = getValidDuration(getDuration(), episode.audio_length);
+
   const startTimer = (cb: () => void): void => {
-    const newTimer = setInterval(cb, 500);
+    const newTimer = setInterval(cb, 100);
     setTimer(newTimer);
   };
 
@@ -94,16 +106,17 @@ function PlaybackInterface({
       if (isPlaying) {
         stop();
         stopTimer();
-      } else {
+        setIsLoading(false);
+      } else if (!isLoading || startEpisode) {
         play();
         handleTimer();
+        setIsLoading(true);
       }
     }
   };
 
   const seek = (newPos: number): void => {
     let currentPosition = getSeek();
-    const duration = getDuration();
 
     if (newPos < 0) {
       currentPosition = 0;
@@ -112,6 +125,7 @@ function PlaybackInterface({
     } else {
       currentPosition = newPos;
     }
+
     setSeek(currentPosition);
 
     if (!timer) {
@@ -121,7 +135,7 @@ function PlaybackInterface({
 
   const forward = (): void => {
     let currentPosition = getSeek();
-    const duration = getDuration();
+
     if ((currentPosition + 15) > duration) {
       currentPosition = duration;
     } else {
@@ -145,11 +159,8 @@ function PlaybackInterface({
 
   useEffect(() => {
     if (player) {
-      if (startEpisode && typeof episode.id === 'string') {
-        togglePlay();
-      }
-
       if (typeof episode.id === 'string' && startEpisode) {
+        togglePlay();
         if (checkifInPosList(episode.id)) {
           setSeek(getEpisodePosFromList(episode.id));
         }
@@ -159,6 +170,9 @@ function PlaybackInterface({
           }
         }
       }
+    }
+    if (startEpisode && typeof episode.id === 'string') {
+      setIsLoading(true);
     }
   }, [player, src, startEpisode]);
 
@@ -175,8 +189,8 @@ function PlaybackInterface({
           ? {
             id: episode.id,
             audio: episode.audio,
-            title: episode.title_original,
-            podcast_title: episode.podcast_title_original,
+            title,
+            podcast_title: podcastTitle,
           }
           : null;
 
@@ -186,7 +200,7 @@ function PlaybackInterface({
   }, [isPlaying]);
 
   useEffect(() => {
-    if (pos >= getDuration() - 0.5) {
+    if (pos >= duration - 0.5) {
       stop();
       stopTimer();
       if (typeof userId === 'string') {
@@ -195,8 +209,17 @@ function PlaybackInterface({
     }
   }, [pos]);
 
-  const type = modalIsActive ? 'modal' : 'bar';
+  useEffect(() => {
+    if (player) {
+      if ((pos < prevPos + 0.001 || pos > prevPos + 1 || pos < 0.5 || player.howlerState() !== 'loaded') && isPlaying) {
+        setIsLoading(true);
+      } else {
+        setIsLoading(false);
+      }
+    }
+  }, [pos]);
 
+  const type = modalIsActive ? 'modal' : 'bar';
   let layoutPos;
   const style: Style = {};
 
@@ -210,12 +233,13 @@ function PlaybackInterface({
   }
 
   return (
-    <Flipper flipKey={modalIsActive} className={`playbackinterface ${type} ${layoutPos}`}>
+    <Flipper flipKey={modalIsActive} className={`playbackinterface ${layoutPos}`}>
       <Flipped flipId="player">
         <div className={`playbackinterface ${type} ${layoutPos}`} style={style}>
           <Flipped inverseFlipId="player" scale>
             <div className="toggle">
               <button
+                title={modalIsActive ? 'fold' : 'expand'}
                 type="button"
                 aria-label="toggle-playback-modal-button"
                 className={modalIsActive ? 'fold' : 'expand'}
@@ -227,6 +251,7 @@ function PlaybackInterface({
           && (
             <PlaybackBar
               isPlaying={isPlaying}
+              isLoading={isLoading}
               togglePlay={togglePlay}
               episode={episode}
               forward={forward}
@@ -237,6 +262,7 @@ function PlaybackInterface({
             && (
               <PlaybackModal
                 isPlaying={isPlaying}
+                isLoading={isLoading}
                 togglePlay={togglePlay}
                 episode={episode}
                 seek={seek}
@@ -253,7 +279,7 @@ function PlaybackInterface({
             && (
               <ErrorBoundray>
                 <ReactHowler
-                  src={src}
+                  src={[mainSrc, src]}
                   playing={isPlaying}
                   volume={1}
                   preload

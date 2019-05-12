@@ -8,6 +8,7 @@ interface Props{
 function RemoveFollowerButton({ remove, targetUserId }: Props): JSX.Element {
   return (
     <button
+      title="remove"
       className="remove-follower-button"
       aria-label="remove-follower-button"
       type="button"

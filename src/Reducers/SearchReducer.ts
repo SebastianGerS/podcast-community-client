@@ -17,7 +17,6 @@ export interface SearchState {
   term: string;
   morePages: boolean;
   offset: number;
-  redirectToSearch: boolean;
   genres: List<Genre>;
   languages: List<string>;
 }
@@ -39,7 +38,6 @@ const DEFAULT_STATE: SearchState = {
   term: '',
   morePages: false,
   offset: 0,
-  redirectToSearch: false,
   genres: List(),
   languages: List(),
 };
@@ -60,7 +58,7 @@ export default function (state: SearchState = DEFAULT_STATE, action: SearchActio
     case ActionTypes.SET_SEARCHTYPE_FAILURE:
       return { ...state, isUpdatingSearchSettings: false };
     case ActionTypes.SEARCH_START:
-      return { ...state, isSearching: true, redirectToSearch: action.redirect };
+      return { ...state, isSearching: true };
     case ActionTypes.SEARCH_SUCCESS:
       let results: (User | Podcast | Episode)[];
       switch (state.type) {
@@ -79,7 +77,6 @@ export default function (state: SearchState = DEFAULT_STATE, action: SearchActio
       }
       return {
         ...state,
-        redirectToSearch: false,
         results,
         term: action.data.term,
         offset: action.data.next_offset,
@@ -88,7 +85,7 @@ export default function (state: SearchState = DEFAULT_STATE, action: SearchActio
       };
     case ActionTypes.SEARCH_FAILURE:
       return {
-        ...state, isSearching: false, redirectToSearch: false, results: [], morePages: false,
+        ...state, isSearching: false, results: [], morePages: false,
       };
     case ActionTypes.SET_SEARCHFILTERS_START:
       return {
@@ -147,6 +144,6 @@ export default function (state: SearchState = DEFAULT_STATE, action: SearchActio
         }),
       };
     default:
-      return { ...state, redirectToSearch: false };
+      return { ...state };
   }
 }

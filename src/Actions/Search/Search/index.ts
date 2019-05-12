@@ -7,16 +7,15 @@ import { Episode } from '../../../Models/Episode';
 import { User } from '../../../Models/User';
 import { Filters } from '../../../Models/Filters';
 import { resetRatings, ResetRatings } from '../../Rating';
+import { setRedirect, SetRedirect } from '../../Redirect';
 
 interface SearchStart {
   type: ActionTypes.SEARCH_START;
-  redirect: boolean;
 }
 
-export const startSearch = (redirect: boolean): SearchStart => (
+export const startSearch = (): SearchStart => (
   {
     type: ActionTypes.SEARCH_START,
-    redirect,
   }
 );
 
@@ -62,19 +61,21 @@ export interface SearchData {
   sorting: string | number;
 }
 
-type AttemptSearchAction = (dispatch: Dispatch<AttemptSearchActions|SetMessage|ResetRatings>) => Promise<void>;
+type AttemptSearchAction = (
+  dispatch: Dispatch<AttemptSearchActions|SetMessage|ResetRatings|SetRedirect>
+) => Promise<void>;
 
 export const attemptSearch = (data: SearchData): AttemptSearchAction => async (
-  dispatch: Dispatch<AttemptSearchActions|SetMessage|ResetRatings>,
+  dispatch: Dispatch<AttemptSearchActions|SetMessage|ResetRatings|SetRedirect>,
 ): Promise<void> => {
   const {
     term, type, offset, path, filters, sorting,
   } = data;
 
-  const redirecToSearch = path !== '/search';
+  if (path !== '/search') dispatch(setRedirect({ to: '/search' }));
 
   dispatch(resetRatings());
-  dispatch(startSearch(redirecToSearch));
+  dispatch(startSearch());
 
   const encodedFilters = encodeURIComponent(JSON.stringify(filters));
 

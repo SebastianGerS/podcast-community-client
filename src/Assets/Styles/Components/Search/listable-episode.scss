@@ -2,11 +2,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
   width: 295px;
   height: 270px;
   background-color: rgba(159, 205, 244, 0.3);
-  border-radius: 4px;
+  border-radius: 16px;
   margin: 0.5em 0;
   padding: 0.5em;
 
@@ -21,8 +21,6 @@
     padding: 0.25em 0;
   }
 
-  .listable-episode-description,
-  .listable-episode-controls,
   .listable-episode-info {
     figure {
       width: 50px;
@@ -39,6 +37,7 @@
       margin-left: 0.5em;
       margin-top: 0.3em;
       font-size: 14px;
+      word-break: break-word;
     }
 
     p > span {
@@ -51,13 +50,30 @@
     }
   }
 
-  div:last-child {
+  .listable-episode-controls,
+  .listable-episode-description {
     justify-content: space-between;
     align-items: center;
     margin-bottom: -0.5em;
   }
 
-  .listable-episode-title {
+  .listable-episode-description {
+    margin-left: 0.5em;
+    margin-top: 0.3em;
+    font-size: 14px;
+    word-break: break-word;
+
+    a {
+      text-decoration: underline;
+    }
+
+    a:hover,
+    a:active {
+      color: rgba(159, 205, 244, 0.75);
+    }
+  }
+
+  h3 {
     padding: 0.5em 0;
   }
 }

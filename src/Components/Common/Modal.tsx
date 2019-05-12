@@ -1,4 +1,4 @@
-import React, { ComponentType } from 'react';
+import React, { ComponentType, useEffect } from 'react';
 import { getMediumModalHeight, getSmalModalHeight } from '../../Helpers/UserAgent';
 
 interface Props {
@@ -6,15 +6,24 @@ interface Props {
   size: string;
   backgroundColor: string;
   height: number;
+  hasResized: boolean;
   flippedProps?: any;
+  heightUpdated: () => void;
 }
 
 const Modal = ({
-  component: Component, size, backgroundColor, height, flippedProps, ...props
+  component: Component, size, backgroundColor, height, flippedProps, hasResized, heightUpdated, ...props
 }: Props): JSX.Element => {
   const styles = {
     height: size === 'smal' ? getSmalModalHeight(height) : getMediumModalHeight(height),
   };
+
+  useEffect(() => {
+    if (hasResized) {
+      heightUpdated();
+    }
+  }, [hasResized]);
+
   return (
     <div
       className={`modal top ${backgroundColor ? `background-${backgroundColor}` : 'background-black'}`}

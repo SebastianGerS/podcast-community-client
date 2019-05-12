@@ -4,7 +4,7 @@ import LogoutButton from '../../Components/Auth/LogoutButton';
 import { attemptLogout, UserLogoutAction } from '../../Actions/Auth';
 import { AuthState } from '../../Reducers/AuthReducer';
 import { SetMessage } from '../../Actions/Message';
-import { ToggleMenu } from '../../Actions/Modal';
+import { ToggleMenu, toggleMenu } from '../../Actions/Modal';
 
 interface State {
   AuthReducer: AuthState;
@@ -22,11 +22,15 @@ function mapStateToProps({ AuthReducer }: State): StateProps {
 
 interface DispatchProps {
   attemptLogout: () => void;
+  toggleMenu: () => void;
 }
 
-function mapDispatchToProps(dispatch: Dispatch<UserLogoutAction | SetMessage | ToggleMenu>): DispatchProps {
+type LogoutButtonAction = UserLogoutAction | SetMessage | ToggleMenu | ToggleMenu;
+
+function mapDispatchToProps(dispatch: Dispatch<LogoutButtonAction>): DispatchProps {
   return {
     attemptLogout: () => attemptLogout()(dispatch),
+    toggleMenu: () => dispatch(toggleMenu()),
   };
 }
 

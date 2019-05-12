@@ -53,6 +53,10 @@
 
   .pause {
     background-image: url(../Icons/pause.svg);
+
+    &.loading {
+      background-image: url(../Icons/loader-white.svg);
+    }
   }
 
   .forward {

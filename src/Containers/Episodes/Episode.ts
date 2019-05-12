@@ -6,8 +6,6 @@ import {
 } from '../../Actions/Episode';
 import { EpisodeState } from '../../Reducers/EpisodeReducer';
 import { Episode } from '../../Models/Episode';
-import { RedirectModel } from '../../Models/Redirect';
-import { RedirectState } from '../../Reducers/RedirectReducer';
 import { SetMessage } from '../../Actions/Message';
 import { AuthState } from '../../Reducers/AuthReducer';
 import {
@@ -18,7 +16,6 @@ import { RatingState } from '../../Reducers/RatingReducer';
 
 interface State {
   EpisodeReducer: EpisodeState;
-  RedirectReducer: RedirectState;
   AuthReducer: AuthState;
   RatingReducer: RatingState;
 }
@@ -26,18 +23,16 @@ interface State {
 interface StateProps {
   episode: Episode;
   isFetching: boolean;
-  redirect: RedirectModel;
   ratings: Rating[];
   socket: any;
 }
 
 function mapStateToProps({
-  EpisodeReducer, RedirectReducer, AuthReducer, RatingReducer,
+  EpisodeReducer, AuthReducer, RatingReducer,
 }: State): StateProps {
   return {
     episode: EpisodeReducer.episode,
     isFetching: EpisodeReducer.isFetching,
-    redirect: RedirectReducer.redirect,
     ratings: RatingReducer.ratings,
     socket: AuthReducer.socket,
   };

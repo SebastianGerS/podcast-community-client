@@ -23,6 +23,7 @@ interface StateProps {
   genres: List<Genre>;
   languages: List<string>;
   sorting: string;
+  isSearching: boolean;
 }
 
 function mapStateToProps({ SearchReducer }: State): StateProps {
@@ -32,6 +33,7 @@ function mapStateToProps({ SearchReducer }: State): StateProps {
     genres: SearchReducer.genres,
     languages: SearchReducer.languages,
     sorting: SearchReducer.sorting,
+    isSearching: SearchReducer.isSearching,
   };
 }
 

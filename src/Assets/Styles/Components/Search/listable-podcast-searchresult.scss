@@ -6,11 +6,13 @@
   width: 295px;
   height: 270px;
   background-color: rgba(159, 205, 244, 0.3);
-  border-radius: 4px;
+  border-radius: 16px;
   margin: 0.5em 0;
   padding: 0.5em;
 
-  div {
+  .listable-podcast-description,
+  .listable-podcast-controls,
+  .listable-podcast-img {
     display: inline-flex;
     flex-direction: row;
     width: 100%;
@@ -34,7 +36,8 @@
     }
   }
 
-  div:last-child {
+  .listable-podcast-description,
+  .listable-podcast-controls {
     justify-content: space-between;
     align-items: center;
     padding-top: 1em;
@@ -44,7 +47,8 @@
     padding: 0.5em 0;
   }
 
-  p {
+  p,
+  .listable-podcast-description {
     margin-top: 0.3em;
     margin-left: 0.5em;
     font-size: 14px;
@@ -52,5 +56,17 @@
     justify-content: center;
     align-items: flex-start;
     flex-direction: column;
+    word-break: break-word;
+  }
+
+  .listable-podcast-description {
+    a {
+      text-decoration: underline;
+    }
+
+    a:active,
+    a:hover {
+      color: rgba(159, 205, 244, 0.75);
+    }
   }
 }

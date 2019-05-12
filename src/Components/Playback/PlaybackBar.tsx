@@ -5,11 +5,12 @@ import { Episode } from '../../Models/Episode';
 interface Props {
   episode: Episode;
   isPlaying: boolean;
+  isLoading: boolean;
   togglePlay: () => void;
   forward: () => void;
 }
 const PlaybackBar = ({
-  episode, isPlaying, togglePlay, forward,
+  episode, isPlaying, togglePlay, forward, isLoading,
 }: Props): JSX.Element => {
   const title = typeof episode.title_original === 'string' ? episode.title_original : '';
   const thumbnail = typeof episode.thumbnail === 'string' ? episode.thumbnail : 'https://via.placeholder.com/35x35';
@@ -25,12 +26,13 @@ const PlaybackBar = ({
         </figure>
         <div className="playback-controles">
           <button
+            title={isPlaying ? 'pause' : 'play'}
             type="button"
             aria-label={isPlaying ? 'pause-button' : 'play-button'}
-            className={isPlaying ? 'pause' : 'play'}
+            className={`${isPlaying ? 'pause' : 'play'}${isLoading ? ' loading' : ''}`}
             onClick={togglePlay}
           />
-          <button type="button" aria-label="forward-button" className="forward" onClick={forward} />
+          <button title="forward" type="button" aria-label="forward-button" className="forward" onClick={forward} />
         </div>
       </div>
     </Flipped>

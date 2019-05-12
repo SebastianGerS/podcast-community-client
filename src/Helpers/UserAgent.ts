@@ -10,11 +10,13 @@ export const getMediumModalHeight = (height: number): number => {
   let modalHeight;
   if (window.innerHeight < window.innerWidth) {
     if (window.innerWidth >= 1850) {
-      modalHeight = height - 170 - 75 - 40;
+      modalHeight = height - 170 - 75 - 39;
     } else if (window.innerHeight < 568) {
       modalHeight = height - 40 - 30 - 90;
+    } else if (window.innerHeight < 711 && window.innerWidth < 1024) {
+      modalHeight = height - 40 - 30 - 90;
     } else {
-      modalHeight = height - 40 - 75 - 130;
+      modalHeight = height - 39 - 75 - 130;
     }
   } else if (window.innerWidth >= 1850) {
     modalHeight = height - 170 - 80 - 60;
@@ -36,6 +38,8 @@ export const getSmalModalHeight = (height: number): number => {
     if (window.innerWidth >= 1850) {
       modalHeight = height - 170 - 40 - 73 - 40;
     } else if (window.innerHeight < 568) {
+      modalHeight = height - 40 - 40 - 30 - 90;
+    } else if (window.innerHeight < 711 && window.innerWidth < 1024) {
       modalHeight = height - 40 - 40 - 30 - 90;
     } else {
       modalHeight = height - 40 - 40 - 73 - 130;

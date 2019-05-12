@@ -1,13 +1,13 @@
 import React, { useState, useEffect, FormEvent } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { SearchData } from '../../Actions/Search';
 import { Filters } from '../../Models/Filters';
 import ToggleFollowsModal from '../../Containers/Follows/ToggleFollowsModal';
 
 interface Props {
   search: (data: SearchData) => void;
+  closeModal: () => void;
   isLogedIn: boolean;
-  redirectToSearch: boolean;
   path: string;
   filters: Filters;
   sorting: string;
@@ -15,7 +15,7 @@ interface Props {
 }
 
 function SearchBar({
-  type, search, isLogedIn, redirectToSearch, path, filters, sorting,
+  type, search, isLogedIn, path, filters, sorting, closeModal,
 }: Props): JSX.Element {
   const [term, setTerm] = useState('');
 
@@ -29,19 +29,19 @@ function SearchBar({
   useEffect(() => {
     if (term.length > 3) {
       triggerSearch();
+      closeModal();
     }
   }, [type, term, filters, sorting]);
 
   return (
     <div className="searchbar">
-      {redirectToSearch && path !== '/search' ? <Redirect to="/search" /> : null}
       <form onSubmit={triggerSearch}>
         <input placeholder="Search..." name="term" value={term} onChange={e => setTerm(e.target.value)} />
       </form>
       <div>
         { isLogedIn
           ? <ToggleFollowsModal />
-          : <Link to="/register">Register</Link>
+          : <Link title="register" to="/register" onClick={closeModal}>Register</Link>
         }
       </div>
     </div>
