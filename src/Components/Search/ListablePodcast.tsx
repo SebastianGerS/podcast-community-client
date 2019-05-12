@@ -76,7 +76,7 @@ function ListablePodcast({
         </p>
       </div>
       <div className="listable-podcast-description">
-        <Markup content={setMaxLength(description, 100)} />
+        <Markup content={setMaxLength(description, 100)} disableLineBreaks />
       </div>
       <div className="listable-podcast-controls">
         <RatingComponent rating={typeof rating === 'number' ? rating : 0} />
