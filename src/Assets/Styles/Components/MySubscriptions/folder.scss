@@ -43,19 +43,21 @@
 
     .listable-podcast {
       padding: 0.7em;
-    }
 
-    figure {
-      .podcast-logo {
+      figure {
         min-width: 125px;
         width: 125px;
-      }
 
-      figcaption {
-        padding-top: 0.2em;
+        .podcast-logo {
+          width: 100%;
+        }
 
-        span {
-          padding-top: 0;
+        figcaption {
+          padding-top: 0.2em;
+
+          span {
+            padding-top: 0;
+          }
         }
       }
     }

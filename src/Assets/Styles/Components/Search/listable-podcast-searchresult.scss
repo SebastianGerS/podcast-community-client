@@ -60,6 +60,13 @@
   }
 
   .listable-podcast-description {
+    max-height: 75px;
+
+    div {
+      max-height: 75px;
+      overflow: scroll;
+    }
+
     a {
       text-decoration: underline;
     }
