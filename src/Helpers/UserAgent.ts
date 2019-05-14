@@ -13,7 +13,7 @@ export const getMediumModalHeight = (height: number): number => {
       modalHeight = height - 170 - 75 - 39;
     } else if (window.innerHeight < 568) {
       modalHeight = height - 40 - 30 - 90;
-    } else if (window.innerHeight < 711 && window.innerWidth < 1024) {
+    } else if (window.innerWidth < 1024) {
       modalHeight = height - 40 - 30 - 90;
     } else {
       modalHeight = height - 39 - 75 - 130;
@@ -39,7 +39,7 @@ export const getSmalModalHeight = (height: number): number => {
       modalHeight = height - 170 - 40 - 73 - 40;
     } else if (window.innerHeight < 568) {
       modalHeight = height - 40 - 40 - 30 - 90;
-    } else if (window.innerHeight < 711 && window.innerWidth < 1024) {
+    } else if (window.innerWidth < 1024) {
       modalHeight = height - 40 - 40 - 30 - 90;
     } else {
       modalHeight = height - 40 - 40 - 73 - 130;
